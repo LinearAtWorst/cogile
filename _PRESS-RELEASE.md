@@ -17,28 +17,28 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  > cogile
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  > Coding with agility.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > A code typing game for all developers who want to improve their speed and accuracy.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > It's not fun to practice typing code. Cogile makes it fun and easy to improve your code typing skills.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > Cogile connects coders to typing games and allows them to compete against each other or themselves.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > "Improve your code typing skills with cogile by competing against your friends."
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Start a game. Type away. Profit!
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "After spending a few hours a week playing cogile, my typing has gotten noticeably faster and more accurate! I can type for loops in my sleep!"
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Visit www.cogile.io to compete, improve, and have fun!
