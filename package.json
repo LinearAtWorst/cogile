@@ -1,0 +1,32 @@
+{
+  "name": "cogile",
+  "version": "1.0.0",
+  "description": "Cogile",
+  "main": "index.js",
+  "dependencies": {
+    "babel-core": "^6.7.2",
+    "babel-loader": "^6.2.4",
+    "babel-preset-react": "^6.5.0",
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-router": "^2.0.1",
+    "webpack": "^1.12.14",
+    "webpack-dev-middleware": "^1.5.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LinearAtWorst/cogile.git"
+  },
+  "author": "LinearAtWorst",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LinearAtWorst/cogile/issues"
+  },
+  "homepage": "https://github.com/LinearAtWorst/cogile#readme"
+}
