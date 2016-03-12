@@ -11,7 +11,7 @@ var Home = require('../client/components/Home.js');
 var routes = (
   <Router history={hashHistory}>
     <Route path='/' component={Main}>
-      <Route path='/home' component={Home} />
+      <IndexRoute component={Home} />
     </Route>
   </Router>
 );
