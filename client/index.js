@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-// var reactRoutes = require('./../routes/routes.js');
+var reactRoutes = require('./../routes/routes.js');
 
 var TestDiv = React.createClass({
   render: function() {
@@ -8,7 +8,7 @@ var TestDiv = React.createClass({
   }
 });
 
-ReactDOM.render(<TestDiv />, document.getElementById('app'));
+// ReactDOM.render(<TestDiv />, document.getElementById('app'));
 
 
-// ReactDOM.render(reactRoutes, document.getElementById('app'));
+ReactDOM.render(reactRoutes, document.getElementById('app'));
