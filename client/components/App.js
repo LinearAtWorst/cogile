@@ -1,13 +1,13 @@
 var React = require('react');
 
-var Main = React.createClass({
+var App = React.createClass({
   render: function() {
     return (
-      <div className='main-container'> Hi from Main! 
+      <div className='main-container'> Hi from App! 
         {this.props.children}
       </div>
     )
   }
 });
 
-module.exports = Main;
+module.exports = App;
