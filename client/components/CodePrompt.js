@@ -5,7 +5,7 @@ class CodePrompt extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { code: 'function add2(num) {\n  return num + 2;\n};' };
+    // this.state = { code: 'function add2(num) {\n  return num + 2;\n};' };
   }
 
   static propTypes = {
@@ -15,7 +15,7 @@ class CodePrompt extends Component {
 
   static defaultProps = {
     mode: 'javascript',
-    // code: 'function add2(num) {\n  return num + 2;\n};',
+    code: 'function add2(num) {\n  return num + 2;\n};',
   };
 
   componentDidMount(){
@@ -33,7 +33,7 @@ class CodePrompt extends Component {
     const style = {fontSize: '14px !important', border: '1px solid lightgray'};
       return (
         <div ref="root" style={style} className="col-md-6">
-          {this.state.code}
+          {this.props.code}
         </div>
       );
   }

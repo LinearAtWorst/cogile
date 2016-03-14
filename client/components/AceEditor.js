@@ -2,6 +2,11 @@ import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 
 class AceEditor extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { code: '' };
+  }
 
   static propTypes = {
     mode: PropTypes.string,
@@ -10,7 +15,7 @@ class AceEditor extends Component {
 
   static defaultProps = {
     mode: 'javascript',
-    code: '// write your code here',
+    code: '',
   };
 
   componentDidMount(){
@@ -21,6 +26,14 @@ class AceEditor extends Component {
     editor.setShowPrintMargin(false);
     editor.setOptions({minLines: 25});
     editor.setOptions({maxLines: 50});
+
+    var that = this;
+
+    editor.getSession().on("change", function() {
+      var code = editor.getSession().getValue();
+      that.setState({code});
+      console.log(that.state.code);
+    });
   }
 
   render() {
