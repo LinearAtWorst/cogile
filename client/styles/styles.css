@@ -1,0 +1,14 @@
+* {
+  font-family: Helvetica;
+}
+
+.sitename {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  font-size: 1.5em;
+}
+
+.nav-label {
+  font-size: 1.3em;
+}
