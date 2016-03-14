@@ -1,7 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class AceEditor extends Component {
+class CodePrompt extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { code: 'function add2(num) {\n  return num + 2;\n};' };
+  }
 
   static propTypes = {
     mode: PropTypes.string,
@@ -10,7 +15,7 @@ class AceEditor extends Component {
 
   static defaultProps = {
     mode: 'javascript',
-    code: '// write your code here',
+    // code: 'function add2(num) {\n  return num + 2;\n};',
   };
 
   componentDidMount(){
@@ -21,16 +26,17 @@ class AceEditor extends Component {
     editor.setShowPrintMargin(false);
     editor.setOptions({minLines: 25});
     editor.setOptions({maxLines: 50});
+    console.log(editor.getSession().getValue());
   }
 
   render() {
     const style = {fontSize: '14px !important', border: '1px solid lightgray'};
       return (
         <div ref="root" style={style} className="col-md-6">
-          {this.props.code}
+          {this.state.code}
         </div>
       );
   }
 }
 
-export default AceEditor;
+export default CodePrompt;

@@ -1,10 +1,14 @@
-var React = require('react');
+import React from 'react';
 import AceEditor from './AceEditor';
+import CodePrompt from './CodePrompt';
 
 var Home = React.createClass({
   render: function() {
     return (
-      <AceEditor />
+      <div>
+        <AceEditor />
+        <CodePrompt />
+      </div>
     )
   }
 });
