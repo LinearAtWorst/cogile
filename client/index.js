@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import reactRoutes from './../routes/routes.js';
-import NavBar from './components/navBar.js';
+import ReactRoutes from './../routes/routes.js';
+import NavBar from './components/NavBar.js';
 
-class TestDiv extends Component {
-  render() {
-    return (
-      <div>
-        <NavBar />
-      </div>
-    );
-  }
-}
+// class TestDiv extends Component {
+//   render() {
+//     return (
+//       <div>
+//         <ReactRoutes />
+//       </div>
+//     );
+//   }
+// }
 
-ReactDOM.render(<TestDiv />, document.getElementById('app'));
-
-
-// ReactDOM.render(reactRoutes, document.getElementById('app'));
+ReactDOM.render(ReactRoutes, document.getElementById('app'));
