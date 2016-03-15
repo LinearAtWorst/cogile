@@ -18,11 +18,11 @@ class AceEditor extends Component {
     code: '',
   };
 
-  componentDidMount(){
+  componentDidMount() {
     const node = ReactDOM.findDOMNode(this.refs.root);
     const editor = ace.edit(node);
-    // editor.setTheme("ace/theme/clouds");
-    // editor.getSession().setMode("ace/mode/javascript");
+    editor.setTheme("ace/theme/chrome");
+    editor.getSession().setMode("ace/mode/javascript");
     editor.setShowPrintMargin(false);
     editor.setOptions({minLines: 25});
     editor.setOptions({maxLines: 50});
