@@ -18,14 +18,15 @@ class CodePrompt extends Component {
     code: 'function add2(num) {\n  return num + 2;\n};',
   };
 
-  componentDidMount(){
+  componentDidMount() {
     const node = ReactDOM.findDOMNode(this.refs.root);
     const editor = ace.edit(node);
-    // editor.setTheme("ace/theme/clouds");
-    // editor.getSession().setMode("ace/mode/javascript");
+    editor.setTheme("ace/theme/chrome");
+    editor.getSession().setMode("ace/mode/javascript");
     editor.setShowPrintMargin(false);
     editor.setOptions({minLines: 25});
     editor.setOptions({maxLines: 50});
+    editor.setReadOnly(true);
     console.log(editor.getSession().getValue());
   }
 
