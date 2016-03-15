@@ -5,7 +5,7 @@ var React = require('react');
 // var hashHistory = ReactRouter.hashHistory;
 // var IndexRoute = ReactRouter.IndexRoute;
 import { Router, Route, hashHistory, IndexRoute } from 'react-router'
-var App = require('../client/components/App.js');
+import App from '../client/components/App.js';
 var Home = require('../client/components/Home.js');
 // var About = require('../client/components/About.js');
 import About from '../client/components/About';
