@@ -16,6 +16,7 @@ class AceEditor extends Component {
   static defaultProps = {
     mode: 'javascript',
     code: '',
+    puzzle: ''
   };
 
   componentDidMount() {
@@ -28,13 +29,11 @@ class AceEditor extends Component {
     editor.getSession().setTabSize(2);
     editor.setShowPrintMargin(false);
 
-    var example = 'function add2(num) {\n  return num + 2;\n};';
-
     var that = this;
 
     editor.getSession().on("change", function() {
       var code = editor.getSession().getValue();
-      if (code === example) {
+      if (code === that.props.puzzle) {
         alert('completed!');
       }
       that.setState({code});
@@ -43,7 +42,7 @@ class AceEditor extends Component {
 
     // prevents copy pasting the whole thing
     editor.on("paste", function(e) {
-      if (e.text === example) {
+      if (e.text === that.props.puzzle) {
         var shuffled = e.text.split('').sort(function(){return 0.5-Math.random()}).join('');
         e.text = "Nice try, here's your copied text :P\n" + shuffled;
       }

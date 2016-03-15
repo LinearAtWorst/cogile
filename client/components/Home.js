@@ -26,7 +26,7 @@ class Home extends Component {
     return (
       <div>
         <Timer />
-        <AceEditor />
+        <AceEditor puzzle={this.state.currentPuzzle} />
         <CodePrompt puzzle={this.state.currentPuzzle} />
       </div>
     )
