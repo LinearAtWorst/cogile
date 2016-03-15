@@ -1,13 +1,7 @@
-var React = require('react');
-// var ReactRouter = require('react-router');
-// var Router = ReactRouter.Router;
-// var Route = ReactRouter.Route;
-// var hashHistory = ReactRouter.hashHistory;
-// var IndexRoute = ReactRouter.IndexRoute;
+import React from 'react';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router'
 import App from '../client/components/App.js';
-var Home = require('../client/components/Home.js');
-// var About = require('../client/components/About.js');
+import Home from '../client/components/Home.js';
 import About from '../client/components/About';
 
 
