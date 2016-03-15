@@ -36,11 +36,7 @@ class CodePrompt extends Component {
 
   render() {
     const style = {fontSize: '14px !important', border: '1px solid lightgray'};
-      // return (
-      //   <div ref="root" style={style} className="col-md-6">
-      //     {this.props.puzzle}
-      //   </div>
-      // );
+
     return React.DOM.div({
       id: 'codePrompt',
       style: style,
