@@ -3,6 +3,8 @@ var React = require('react');
 var Router = require('react-router');
 var bodyParser = require('body-parser');
 var path = require('path');
+var prompts = require('./prompts');
+var getRandomPrompt = require('./getRandomPrompt');
 
 // Webpack middleware
 var webpack = require('webpack');
@@ -19,13 +21,14 @@ app.use('/', express.static(path.join(__dirname, './../client')));
 
 app.use(webpackMiddleware(bundler));
 
+app.get('/api/getPrompt', function(req, res){
+  	var random = getRandomPrompt();
+    console.log(random);
+    res.send(random);
+})
+
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
 });
-
-app.get('/api/getPuzzle', function(req, res) {
-  res.end('function add(num) {\n  return num+1;\n};');
-});
-
 
 module.exports = app;

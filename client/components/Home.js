@@ -13,7 +13,7 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    $.get('api/getPuzzle', function(data) {
+    $.get('api/getPrompt', function(data) {
       this.setState({
         currentPuzzle: data
       });
