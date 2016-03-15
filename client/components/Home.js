@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AceEditor from './AceEditor';
+import CodeEditor from './CodeEditor';
 import CodePrompt from './CodePrompt';
 import Timer from './Timer';
 
@@ -8,12 +8,14 @@ class Home extends Component {
     super();
 
     this.state = {
-      currentPuzzle: ''
+      currentPuzzle: '',
+      timerOn: false
     };
-  }
+  };
 
   componentWillMount() {
     $.get('api/getPrompt', function(data) {
+      console.log('inside get Home\'s get req with this = ', this);
       this.setState({
         currentPuzzle: data
       });
@@ -21,16 +23,35 @@ class Home extends Component {
     }.bind(this));
   }
 
+  timerOn() {
+    console.log('inside Home, called timerOn')
+    this.setState({
+      timerOn: true
+    });
+  };
+
+  timerOff() {
+    console.log('inside Home, called timerOff')
+    this.setState({
+      timerOn: false
+    })
+  };
+
   render() {
     console.log('Home Render called');
     return (
       <div>
-        <Timer />
-        <AceEditor puzzle={this.state.currentPuzzle} />
+        <Timer
+          timerOn={this.timerOn.bind(this)} 
+          timerOff={this.state.timerOn} />
+        <CodeEditor
+          puzzle={this.state.currentPuzzle}
+          timerOn={this.state.timerOn}
+          timerOff={this.timerOff.bind(this)} />
         <CodePrompt puzzle={this.state.currentPuzzle} />
       </div>
     )
-  }
+  };
 }
 
 export default Home;

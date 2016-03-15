@@ -22,6 +22,9 @@ var Timer = React.createClass({
       message: "Starting timer now! Let's code!"
     });
 
+    // changes Home's state to timerOn true
+    this.props.timerOn();
+
     this.incrementer = setInterval(function() {
       startTimerState.setState({
         secondsElapsed: (startTimerState.state.secondsElapsed + 1),
