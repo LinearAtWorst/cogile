@@ -5,28 +5,28 @@ var team = [{
   key: 1,
   name: "Nicholas Der",
   bio: "Placeholder Bio",
-  image: "../css/nick-profile.jpeg",
+  image: "../assets/nick-profile.jpeg",
   git: "https://github.com/kiritsuzu",
   linked: "https://www.linkedin.com/in/kiritsuzu"
 }, {
   key: 2,
   name: "Rick Yeh",
   bio: "Placeholder Bio",
-  image: "../css/rick-profile.jpeg",
+  image: "../assets/rick-profile.jpeg",
   git: "https://github.com/rickyeh",
   linked: "https://www.linkedin.com/in/rickyeh"
 }, {
   key: 3,
   name: "Jordan Allen",
   bio: "Placeholder Bio",
-  image: "../css/jordan-profile.jpeg",
+  image: "../assets/jordan-profile.jpeg",
   git: "https://github.com/jordanallen98",
   linked: "https://www.linkedin.com/in/jordandallen"
 }, {
   key: 4,
   name: "Mark Kim",
   bio: "Placeholder Bio",
-  image: "../css/mark-profile.jpeg",
+  image: "../assets/mark-profile.jpeg",
   git: "https://github.com/marksanghoonkim",
   linked: "https://www.linkedin.com/in/marksanghoonkim"
 }];
