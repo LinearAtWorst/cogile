@@ -19,30 +19,29 @@ class CodePrompt extends Component {
     puzzle: 'Error'
   };
 
+  componentDidMount() {
+    this.editor = ace.edit('codePrompt');
+    this.editor.setShowPrintMargin(false);
+    this.editor.setOptions({minLines: 25});
+    this.editor.setOptions({maxLines: 50});
+    this.editor.setTheme("ace/theme/twilight");
+    this.editor.getSession().setMode("ace/mode/javascript");
+    this.editor.setReadOnly(true);
+  }
+
   componentDidUpdate() {
-    const node = ReactDOM.findDOMNode(this.refs.root);
-    const editor = ace.edit(node);
-    editor.setShowPrintMargin(false);
-    editor.setOptions({
-      minLines: 25
-    });
-    editor.setOptions({
-      maxLines: 50
-    });
-    editor.setTheme("ace/theme/twilight");
-    editor.getSession().setMode("ace/mode/javascript");
-    editor.setReadOnly(true);
-    editor.setValue(this.props.puzzle);
+    this.editor.setValue(this.props.puzzle);
     // console.log(editor.getSession().getValue());
   }
 
   render() {
     const style = {fontSize: '14px !important', border: '1px solid lightgray'};
-      return (
-        <div ref="root" style={style} className="col-md-6">
-          {this.props.puzzle}
-        </div>
-      );
+
+    return React.DOM.div({
+      id: 'codePrompt',
+      style: style,
+      className: 'col-md-6'
+    });
   }
 }
 
