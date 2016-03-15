@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AceEditor from './AceEditor';
 import CodePrompt from './CodePrompt';
+import Timer from './Timer';
 
 class Home extends Component {
   constructor() {
@@ -24,6 +25,7 @@ class Home extends Component {
     console.log('Home Render called');
     return (
       <div>
+        <Timer />
         <AceEditor />
         <CodePrompt puzzle={this.state.currentPuzzle} />
       </div>
