@@ -46,6 +46,8 @@ class Timer extends Component {
         message: 'You took ' + Math.floor((this.state.secondsElapsed-1) / 60) + ' Minutes and ' + ((this.state.secondsElapsed-1) % 60) + ' Seconds!'
       });
     }
+
+    clearInterval(this.incrementer);
   }
 
   render() {
