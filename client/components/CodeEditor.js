@@ -28,15 +28,17 @@ class CodeEditor extends Component {
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.getSession().setTabSize(2);
 
+    // should lock CodeEditor to read-only until timer begins
+    this.editor.setReadOnly(true);
+
     this.editor.getSession().on("change", function() {
       var code = this.editor.getSession().getValue();
       this.setState({code});
       console.log(this.state.code);
       
       if (code === this.props.puzzle) {
-        this.props.timerOff();
+        this.props.puzzleCompleted();
       }
-      
     }.bind(this));
 
     // prevents copy pasting the whole thing
@@ -49,6 +51,9 @@ class CodeEditor extends Component {
   };
 
   componentDidUpdate() {
+    if (this.props.timerOn) {
+      this.editor.setReadOnly(false);
+    }
 
     console.log(this.props.timerOn);
   }

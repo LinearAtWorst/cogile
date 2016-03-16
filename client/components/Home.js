@@ -20,7 +20,7 @@ class Home extends Component {
       this.setState({
         currentPuzzle: data
       });
-      console.log('Setting state as puzzle : ', data);
+      // console.log('Setting state as puzzle : ', data);
     }.bind(this));
   }
 
@@ -31,12 +31,13 @@ class Home extends Component {
     });
   };
 
-  timerOff() {
+  puzzleCompleted() {
     console.log('inside Home, called timerOff')
     this.setState({
       timerOn: false,
       gameFinished: true
     })
+    console.log(this.state);
   };
 
   render() {
@@ -44,12 +45,12 @@ class Home extends Component {
     return (
       <div>
         <Timer
-          startTimer={this.timerOn.bind(this)} 
+          gameStart={this.timerOn.bind(this)} 
           gameFinished={this.state.gameFinished} />
         <CodeEditor
           puzzle={this.state.currentPuzzle}
           timerOn={this.state.timerOn}
-          timerOff={this.timerOff.bind(this)} />
+          puzzleCompleted={this.puzzleCompleted.bind(this)} />
         <CodePrompt puzzle={this.state.currentPuzzle} />
       </div>
     )
