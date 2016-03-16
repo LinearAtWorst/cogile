@@ -9,7 +9,8 @@ class Home extends Component {
 
     this.state = {
       currentPuzzle: '',
-      timerOn: false
+      timerOn: false,
+      gameFinished: false
     };
   };
 
@@ -33,7 +34,8 @@ class Home extends Component {
   timerOff() {
     console.log('inside Home, called timerOff')
     this.setState({
-      timerOn: false
+      timerOn: false,
+      gameFinished: true
     })
   };
 
@@ -42,8 +44,8 @@ class Home extends Component {
     return (
       <div>
         <Timer
-          timerOn={this.timerOn.bind(this)} 
-          timerOff={this.state.timerOn} />
+          startTimer={this.timerOn.bind(this)} 
+          gameFinished={this.state.gameFinished} />
         <CodeEditor
           puzzle={this.state.currentPuzzle}
           timerOn={this.state.timerOn}
