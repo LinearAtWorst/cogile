@@ -11,7 +11,7 @@ class App extends Component {
               <li><NavLink to="/" className="nav-label" onlyActiveOnIndex>Home</NavLink></li>
               <li><NavLink to="/about" className="nav-label">About</NavLink></li>
             </ul>
-            <NavLink to="/" onlyActiveOnIndex className="sitename">Nimbler</NavLink>
+            <NavLink to="/" onlyActiveOnIndex className="sitename">nimblecode</NavLink>
           </div>
         </nav>
 

@@ -32,6 +32,7 @@ class CodePrompt extends Component {
 
   componentDidUpdate() {
     this.editor.setValue(this.props.puzzle);
+    this.editor.clearSelection();
     // console.log(editor.getSession().getValue());
   }
 
