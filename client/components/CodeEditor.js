@@ -34,6 +34,7 @@ class CodeEditor extends Component {
 
     this.editor.getSession().on("change", function() {
       var code = this.editor.getSession().getValue().replace(/\s/g,'');
+      this.props.calculateProgress(code);
       this.setState({code});
 
       if (code === this.props.minifiedPuzzle) {

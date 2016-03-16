@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CodeEditor from './CodeEditor';
 import CodePrompt from './CodePrompt';
 import Timer from './Timer';
+import levenshtein from './../lib/levenshtein'
 
 class Home extends Component {
   constructor() {
@@ -11,7 +12,8 @@ class Home extends Component {
       currentPuzzle: 'N/A',
       timerOn: false,
       gameFinished: false,
-      minifiedPuzzle: 'N/A'
+      minifiedPuzzle: 'N/A',
+      progress: 0
     };
   };
 
@@ -40,6 +42,19 @@ class Home extends Component {
     })
   };
 
+  calculateProgress(playerCode) {
+    var totalChars = this.state.minifiedPuzzle.length;
+    var distance = levenshtein(this.state.minifiedPuzzle, playerCode);
+
+    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
+    console.log(percentCompleted);
+
+  }
+
+  // componentDidMount() {
+  //   console.log(levenshtein('abc', 'ase'));
+  // }
+
   render() {
     return (
       <div>
@@ -50,7 +65,8 @@ class Home extends Component {
           puzzle={this.state.currentPuzzle}
           timerOn={this.state.timerOn}
           puzzleCompleted={this.puzzleCompleted.bind(this)}
-          minifiedPuzzle={this.state.minifiedPuzzle} />
+          minifiedPuzzle={this.state.minifiedPuzzle}
+          calculateProgress={this.calculateProgress.bind(this)} />
         <CodePrompt puzzle={this.state.currentPuzzle} />
       </div>
     )
