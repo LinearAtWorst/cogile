@@ -8,16 +8,21 @@ class Home extends Component {
     super();
 
     this.state = {
-      currentPuzzle: '',
+      currentPuzzle: 'N/A',
       timerOn: false,
-      gameFinished: false
+      gameFinished: false,
+      minifiedPuzzle: 'N/A'
     };
   };
 
   componentWillMount() {
     $.get('api/getPrompt', function(data) {
+      var minifiedPuzzle = data.replace(/\s/g,'');
+      console.log('Minified: ', minifiedPuzzle);
+
       this.setState({
-        currentPuzzle: data
+        currentPuzzle: data,
+        minifiedPuzzle: minifiedPuzzle
       });
     }.bind(this));
   }
@@ -44,7 +49,8 @@ class Home extends Component {
         <CodeEditor
           puzzle={this.state.currentPuzzle}
           timerOn={this.state.timerOn}
-          puzzleCompleted={this.puzzleCompleted.bind(this)} />
+          puzzleCompleted={this.puzzleCompleted.bind(this)}
+          minifiedPuzzle={this.state.minifiedPuzzle} />
         <CodePrompt puzzle={this.state.currentPuzzle} />
       </div>
     )

@@ -10,12 +10,13 @@ class CodeEditor extends Component {
 
   static propTypes = {
     mode: PropTypes.string,
-    content: PropTypes.string,
+    puzzle: PropTypes.string,
+    minifiedPuzzle: PropTypes.string,
+    timerOn: PropTypes.bool
   };
 
   static defaultProps = {
     mode: 'javascript',
-    code: '',
     puzzle: ''
   };
 
@@ -32,10 +33,10 @@ class CodeEditor extends Component {
     this.editor.setReadOnly(true);
 
     this.editor.getSession().on("change", function() {
-      var code = this.editor.getSession().getValue();
+      var code = this.editor.getSession().getValue().replace(/\s/g,'');
       this.setState({code});
-      
-      if (code === this.props.puzzle) {
+
+      if (code === this.props.minifiedPuzzle) {
         this.props.puzzleCompleted();
       }
     }.bind(this));
