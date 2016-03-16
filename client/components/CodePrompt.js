@@ -28,12 +28,26 @@ class CodePrompt extends Component {
     this.editor.setTheme("ace/theme/twilight");
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.setReadOnly(true);
+
+    // Disables Selection of Text to Prevent Copy/Paste
+    // Comment out for development purposes
+    // this.editor.on('changeSelection', function(e) {
+    //     this.editor.selection.setSelectionRange({
+    //         start: {
+    //             row: 0,
+    //             column: 0
+    //         },
+    //         end: {
+    //             row: 0,
+    //             column: 0
+    //         }
+    //     });
+    // }.bind(this));
   }
 
   componentDidUpdate() {
     this.editor.setValue(this.props.puzzle);
     this.editor.clearSelection();
-    // console.log(editor.getSession().getValue());
   }
 
   render() {
