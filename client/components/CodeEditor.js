@@ -34,7 +34,6 @@ class CodeEditor extends Component {
     this.editor.getSession().on("change", function() {
       var code = this.editor.getSession().getValue();
       this.setState({code});
-      console.log(this.state.code);
       
       if (code === this.props.puzzle) {
         this.props.puzzleCompleted();
@@ -54,8 +53,6 @@ class CodeEditor extends Component {
     if (this.props.timerOn) {
       this.editor.setReadOnly(false);
     }
-
-    console.log(this.props.timerOn);
   }
 
   render() {

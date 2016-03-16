@@ -16,32 +16,26 @@ class Home extends Component {
 
   componentWillMount() {
     $.get('api/getPrompt', function(data) {
-      console.log('inside get Home\'s get req with this = ', this);
       this.setState({
         currentPuzzle: data
       });
-      // console.log('Setting state as puzzle : ', data);
     }.bind(this));
   }
 
   timerOn() {
-    console.log('inside Home, called timerOn')
     this.setState({
       timerOn: true
     });
   };
 
   puzzleCompleted() {
-    console.log('inside Home, called timerOff')
     this.setState({
       timerOn: false,
       gameFinished: true
     })
-    console.log(this.state);
   };
 
   render() {
-    console.log('Home Render called');
     return (
       <div>
         <Timer

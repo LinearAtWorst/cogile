@@ -10,7 +10,6 @@ class Timer extends Component {
   };
 
   componentDidUpdate() {
-    console.log('inside Timer (componentDidUpdate), gameFinished = ', this.props.gameFinished)
     // will only run once because of secondsElapsed condition
     if (this.props.gameFinished && this.state.secondsElapsed !== 'finished') {
       this.resetTimer();
