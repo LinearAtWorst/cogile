@@ -32,9 +32,20 @@ class Timer extends Component {
     }.bind(this), 1000);
   }
 
+  startNewTimer() {
+    this.setState({
+      secondsElapsed: 1,
+      message: 'Click the start button to begin!'
+    });
+
+    this.props.startTimer();
+    clearInterval(this.incrementer);
+
+  }
+
   resetTimer() {
     this.setState({
-      secondsElapsed: 0
+      secondsElapsed: 'finished'
     });
 
     if (this.state.secondsElapsed <= 60) {
@@ -53,19 +64,31 @@ class Timer extends Component {
   render() {
     return (
       <div className="container">
-      <center>
       <div className="row">
-        <h1>{this.state.message}</h1>
+        <h1 className="text-center">{this.state.message}</h1>
         </div>
         <div className="row">
-        <div className="col-sm-6">
-        <button type="button" onClick={this.startTimer.bind(this)} className="btn btn-success pull-right">START</button>
-        </div>
-        <div className="col-sm-6">
-        <button type="button" onClick={this.resetTimer.bind(this)} className="btn btn-primary pull-left">FINISH</button>
-        </div>
-        </div>
+        {(this.state.secondsElapsed === 1)
+        ? <center>
+        <button type="button" onClick={this.startTimer.bind(this)} className="btn btn-success">START</button>
         </center>
+        : null
+        }
+
+        {(this.state.secondsElapsed !== 'finished' && this.state.secondsElapsed > 1)
+        ? <center>
+        <button type="button" onClick={this.resetTimer.bind(this)} className="btn btn-primary">FINISH</button>
+        </center>
+        : null
+        }
+
+        {(this.state.secondsElapsed === 'finished')
+        ? <center>
+        <button type="button" onClick={this.startNewTimer.bind(this)} className="btn btn-warning">RETRY</button>
+        </center>
+        : null
+        }
+        </div>
         <br />
       </div>
     );
