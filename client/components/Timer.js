@@ -9,6 +9,13 @@ class Timer extends Component {
     }
   };
 
+  componentDidUpdate() {
+    // will only run once because of secondsElapsed condition
+    if (this.props.gameFinished && this.state.secondsElapsed !== 'finished') {
+      this.resetTimer();
+    }
+  }
+
   getMinutes() {
     return Math.floor(this.state.secondsElapsed / 60);
   }
@@ -22,7 +29,7 @@ class Timer extends Component {
       message: 'Starting timer now! Let\'s code!'
     });
 
-    this.props.startTimer();
+    this.props.gameStart();
 
     this.incrementer = setInterval(function() {
       this.setState({
@@ -40,7 +47,6 @@ class Timer extends Component {
 
     this.props.startTimer();
     clearInterval(this.incrementer);
-
   }
 
   resetTimer() {

@@ -16,23 +16,19 @@ class Home extends Component {
 
   componentWillMount() {
     $.get('api/getPrompt', function(data) {
-      console.log('inside get Home\'s get req with this = ', this);
       this.setState({
         currentPuzzle: data
       });
-      console.log('Setting state as puzzle : ', data);
     }.bind(this));
   }
 
   timerOn() {
-    console.log('inside Home, called timerOn')
     this.setState({
       timerOn: true
     });
   };
 
-  timerOff() {
-    console.log('inside Home, called timerOff')
+  puzzleCompleted() {
     this.setState({
       timerOn: false,
       gameFinished: true
@@ -40,16 +36,15 @@ class Home extends Component {
   };
 
   render() {
-    console.log('Home Render called');
     return (
       <div>
         <Timer
-          startTimer={this.timerOn.bind(this)} 
+          gameStart={this.timerOn.bind(this)} 
           gameFinished={this.state.gameFinished} />
         <CodeEditor
           puzzle={this.state.currentPuzzle}
           timerOn={this.state.timerOn}
-          timerOff={this.timerOff.bind(this)} />
+          puzzleCompleted={this.puzzleCompleted.bind(this)} />
         <CodePrompt puzzle={this.state.currentPuzzle} />
       </div>
     )
