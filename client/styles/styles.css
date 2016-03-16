@@ -1,0 +1,68 @@
+/** {
+  font-family: Helvetica;
+}*/
+
+.sitename {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  font-size: 1.5em;
+}
+
+.nav-label {
+  font-size: 1.3em;
+}
+
+.icon-container {
+  text-align:center;
+  margin-left:3px;
+  width:262.5px;
+  /*border-bottom:5px solid;
+  border-color:#000;*/
+}
+
+.about-icon {
+  /*color:#fa6d5f;*/
+  color:#000;
+}
+
+.about-icon:hover {
+  color:#696969;
+}
+
+.about-title {
+  font-weight:bold;
+  text-align:center;
+}
+
+.about-names {
+  /*font-size: 22px;
+  text-align:center;*/
+  font-size: 22px;
+  margin-bottom: 10px;
+  text-align:center;
+}
+
+.about-minititle {
+  text-align:center;
+}
+
+.about-img {
+  text-align:center;
+  width:175px;
+  height:175px;
+  border-radius:50%;
+}
+
+.about-bio {
+  font-size:13.5px;
+  /*width:230px;*/
+  height:90px;
+  margin-top:30px;
+  text-align:center;
+  /*text-align:justify;*/
+}
+
+.img-container {
+  text-align:center;
+}
