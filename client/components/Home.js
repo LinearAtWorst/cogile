@@ -2,25 +2,34 @@ import React, { Component } from 'react';
 import CodeEditor from './CodeEditor';
 import CodePrompt from './CodePrompt';
 import Timer from './Timer';
+import levenshtein from './../lib/levenshtein';
+import ProgressBar from './ProgressBar';
+
 
 class Home extends Component {
   constructor() {
     super();
 
     this.state = {
-      currentPuzzle: '',
+      currentPuzzle: 'N/A',
       timerOn: false,
-      gameFinished: false
+      gameFinished: false,
+      minifiedPuzzle: 'N/A',
+      progress: 0
     };
   };
 
   componentWillMount() {
     $.get('api/getPrompt', function(data) {
+      var minifiedPuzzle = data.replace(/\s/g,'');
+      console.log('Minified: ', minifiedPuzzle);
+
       this.setState({
-        currentPuzzle: data
+        currentPuzzle: data,
+        minifiedPuzzle: minifiedPuzzle
       });
     }.bind(this));
-  }
+  };
 
   timerOn() {
     this.setState({
@@ -32,7 +41,18 @@ class Home extends Component {
     this.setState({
       timerOn: false,
       gameFinished: true
-    })
+    });
+  };
+
+  calculateProgress(playerCode) {
+    var totalChars = this.state.minifiedPuzzle.length;
+    var distance = levenshtein(this.state.minifiedPuzzle, playerCode);
+
+    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
+    
+    this.setState({
+      progress: percentCompleted
+    });
   };
 
   render() {
@@ -44,8 +64,11 @@ class Home extends Component {
         <CodeEditor
           puzzle={this.state.currentPuzzle}
           timerOn={this.state.timerOn}
-          puzzleCompleted={this.puzzleCompleted.bind(this)} />
+          puzzleCompleted={this.puzzleCompleted.bind(this)}
+          minifiedPuzzle={this.state.minifiedPuzzle}
+          calculateProgress={this.calculateProgress.bind(this)} />
         <CodePrompt puzzle={this.state.currentPuzzle} />
+        <ProgressBar percentComplete={this.state.progress} />
       </div>
     )
   };
