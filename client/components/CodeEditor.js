@@ -10,12 +10,13 @@ class CodeEditor extends Component {
 
   static propTypes = {
     mode: PropTypes.string,
-    content: PropTypes.string,
+    puzzle: PropTypes.string,
+    minifiedPuzzle: PropTypes.string,
+    timerOn: PropTypes.bool
   };
 
   static defaultProps = {
     mode: 'javascript',
-    code: '',
     puzzle: ''
   };
 
@@ -23,19 +24,32 @@ class CodeEditor extends Component {
     this.editor = ace.edit('codeEditor');
     this.editor.setShowPrintMargin(false);
     this.editor.setTheme("ace/theme/twilight");
-    this.editor.setOptions({minLines: 25});
-    this.editor.setOptions({maxLines: 50});
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.getSession().setTabSize(2);
+    this.editor.setOptions({
+      minLines: 25,
+      maxLines: 50,
+      enableBasicAutocompletion: true,
+      enableSnippets: true,
+      enableLiveAutocompletion: true
+    });
+
+    // autocomplete tries to fire on every input
+    this.editor.commands.on("afterExec", function(e) {
+      if (e.command.name == "insertstring" && /^[\w.]$/.test(e.args)) {
+        this.editor.execCommand("startAutocomplete")
+      }
+    }.bind(this));
 
     // should lock CodeEditor to read-only until timer begins
     this.editor.setReadOnly(true);
 
     this.editor.getSession().on("change", function() {
-      var code = this.editor.getSession().getValue();
+      var code = this.editor.getSession().getValue().replace(/\s/g,'');
+      this.props.calculateProgress(code);
       this.setState({code});
-      
-      if (code === this.props.puzzle) {
+
+      if (code === this.props.minifiedPuzzle) {
         this.props.puzzleCompleted();
       }
     }.bind(this));
