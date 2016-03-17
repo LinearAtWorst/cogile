@@ -22,7 +22,7 @@ if (process.env.db_host) {
     }
   });
 }
-//
+
 var Bookshelf = require('bookshelf')(knex);
 var db = Bookshelf;
 

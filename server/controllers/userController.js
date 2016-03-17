@@ -9,7 +9,7 @@ if (process.env.secret) {
 } else {
   var secret = require('../db/config/config.js').secret;
 }
-//
+
 module.exports = {
 
   signin: function(req, res) {

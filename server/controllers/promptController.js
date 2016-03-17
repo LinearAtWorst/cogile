@@ -23,7 +23,7 @@ handlers.random = function(req, res){
 		res.send(data);
 	});
 };
-//
+
 handlers.specific = function(req, res){
 	console.log("__dirname", __dirname);
 
