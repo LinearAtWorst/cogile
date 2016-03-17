@@ -26,12 +26,13 @@ class CodeEditor extends Component {
     this.editor.setTheme("ace/theme/twilight");
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.getSession().setTabSize(2);
+
     this.editor.setOptions({
       minLines: 25,
       maxLines: 50,
       enableBasicAutocompletion: true,
-      enableSnippets: true,
-      enableLiveAutocompletion: true
+      enableSnippets: false,
+      enableLiveAutocompletion: false
     });
 
     // autocomplete tries to fire on every input
@@ -45,7 +46,7 @@ class CodeEditor extends Component {
     this.editor.setReadOnly(true);
 
     this.editor.getSession().on("change", function() {
-      var code = this.editor.getSession().getValue().replace(/\s/g,'');
+      var code = this.editor.getSession().getValue().replace(/\s+/g,' ');
       this.props.calculateProgress(code);
       this.setState({code});
 
