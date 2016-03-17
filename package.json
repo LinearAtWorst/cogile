@@ -9,6 +9,7 @@
     "babel-preset-react": "^6.5.0",
     "body-parser": "^1.15.0",
     "express": "^4.13.4",
+    "fs": "0.0.2",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-router": "^2.0.1",
