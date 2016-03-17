@@ -13,6 +13,9 @@
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-router": "^2.0.1",
+    "react-socket": "^0.1.4",
+    "socket.io": "^1.4.5",
+    "socket.io-client": "^1.4.5",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.5.1"
   },
