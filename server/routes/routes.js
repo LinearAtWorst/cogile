@@ -20,3 +20,4 @@ module.exports = function(app, express) {
   app.get('/api/getRandomPrompt', jsonParser, promptController.random);
   app.get('/api/getPrompt', jsonParser, promptController.specific);
 };
+//
