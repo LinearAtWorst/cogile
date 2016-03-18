@@ -1,9 +1,4 @@
 import React, { Component } from 'react';
-import CodeEditor from './CodeEditor';
-import CodePrompt from './CodePrompt';
-import Timer from './Timer';
-import levenshtein from './../lib/levenshtein';
-import ProgressBar from './ProgressBar';
 import io from 'socket.io-client';
 
 class Multiplayer extends Component {
