@@ -26,7 +26,27 @@ var bundler = webpack(webpackConfig);
 
 app.use(webpackMiddleware(bundler));
 
+
 // Socket code
-io.on('connection', socketController);
+var numUsers = 0;
+
+io.on('connection', function(socket) {
+  console.log('a user connected');
+
+  ++numUsers;
+
+  console.log('numUsers is now: ', numUsers);
+
+  socket.on('game won', function(value) {
+    console.log(value);
+    io.emit('game over', value);
+  })
+
+  socket.on('disconnect', function() {
+    --numUsers;
+
+    console.log('numUsers is now: ', numUsers);
+  });
+});
 
 module.exports = app;
