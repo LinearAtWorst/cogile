@@ -20,7 +20,7 @@ class Home extends Component {
 
   componentWillMount() {
     $.get('api/getPrompt', function(data) {
-      var minifiedPuzzle = data.replace(/\s+/g,' ');
+      var minifiedPuzzle = data.replace(/\s/g,'');
       console.log('Minified: ', minifiedPuzzle);
 
       this.setState({

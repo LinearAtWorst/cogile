@@ -46,7 +46,7 @@ class CodeEditor extends Component {
     this.editor.setReadOnly(true);
 
     this.editor.getSession().on("change", function() {
-      var code = this.editor.getSession().getValue().replace(/\s+/g,' ');
+      var code = this.editor.getSession().getValue().replace(/\s/g,'');
       this.props.calculateProgress(code);
       this.setState({code});
 
