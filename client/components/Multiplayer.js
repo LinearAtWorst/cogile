@@ -16,7 +16,7 @@ class Multiplayer extends Component {
   render() {
     return (
       <div>
-        Multiplayer
+        Under construction...
       </div>
     )
   };
