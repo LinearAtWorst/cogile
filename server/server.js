@@ -4,6 +4,7 @@ var Router = require('react-router');
 var bodyParser = require('body-parser');
 var path = require('path');
 var http = require('http');
+var socketController = require('./controllers/socketController.js');
 
 var app = express();
 
@@ -26,11 +27,6 @@ var bundler = webpack(webpackConfig);
 app.use(webpackMiddleware(bundler));
 
 // Socket code
-io.on('connection', function (socket) {
-  console.log('a user connected');
-
-  // socket.emit('message', 'hello world');
-});
-
+io.on('connection', socketController);
 
 module.exports = app;
