@@ -15,11 +15,30 @@ class Timer extends Component {
     }
   };
 
+  componentDidMount() {
+
+  };
+
   startCountdown() {
     this.setState({
       countingDown: true,
       showButton: false
     });
+
+    //TODO: when start countdown is called, other sockets should start game too
+    if (!this.props.multiGameStarted) {
+      this.props.socket.emit('game start', true);
+    }
+  }
+
+  startMultiCountdown() {
+    if (!this.state.countingDown) {
+      console.log('inside timer.js, called startMultiCountdown()');
+      this.setState({
+        countingDown: true,
+        showButton: false
+      });
+    }
   }
 
   startTimer() {
@@ -59,16 +78,33 @@ class Timer extends Component {
     if (this.props.gameFinished) {
       clearInterval(this.intervalID);
     }
+
   }
 
-  render(){
+  componentWillReceiveProps() {
+    
+    // TODO: need to fix this infinite loop!
+    // if(this.props.multiGameStarted) {
+    //   console.log('inside timer componentDidMount', this.props.multiGameStarted);
+    //   this.startMultiCountdown();
+    // }
+    // this.props.multiGameStarted = false;
+  }
+
+  render() {
     return (
       <div className="container">
         <div className="row">
           <h2 className="text-center">{this.state.message}</h2>
         </div>
-        <StartButton showButton={this.state.showButton} startCountdown={this.startCountdown.bind(this)} />
-        <CountdownTimer countingDown={this.state.countingDown} onCountdownFinish={this.startTimer.bind(this)} />
+        <StartButton
+          showButton={this.state.showButton}
+          startCountdown={this.startCountdown.bind(this)}
+          startMultiCountdown={this.startMultiCountdown.bind(this)}
+          multiGameStarted={this.props.multiGameStarted} />
+        <CountdownTimer
+          countingDown={this.state.countingDown}
+          onCountdownFinish={this.startTimer.bind(this)} />
       </div>
     );
   }
