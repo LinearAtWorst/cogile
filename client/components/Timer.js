@@ -1,101 +1,74 @@
 import React, { Component } from 'react';
+import CountdownTimer from './CountdownTimer';
+import StartButton from './StartButton';
 
 class Timer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      secondsElapsed: 1,
-      message: 'Click the start button to begin!'
+      tenthSeconds: 0,
+      seconds: 0,
+      minutes: 0,
+      message: 'Click the start button to begin!',
+      countingDown: false,
+      showButton: true
     }
   };
 
-  componentDidUpdate() {
-    // will only run once because of secondsElapsed condition
-    if (this.props.gameFinished && this.state.secondsElapsed !== 'finished') {
-      this.resetTimer();
-    }
-  }
-
-  getMinutes() {
-    return Math.floor(this.state.secondsElapsed / 60);
-  }
-
-  getSeconds() {
-    return (this.state.secondsElapsed % 60);
+  startCountdown() {
+    this.setState({
+      countingDown: true,
+      showButton: false
+    });
   }
 
   startTimer() {
     this.setState({
-      message: 'Starting timer now! Let\'s code!'
+      countingDown: false,
+      showButton: true,
+      message: '0.0'
     });
 
     this.props.gameStart();
 
-    this.incrementer = setInterval(function() {
+    this.intervalID = setInterval(function() {
+      var tenthSeconds = this.state.tenthSeconds + 1;
+      var seconds = this.state.seconds;
+      var minutes = this.state.minutes;
+
+      if (tenthSeconds > 9) {
+        seconds++;
+        tenthSeconds = 0;
+      }
+
+      if (seconds > 59) {
+        minutes++;
+        seconds = 0;
+      }
+
       this.setState({
-        secondsElapsed: (this.state.secondsElapsed + 1),
-        message: 'Time Elapsed: ' + this.getMinutes() + ' Minutes & ' + this.getSeconds() + ' Seconds!'
+        tenthSeconds : tenthSeconds,
+        seconds : seconds,
+        minutes: minutes,
+        message: this.state.minutes + ':' + this.state.seconds + '.' + this.state.tenthSeconds
       });
-    }.bind(this), 1000);
-  }
+    }.bind(this), 100);
+  } 
 
-  startNewTimer() {
-    this.setState({
-      secondsElapsed: 1,
-      message: 'Click the start button to begin!'
-    });
-
-    this.props.startTimer();
-    clearInterval(this.incrementer);
-  }
-
-  resetTimer() {
-    this.setState({
-      secondsElapsed: 'finished'
-    });
-
-    if (this.state.secondsElapsed <= 60) {
-      this.setState({
-        message: 'You took ' + ((this.state.secondsElapsed-1) % 60) + ' Seconds!'
-      });
-    } else {
-      this.setState({
-        message: 'You took ' + Math.floor((this.state.secondsElapsed-1) / 60) + ' Minutes and ' + ((this.state.secondsElapsed-1) % 60) + ' Seconds!'
-      });
+  componentDidUpdate() {
+    if (this.props.gameFinished) {
+      clearInterval(this.intervalID);
     }
-
-    clearInterval(this.incrementer);
   }
 
-  render() {
+  render(){
     return (
       <div className="container">
-      <div className="row">
-        <h1 className="text-center">{this.state.message}</h1>
-        </div>
         <div className="row">
-        {(this.state.secondsElapsed === 1)
-        ? <center>
-        <button type="button" onClick={this.startTimer.bind(this)} className="btn btn-success">START</button>
-        </center>
-        : null
-        }
-
-        {(this.state.secondsElapsed !== 'finished' && this.state.secondsElapsed > 1)
-        ? <center>
-        <button type="button" onClick={this.resetTimer.bind(this)} className="btn btn-primary">FINISH</button>
-        </center>
-        : null
-        }
-
-        {(this.state.secondsElapsed === 'finished')
-        ? <center>
-        <button type="button" onClick={this.startNewTimer.bind(this)} className="btn btn-warning">RETRY</button>
-        </center>
-        : null
-        }
+          <h2 className="text-center">{this.state.message}</h2>
         </div>
-        <br />
+        <StartButton showButton={this.state.showButton} startCountdown={this.startCountdown.bind(this)} />
+        <CountdownTimer countingDown={this.state.countingDown} onCountdownFinish={this.startTimer.bind(this)} />
       </div>
     );
   }

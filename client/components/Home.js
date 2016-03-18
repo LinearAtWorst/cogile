@@ -5,7 +5,6 @@ import Timer from './Timer';
 import levenshtein from './../lib/levenshtein';
 import ProgressBar from './ProgressBar';
 
-
 class Home extends Component {
   constructor() {
     super();
