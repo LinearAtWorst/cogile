@@ -12,6 +12,7 @@
     "fs": "0.0.2",
     "history": "^2.0.1",
     "react": "^0.14.7",
+    "react-countdown-clock": "^1.0.5",
     "react-dom": "^0.14.7",
     "react-router": "^2.0.1",
     "react-socket": "^0.1.4",
