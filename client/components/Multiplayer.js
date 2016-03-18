@@ -1,27 +1,21 @@
 import React, { Component } from 'react';
-// import io from 'socket.io-client';
-// var Socket = require('react-socket').Socket;
 import CodeEditorMulti from './CodeEditorMulti';
 import CodePrompt from './CodePrompt';
 import Timer from './Timer';
 import levenshtein from './../lib/levenshtein';
 import ProgressBar from './ProgressBar';
 
-
-
 class Multiplayer extends Component {
   constructor(props) {
     super(props);
-    
-    // let host = location.origin.replace(/^http/, 'ws');
-    // let socket = io.connect(host);
 
     this.state = {
       currentPuzzle: 'N/A',
       timerOn: false,
       gameFinished: false,
       minifiedPuzzle: 'N/A',
-      progress: 0
+      progress: 0,
+      multiGameStarted: false
     };
   };
 
@@ -47,11 +41,15 @@ class Multiplayer extends Component {
       console.log('game over, ', value.id, 'won');
       this.puzzleCompleted();
     }.bind(this));
+
+    this.socket.on('multigame start', function(value) {
+      console.log('multigame is starting!')
+      this.setState({multiGameStarted: true});
+    }.bind(this));
   }
 
   componentWillUnmount() {
     this.socket.disconnect();
-    console.log(this.socket);
   }
 
   timerOn() {
@@ -83,8 +81,10 @@ class Multiplayer extends Component {
     return (
       <div>
         <Timer
+          socket={this.socket}
           gameStart={this.timerOn.bind(this)} 
-          gameFinished={this.state.gameFinished} />
+          gameFinished={this.state.gameFinished}
+          multiGameStarted={this.state.multiGameStarted} />
         <CodeEditorMulti
           socket={this.socket}
           puzzle={this.state.currentPuzzle}

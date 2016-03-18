@@ -13,7 +13,12 @@ class CountdownTimer extends Component {
 
     return (
       <div className="row text-center">
-        <ReactCountdownClock seconds={3} color="#55acee" alpha={1} size={53} onComplete={this.props.onCountdownFinish} />
+        <ReactCountdownClock
+          seconds={3}
+          color="#55acee"
+          alpha={1}
+          size={53}
+          onComplete={this.props.onCountdownFinish} />
       </div>
     );
   }
