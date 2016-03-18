@@ -1,3 +1,5 @@
+var path = require('path');
+
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   template: __dirname + '/client/index.html',
@@ -22,6 +24,12 @@ module.exports = {
         presets: ['es2015', 'react', 'stage-1']
       },
     }]
+  },
+  resolve: {
+    alias: {
+      'react': path.join(__dirname, 'node_modules', 'react')
+    },
+    extensions: ['', '.js']
   },
   plugins: [HTMLWebpackPluginConfig]
 }

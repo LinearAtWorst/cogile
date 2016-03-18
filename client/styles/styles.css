@@ -77,3 +77,7 @@
   height: 100%;
   background-color: green;
 }
+
+#start-btn-container {
+  height: 58px;
+}
