@@ -4,18 +4,14 @@ import ReactDOM from 'react-dom';
 class CodePrompt extends Component {
   constructor(props) {
     super(props);
-
-    // this.state = { code: 'function add2(num) {\n  return num + 2;\n};' };
   }
 
   static propTypes = {
-    mode: PropTypes.string,
-    content: PropTypes.string,
+    mode: PropTypes.string
   };
 
   static defaultProps = {
     mode: 'javascript',
-    code: 'function add2(num) {\n  return num + 2;\n};',
     puzzle: 'Error'
   };
 

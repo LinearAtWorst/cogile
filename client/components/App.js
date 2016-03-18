@@ -10,6 +10,7 @@ class App extends Component {
             <ul role="nav" className="nav navbar-nav navbar-right">
               <li><NavLink to="/" className="nav-label" onlyActiveOnIndex>Home</NavLink></li>
               <li><NavLink to="/about" className="nav-label">About</NavLink></li>
+              <li><NavLink to="/multiplayer" className="nav-label">Multiplayer</NavLink></li>
             </ul>
             <NavLink to="/" onlyActiveOnIndex className="sitename">nimblecode</NavLink>
           </div>
