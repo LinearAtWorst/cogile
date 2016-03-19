@@ -36,6 +36,17 @@ class Home extends Component {
     });
   };
 
+  timerOff(tenthSeconds, seconds, minutes) {
+    // Sweet Alert with Info
+    swal({
+      title: 'Sweet!',
+      text: 'You completed the challenge with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
+    });
+    console.log(minutes);
+    console.log(seconds);
+    console.log(tenthSeconds);
+  }
+
   puzzleCompleted() {
     this.setState({
       timerOn: false,
@@ -58,7 +69,8 @@ class Home extends Component {
     return (
       <div>
         <Timer
-          timerOn={this.timerOn.bind(this)} 
+          timerOn={this.timerOn.bind(this)}
+          timerOff={this.timerOff.bind(this)}
           gameFinished={this.state.gameFinished} />
         <CodeEditor
           puzzle={this.state.currentPuzzle}

@@ -50,19 +50,17 @@ class Timer extends Component {
         tenthSeconds : tenthSeconds,
         seconds : seconds,
         minutes: minutes,
-        message: this.state.minutes + ':' + this.state.seconds + '.' + this.state.tenthSeconds
+        message: minutes + ':' + seconds + '.' + tenthSeconds
       });
     }.bind(this), 100);
   } 
 
-  componentDidUpdate() {
+  render() {
     if (this.props.gameFinished) {
       clearInterval(this.intervalID);
-      // this.props.timerOff(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
+      this.props.timerOff(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
     }
-  }
 
-  render() {
     return (
       <div className="container">
         <div className="row">
