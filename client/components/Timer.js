@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { startGame, endGame } from '../actions/index';
+import { bindActionCreators } from 'redux';
 import CountdownTimer from './CountdownTimer';
 import StartButton from './StartButton';
 
@@ -31,6 +34,9 @@ class Timer extends Component {
 
     this.props.timerOn();
 
+    // testing SingleTimer action
+    this.props.startGame();
+
     this.intervalID = setInterval(function() {
       var tenthSeconds = this.state.tenthSeconds + 1;
       var seconds = this.state.seconds;
@@ -56,7 +62,8 @@ class Timer extends Component {
   } 
 
   componentDidUpdate() {
-    if (this.props.gameFinished) {
+    if (this.props.singleTimer === 'END_GAME') {
+      console.log('inside Timer componentDidUpdate END_GAME state');
       clearInterval(this.intervalID);
       // this.props.timerOff(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
     }
@@ -79,4 +86,16 @@ class Timer extends Component {
   }
 };
 
-export default Timer;
+function mapStateToProps(state) {
+  return {
+    singleTimer: state.singleTimer
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+
+  return bindActionCreators({startGame: startGame, endGame: endGame}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Timer);
+// export default Timer;
