@@ -54,10 +54,9 @@ class CodeEditor extends Component {
       this.setState({code});
 
       if (code === this.props.minifiedPuzzle) {
-        // this.props.puzzleCompleted();
-
         // calling endGame action
         this.props.endGame();
+        this.editor.setReadOnly(true);
       }
     }.bind(this));
 
@@ -99,9 +98,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-
   return bindActionCreators({startGame: startGame, endGame: endGame}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CodeEditor);
-// export default CodeEditor;
