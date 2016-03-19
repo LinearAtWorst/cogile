@@ -1,5 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { startGame, endGame } from '../actions/index';
+import { bindActionCreators } from 'redux';
 
 class CodeEditor extends Component {
   constructor(props) {
@@ -51,7 +54,9 @@ class CodeEditor extends Component {
       this.setState({code});
 
       if (code === this.props.minifiedPuzzle) {
-        this.props.puzzleCompleted();
+        // calling endGame action
+        this.props.endGame();
+        this.editor.setReadOnly(true);
       }
     }.bind(this));
 
@@ -66,11 +71,13 @@ class CodeEditor extends Component {
 
   componentDidUpdate() {
     // once game starts
-    if (this.props.timerOn) {
+    if (this.props.singleGame === 'START_GAME') {
       // focus goes to CodeEditor and read-only disabled
       this.editor.setReadOnly(false);
       this.editor.focus();
     }
+
+    console.log(this.props.singleGame);
   }
 
   render() {
@@ -84,4 +91,14 @@ class CodeEditor extends Component {
   }
 }
 
-export default CodeEditor;
+function mapStateToProps(state) {
+  return {
+    singleGame: state.singleGame
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({startGame: startGame, endGame: endGame}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CodeEditor);
