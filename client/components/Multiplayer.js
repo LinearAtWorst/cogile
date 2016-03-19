@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CodeEditorMulti from './CodeEditorMulti';
 import CodePrompt from './CodePrompt';
-import Timer from './Timer';
+import TimerMulti from './TimerMulti';
 import levenshtein from './../lib/levenshtein';
 import ProgressBar from './ProgressBar';
 
@@ -80,9 +80,9 @@ class Multiplayer extends Component {
   render() {
     return (
       <div>
-        <Timer
+        <TimerMulti
           socket={this.socket}
-          gameStart={this.timerOn.bind(this)} 
+          timerOn={this.timerOn.bind(this)} 
           gameFinished={this.state.gameFinished}
           multiGameStarted={this.state.multiGameStarted} />
         <CodeEditorMulti

@@ -58,7 +58,7 @@ class Home extends Component {
     return (
       <div>
         <Timer
-          gameStart={this.timerOn.bind(this)} 
+          timerOn={this.timerOn.bind(this)} 
           gameFinished={this.state.gameFinished} />
         <CodeEditor
           puzzle={this.state.currentPuzzle}
