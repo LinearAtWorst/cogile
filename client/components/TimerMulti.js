@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CountdownTimer from './CountdownTimer';
-import StartButton from './StartButton';
+import StartButtonMulti from './StartButtonMulti';
 
 class Timer extends Component {
   constructor(props) {
@@ -102,7 +102,7 @@ class Timer extends Component {
         <div className="row">
           <h2 className="text-center">{this.state.message}</h2>
         </div>
-        <StartButton
+        <StartButtonMulti
           showButton={this.state.showButton}
           startCountdown={this.startCountdown.bind(this)}
           startMultiCountdown={this.startMultiCountdown.bind(this)}
