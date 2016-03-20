@@ -1,0 +1,33 @@
+Store = {
+  singleGame: SingleGameReducer
+  singleTimer: SingleTimerReducer
+}
+
+Actions:
+  startGame :
+    type: 'START_GAME'
+  endGame: 
+    type: 'END_GAME'
+
+Reducers:
+  TimerReducer - Listens for specific action, will update the state
+  CodeEditorReducer - Listens for start and end game actions to lock/unlock
+
+App
+  About
+  Home (Container: 
+    Timer
+      StartButton
+      CountdownTimer
+        ReactCountdownClock
+    CodeEditor
+    CodePrompt (Component)
+    ProgressBar
+  Multiplayer
+    Timer
+      StartButton
+      CountdownTimer
+        ReactCountdownClock
+    CodeEditor
+    CodePrompt
+    ProgressBar
