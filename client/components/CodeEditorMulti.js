@@ -1,5 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { startGame, endGame } from '../actions/index';
+import { bindActionCreators } from 'redux';
 
 class CodeEditorMulti extends Component {
   constructor(props) {
@@ -48,10 +51,11 @@ class CodeEditorMulti extends Component {
     this.editor.getSession().on("change", function() {
       var code = this.editor.getSession().getValue().replace(/\s/g,'');
       this.props.calculateProgress(code);
-      this.setState({code});
 
       if (code === this.props.minifiedPuzzle) {
-        this.props.puzzleCompleted();
+        // calling endGame action
+        this.props.endGame();
+        this.editor.setReadOnly(true);
 
         var socketInfo = {
           id: this.props.socket.id,
@@ -90,4 +94,14 @@ class CodeEditorMulti extends Component {
   }
 }
 
-export default CodeEditorMulti;
+function mapStateToProps(state) {
+  return {
+    multiGame: state.multiGame
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({startGame: startGame, endGame: endGame}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CodeEditorMulti);

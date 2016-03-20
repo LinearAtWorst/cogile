@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { startGame, endGame } from '../actions/index';
+import { bindActionCreators } from 'redux';
 import CountdownTimer from './CountdownTimer';
 import StartButtonMulti from './StartButtonMulti';
 
-class Timer extends Component {
+class TimerMulti extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,10 +16,6 @@ class Timer extends Component {
       countingDown: false,
       showButton: true
     }
-  };
-
-  componentDidMount() {
-
   };
 
   startCountdown() {
@@ -52,6 +51,8 @@ class Timer extends Component {
 
     this.props.timerOn();
 
+    this.props.startGame();
+
     this.intervalID = setInterval(function() {
       var tenthSeconds = this.state.tenthSeconds + 1;
       var seconds = this.state.seconds;
@@ -71,13 +72,13 @@ class Timer extends Component {
         tenthSeconds : tenthSeconds,
         seconds : seconds,
         minutes: minutes,
-        message: this.state.minutes + ':' + this.state.seconds + '.' + this.state.tenthSeconds
+        message: minutes + ':' + seconds + '.' + tenthSeconds
       });
     }.bind(this), 100);
   } 
 
   componentDidUpdate() {
-    if (this.props.gameFinished) {
+    if (this.props.multiTimer === 'END_GAME') {
       clearInterval(this.intervalID);
       this.props.timerOff(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
     }
@@ -116,4 +117,15 @@ class Timer extends Component {
   }
 };
 
-export default Timer;
+function mapStateToProps(state) {
+  return {
+    multiTimer: state.multiTimer
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({startGame: startGame, endGame: endGame}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TimerMulti);
+// export default Timer;
