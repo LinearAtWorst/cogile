@@ -8,7 +8,7 @@ class CodeEditor extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { code: '' };
+    this.state = {};
   }
 
   static propTypes = {
@@ -51,7 +51,6 @@ class CodeEditor extends Component {
     this.editor.getSession().on("change", function() {
       var code = this.editor.getSession().getValue().replace(/\s/g,'');
       this.props.calculateProgress(code);
-      this.setState({code});
 
       if (code === this.props.minifiedPuzzle) {
         // calling endGame action
