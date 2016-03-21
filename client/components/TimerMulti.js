@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CountdownTimer from './CountdownTimer';
-import StartButton from './StartButton';
+import StartButtonMulti from './StartButtonMulti';
 
 class Timer extends Component {
   constructor(props) {
@@ -15,11 +15,32 @@ class Timer extends Component {
     }
   };
 
+  componentDidMount() {
+
+  };
+
   startCountdown() {
+    console.log('L23 Timer.js : StartCountdown');
     this.setState({
       countingDown: true,
       showButton: false
     });
+
+    //TODO: when start countdown is called, other sockets should start game too
+    if (!this.props.multiGameStarted) {
+      console.log('Creating Socket');
+      this.props.socket.emit('game start', true);
+    }
+  }
+
+  startMultiCountdown() {
+    if (!this.state.countingDown) {
+      console.log('inside timer.js, called startMultiCountdown()');
+      this.setState({
+        countingDown: true,
+        showButton: false
+      });
+    }
   }
 
   startTimer() {
@@ -58,22 +79,38 @@ class Timer extends Component {
   componentDidUpdate() {
     if (this.props.gameFinished) {
       clearInterval(this.intervalID);
-      // this.props.timerOff(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
+      this.props.timerOff(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
     }
+
+  }
+
+  componentWillReceiveProps() {
+    
+    // TODO: need to fix this infinite loop!
+    // if(this.props.multiGameStarted) {
+    //   console.log('inside timer componentDidMount', this.props.multiGameStarted);
+    //   this.startMultiCountdown();
+    // }
+    // this.props.multiGameStarted = false;
   }
 
   render() {
+    console.log('Rendering Timer');
+
     return (
       <div className="container">
         <div className="row">
           <h2 className="text-center">{this.state.message}</h2>
         </div>
-        <StartButton
+        <StartButtonMulti
           showButton={this.state.showButton}
-          startCountdown={this.startCountdown.bind(this)} />
+          startCountdown={this.startCountdown.bind(this)}
+          startMultiCountdown={this.startMultiCountdown.bind(this)}
+          multiGameStarted={this.props.multiGameStarted} />
         <CountdownTimer
           countingDown={this.state.countingDown}
-          onCountdownFinish={this.startTimer.bind(this)} />
+          onCountdownFinish={this.startTimer.bind(this)}
+          multiGameStarted={this.props.multiGameStarted} />
       </div>
     );
   }

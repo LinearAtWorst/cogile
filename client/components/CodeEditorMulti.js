@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class CodeEditor extends Component {
+class CodeEditorMulti extends Component {
   constructor(props) {
     super(props);
 
@@ -26,13 +26,13 @@ class CodeEditor extends Component {
     this.editor.setTheme("ace/theme/twilight");
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.getSession().setTabSize(2);
-
+    
     this.editor.setOptions({
       minLines: 25,
       maxLines: 50,
       enableBasicAutocompletion: true,
-      enableSnippets: false,
-      enableLiveAutocompletion: false
+      enableSnippets: true,
+      enableLiveAutocompletion: true
     });
 
     // autocomplete tries to fire on every input
@@ -52,6 +52,12 @@ class CodeEditor extends Component {
 
       if (code === this.props.minifiedPuzzle) {
         this.props.puzzleCompleted();
+
+        var socketInfo = {
+          id: this.props.socket.id,
+          hasWon: true
+        };
+        this.props.socket.emit('game won', socketInfo);
       }
     }.bind(this));
 
@@ -84,4 +90,4 @@ class CodeEditor extends Component {
   }
 }
 
-export default CodeEditor;
+export default CodeEditorMulti;

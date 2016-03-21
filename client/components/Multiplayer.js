@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import CodeEditor from './CodeEditor';
+import CodeEditorMulti from './CodeEditorMulti';
 import CodePrompt from './CodePrompt';
-import Timer from './Timer';
+import TimerMulti from './TimerMulti';
 import levenshtein from './../lib/levenshtein';
 import ProgressBar from './ProgressBar';
 
-class Home extends Component {
-  constructor() {
-    super();
+class Multiplayer extends Component {
+  constructor(props) {
+    super(props);
 
     this.state = {
       currentPuzzle: 'N/A',
       timerOn: false,
       gameFinished: false,
       minifiedPuzzle: 'N/A',
-      progress: 0
+      progress: 0,
+      multiGameStarted: false
     };
   };
 
@@ -29,6 +30,27 @@ class Home extends Component {
       });
     }.bind(this));
   };
+
+  componentDidMount() {
+    this.socket = io();
+
+    console.log(this.socket);
+
+    // if someone in the game wins, socket will broadcast a 'game over' event to all
+    this.socket.on('game over', function(value) {
+      console.log('game over, ', value.id, 'won');
+      this.puzzleCompleted();
+    }.bind(this));
+
+    this.socket.on('multigame start', function(value) {
+      console.log('multigame is starting!')
+      this.setState({multiGameStarted: true});
+    }.bind(this));
+  }
+
+  componentWillUnmount() {
+    this.socket.disconnect();
+  }
 
   timerOn() {
     this.setState({
@@ -54,13 +76,17 @@ class Home extends Component {
     });
   };
 
+  
   render() {
     return (
       <div>
-        <Timer
+        <TimerMulti
+          socket={this.socket}
           timerOn={this.timerOn.bind(this)} 
-          gameFinished={this.state.gameFinished} />
-        <CodeEditor
+          gameFinished={this.state.gameFinished}
+          multiGameStarted={this.state.multiGameStarted} />
+        <CodeEditorMulti
+          socket={this.socket}
           puzzle={this.state.currentPuzzle}
           timerOn={this.state.timerOn}
           puzzleCompleted={this.puzzleCompleted.bind(this)}
@@ -73,4 +99,4 @@ class Home extends Component {
   };
 }
 
-export default Home;
+export default Multiplayer;

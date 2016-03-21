@@ -10,7 +10,13 @@ if (process.env.db_host) {
     }
   });
 } else {
-  var config = require('./config/config.js');
+  var config = {
+    db_host: '127.0.0.1',
+    db_user: 'root',
+    db_password: 'jordan',
+    db_name: 'test-nimblecode',
+    charset: 'utf8'
+  };
   var knex = require('knex')({
     client: 'mysql',
     connection: {
@@ -33,6 +39,20 @@ db.knex.schema.hasTable('users')
       user.increments('id').primary();
       user.string('username', 100);
       user.string('password', 100);
+    }).then(function(table) {
+      console.log('Created Table', table);
+    });
+  }
+});
+
+db.knex.schema.hasTable('prompts')
+.then(function(exists) {
+  if (!exists) {
+    knex.schema.createTable('prompts', function(user) {
+      user.increments('id').primary();
+      user.string('language', 100);
+      user.string('name', 100);
+      user.string('code', 100); 
     }).then(function(table) {
       console.log('Created Table', table);
     });
