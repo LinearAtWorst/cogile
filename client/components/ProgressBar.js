@@ -3,8 +3,6 @@ import React, { PropTypes, Component } from 'react';
 class ProgressBar extends Component {
   constructor(props) {
     super(props);
-
-    this.state = { code: '' };
   };
 
   static propTypes = {
@@ -13,9 +11,6 @@ class ProgressBar extends Component {
 
   static defaultProps = {
     percentComplete: 0
-  };
-
-  componentDidUpdate() {
   };
 
   render() {

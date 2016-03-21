@@ -1,6 +1,7 @@
 Store = {
   singleGame: SingleGameReducer
   singleTimer: SingleTimerReducer
+  countingDown: CountingDownReducer
 }
 
 Actions:

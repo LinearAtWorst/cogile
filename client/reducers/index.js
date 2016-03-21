@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import SingleGameReducer from './SingleGameReducer';
-import SingleTimerReducer from './SingleTimerReducer';
+import CountingDownReducer from './CountingDownReducer';
 
 const rootReducer = combineReducers({
   singleGame: SingleGameReducer,
-  singleTimer: SingleTimerReducer
+  countingDown: CountingDownReducer
 });
 
 export default rootReducer;
