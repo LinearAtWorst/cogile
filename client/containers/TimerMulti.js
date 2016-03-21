@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import CountdownTimer from './CountdownTimer';
-import StartButton from './StartButton';
+import CountdownTimerMulti from './CountdownTimerMulti';
+import StartButtonMulti from './StartButtonMulti';
 import { leavePage } from '../actions/index';
 
-class Timer extends Component {
+class TimerMulti extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,13 +49,13 @@ class Timer extends Component {
 
   componentDidUpdate() {
     // On game end, stop timer and send time elapsed to Singleplayer
-    if (this.props.singleGame === 'END_GAME') {
+    if (this.props.multiGame === 'END_GAME') {
       clearInterval(this.intervalID);
 
       this.props.saveTimeElapsed(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
     }
     // On game start, start if not already running
-    if (this.props.singleGame === 'START_GAME' && !this.state.timerOn) {
+    if (this.props.multiGame === 'START_GAME' && !this.state.timerOn) {
       this.startTimer();
     }
   }
@@ -70,8 +70,8 @@ class Timer extends Component {
         <div className="row">
           <h2 className="text-center">{this.state.message}</h2>
         </div>
-        <StartButton />
-        <CountdownTimer />
+        <StartButtonMulti />
+        <CountdownTimerMulti />
       </div>
     );
   }
@@ -79,7 +79,7 @@ class Timer extends Component {
 
 function mapStateToProps(state) {
   return {
-    singleGame: state.singleGame
+    multiGame: state.multiGame
   }
 }
 
@@ -87,4 +87,4 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({ leavePage: leavePage }, dispatch);
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Timer);
+export default connect(mapStateToProps, mapDispatchToProps)(TimerMulti);

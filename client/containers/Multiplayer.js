@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import CodeEditorMulti from './CodeEditorMulti';
-import CodePrompt from './CodePrompt';
+import CodePrompt from '../components/CodePrompt';
 import TimerMulti from './TimerMulti';
 import levenshtein from './../lib/levenshtein';
-import ProgressBar from './ProgressBar';
+import ProgressBar from '../components/ProgressBar';
+import { connect } from 'react-redux';
+import { startGame, endGame } from '../actions/index';
+import { bindActionCreators } from 'redux';
 
 class Multiplayer extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       currentPuzzle: 'N/A',
-      timerOn: false,
-      gameFinished: false,
       minifiedPuzzle: 'N/A',
-      progress: 0,
-      multiGameStarted: false
+      gameFinished: false,
+      progress: 0
     };
   };
 
@@ -46,22 +47,17 @@ class Multiplayer extends Component {
       console.log('multigame is starting!')
       this.setState({multiGameStarted: true});
     }.bind(this));
-  }
+  };
 
   componentWillUnmount() {
     this.socket.disconnect();
-  }
-
-  timerOn() {
-    this.setState({
-      timerOn: true
-    });
   };
 
-  puzzleCompleted() {
-    this.setState({
-      timerOn: false,
-      gameFinished: true
+  saveTimeElapsed(tenthSeconds, seconds, minutes) {
+    // Sweet Alert with Info
+    swal({
+      title: 'Sweet!',
+      text: 'You completed the challenge with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
     });
   };
 
@@ -76,20 +72,13 @@ class Multiplayer extends Component {
     });
   };
 
-  
   render() {
     return (
       <div>
         <TimerMulti
-          socket={this.socket}
-          timerOn={this.timerOn.bind(this)} 
-          gameFinished={this.state.gameFinished}
-          multiGameStarted={this.state.multiGameStarted} />
+          saveTimeElapsed={this.saveTimeElapsed.bind(this)} />
         <CodeEditorMulti
-          socket={this.socket}
           puzzle={this.state.currentPuzzle}
-          timerOn={this.state.timerOn}
-          puzzleCompleted={this.puzzleCompleted.bind(this)}
           minifiedPuzzle={this.state.minifiedPuzzle}
           calculateProgress={this.calculateProgress.bind(this)} />
         <CodePrompt puzzle={this.state.currentPuzzle} />

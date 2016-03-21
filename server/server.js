@@ -4,7 +4,7 @@ var Router = require('react-router');
 var bodyParser = require('body-parser');
 var path = require('path');
 var http = require('http');
-var socketController = require('./controllers/socketController.js');
+// var socketController = require('./controllers/socketController.js');
 
 var app = express();
 

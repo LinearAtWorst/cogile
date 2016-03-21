@@ -3,7 +3,7 @@ import { Router, Route, hashHistory, IndexRoute, useRouterHistory } from 'react-
 import { createHashHistory } from 'history';
 import App from '../client/components/App.js';
 import Singleplayer from '../client/containers/Singleplayer.js';
-import Multiplayer from '../client/components/Multiplayer.js';
+import Multiplayer from '../client/containers/Multiplayer.js';
 import About from '../client/components/About';
 
 const appHistory = useRouterHistory(createHashHistory)({ queryKey: false});

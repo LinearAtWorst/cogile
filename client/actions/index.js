@@ -19,3 +19,8 @@ export function startCountdown() {
   }
 }
 
+export function leavePage() {
+  return {
+    type: 'LEAVE_PAGE'
+  }
+}
