@@ -1,3 +1,4 @@
+var config = require('../../../config.js');
 if (process.env.db_host) {
   var knex = require('knex')({
     client: 'mysql',
@@ -10,13 +11,7 @@ if (process.env.db_host) {
     }
   });
 } else {
-  var config = {
-    db_host: '127.0.0.1',
-    db_user: 'root',
-    db_password: 'jordan',
-    db_name: 'test-nimblecode',
-    charset: 'utf8'
-  };
+  
   var knex = require('knex')({
     client: 'mysql',
     connection: {
@@ -24,10 +19,13 @@ if (process.env.db_host) {
       user     : config.db_user,
       password : config.db_password,
       database : config.db_name,
+      secret   : config.secret,
       charset  : 'utf8'
     }
   });
 }
+
+console.log("KNEX: ", knex);
 
 var Bookshelf = require('bookshelf')(knex);
 var db = Bookshelf;

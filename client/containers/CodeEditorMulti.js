@@ -1,11 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { startGame, endGame } from '../actions/index';
+import { bindActionCreators } from 'redux';
 
 class CodeEditorMulti extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { code: '' };
+    this.state = {};
   }
 
   static propTypes = {
@@ -26,13 +29,14 @@ class CodeEditorMulti extends Component {
     this.editor.setTheme("ace/theme/twilight");
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.getSession().setTabSize(2);
-    
+    this.editor.$blockScrolling = Infinity;
+
     this.editor.setOptions({
       minLines: 25,
       maxLines: 50,
       enableBasicAutocompletion: true,
-      enableSnippets: true,
-      enableLiveAutocompletion: true
+      enableSnippets: false,
+      enableLiveAutocompletion: false
     });
 
     // autocomplete tries to fire on every input
@@ -48,16 +52,11 @@ class CodeEditorMulti extends Component {
     this.editor.getSession().on("change", function() {
       var code = this.editor.getSession().getValue().replace(/\s/g,'');
       this.props.calculateProgress(code);
-      this.setState({code});
 
       if (code === this.props.minifiedPuzzle) {
-        this.props.puzzleCompleted();
-
-        var socketInfo = {
-          id: this.props.socket.id,
-          hasWon: true
-        };
-        this.props.socket.emit('game won', socketInfo);
+        // calling endGame action
+        this.props.endGame();
+        this.editor.setReadOnly(true);
       }
     }.bind(this));
 
@@ -72,11 +71,13 @@ class CodeEditorMulti extends Component {
 
   componentDidUpdate() {
     // once game starts
-    if (this.props.timerOn) {
+    if (this.props.multiGame === 'START_GAME') {
       // focus goes to CodeEditor and read-only disabled
       this.editor.setReadOnly(false);
       this.editor.focus();
     }
+
+    console.log(this.props.multiGame);
   }
 
   render() {
@@ -90,4 +91,14 @@ class CodeEditorMulti extends Component {
   }
 }
 
-export default CodeEditorMulti;
+function mapStateToProps(state) {
+  return {
+    multiGame: state.multiGame
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({startGame: startGame, endGame: endGame}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CodeEditorMulti);

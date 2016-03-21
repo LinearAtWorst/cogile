@@ -24,6 +24,7 @@ class CodePrompt extends Component {
     this.editor.setTheme("ace/theme/twilight");
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.setReadOnly(true);
+    this.editor.$blockScrolling = Infinity;
     
 
     // Disables Selection of Text to Prevent Copy/Paste

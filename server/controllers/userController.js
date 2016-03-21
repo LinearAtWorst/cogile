@@ -2,12 +2,13 @@ var User = require('../models/userModel.js');
 var Users = require('../collections/userCollection.js');
 var jwt = require('jwt-simple');
 var bcrypt = require('bcrypt-nodejs');
+var config = require('../../../config.js');
 
 // token secret
 if (process.env.secret) {
   var secret = process.env.secret;
 } else {
-  var secret = require('../db/config/config.js').secret;
+  var secret = config.secret;
 }
 
 module.exports = {

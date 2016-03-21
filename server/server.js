@@ -4,8 +4,9 @@ var Router = require('react-router');
 var bodyParser = require('body-parser');
 var path = require('path');
 var http = require('http');
-var db = require('./db/schema.js')
-var socketController = require('./controllers/socketController.js');
+// var socketController = require('./controllers/socketController.js');
+var db = require('./db/schema.js');
+var userController = require('./controllers/userController.js');
 
 var app = express();
 
@@ -54,5 +55,16 @@ io.on('connection', function(socket) {
     console.log('numUsers is now: ', numUsers);
   });
 });
+
+
+
+// //TEST CREAT USER
+// var newUser = {
+//   body: {
+//     username: 'NEW TEST!',
+//     password: 'EncryptedPassword!'
+//   }
+// }
+// userController.signup(newUser, {send: function(info){console.log(info);}});
 
 module.exports = app;
