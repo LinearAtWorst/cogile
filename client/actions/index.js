@@ -11,3 +11,11 @@ export function endGame() {
     payload: 'END_GAME'
   }
 }
+
+export function startCountdown() {
+  return {
+    type: 'START_COUNTDOWN',
+    payload: 'START_COUNTDOWN'
+  }
+}
+

@@ -8,7 +8,7 @@ class CodeEditorMulti extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { code: '' };
+    this.state = {};
   }
 
   static propTypes = {
@@ -29,13 +29,13 @@ class CodeEditorMulti extends Component {
     this.editor.setTheme("ace/theme/twilight");
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.getSession().setTabSize(2);
-    
+
     this.editor.setOptions({
       minLines: 25,
       maxLines: 50,
       enableBasicAutocompletion: true,
-      enableSnippets: true,
-      enableLiveAutocompletion: true
+      enableSnippets: false,
+      enableLiveAutocompletion: false
     });
 
     // autocomplete tries to fire on every input
@@ -56,12 +56,6 @@ class CodeEditorMulti extends Component {
         // calling endGame action
         this.props.endGame();
         this.editor.setReadOnly(true);
-
-        var socketInfo = {
-          id: this.props.socket.id,
-          hasWon: true
-        };
-        this.props.socket.emit('game won', socketInfo);
       }
     }.bind(this));
 
@@ -76,11 +70,13 @@ class CodeEditorMulti extends Component {
 
   componentDidUpdate() {
     // once game starts
-    if (this.props.timerOn) {
+    if (this.props.multiGame === 'START_GAME') {
       // focus goes to CodeEditor and read-only disabled
       this.editor.setReadOnly(false);
       this.editor.focus();
     }
+
+    console.log(this.props.multiGame);
   }
 
   render() {

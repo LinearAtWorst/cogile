@@ -1,4 +1,7 @@
 import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
+import { startCountdown } from '../actions/index';
+import { bindActionCreators } from 'redux';
 
 class StartButton extends Component {
   constructor(props) {
@@ -7,46 +10,25 @@ class StartButton extends Component {
     this.state = {
       text: 'Start!',
       buttonType: 'btn btn-primary btn-lg center-block',
-      countingDown: false,
       buttonDisabled: false,
       handleMultiCalled: false
     }
   };
 
-  componentDidUpdate() {
-    // console.log('inside start button compWillUpdate, checking this.props.startMultiCD: ', this.props.startMultiCountdown);
-
-    if (this.props.multiGameStarted && !this.state.handleMultiCalled && !this.state.countingDown) {
-      console.log('inside startButton compDidUpdate, calling handleMulti()');
-      this.handleMulti();
-    }
-  }
-
   handleClick() {
     console.log('L26: StartButton.js : handleClick');
+    
+    this.props.startCountdown();
+
     this.setState({
-      countingDown: true,
       text: 'Go!',
       buttonType: 'btn btn-success btn-lg center-block',
       buttonDisabled: true
     });
-    this.props.startCountdown();
-  }
-
-  handleMulti() {
-    console.log('inside startbutton, calling handleMulti');
-    this.setState({
-      countingDown: true,
-      text: 'Go!',
-      buttonType: 'btn btn-success btn-lg center-block',
-      buttonDisabled: true,
-      handleMultiCalled: true
-    });
-    this.props.startMultiCountdown();
   }
 
   render() {
-    if (!this.props.showButton) {
+    if (this.props.countingDown === 'START_COUNTDOWN') {
       return null;
     }
 
@@ -64,4 +46,15 @@ class StartButton extends Component {
   }
 }
 
-export default StartButton;
+function mapStateToProps(state) {
+  return {
+    countingDown: state.countingDown
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({startCountdown: startCountdown}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StartButton)
+// export default StartButton;

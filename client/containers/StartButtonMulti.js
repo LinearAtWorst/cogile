@@ -1,13 +1,15 @@
 import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
+import { startCountdown } from '../actions/index';
+import { bindActionCreators } from 'redux';
 
-class StartButton extends Component {
+class StartButtonMulti extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       text: 'Start!',
       buttonType: 'btn btn-primary btn-lg center-block',
-      countingDown: false,
       buttonDisabled: false,
       handleMultiCalled: false
     }
@@ -15,17 +17,18 @@ class StartButton extends Component {
 
   handleClick() {
     console.log('L26: StartButton.js : handleClick');
+    
+    this.props.startCountdown();
+
     this.setState({
-      countingDown: true,
       text: 'Go!',
       buttonType: 'btn btn-success btn-lg center-block',
       buttonDisabled: true
     });
-    this.props.startCountdown();
   }
 
   render() {
-    if (!this.props.showButton) {
+    if (this.props.countingDown === 'START_COUNTDOWN') {
       return null;
     }
 
@@ -43,4 +46,15 @@ class StartButton extends Component {
   }
 }
 
-export default StartButton;
+function mapStateToProps(state) {
+  return {
+    countingDown: state.countingDown
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({startCountdown: startCountdown}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StartButtonMulti)
+// export default StartButton;
