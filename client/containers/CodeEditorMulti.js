@@ -29,6 +29,7 @@ class CodeEditorMulti extends Component {
     this.editor.setTheme("ace/theme/twilight");
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.getSession().setTabSize(2);
+    this.editor.$blockScrolling = Infinity;
 
     this.editor.setOptions({
       minLines: 25,

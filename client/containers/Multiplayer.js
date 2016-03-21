@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { startGame, endGame } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
-class Home extends Component {
+class Multiplayer extends Component {
   constructor() {
     super();
 
@@ -32,13 +32,34 @@ class Home extends Component {
     }.bind(this));
   };
 
+  componentDidMount() {
+    this.socket = io();
+
+    console.log(this.socket);
+
+    // if someone in the game wins, socket will broadcast a 'game over' event to all
+    this.socket.on('game over', function(value) {
+      console.log('game over, ', value.id, 'won');
+      this.puzzleCompleted();
+    }.bind(this));
+
+    this.socket.on('multigame start', function(value) {
+      console.log('multigame is starting!')
+      this.setState({multiGameStarted: true});
+    }.bind(this));
+  };
+
+  componentWillUnmount() {
+    this.socket.disconnect();
+  };
+
   saveTimeElapsed(tenthSeconds, seconds, minutes) {
     // Sweet Alert with Info
     swal({
       title: 'Sweet!',
       text: 'You completed the challenge with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
     });
-  }
+  };
 
   calculateProgress(playerCode) {
     var totalChars = this.state.minifiedPuzzle.length;
@@ -67,4 +88,4 @@ class Home extends Component {
   };
 }
 
-export default Home;
+export default Multiplayer;

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CountdownTimer from './CountdownTimer';
 import StartButton from './StartButton';
+import { leavePage } from '../actions/index';
 
 class Timer extends Component {
   constructor(props) {
@@ -58,6 +59,10 @@ class Timer extends Component {
       this.startTimer();
     }
   }
+
+  componentWillUnmount() {
+    this.props.leavePage();
+  }
   
   render() {
     return (
@@ -79,7 +84,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators({ leavePage: leavePage }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);

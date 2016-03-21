@@ -4,6 +4,8 @@ export default function(state = null, action) {
       return action.payload;
     case 'START_COUNTDOWN':
       return action.payload;
+    case 'LEAVE_PAGE':
+      return null;
   }
 
   return state;
