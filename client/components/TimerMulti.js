@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import CountdownTimer from './CountdownTimer';
+// import CountdownTimer from './CountdownTimer';
 import StartButtonMulti from './StartButtonMulti';
 
 class Timer extends Component {

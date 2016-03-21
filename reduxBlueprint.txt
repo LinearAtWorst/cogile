@@ -1,6 +1,6 @@
 Store = {
   singleGame: SingleGameReducer
-  singleTimer: SingleTimerReducer
+  countingDown: CountingDownReducer
 }
 
 Actions:
@@ -8,10 +8,12 @@ Actions:
     type: 'START_GAME'
   endGame: 
     type: 'END_GAME'
+  startCountdown:
+    type:'START_COUNTDOWN'
 
 Reducers:
-  TimerReducer - Listens for specific action, will update the state
-  CodeEditorReducer - Listens for start and end game actions to lock/unlock
+  SingleGame - Listens for game start and end actions
+  CountingDownReducer - Listens for countdown start and game start actions
 
 App
   About

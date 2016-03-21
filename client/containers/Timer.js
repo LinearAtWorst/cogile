@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { startGame, endGame } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import CountdownTimer from './CountdownTimer';
 import StartButton from './StartButton';
@@ -13,29 +12,15 @@ class Timer extends Component {
       seconds: 0,
       minutes: 0,
       message: 'Click the start button to begin!',
-      countingDown: false,
-      showButton: true
+      timerOn: false
     }
   };
 
-  startCountdown() {
-    this.setState({
-      countingDown: true,
-      showButton: false
-    });
-  }
-
   startTimer() {
     this.setState({
-      countingDown: false,
-      showButton: true,
+      timerOn: true,
       message: '0.0'
     });
-
-    this.props.timerOn();
-
-    // testing SingleTimer action
-    this.props.startGame();
 
     this.intervalID = setInterval(function() {
       var tenthSeconds = this.state.tenthSeconds + 1;
@@ -62,25 +47,26 @@ class Timer extends Component {
   } 
 
   componentDidUpdate() {
-    if (this.props.singleTimer === 'END_GAME') {
+    // On game end, stop timer and send time elapsed to Singleplayer
+    if (this.props.singleGame === 'END_GAME') {
       clearInterval(this.intervalID);
-      this.props.timerOff(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
+
+      this.props.saveTimeElapsed(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
+    }
+    // On game start, start if not already running
+    if (this.props.singleGame === 'START_GAME' && !this.state.timerOn) {
+      this.startTimer();
     }
   }
   
   render() {
-
     return (
       <div className="container">
         <div className="row">
           <h2 className="text-center">{this.state.message}</h2>
         </div>
-        <StartButton
-          showButton={this.state.showButton}
-          startCountdown={this.startCountdown.bind(this)} />
-        <CountdownTimer
-          countingDown={this.state.countingDown}
-          onCountdownFinish={this.startTimer.bind(this)} />
+        <StartButton />
+        <CountdownTimer />
       </div>
     );
   }
@@ -88,13 +74,12 @@ class Timer extends Component {
 
 function mapStateToProps(state) {
   return {
-    singleTimer: state.singleTimer
+    singleGame: state.singleGame
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({startGame: startGame, endGame: endGame}, dispatch);
+  return bindActionCreators({}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);
-// export default Timer;
