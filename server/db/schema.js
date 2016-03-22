@@ -14,9 +14,6 @@ var knex = require('knex')({
       }
     });
 
-
-console.log("KNEX: :P", knex);
-
 var Bookshelf = require('bookshelf')(knex);
 var db = Bookshelf;
 
