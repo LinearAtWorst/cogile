@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import CodeEditor from './CodeEditor';
 import CodePrompt from '../components/CodePrompt';
+import CodeGhost from '../components/CodeGhost';
 import Timer from './Timer';
 import levenshtein from './../lib/levenshtein';
 import ProgressBar from '../components/ProgressBar';
 import { connect } from 'react-redux';
-import { startGame, endGame } from '../actions/index';
+// import { startGame, endGame } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
-class Home extends Component {
-  constructor() {
-    super();
+class Singleplayer extends Component {
+  constructor(props) {
+    super(props);
 
     this.state = {
       currentPuzzle: 'N/A',
@@ -56,15 +57,26 @@ class Home extends Component {
       <div>
         <Timer
           saveTimeElapsed={this.saveTimeElapsed.bind(this)} />
+        <CodePrompt puzzle={this.state.currentPuzzle} />
         <CodeEditor
           puzzle={this.state.currentPuzzle}
           minifiedPuzzle={this.state.minifiedPuzzle}
           calculateProgress={this.calculateProgress.bind(this)} />
-        <CodePrompt puzzle={this.state.currentPuzzle} />
+        <CodeGhost singleGame={this.props.singleGame}/>
         <ProgressBar percentComplete={this.state.progress} />
       </div>
     )
   };
 }
 
-export default Home;
+function mapStateToProps(state) {
+  return {
+    singleGame: state.singleGame
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Singleplayer)
