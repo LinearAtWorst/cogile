@@ -23,7 +23,6 @@ class Multiplayer extends Component {
   componentWillMount() {
     $.get('api/getPrompt', function(data) {
       var minifiedPuzzle = data.replace(/\s/g,'');
-      console.log('Minified: ', minifiedPuzzle);
 
       this.setState({
         currentPuzzle: data,
@@ -56,7 +55,6 @@ class Multiplayer extends Component {
         text: winner.id + ' won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
       });
     }
-
   };
 
   calculateProgress(playerCode) {

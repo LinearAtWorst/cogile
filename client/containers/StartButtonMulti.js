@@ -19,7 +19,6 @@ class StartButtonMulti extends Component {
     // Listen for a 'multigame start' event from socket
     if (this.props.countingDown !== 'START_COUNTDOWN') {
       this.props.socket.on('multigame start', function(value) {
-        console.log('received "multigame start" event from socket');
         this.startGameFromSocket();
       }.bind(this));
     }
@@ -40,7 +39,6 @@ class StartButtonMulti extends Component {
   };
 
   startGameFromSocket() {
-    console.log('Starting game from socket event');
     // startCountdown action
     this.props.startCountdown();
 

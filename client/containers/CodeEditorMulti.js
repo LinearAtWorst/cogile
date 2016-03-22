@@ -56,7 +56,7 @@ class CodeEditorMulti extends Component {
       if (code === this.props.minifiedPuzzle) {
         // calling endGame action
         this.props.endGame();
-        
+
         this.editor.setReadOnly(true);
       }
     }.bind(this));
@@ -77,8 +77,6 @@ class CodeEditorMulti extends Component {
       this.editor.setReadOnly(false);
       this.editor.focus();
     }
-
-    console.log(this.props.multiGame);
   }
 
   render() {

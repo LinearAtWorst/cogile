@@ -64,7 +64,6 @@ class TimerMulti extends Component {
     // Listen for a 'game over' event from socket
     if (this.props.multiGame !== 'END_GAME') {
       this.props.socket.on('game over', function(value) {
-        // console.log('received "game over" event from socket, winner is: ', value);
         this.setState({winner: value});
         this.props.endGame();
       }.bind(this));
