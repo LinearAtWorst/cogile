@@ -5,8 +5,9 @@ import TimerMulti from './TimerMulti';
 import levenshtein from './../lib/levenshtein';
 import ProgressBar from '../components/ProgressBar';
 import { connect } from 'react-redux';
-import { startGame, endGame } from '../actions/index';
+import { startGame, endGame, stopTimer } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import underscore from 'underscore';
 
 class Multiplayer extends Component {
   constructor() {
@@ -18,6 +19,8 @@ class Multiplayer extends Component {
       gameFinished: false,
       progress: 0
     };
+
+    this.playersProgress = {};
   };
 
   componentWillMount() {
@@ -35,13 +38,37 @@ class Multiplayer extends Component {
     this.socket = io();
 
     console.log('inside multiplayer compDidMount, socket is: ', this.socket);
+
+    this.socket.on('game over', function(value) {
+      var socket = value;
+
+      var time = this.props.gameTime;
+      underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, value));
+
+      this.props.stopTimer();
+    }.bind(this));
   };
 
   componentWillUnmount() {
     this.socket.disconnect();
   };
 
+  componentDidUpdate() {
+    // console.log(this.props.gameTime);
+    if (this.props.multiGame === 'END_GAME') {
+      // var time = this.props.gameTime;
+      // underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, this.socket));
+
+      var socketInfo = {
+        id: this.socket.id,
+        hasWon: true
+      };
+      underscore.once(this.socket.emit('game won', socketInfo));
+    }
+  };
+
   saveTimeElapsed(tenthSeconds, seconds, minutes, winner) {
+    console.log('called saveTimeElapsed with winner: ', winner);
     if (winner.id === this.socket.id) {
       // Sweet Alert with Info
       swal({
@@ -69,12 +96,21 @@ class Multiplayer extends Component {
 
     // emit event to socket that game is over
     if (percentCompleted === 100) {
-      var socketInfo = {
-        id: this.socket.id,
-        hasWon: true
-      };
-      this.socket.emit('game won', socketInfo);
+      // var socketInfo = {
+      //   id: this.socket.id,
+      //   hasWon: true
+      // };
+      // this.socket.emit('game won', socketInfo);
     }
+  };
+
+  updateAllProgress(code) {
+    var temp = {
+      id: this.socket.id,
+      code: code
+    }
+
+    this.socket.emit('player progress', temp);
   };
 
   render() {
@@ -86,12 +122,24 @@ class Multiplayer extends Component {
         <CodeEditorMulti
           puzzle={this.state.currentPuzzle}
           minifiedPuzzle={this.state.minifiedPuzzle}
-          calculateProgress={this.calculateProgress.bind(this)} />
+          calculateProgress={this.calculateProgress.bind(this)}
+          updateAllProgress={this.updateAllProgress.bind(this)} />
         <CodePrompt puzzle={this.state.currentPuzzle} />
         <ProgressBar percentComplete={this.state.progress} />
       </div>
     )
   };
-}
+};
 
-export default Multiplayer;
+function mapStateToProps(state) {
+  return {
+    multiGame: state.multiGame,
+    gameTime: state.gameTime
+  }
+};
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({startGame: startGame, endGame: endGame, stopTimer: stopTimer}, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Multiplayer);

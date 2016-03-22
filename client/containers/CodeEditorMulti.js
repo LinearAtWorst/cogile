@@ -9,7 +9,7 @@ class CodeEditorMulti extends Component {
     super(props);
 
     this.state = {};
-  }
+  };
 
   static propTypes = {
     mode: PropTypes.string,
@@ -50,10 +50,13 @@ class CodeEditorMulti extends Component {
     this.editor.setReadOnly(true);
 
     this.editor.getSession().on("change", function() {
-      var code = this.editor.getSession().getValue().replace(/\s/g,'');
-      this.props.calculateProgress(code);
+      var code = this.editor.getSession().getValue();
+      var miniCode = code.replace(/\s/g,'');
 
-      if (code === this.props.minifiedPuzzle) {
+      this.props.updateAllProgress(code);
+      this.props.calculateProgress(miniCode);
+
+      if (miniCode === this.props.minifiedPuzzle) {
         // calling endGame action
         this.props.endGame();
 
@@ -77,7 +80,7 @@ class CodeEditorMulti extends Component {
       this.editor.setReadOnly(false);
       this.editor.focus();
     }
-  }
+  };
 
   render() {
     const style = {fontSize: '14px !important', border: '1px solid lightgray'};
@@ -87,17 +90,17 @@ class CodeEditorMulti extends Component {
       style: style,
       className: 'col-md-6'
     });
-  }
-}
+  };
+};
 
 function mapStateToProps(state) {
   return {
     multiGame: state.multiGame
   }
-}
+};
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({startGame: startGame, endGame: endGame}, dispatch);
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CodeEditorMulti);
