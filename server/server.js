@@ -5,7 +5,8 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var http = require('http');
 // var socketController = require('./controllers/socketController.js');
-
+var db = require('./db/schema.js');
+var userController = require('./controllers/userController.js');
 var app = express();
 
 app.set('port', (process.env.PORT || 8080));
@@ -53,5 +54,16 @@ io.on('connection', function(socket) {
     console.log('numUsers is now: ', numUsers);
   });
 });
+
+
+
+// //TEST CREAT USER
+// var newUser = {
+//   body: {
+//     username: 'NEW TEST OUTSIDE FOLDER!',
+//     password: 'ENCRYPED!'
+//   }
+// }
+// userController.signup(newUser, {send: function(info){console.log(info);}});
 
 module.exports = app;
