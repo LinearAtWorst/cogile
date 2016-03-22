@@ -25,9 +25,15 @@ handlers.random = function(req, res){
 };
 
 handlers.specific = function(req, res){
-	// console.log("__dirname", __dirname);
 
-	fs.readFile(path.join(__dirname, '../library/prompts/' + /*req.data.language  ||*/  'js' + /*req.data.prompt ||*/ '/02-first.js'), 'utf-8', function(err, data){
+	// If query parameter is received, serve specific puzzle, otherwise serve up first puzzle
+	if (req.query.puzzleName) {
+		puzzleName = req.query.puzzleName;
+	} else {
+		puzzleName = '01-identity';
+	}
+
+	fs.readFile(path.join(__dirname, '../library/prompts/' + /*req.data.language  ||*/  'js/' + puzzleName + '.js'), 'utf-8', function(err, data){
 		console.log(err);
 		// console.log(data);
 		res.send(data);
