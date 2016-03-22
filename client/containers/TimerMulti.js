@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CountdownTimerMulti from './CountdownTimerMulti';
 import StartButtonMulti from './StartButtonMulti';
-import { leavePage } from '../actions/index';
+import { endGame, leavePage } from '../actions/index';
 
 class TimerMulti extends Component {
   constructor(props) {
@@ -13,7 +13,8 @@ class TimerMulti extends Component {
       seconds: 0,
       minutes: 0,
       message: 'Click the start button to begin!',
-      timerOn: false
+      timerOn: false,
+      winner: ''
     }
   };
 
@@ -45,24 +46,33 @@ class TimerMulti extends Component {
         message: minutes + ':' + seconds + '.' + tenthSeconds
       });
     }.bind(this), 100);
-  } 
+  };
 
   componentDidUpdate() {
     // On game end, stop timer and send time elapsed to Singleplayer
     if (this.props.multiGame === 'END_GAME') {
       clearInterval(this.intervalID);
 
-      this.props.saveTimeElapsed(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
+      this.props.saveTimeElapsed(this.state.tenthSeconds, this.state.seconds, this.state.minutes, this.state.winner);
     }
+
     // On game start, start if not already running
     if (this.props.multiGame === 'START_GAME' && !this.state.timerOn) {
       this.startTimer();
     }
-  }
+
+    // Listen for a 'game over' event from socket
+    if (this.props.multiGame !== 'END_GAME') {
+      this.props.socket.on('game over', function(value) {
+        this.setState({winner: value});
+        this.props.endGame();
+      }.bind(this));
+    }
+  };
 
   componentWillUnmount() {
     this.props.leavePage();
-  }
+  };
   
   render() {
     return (
@@ -70,11 +80,11 @@ class TimerMulti extends Component {
         <div className="row">
           <h2 className="text-center">{this.state.message}</h2>
         </div>
-        <StartButtonMulti />
+        <StartButtonMulti socket={this.props.socket} />
         <CountdownTimerMulti />
       </div>
     );
-  }
+  };
 };
 
 function mapStateToProps(state) {
@@ -84,7 +94,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ leavePage: leavePage }, dispatch);
+  return bindActionCreators({ leavePage: leavePage, endGame: endGame }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimerMulti);
