@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CodeEditor from './CodeEditor';
 import CodePrompt from '../components/CodePrompt';
+import CodeGhost from '../components/CodeGhost';
 import Timer from './Timer';
 import levenshtein from './../lib/levenshtein';
 import ProgressBar from '../components/ProgressBar';
@@ -8,7 +9,7 @@ import { connect } from 'react-redux';
 import { startGame, endGame } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
-class Home extends Component {
+class Singleplayer extends Component {
   constructor() {
     super();
 
@@ -61,10 +62,11 @@ class Home extends Component {
           minifiedPuzzle={this.state.minifiedPuzzle}
           calculateProgress={this.calculateProgress.bind(this)} />
         <CodePrompt puzzle={this.state.currentPuzzle} />
+        <CodeGhost />
         <ProgressBar percentComplete={this.state.progress} />
       </div>
     )
   };
 }
 
-export default Home;
+export default Singleplayer;

@@ -48,24 +48,35 @@ class CodeEditor extends Component {
     // should lock CodeEditor to read-only until timer begins
     this.editor.setReadOnly(true);
 
-    this.editor.getSession().on("change", function() {
-      var code = this.editor.getSession().getValue().replace(/\s/g,'');
+    this.record = {};
+
+    this.editor.getSession().on("change", function(e) {
+      var value = this.editor.getSession().getValue();
+      
+      this.record[(new Date()).getTime()] = value;
+
+
+      console.log(this.record);
+
+
+      var code = value.replace(/\s/g,'');
       this.props.calculateProgress(code);
 
       if (code === this.props.minifiedPuzzle) {
         // calling endGame action
+        localStorage.setItem('replay', JSON.stringify(this.record));
         this.props.endGame();
         this.editor.setReadOnly(true);
       }
     }.bind(this));
 
     // prevents copy pasting the whole thing
-    this.editor.on("paste", function(e) {
-      if (e.text === this.props.puzzle) {
-        var shuffled = e.text.split('').sort(function(){return 0.5-Math.random()}).join('');
-        e.text = "Nice try, here's your copied text :P\n" + shuffled;
-      }
-    }.bind(this));
+    // this.editor.on("paste", function(e) {
+    //   if (e.text === this.props.puzzle) {
+    //     var shuffled = e.text.split('').sort(function(){return 0.5-Math.random()}).join('');
+    //     e.text = "Nice try, here's your copied text :P\n" + shuffled;
+    //   }
+    // }.bind(this));
   };
 
   componentDidUpdate() {
