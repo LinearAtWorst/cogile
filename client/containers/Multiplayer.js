@@ -35,18 +35,7 @@ class Multiplayer extends Component {
   componentDidMount() {
     this.socket = io();
 
-    console.log(this.socket);
-
-    // if someone in the game wins, socket will broadcast a 'game over' event to all
-    this.socket.on('game over', function(value) {
-      console.log('game over, ', value.id, 'won');
-      this.puzzleCompleted();
-    }.bind(this));
-
-    this.socket.on('multigame start', function(value) {
-      console.log('multigame is starting!')
-      this.setState({multiGameStarted: true});
-    }.bind(this));
+    console.log('inside multiplayer compDidMount, socket is: ', this.socket);
   };
 
   componentWillUnmount() {
@@ -66,17 +55,27 @@ class Multiplayer extends Component {
     var distance = levenshtein(this.state.minifiedPuzzle, playerCode);
 
     var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
-    
+
     this.setState({
       progress: percentCompleted
     });
+
+    // emit event to socket that game is over
+    if (percentCompleted === 100) {
+      var socketInfo = {
+        id: this.socket.id,
+        hasWon: true
+      };
+      this.socket.emit('game won', socketInfo);
+    }
   };
 
   render() {
     return (
       <div>
         <TimerMulti
-          saveTimeElapsed={this.saveTimeElapsed.bind(this)} />
+          saveTimeElapsed={this.saveTimeElapsed.bind(this)}
+          socket={this.socket} />
         <CodeEditorMulti
           puzzle={this.state.currentPuzzle}
           minifiedPuzzle={this.state.minifiedPuzzle}

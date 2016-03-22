@@ -45,9 +45,11 @@ class TimerMulti extends Component {
         message: minutes + ':' + seconds + '.' + tenthSeconds
       });
     }.bind(this), 100);
-  } 
+  };
 
   componentDidUpdate() {
+    // console.log('inside timermulti compDidUpdate, socket is: ', this.props.socket);
+
     // On game end, stop timer and send time elapsed to Singleplayer
     if (this.props.multiGame === 'END_GAME') {
       clearInterval(this.intervalID);
@@ -58,11 +60,16 @@ class TimerMulti extends Component {
     if (this.props.multiGame === 'START_GAME' && !this.state.timerOn) {
       this.startTimer();
     }
+  };
+
+  componentDidMount() {
+    console.log('inside timermulti comp did mount, socket is: ', this.props.socket);
+
   }
 
   componentWillUnmount() {
     this.props.leavePage();
-  }
+  };
   
   render() {
     return (
@@ -70,11 +77,11 @@ class TimerMulti extends Component {
         <div className="row">
           <h2 className="text-center">{this.state.message}</h2>
         </div>
-        <StartButtonMulti />
+        <StartButtonMulti socket={this.props.socket} />
         <CountdownTimerMulti />
       </div>
     );
-  }
+  };
 };
 
 function mapStateToProps(state) {

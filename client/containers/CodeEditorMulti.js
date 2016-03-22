@@ -56,6 +56,7 @@ class CodeEditorMulti extends Component {
       if (code === this.props.minifiedPuzzle) {
         // calling endGame action
         this.props.endGame();
+        
         this.editor.setReadOnly(true);
       }
     }.bind(this));
