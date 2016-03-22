@@ -29,11 +29,10 @@ class ProgressBarMulti extends Component {
     return underscore.map(this.props.multiGameProgress.store, function(player, key) {
       return (
 
-        <div
-          key={key} >
-          {/* <div className="progress-fill" style={{width: player.playerPercent + '%'}}> */}
-          {/*</div> */ }
-          {player[0]}
+        <div className="progress-bar" key={key} >
+          <div className="progress-fill" style={{width: player[0] + '%'}}>
+          {key}
+          </div> 
         </div>
       );
     }.bind(this));

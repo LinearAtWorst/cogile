@@ -58,7 +58,6 @@ class Multiplayer extends Component {
 
       this.props.updateProgresses(this.playersProgress);
 
-      // console.log(this.playersProgress);
     }.bind(this));
   };
 
