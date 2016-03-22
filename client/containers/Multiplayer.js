@@ -42,12 +42,21 @@ class Multiplayer extends Component {
     this.socket.disconnect();
   };
 
-  saveTimeElapsed(tenthSeconds, seconds, minutes) {
-    // Sweet Alert with Info
-    swal({
-      title: 'Sweet!',
-      text: 'You completed the challenge with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
-    });
+  saveTimeElapsed(tenthSeconds, seconds, minutes, winner) {
+    if (winner.id === this.socket.id) {
+      // Sweet Alert with Info
+      swal({
+        title: 'Sweet!',
+        text: 'You completed the challenge with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
+      });
+    } else {
+      // if current player is not the winner, display winner's ID
+      swal({
+        title: 'Sorry!',
+        text: winner.id + ' won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
+      });
+    }
+
   };
 
   calculateProgress(playerCode) {

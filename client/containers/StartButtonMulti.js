@@ -15,24 +15,17 @@ class StartButtonMulti extends Component {
     }
   };
 
-  componentDidMount() {
-    console.log('inside startButtonMulti compDidMount, socket is: ', this.props.socket);
-    // this.props.socketFromMulti.on('multigame start', function(value) {
-    //   console.log('multigame is starting!')
-    //   // this.setState({multiGameStarted: true});
-    // }.bind(this));
-  };
-
   componentDidUpdate() {
-    this.props.socket.on('multigame start', function(value) {
-      console.log('received "multigame start" event from socket');
-      this.startGameFromSocket();
-    }.bind(this));
+    // Listen for a 'multigame start' event from socket
+    if (this.props.countingDown !== 'START_COUNTDOWN') {
+      this.props.socket.on('multigame start', function(value) {
+        console.log('received "multigame start" event from socket');
+        this.startGameFromSocket();
+      }.bind(this));
+    }
   };
 
   handleClick() {
-    console.log('L26: StartButton.js : handleClick');
-    
     // startCountdown action
     this.props.startCountdown();
 
