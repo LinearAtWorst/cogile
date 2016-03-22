@@ -4,15 +4,16 @@ import ReactDOM from 'react-dom';
 class CodeGhost extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      replayStarted : false
+    };
   }
 
   static propTypes = {
-    mode: PropTypes.string
   };
 
   static defaultProps = {
-    mode: 'javascript',
-    puzzle: 'Error'
   };
 
   componentDidMount() {
@@ -41,14 +42,18 @@ class CodeGhost extends Component {
         });
     }.bind(this));
 
+    // Get most recent recording from localStorage
+    this.record = JSON.parse(localStorage.getItem('replay'));
+  }
+
+  // Plays back replay stored in this.record on game start
+  startGhostReplay() {
     this.playbackClosure = function(value) {
       return function() {
         this.editor.setValue(value);
       }.bind(this);
     }.bind(this);
-
-    this.record = JSON.parse(localStorage.getItem('replay'));
-
+    
     var mark = null;
 
     for (var timeStamp in this.record) {
@@ -61,13 +66,15 @@ class CodeGhost extends Component {
 
       setTimeout(this.playbackClosure(this.record[timeStamp]), timeout);
     }
-
-    // console.log('Local Storage is : ', this.record);
   }
 
   componentDidUpdate() {
-    // this.editor.setValue(this.props.puzzle);
-    // this.editor.clearSelection();
+    if (this.props.singleGame === 'START_GAME' && !this.state.replayStarted) {
+      this.startGhostReplay();
+      this.setState({
+        replayStarted: true
+      });
+    }
   }
 
   render() {

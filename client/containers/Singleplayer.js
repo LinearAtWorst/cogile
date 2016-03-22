@@ -6,12 +6,12 @@ import Timer from './Timer';
 import levenshtein from './../lib/levenshtein';
 import ProgressBar from '../components/ProgressBar';
 import { connect } from 'react-redux';
-import { startGame, endGame } from '../actions/index';
+// import { startGame, endGame } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class Singleplayer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       currentPuzzle: 'N/A',
@@ -62,11 +62,21 @@ class Singleplayer extends Component {
           minifiedPuzzle={this.state.minifiedPuzzle}
           calculateProgress={this.calculateProgress.bind(this)} />
         <CodePrompt puzzle={this.state.currentPuzzle} />
-        <CodeGhost />
+        <CodeGhost singleGame={this.props.singleGame}/>
         <ProgressBar percentComplete={this.state.progress} />
       </div>
     )
   };
 }
 
-export default Singleplayer;
+function mapStateToProps(state) {
+  return {
+    singleGame: state.singleGame
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({}, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Singleplayer)
