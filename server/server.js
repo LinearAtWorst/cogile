@@ -7,7 +7,6 @@ var http = require('http');
 // var socketController = require('./controllers/socketController.js');
 var db = require('./db/schema.js');
 var userController = require('./controllers/userController.js');
-
 var app = express();
 
 app.set('port', (process.env.PORT || 8080));
@@ -61,8 +60,8 @@ io.on('connection', function(socket) {
 // //TEST CREAT USER
 // var newUser = {
 //   body: {
-//     username: 'NEW TEST!',
-//     password: 'EncryptedPassword!'
+//     username: 'NEW TEST OUTSIDE FOLDER!',
+//     password: 'ENCRYPED!'
 //   }
 // }
 // userController.signup(newUser, {send: function(info){console.log(info);}});

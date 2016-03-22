@@ -1,31 +1,21 @@
 var config = require('../../../config.js');
-if (process.env.db_host) {
-  var knex = require('knex')({
-    client: 'mysql',
-    connection: {
-      host     : process.env.db_host,
-      user     : process.env.db_user,
-      password : process.env.db_password,
-      database : process.env.db_name,
-      charset  : 'utf8'
-    }
-  });
-} else {
-  
-  var knex = require('knex')({
-    client: 'mysql',
-    connection: {
-      host     : config.db_host,
-      user     : config.db_user,
-      password : config.db_password,
-      database : config.db_name,
-      secret   : config.secret,
-      charset  : 'utf8'
-    }
-  });
-}
 
-console.log("KNEX: ", knex);
+console.log(config);
+
+var knex = require('knex')({
+  client: 'mysql',
+  connection: {
+    host     : config.db_host,
+    user     : config.db_user,
+    password : config.db_password,
+    database : config.db_name,
+    secret   : config.secret,
+    charset  : 'utf8'
+      }
+    });
+
+
+console.log("KNEX: :P", knex);
 
 var Bookshelf = require('bookshelf')(knex);
 var db = Bookshelf;
