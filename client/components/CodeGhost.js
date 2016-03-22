@@ -19,9 +19,12 @@ class CodeGhost extends Component {
   componentDidMount() {
     this.editor = ace.edit('codeGhost');
     this.editor.setShowPrintMargin(false);
-    this.editor.setOptions({minLines: 25});
-    this.editor.setOptions({maxLines: 50});
-    this.editor.setOption("dragEnabled", false)
+    this.editor.setOptions({
+      fontSize: '12pt',
+      minLines: 15,
+      maxLines: 15,
+      dragEnabled: false
+    });
     this.editor.setTheme("ace/theme/twilight");
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.setReadOnly(true);

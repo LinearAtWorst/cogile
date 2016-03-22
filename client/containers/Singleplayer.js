@@ -57,11 +57,11 @@ class Singleplayer extends Component {
       <div>
         <Timer
           saveTimeElapsed={this.saveTimeElapsed.bind(this)} />
+        <CodePrompt puzzle={this.state.currentPuzzle} />
         <CodeEditor
           puzzle={this.state.currentPuzzle}
           minifiedPuzzle={this.state.minifiedPuzzle}
           calculateProgress={this.calculateProgress.bind(this)} />
-        <CodePrompt puzzle={this.state.currentPuzzle} />
         <CodeGhost singleGame={this.props.singleGame}/>
         <ProgressBar percentComplete={this.state.progress} />
       </div>
