@@ -79,4 +79,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartButtonMulti)
-// export default StartButton;

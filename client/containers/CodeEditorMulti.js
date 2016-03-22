@@ -32,8 +32,9 @@ class CodeEditorMulti extends Component {
     this.editor.$blockScrolling = Infinity;
 
     this.editor.setOptions({
-      minLines: 25,
-      maxLines: 50,
+      fontSize: '12pt',
+      minLines: 15,
+      maxLines: 15,
       enableBasicAutocompletion: true,
       enableSnippets: false,
       enableLiveAutocompletion: false
@@ -53,7 +54,10 @@ class CodeEditorMulti extends Component {
       var code = this.editor.getSession().getValue();
       var miniCode = code.replace(/\s/g,'');
 
+      // sending player code to socket
       this.props.updateAllProgress(code);
+
+      // sending minified code to progressBar display
       this.props.calculateProgress(miniCode);
 
       if (miniCode === this.props.minifiedPuzzle) {

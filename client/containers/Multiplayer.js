@@ -39,9 +39,8 @@ class Multiplayer extends Component {
 
     console.log('inside multiplayer compDidMount, socket is: ', this.socket);
 
+    // listening for a 'game over' socket event to capture and stop time
     this.socket.on('game over', function(value) {
-      var socket = value;
-
       var time = this.props.gameTime;
       underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, value));
 
@@ -54,11 +53,8 @@ class Multiplayer extends Component {
   };
 
   componentDidUpdate() {
-    // console.log(this.props.gameTime);
+    // if player finishes the puzzle, END_GAME action is sent, and 'game won' socket emitted
     if (this.props.multiGame === 'END_GAME') {
-      // var time = this.props.gameTime;
-      // underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, this.socket));
-
       var socketInfo = {
         id: this.socket.id,
         hasWon: true
@@ -93,15 +89,6 @@ class Multiplayer extends Component {
     this.setState({
       progress: percentCompleted
     });
-
-    // emit event to socket that game is over
-    if (percentCompleted === 100) {
-      // var socketInfo = {
-      //   id: this.socket.id,
-      //   hasWon: true
-      // };
-      // this.socket.emit('game won', socketInfo);
-    }
   };
 
   updateAllProgress(code) {

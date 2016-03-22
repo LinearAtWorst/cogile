@@ -39,17 +39,14 @@ class TimerMulti extends Component {
         seconds = 0;
       }
 
-      ///// REDUX timer stuff
-
       var time = {
         tenthSeconds: tenthSeconds,
         seconds: seconds,
         minutes: minutes
       };
 
+      // calling updateElapsedTime action to the MultiTimerReducer
       this.props.updateElapsedTime(time);
-
-      /////
 
       this.setState({
         tenthSeconds : tenthSeconds,
@@ -61,27 +58,15 @@ class TimerMulti extends Component {
   };
 
   componentDidUpdate() {
-    // On game end, stop timer and send time elapsed to Singleplayer
+    // On game end, stop timer 
     if (this.props.multiTimer === 'STOP_TIMER') {
       clearInterval(this.intervalID);
-      // window.setTimeout(function() {
-      //   this.props.saveTimeElapsed(this.state.tenthSeconds, this.state.seconds, this.state.minutes, this.state.winner)
-      // }.bind(this), 0.2);
-      
     }
 
     // On game start, start if not already running
     if (this.props.multiGame === 'START_GAME' && !this.state.timerOn) {
       this.startTimer();
     }
-
-    // Listen for a 'game over' event from socket
-    // if (this.props.multiGame !== 'END_GAME') {
-    //   this.props.socket.on('game over', function(value) {
-    //     this.setState({winner: value});
-    //     this.props.endGame();
-    //   }.bind(this));
-    // }
   };
 
   componentWillUnmount() {
