@@ -24,3 +24,17 @@ export function leavePage() {
     type: 'LEAVE_PAGE'
   }
 }
+
+export function stopTimer() {
+  return {
+    type: 'STOP_TIMER',
+    payload: 'STOP_TIMER'
+  }
+}
+
+export function updateElapsedTime(time) {
+  return {
+    type: 'UPDATE_ELAPSED_TIME',
+    payload: time
+  }
+}

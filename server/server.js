@@ -30,6 +30,7 @@ app.use(webpackMiddleware(bundler));
 
 // Socket code
 var numUsers = 0;
+var playersProgress = {};
 
 io.on('connection', function(socket) {
   console.log('a user connected');
@@ -46,6 +47,11 @@ io.on('connection', function(socket) {
   socket.on('game won', function(value) {
     console.log(value);
     io.emit('game over', value);
+  });
+
+  socket.on('player progress', function(value) {
+    playersProgress[value.id] = value.code;
+    console.log(playersProgress);
   });
 
   socket.on('disconnect', function() {
