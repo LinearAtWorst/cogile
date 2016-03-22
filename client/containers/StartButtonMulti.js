@@ -15,9 +15,31 @@ class StartButtonMulti extends Component {
     }
   };
 
+  componentDidUpdate() {
+    // Listen for a 'multigame start' event from socket
+    if (this.props.countingDown !== 'START_COUNTDOWN') {
+      this.props.socket.on('multigame start', function(value) {
+        this.startGameFromSocket();
+      }.bind(this));
+    }
+  };
+
   handleClick() {
-    console.log('L26: StartButton.js : handleClick');
-    
+    // startCountdown action
+    this.props.startCountdown();
+
+    // emit event to socket that multigame is starting
+    this.props.socket.emit('game start', true);
+
+    this.setState({
+      text: 'Go!',
+      buttonType: 'btn btn-success btn-lg center-block',
+      buttonDisabled: true
+    });
+  };
+
+  startGameFromSocket() {
+    // startCountdown action
     this.props.startCountdown();
 
     this.setState({
@@ -25,7 +47,7 @@ class StartButtonMulti extends Component {
       buttonType: 'btn btn-success btn-lg center-block',
       buttonDisabled: true
     });
-  }
+  };
 
   render() {
     if (this.props.countingDown === 'START_COUNTDOWN') {
