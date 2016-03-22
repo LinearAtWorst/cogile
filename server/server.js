@@ -52,6 +52,7 @@ io.on('connection', function(socket) {
   socket.on('player progress', function(value) {
     playersProgress[value.id] = value.code;
     console.log(playersProgress);
+    io.emit('all players progress', playersProgress);
   });
 
   socket.on('disconnect', function() {

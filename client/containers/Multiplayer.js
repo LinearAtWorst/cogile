@@ -41,10 +41,22 @@ class Multiplayer extends Component {
 
     // listening for a 'game over' socket event to capture and stop time
     this.socket.on('game over', function(value) {
+      console.log('inside multiplayer compDidMount, value is: ', value);
       var time = this.props.gameTime;
       underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, value));
 
       this.props.stopTimer();
+    }.bind(this));
+
+    // listening for a 'all players progress' socket event and
+    // collects all players' code from socket
+    this.socket.on('all players progress', function(value) {
+      underscore.map(value, function(value, key){
+        var playerPercent = this.calculatePercent(value)
+        this.playersProgress[key] = [playerPercent, value];
+      }.bind(this));
+
+      console.log(this.playersProgress);
     }.bind(this));
   };
 
@@ -91,6 +103,16 @@ class Multiplayer extends Component {
     });
   };
 
+  calculatePercent(playerCode) {
+    var miniCode = playerCode.replace(/\s/g,'');
+    var totalChars = this.state.minifiedPuzzle.length;
+    var distance = levenshtein(this.state.minifiedPuzzle, miniCode);
+
+    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
+    return percentCompleted;
+  };
+
+  // sends current player's code to the socket to broadcast
   updateAllProgress(code) {
     var temp = {
       id: this.socket.id,
@@ -106,12 +128,12 @@ class Multiplayer extends Component {
         <TimerMulti
           saveTimeElapsed={this.saveTimeElapsed.bind(this)}
           socket={this.socket} />
+        <CodePrompt puzzle={this.state.currentPuzzle} />
         <CodeEditorMulti
           puzzle={this.state.currentPuzzle}
           minifiedPuzzle={this.state.minifiedPuzzle}
           calculateProgress={this.calculateProgress.bind(this)}
           updateAllProgress={this.updateAllProgress.bind(this)} />
-        <CodePrompt puzzle={this.state.currentPuzzle} />
         <ProgressBar percentComplete={this.state.progress} />
       </div>
     )

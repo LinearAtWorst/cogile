@@ -92,7 +92,7 @@ class CodeEditorMulti extends Component {
     return React.DOM.div({
       id: 'codeEditor',
       style: style,
-      className: 'col-md-6'
+      className: 'col-md-12'
     });
   };
 };
