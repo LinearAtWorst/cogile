@@ -3,9 +3,9 @@ import CodeEditorMulti from './CodeEditorMulti';
 import CodePrompt from '../components/CodePrompt';
 import TimerMulti from './TimerMulti';
 import levenshtein from './../lib/levenshtein';
-import ProgressBar from '../components/ProgressBar';
+import ProgressBarMulti from './ProgressBarMulti';
 import { connect } from 'react-redux';
-import { startGame, endGame, stopTimer } from '../actions/index';
+import { startGame, endGame, stopTimer, updateProgresses } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import underscore from 'underscore';
 
@@ -56,7 +56,9 @@ class Multiplayer extends Component {
         this.playersProgress[key] = [playerPercent, value];
       }.bind(this));
 
-      console.log(this.playersProgress);
+      this.props.updateProgresses(this.playersProgress);
+
+      // console.log(this.playersProgress);
     }.bind(this));
   };
 
@@ -73,6 +75,8 @@ class Multiplayer extends Component {
       };
       underscore.once(this.socket.emit('game won', socketInfo));
     }
+
+    // console.log('inside multiplayer compDidUpdate, multiGameProgress is: ', this.props.multiGameProgress);
   };
 
   saveTimeElapsed(tenthSeconds, seconds, minutes, winner) {
@@ -134,7 +138,7 @@ class Multiplayer extends Component {
           minifiedPuzzle={this.state.minifiedPuzzle}
           calculateProgress={this.calculateProgress.bind(this)}
           updateAllProgress={this.updateAllProgress.bind(this)} />
-        <ProgressBar percentComplete={this.state.progress} />
+        <ProgressBarMulti />
       </div>
     )
   };
@@ -143,12 +147,18 @@ class Multiplayer extends Component {
 function mapStateToProps(state) {
   return {
     multiGame: state.multiGame,
-    gameTime: state.gameTime
+    gameTime: state.gameTime,
+    multiGameProgress: state.multiGameProgress
   }
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({startGame: startGame, endGame: endGame, stopTimer: stopTimer}, dispatch);
+  return bindActionCreators({
+    startGame: startGame,
+    endGame: endGame,
+    stopTimer: stopTimer,
+    updateProgresses: updateProgresses
+  }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Multiplayer);

@@ -38,3 +38,10 @@ export function updateElapsedTime(time) {
     payload: time
   }
 }
+
+export function updateProgresses(allCode) {
+  return {
+    type: 'UPDATE_PROGRESSES',
+    payload: allCode
+  }
+}

@@ -33,7 +33,7 @@ var numUsers = 0;
 var playersProgress = {};
 
 io.on('connection', function(socket) {
-  console.log('a user connected');
+  console.log('user ', socket.id, ' has connected');
 
   ++numUsers;
 
@@ -58,7 +58,11 @@ io.on('connection', function(socket) {
   socket.on('disconnect', function() {
     --numUsers;
 
-    console.log('numUsers is now: ', numUsers);
+    var user = socket.id.slice(2);
+
+    delete playersProgress[user];
+
+    console.log('user: ', socket.id, ' has disconnected. numUsers is now: ', numUsers);
   });
 });
 
