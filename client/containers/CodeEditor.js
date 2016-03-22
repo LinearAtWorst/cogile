@@ -14,8 +14,7 @@ class CodeEditor extends Component {
   static propTypes = {
     mode: PropTypes.string,
     puzzle: PropTypes.string,
-    minifiedPuzzle: PropTypes.string,
-    timerOn: PropTypes.bool
+    minifiedPuzzle: PropTypes.string
   };
 
   static defaultProps = {
@@ -31,8 +30,9 @@ class CodeEditor extends Component {
     this.editor.getSession().setTabSize(2);
 
     this.editor.setOptions({
-      minLines: 25,
-      maxLines: 50,
+      fontSize: '12pt',
+      minLines: 15,
+      maxLines: 15,
       enableBasicAutocompletion: true,
       enableSnippets: false,
       enableLiveAutocompletion: false
@@ -48,24 +48,35 @@ class CodeEditor extends Component {
     // should lock CodeEditor to read-only until timer begins
     this.editor.setReadOnly(true);
 
-    this.editor.getSession().on("change", function() {
-      var code = this.editor.getSession().getValue().replace(/\s/g,'');
+    // record that holds the "ghost" replay
+    this.record = {};
+
+    this.editor.getSession().on("change", function(e) {
+      var value = this.editor.getSession().getValue();
+      
+      // populate record object with keys of the time, and values of text value
+      this.record[(new Date()).getTime()] = value;
+
+      // strip whitepsace for win condition comparison
+      var code = value.replace(/\s/g,'');
       this.props.calculateProgress(code);
 
+      // if code matches the minified solution
       if (code === this.props.minifiedPuzzle) {
-        // calling endGame action
+        // save the replay
+        localStorage.setItem('replay', JSON.stringify(this.record));
         this.props.endGame();
         this.editor.setReadOnly(true);
       }
     }.bind(this));
 
     // prevents copy pasting the whole thing
-    this.editor.on("paste", function(e) {
-      if (e.text === this.props.puzzle) {
-        var shuffled = e.text.split('').sort(function(){return 0.5-Math.random()}).join('');
-        e.text = "Nice try, here's your copied text :P\n" + shuffled;
-      }
-    }.bind(this));
+    // this.editor.on("paste", function(e) {
+    //   if (e.text === this.props.puzzle) {
+    //     var shuffled = e.text.split('').sort(function(){return 0.5-Math.random()}).join('');
+    //     e.text = "Nice try, here's your copied text :P\n" + shuffled;
+    //   }
+    // }.bind(this));
   };
 
   componentDidUpdate() {
