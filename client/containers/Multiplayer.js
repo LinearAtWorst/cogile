@@ -3,10 +3,11 @@ import CodeEditorMulti from './CodeEditorMulti';
 import CodePrompt from '../components/CodePrompt';
 import TimerMulti from './TimerMulti';
 import levenshtein from './../lib/levenshtein';
-import ProgressBar from '../components/ProgressBar';
+import ProgressBarMulti from './ProgressBarMulti';
 import { connect } from 'react-redux';
-import { startGame, endGame } from '../actions/index';
+import { startGame, endGame, stopTimer, updateProgresses } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import underscore from 'underscore';
 
 class Multiplayer extends Component {
   constructor() {
@@ -18,6 +19,8 @@ class Multiplayer extends Component {
       gameFinished: false,
       progress: 0
     };
+
+    this.playersProgress = {};
   };
 
   componentWillMount() {
@@ -35,13 +38,48 @@ class Multiplayer extends Component {
     this.socket = io();
 
     console.log('inside multiplayer compDidMount, socket is: ', this.socket);
+
+    // listening for a 'game over' socket event to capture and stop time
+    this.socket.on('game over', function(value) {
+      console.log('inside multiplayer compDidMount, value is: ', value);
+      var time = this.props.gameTime;
+      underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, value));
+
+      this.props.stopTimer();
+    }.bind(this));
+
+    // listening for a 'all players progress' socket event and
+    // collects all players' code from socket
+    this.socket.on('all players progress', function(value) {
+      underscore.map(value, function(value, key){
+        var playerPercent = this.calculatePercent(value)
+        this.playersProgress[key] = [playerPercent, value];
+      }.bind(this));
+
+      this.props.updateProgresses(this.playersProgress);
+
+    }.bind(this));
   };
 
   componentWillUnmount() {
     this.socket.disconnect();
   };
 
+  componentDidUpdate() {
+    // if player finishes the puzzle, END_GAME action is sent, and 'game won' socket emitted
+    if (this.props.multiGame === 'END_GAME') {
+      var socketInfo = {
+        id: this.socket.id,
+        hasWon: true
+      };
+      underscore.once(this.socket.emit('game won', socketInfo));
+    }
+
+    // console.log('inside multiplayer compDidUpdate, multiGameProgress is: ', this.props.multiGameProgress);
+  };
+
   saveTimeElapsed(tenthSeconds, seconds, minutes, winner) {
+    console.log('called saveTimeElapsed with winner: ', winner);
     if (winner.id === this.socket.id) {
       // Sweet Alert with Info
       swal({
@@ -66,15 +104,25 @@ class Multiplayer extends Component {
     this.setState({
       progress: percentCompleted
     });
+  };
 
-    // emit event to socket that game is over
-    if (percentCompleted === 100) {
-      var socketInfo = {
-        id: this.socket.id,
-        hasWon: true
-      };
-      this.socket.emit('game won', socketInfo);
+  calculatePercent(playerCode) {
+    var miniCode = playerCode.replace(/\s/g,'');
+    var totalChars = this.state.minifiedPuzzle.length;
+    var distance = levenshtein(this.state.minifiedPuzzle, miniCode);
+
+    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
+    return percentCompleted;
+  };
+
+  // sends current player's code to the socket to broadcast
+  updateAllProgress(code) {
+    var temp = {
+      id: this.socket.id,
+      code: code
     }
+
+    this.socket.emit('player progress', temp);
   };
 
   render() {
@@ -83,15 +131,33 @@ class Multiplayer extends Component {
         <TimerMulti
           saveTimeElapsed={this.saveTimeElapsed.bind(this)}
           socket={this.socket} />
+        <CodePrompt puzzle={this.state.currentPuzzle} />
         <CodeEditorMulti
           puzzle={this.state.currentPuzzle}
           minifiedPuzzle={this.state.minifiedPuzzle}
-          calculateProgress={this.calculateProgress.bind(this)} />
-        <CodePrompt puzzle={this.state.currentPuzzle} />
-        <ProgressBar percentComplete={this.state.progress} />
+          calculateProgress={this.calculateProgress.bind(this)}
+          updateAllProgress={this.updateAllProgress.bind(this)} />
+        <ProgressBarMulti />
       </div>
     )
   };
-}
+};
 
-export default Multiplayer;
+function mapStateToProps(state) {
+  return {
+    multiGame: state.multiGame,
+    gameTime: state.gameTime,
+    multiGameProgress: state.multiGameProgress
+  }
+};
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    startGame: startGame,
+    endGame: endGame,
+    stopTimer: stopTimer,
+    updateProgresses: updateProgresses
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Multiplayer);

@@ -9,7 +9,7 @@ class CodeEditorMulti extends Component {
     super(props);
 
     this.state = {};
-  }
+  };
 
   static propTypes = {
     mode: PropTypes.string,
@@ -32,8 +32,9 @@ class CodeEditorMulti extends Component {
     this.editor.$blockScrolling = Infinity;
 
     this.editor.setOptions({
-      minLines: 25,
-      maxLines: 50,
+      fontSize: '12pt',
+      minLines: 15,
+      maxLines: 15,
       enableBasicAutocompletion: true,
       enableSnippets: false,
       enableLiveAutocompletion: false
@@ -50,10 +51,16 @@ class CodeEditorMulti extends Component {
     this.editor.setReadOnly(true);
 
     this.editor.getSession().on("change", function() {
-      var code = this.editor.getSession().getValue().replace(/\s/g,'');
-      this.props.calculateProgress(code);
+      var code = this.editor.getSession().getValue();
+      var miniCode = code.replace(/\s/g,'');
 
-      if (code === this.props.minifiedPuzzle) {
+      // sending player code to socket
+      this.props.updateAllProgress(code);
+
+      // sending minified code to progressBar display
+      this.props.calculateProgress(miniCode);
+
+      if (miniCode === this.props.minifiedPuzzle) {
         // calling endGame action
         this.props.endGame();
 
@@ -77,7 +84,7 @@ class CodeEditorMulti extends Component {
       this.editor.setReadOnly(false);
       this.editor.focus();
     }
-  }
+  };
 
   render() {
     const style = {fontSize: '14px !important', border: '1px solid lightgray'};
@@ -85,19 +92,19 @@ class CodeEditorMulti extends Component {
     return React.DOM.div({
       id: 'codeEditor',
       style: style,
-      className: 'col-md-6'
+      className: 'col-md-12'
     });
-  }
-}
+  };
+};
 
 function mapStateToProps(state) {
   return {
     multiGame: state.multiGame
   }
-}
+};
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({startGame: startGame, endGame: endGame}, dispatch);
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CodeEditorMulti);

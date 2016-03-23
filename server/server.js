@@ -5,7 +5,8 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var http = require('http');
 // var socketController = require('./controllers/socketController.js');
-
+var db = require('./db/schema.js');
+var userController = require('./controllers/userController.js');
 var app = express();
 
 app.set('port', (process.env.PORT || 8080));
@@ -28,13 +29,13 @@ app.use(webpackMiddleware(bundler));
 
 // Socket code
 var numUsers = 0;
+var playersProgress = {};
 
 io.on('connection', function(socket) {
-  console.log('a user connected');
 
   ++numUsers;
 
-  console.log('numUsers is now: ', numUsers);
+  console.log('user ', socket.id, ' has connected. numUsers is now: ', numUsers);
 
   socket.on('game start', function(value) {
     console.log(value);
@@ -46,11 +47,32 @@ io.on('connection', function(socket) {
     io.emit('game over', value);
   });
 
+  socket.on('player progress', function(value) {
+    playersProgress[value.id] = value.code;
+    console.log(playersProgress);
+    io.emit('all players progress', playersProgress);
+  });
+
   socket.on('disconnect', function() {
     --numUsers;
 
-    console.log('numUsers is now: ', numUsers);
+    var user = socket.id.slice(2);
+
+    delete playersProgress[user];
+
+    console.log('user: ', user, ' has disconnected. numUsers is now: ', numUsers);
   });
 });
+
+
+
+// //TEST CREAT USER
+// var newUser = {
+//   body: {
+//     username: 'NEW TEST OUTSIDE FOLDER!',
+//     password: 'ENCRYPED!'
+//   }
+// }
+// userController.signup(newUser, {send: function(info){console.log(info);}});
 
 module.exports = app;
