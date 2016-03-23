@@ -18,13 +18,15 @@ class StartButton extends Component {
   handleClick() {
     console.log('L26: StartButton.js : handleClick');
     
-    this.props.startCountdown();
+    if (!this.state.buttonDisabled) {
+      this.props.startCountdown();
 
-    this.setState({
-      text: 'Go!',
-      buttonType: 'btn btn-raised btn-success',
-      buttonDisabled: false
-    });
+      this.setState({
+        text: 'Go!',
+        buttonType: 'btn btn-raised btn-success',
+        buttonDisabled: true
+      });
+    }
   }
 
   render() {
@@ -35,7 +37,6 @@ class StartButton extends Component {
     return (
       <div className="row" id="start-btn-container">
         <button
-          disabled={this.state.buttonDisabled}
           type="button"
           onClick={this.handleClick.bind(this)}
           className={this.state.buttonType}>
