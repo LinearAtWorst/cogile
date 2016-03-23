@@ -2,15 +2,31 @@
   font-family: Helvetica;
 }*/
 
+
 .sitename {
   display: flex;
   align-items: center;
   height: 50px;
   font-size: 1.5em;
+  color: #eee;
+}
+
+.sitename:hover {
+  color: #eee;
+  text-decoration: none;
 }
 
 .nav-label {
   font-size: 1.3em;
+}
+
+.nav-label:hover {
+  cursor: pointer !important;
+  background-color: #00aa9a !important;
+}
+
+.nav-label.active {
+  background-color: #00aa9a !important;
 }
 
 .icon-container {
@@ -80,4 +96,5 @@
 
 #start-btn-container {
   height: 58px;
+  text-align: center;
 }

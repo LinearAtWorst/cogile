@@ -9,7 +9,7 @@ class StartButtonMulti extends Component {
 
     this.state = {
       text: 'Start!',
-      buttonType: 'btn btn-primary btn-lg center-block',
+      buttonType: 'btn btn-raised btn-primary',
       buttonDisabled: false,
       handleMultiCalled: false
     }
@@ -27,16 +27,18 @@ class StartButtonMulti extends Component {
 
   handleClick() {
     // startCountdown action
-    this.props.startCountdown();
+    if (!this.state.buttonDisabled) {
+      this.props.startCountdown();
 
-    // emit event to socket that multigame is starting
-    this.props.socket.emit('game start', true);
+      // emit event to socket that multigame is starting
+      this.props.socket.emit('game start', true);
 
-    this.setState({
-      text: 'Go!',
-      buttonType: 'btn btn-success btn-lg center-block',
-      buttonDisabled: true
-    });
+      this.setState({
+        text: 'Go!',
+        buttonType: 'btn btn-raised btn-success',
+        buttonDisabled: true
+      });
+    }
   };
 
   startGameFromSocket() {
@@ -45,7 +47,7 @@ class StartButtonMulti extends Component {
 
     this.setState({
       text: 'Go!',
-      buttonType: 'btn btn-success btn-lg center-block',
+      buttonType: 'btn btn-raised btn-success',
       buttonDisabled: true
     });
   };
@@ -58,7 +60,6 @@ class StartButtonMulti extends Component {
     return (
       <div className="row" id="start-btn-container">
         <button
-          disabled={this.state.buttonDisabled}
           type="button"
           onClick={this.handleClick.bind(this)}
           className={this.state.buttonType}>

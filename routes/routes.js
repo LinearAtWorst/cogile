@@ -12,6 +12,7 @@ var routes = (
   <Router history={appHistory}>
     <Route path='/' component={App}>
       <IndexRoute component={Singleplayer} />
+      <Route path='/singleplayer/:puzzleName' component={Singleplayer}/>
       <Route path='/about' component={About}/>
       <Route path='/multiplayer' component={Multiplayer}/>
     </Route>
