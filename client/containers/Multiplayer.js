@@ -133,7 +133,7 @@ class Multiplayer extends Component {
           minifiedPuzzle={this.state.minifiedPuzzle}
           calculateProgress={this.calculateProgress.bind(this)}
           updateAllProgress={this.updateAllProgress.bind(this)} />
-        <ProgressBarMulti />
+        <ProgressBarMulti socket={this.socket} />
       </div>
     )
   };
