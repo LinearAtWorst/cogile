@@ -26,7 +26,6 @@ class ProgressBarMulti extends Component {
   };
 
   isCurrentPlayer(player) {
-    console.log(typeof player);
     if(player === this.props.socket.id) {
       return '' + player + '(You)';
     } else {

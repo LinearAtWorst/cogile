@@ -2,7 +2,23 @@ var numUsers = 0;
 var players = {};
 var colors = ['F44336', '4CAF50', '2196F3', 'FFEB3B']; // red, green, blue, yellow
 
-exports = module.exports = function(io) {
+var socketController = {};
+
+var currentRoom = 0;
+
+socketController.joinRandomRoom = function(req, res) {
+
+  if (numUsers <= 4) {
+    numUsers++;
+    res.send(''  + currentRoom);
+  } else {
+    currentRoom++;
+    numUsers = 0;
+    res.send('' + currentRoom);
+  }
+};
+
+socketController.socketInit = function(io) {
 
   io.on('connection', function(socket) {
 
@@ -42,5 +58,7 @@ exports = module.exports = function(io) {
       console.log('user: ', user, ' has disconnected. numUsers is now: ', numUsers);
     });
   });
-
 }
+
+
+module.exports = socketController;

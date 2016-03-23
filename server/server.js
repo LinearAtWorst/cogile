@@ -28,7 +28,7 @@ app.use(webpackMiddleware(bundler));
 
 // socket code
 var io = require('socket.io').listen(server);
-var socketEvents = require('./controllers/socketController.js')(io);
+var socketEvents = require('./controllers/socketController.js').socketInit(io);
 
 
 // //TEST CREAT USER

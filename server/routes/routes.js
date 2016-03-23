@@ -3,6 +3,7 @@ var path = require('path');
 var promptController = require('../controllers/promptController.js');
 //haven't fixed the userController file, commented out so it will run fine
 // var userController = require('../controllers/userController');
+var socketController = require('../controllers/socketController.js');
 
 
 module.exports = function(app, express) {
@@ -21,4 +22,7 @@ module.exports = function(app, express) {
   //PROMPTS
   app.get('/api/getRandomPrompt', jsonParser, promptController.random);
   app.get('/api/getPrompt', jsonParser, promptController.specific);
+
+  //SOCKET
+  app.get('/api/joinRandomRoom', jsonParser, socketController.joinRandomRoom);
 };
