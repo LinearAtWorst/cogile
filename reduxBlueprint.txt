@@ -17,7 +17,7 @@ Reducers:
 
 App
   About
-  Home (Container: 
+  Singleplayer 
     Timer
       StartButton
       CountdownTimer
