@@ -1,34 +1,46 @@
 var numUsers = 0;
+var players = {};
+var colors = ['F44336', '4CAF50', '2196F3', 'FFEB3B']; // red, green, blue, yellow
 
-module.exports = function(io, socket) {
+exports = module.exports = function(io) {
 
+  io.on('connection', function(socket) {
 
-  console.log('a user connected');
+    ++numUsers;
+    
+    var socket_id = socket.id.slice(2);
+    var color = colors.shift();
 
-  ++numUsers;
+    players[socket_id] = [color, 0, ''];
 
-  console.log('numUsers is now: ', numUsers);
+    socket.emit('player joined', players);
 
-  socket.on('game won', function(value) {
-    console.log(value);
-    io.emit('game over', value);
-  })
+    console.log('user ', socket.id, ' has connected. numUsers is now: ', numUsers);
 
-  socket.on('game start', function(value) {
-    console.log(value);
-    io.emit('multigame start', value);
-  })
+    socket.on('game start', function(value) {
+      io.emit('multigame start', players);
+    })
 
-  socket.on('game won', function(value) {
-    console.log(value);
-    io.emit('game over', value);
+    socket.on('game won', function(value) {
+      io.emit('game over', value);
+    });
+
+    socket.on('player progress', function(value) {
+      players[value.id]['2'] = value.code;
+      io.emit('all players progress', players);
+    });
+
+    socket.on('disconnect', function() {
+      --numUsers;
+
+      var user = socket.id.slice(2);
+
+      delete players[user];
+
+      colors.push(color);
+
+      console.log('user: ', user, ' has disconnected. numUsers is now: ', numUsers);
+    });
   });
-
-  socket.on('disconnect', function() {
-    --numUsers;
-
-    console.log('numUsers is now: ', numUsers);
-  });
-
 
 }
