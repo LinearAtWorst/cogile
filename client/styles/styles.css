@@ -83,6 +83,29 @@
   text-align:center;
 }
 
+#landingVideo {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  height: 200px;
+  border: 1px solid #222;
+}
+
+.landing-btn{
+  margin: 10px;
+}
+
+.tagline {
+  margin-top: 10%;
+}
+
+.border-gray {
+  border: 1px solid #222;
+}
+
+.landing-info-container {
+  margin-top: 50px;
+}
+
 .progress-bar {
   height: 1.5em;
   width: 100%;
