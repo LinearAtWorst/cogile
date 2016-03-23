@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 // import { startGame, endGame } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
+import LevelSelect from './LevelSelect';
 
 class Singleplayer extends Component {
   constructor(props) {
@@ -23,6 +24,9 @@ class Singleplayer extends Component {
   };
 
   componentWillMount() {
+    $.material.init();
+    $('.select').dropdown({ 'autoinit' : '.select' });
+
     console.log(this.props.params.puzzleName);
     if (this.props.params.puzzleName) {
       axios.get('api/getPrompt/?puzzleName=' + this.props.params.puzzleName)
@@ -49,7 +53,6 @@ class Singleplayer extends Component {
           });
         }.bind(this));
     }
-
   };
 
   saveTimeElapsed(tenthSeconds, seconds, minutes) {
@@ -76,6 +79,7 @@ class Singleplayer extends Component {
       <div>
         <Timer
           saveTimeElapsed={this.saveTimeElapsed.bind(this)} />
+        <LevelSelect />
         <CodePrompt puzzle={this.state.currentPuzzle} />
         <CodeEditor
           puzzle={this.state.currentPuzzle}
