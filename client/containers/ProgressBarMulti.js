@@ -23,7 +23,15 @@ class ProgressBarMulti extends Component {
 
   componentWillUnmount() {
     this.props.leavePage();
-  }
+  };
+
+  isCurrentPlayer(player) {
+    if(player === this.props.socket.id) {
+      return '' + player + '(You)';
+    } else {
+      return player;
+    }
+  };
 
   renderBars() {
     return underscore.map(this.props.multiGameProgress.store, function(player, key) {
@@ -36,7 +44,7 @@ class ProgressBarMulti extends Component {
               backgroundColor: '#' + player[0],
               color: 'black'
             }}>
-          {key}
+          {this.isCurrentPlayer(key)}
           </div> 
         </div>
       );
