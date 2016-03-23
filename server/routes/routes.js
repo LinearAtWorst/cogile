@@ -9,6 +9,8 @@ module.exports = function(app, express) {
   app.use(jsonParser);
 
   app.use('/', express.static(path.join(__dirname, '../../client')));
+  app.use('/node', express.static(__dirname + '/../node_modules/'));
+  
 
   /*ROUTES*/
 

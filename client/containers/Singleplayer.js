@@ -8,6 +8,7 @@ import ProgressBar from '../components/ProgressBar';
 import { connect } from 'react-redux';
 // import { startGame, endGame } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import axios from 'axios';
 
 class Singleplayer extends Component {
   constructor(props) {
@@ -22,15 +23,33 @@ class Singleplayer extends Component {
   };
 
   componentWillMount() {
-    $.get('api/getPrompt', function(data) {
-      var minifiedPuzzle = data.replace(/\s/g,'');
-      console.log('Minified: ', minifiedPuzzle);
+    console.log(this.props.params.puzzleName);
+    if (this.props.params.puzzleName) {
+      axios.get('api/getPrompt/?puzzleName=' + this.props.params.puzzleName)
+        .then(function(res) {
+          var data = res.data;
+          var minifiedPuzzle = data.replace(/\s/g,'');
+          console.log('Minified: ', minifiedPuzzle);
 
-      this.setState({
-        currentPuzzle: data,
-        minifiedPuzzle: minifiedPuzzle
-      });
-    }.bind(this));
+          this.setState({
+            currentPuzzle: data,
+            minifiedPuzzle: minifiedPuzzle
+          });
+        }.bind(this));
+    } else {
+      axios.get('api/getPrompt')
+        .then(function(res) {
+          var data = res.data;
+          var minifiedPuzzle = data.replace(/\s/g,'');
+          console.log('Minified: ', minifiedPuzzle);
+
+          this.setState({
+            currentPuzzle: data,
+            minifiedPuzzle: minifiedPuzzle
+          });
+        }.bind(this));
+    }
+
   };
 
   saveTimeElapsed(tenthSeconds, seconds, minutes) {
