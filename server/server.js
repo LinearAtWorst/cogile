@@ -30,17 +30,27 @@ app.use(webpackMiddleware(bundler));
 
 // Socket code
 var numUsers = 0;
-var playersProgress = {};
+var players = {};
+var colors = ['F44336', '4CAF50', '2196F3', 'FFEB3B']; // red, green, blue, yellow
 
 io.on('connection', function(socket) {
 
   ++numUsers;
+  
+  var socket_id = socket.id.slice(2);
+  var color = colors.shift();
+
+  players[socket_id] = [color, 0, ''];
+
+  socket.emit('player joined', players);
+
+  console.log(players);
 
   console.log('user ', socket.id, ' has connected. numUsers is now: ', numUsers);
 
   socket.on('game start', function(value) {
     console.log(value);
-    io.emit('multigame start', value);
+    io.emit('multigame start', players);
   })
 
   socket.on('game won', function(value) {
@@ -49,9 +59,9 @@ io.on('connection', function(socket) {
   });
 
   socket.on('player progress', function(value) {
-    playersProgress[value.id] = value.code;
-    console.log(playersProgress);
-    io.emit('all players progress', playersProgress);
+    players[value.id]['2'] = value.code;
+    console.log(players);
+    io.emit('all players progress', players);
   });
 
   socket.on('disconnect', function() {
@@ -59,7 +69,9 @@ io.on('connection', function(socket) {
 
     var user = socket.id.slice(2);
 
-    delete playersProgress[user];
+    delete players[user];
+
+    colors.push(color);
 
     console.log('user: ', user, ' has disconnected. numUsers is now: ', numUsers);
   });

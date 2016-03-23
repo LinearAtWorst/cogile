@@ -37,11 +37,13 @@ class Multiplayer extends Component {
   componentDidMount() {
     this.socket = io();
 
-    console.log('inside multiplayer compDidMount, socket is: ', this.socket);
+    this.socket.on('player joined', function(players) {
+      this.props.updateProgresses(players);
+    }.bind(this));
+
 
     // listening for a 'game over' socket event to capture and stop time
     this.socket.on('game over', function(value) {
-      console.log('inside multiplayer compDidMount, value is: ', value);
       var time = this.props.gameTime;
       underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, value));
 
@@ -50,13 +52,16 @@ class Multiplayer extends Component {
 
     // listening for a 'all players progress' socket event and
     // collects all players' code from socket
-    this.socket.on('all players progress', function(value) {
-      underscore.map(value, function(value, key){
-        var playerPercent = this.calculatePercent(value)
-        this.playersProgress[key] = [playerPercent, value];
+    this.socket.on('all players progress', function(players) {
+      // debugger
+      underscore.map(players, function(obj, key){
+        // debugger
+        var playerPercent = this.calculatePercent(obj[2]);
+        players[key][1] = playerPercent;
       }.bind(this));
-
-      this.props.updateProgresses(this.playersProgress);
+      // underscore.extend(this.playersProgress, players);
+      console.log('inside all players progress socket, players: ', players);
+      this.props.updateProgresses(players);
 
     }.bind(this));
   };
@@ -74,8 +79,6 @@ class Multiplayer extends Component {
       };
       underscore.once(this.socket.emit('game won', socketInfo));
     }
-
-    // console.log('inside multiplayer compDidUpdate, multiGameProgress is: ', this.props.multiGameProgress);
   };
 
   saveTimeElapsed(tenthSeconds, seconds, minutes, winner) {
@@ -117,12 +120,12 @@ class Multiplayer extends Component {
 
   // sends current player's code to the socket to broadcast
   updateAllProgress(code) {
-    var temp = {
+    var value = {
       id: this.socket.id,
       code: code
     }
 
-    this.socket.emit('player progress', temp);
+    this.socket.emit('player progress', value);
   };
 
   render() {

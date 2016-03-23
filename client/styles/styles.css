@@ -70,12 +70,12 @@
 .progress-bar {
   height: 1.5em;
   width: 100%;
-  background-color: #AAA;
+  background-color: #E0E0E0;
 }
 
 .progress-fill {
   height: 100%;
-  background-color: green;
+  text-align: left;
 }
 
 #start-btn-container {
