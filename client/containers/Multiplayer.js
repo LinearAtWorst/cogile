@@ -19,8 +19,6 @@ class Multiplayer extends Component {
       gameFinished: false,
       progress: 0
     };
-
-    this.playersProgress = {};
   };
 
   componentWillMount() {
@@ -37,27 +35,28 @@ class Multiplayer extends Component {
   componentDidMount() {
     this.socket = io();
 
-    console.log('inside multiplayer compDidMount, socket is: ', this.socket);
-
-    // listening for a 'game over' socket event to capture and stop time
-    this.socket.on('game over', function(value) {
-      console.log('inside multiplayer compDidMount, value is: ', value);
-      var time = this.props.gameTime;
-      underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, value));
-
-      this.props.stopTimer();
+    // send new player's info to global store
+    this.socket.on('player joined', function(players) {
+      this.props.updateProgresses(players);
     }.bind(this));
 
     // listening for a 'all players progress' socket event and
     // collects all players' code from socket
-    this.socket.on('all players progress', function(value) {
-      underscore.map(value, function(value, key){
-        var playerPercent = this.calculatePercent(value)
-        this.playersProgress[key] = [playerPercent, value];
+    this.socket.on('all players progress', function(players) {
+      underscore.map(players, function(obj, key){
+        var playerPercent = this.calculatePercent(obj[2]);
+        players[key][1] = playerPercent;
       }.bind(this));
+      this.props.updateProgresses(players);
 
-      this.props.updateProgresses(this.playersProgress);
+    }.bind(this));
 
+    // listening for a 'game over' socket event to capture and stop time
+    this.socket.on('game over', function(value) {
+      var time = this.props.gameTime;
+      underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, value));
+
+      this.props.stopTimer();
     }.bind(this));
   };
 
@@ -74,12 +73,9 @@ class Multiplayer extends Component {
       };
       underscore.once(this.socket.emit('game won', socketInfo));
     }
-
-    // console.log('inside multiplayer compDidUpdate, multiGameProgress is: ', this.props.multiGameProgress);
   };
 
   saveTimeElapsed(tenthSeconds, seconds, minutes, winner) {
-    console.log('called saveTimeElapsed with winner: ', winner);
     if (winner.id === this.socket.id) {
       // Sweet Alert with Info
       swal({
@@ -117,12 +113,12 @@ class Multiplayer extends Component {
 
   // sends current player's code to the socket to broadcast
   updateAllProgress(code) {
-    var temp = {
+    var value = {
       id: this.socket.id,
       code: code
     }
 
-    this.socket.emit('player progress', temp);
+    this.socket.emit('player progress', value);
   };
 
   render() {

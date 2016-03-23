@@ -65,6 +65,7 @@ class TimerMulti extends Component {
 
     // On game start, start if not already running
     if (this.props.multiGame === 'START_GAME' && !this.state.timerOn) {
+      // debugger;
       this.startTimer();
     }
   };
