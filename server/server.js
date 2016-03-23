@@ -44,23 +44,18 @@ io.on('connection', function(socket) {
 
   socket.emit('player joined', players);
 
-  console.log(players);
-
   console.log('user ', socket.id, ' has connected. numUsers is now: ', numUsers);
 
   socket.on('game start', function(value) {
-    console.log(value);
     io.emit('multigame start', players);
   })
 
   socket.on('game won', function(value) {
-    console.log(value);
     io.emit('game over', value);
   });
 
   socket.on('player progress', function(value) {
     players[value.id]['2'] = value.code;
-    console.log(players);
     io.emit('all players progress', players);
   });
 

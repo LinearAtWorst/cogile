@@ -19,8 +19,6 @@ class Multiplayer extends Component {
       gameFinished: false,
       progress: 0
     };
-
-    this.playersProgress = {};
   };
 
   componentWillMount() {
@@ -37,10 +35,21 @@ class Multiplayer extends Component {
   componentDidMount() {
     this.socket = io();
 
+    // send new player's info to global store
     this.socket.on('player joined', function(players) {
       this.props.updateProgresses(players);
     }.bind(this));
 
+    // listening for a 'all players progress' socket event and
+    // collects all players' code from socket
+    this.socket.on('all players progress', function(players) {
+      underscore.map(players, function(obj, key){
+        var playerPercent = this.calculatePercent(obj[2]);
+        players[key][1] = playerPercent;
+      }.bind(this));
+      this.props.updateProgresses(players);
+
+    }.bind(this));
 
     // listening for a 'game over' socket event to capture and stop time
     this.socket.on('game over', function(value) {
@@ -48,21 +57,6 @@ class Multiplayer extends Component {
       underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, value));
 
       this.props.stopTimer();
-    }.bind(this));
-
-    // listening for a 'all players progress' socket event and
-    // collects all players' code from socket
-    this.socket.on('all players progress', function(players) {
-      // debugger
-      underscore.map(players, function(obj, key){
-        // debugger
-        var playerPercent = this.calculatePercent(obj[2]);
-        players[key][1] = playerPercent;
-      }.bind(this));
-      // underscore.extend(this.playersProgress, players);
-      console.log('inside all players progress socket, players: ', players);
-      this.props.updateProgresses(players);
-
     }.bind(this));
   };
 
@@ -82,7 +76,6 @@ class Multiplayer extends Component {
   };
 
   saveTimeElapsed(tenthSeconds, seconds, minutes, winner) {
-    console.log('called saveTimeElapsed with winner: ', winner);
     if (winner.id === this.socket.id) {
       // Sweet Alert with Info
       swal({

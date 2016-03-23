@@ -11,8 +11,6 @@ class ProgressBarMulti extends Component {
     this.state = {
       playersProgress: {}
     }
-
-    this.colors = ['F44336', '4CAF50', '2196F3', 'FFEB3B'];
   };
 
   static propTypes = {
