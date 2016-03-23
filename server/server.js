@@ -26,7 +26,6 @@ var bundler = webpack(webpackConfig);
 
 app.use(webpackMiddleware(bundler));
 
-
 // Socket code
 var numUsers = 0;
 

@@ -9,7 +9,7 @@ class StartButton extends Component {
 
     this.state = {
       text: 'Start!',
-      buttonType: 'btn btn-primary btn-lg center-block',
+      buttonType: 'btn btn-raised btn-primary',
       buttonDisabled: false,
       handleMultiCalled: false
     }
@@ -22,8 +22,8 @@ class StartButton extends Component {
 
     this.setState({
       text: 'Go!',
-      buttonType: 'btn btn-success btn-lg center-block',
-      buttonDisabled: true
+      buttonType: 'btn btn-raised btn-success',
+      buttonDisabled: false
     });
   }
 
