@@ -33,8 +33,8 @@ class CodeEditorMulti extends Component {
 
     this.editor.setOptions({
       fontSize: '12pt',
-      minLines: 15,
-      maxLines: 15,
+      minLines: 12,
+      maxLines: 12,
       enableBasicAutocompletion: true,
       enableSnippets: false,
       enableLiveAutocompletion: false

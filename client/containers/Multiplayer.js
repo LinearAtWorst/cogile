@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import CodeEditorMulti from './CodeEditorMulti';
-import CodePrompt from '../components/CodePrompt';
+import CodePromptMulti from '../components/CodePromptMulti';
 import TimerMulti from './TimerMulti';
 import levenshtein from './../lib/levenshtein';
 import ProgressBarMulti from './ProgressBarMulti';
 import { connect } from 'react-redux';
-import { startGame, endGame, stopTimer, updateProgresses } from '../actions/index';
+import { startGame, endGame, stopTimer, updateProgresses, startCountdown } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import underscore from 'underscore';
 
@@ -35,7 +35,7 @@ class Multiplayer extends Component {
   componentDidMount() {
     this.socket = io();
 
-    // send new player's info to global store
+    // listen for a player joined event and update players store
     this.socket.on('player joined', function(players) {
       this.props.updateProgresses(players);
     }.bind(this));
@@ -127,7 +127,7 @@ class Multiplayer extends Component {
         <TimerMulti
           saveTimeElapsed={this.saveTimeElapsed.bind(this)}
           socket={this.socket} />
-        <CodePrompt puzzle={this.state.currentPuzzle} />
+        <CodePromptMulti puzzle={this.state.currentPuzzle} />
         <CodeEditorMulti
           puzzle={this.state.currentPuzzle}
           minifiedPuzzle={this.state.minifiedPuzzle}
@@ -152,7 +152,8 @@ function mapDispatchToProps(dispatch) {
     startGame: startGame,
     endGame: endGame,
     stopTimer: stopTimer,
-    updateProgresses: updateProgresses
+    updateProgresses: updateProgresses,
+    startCountdown: startCountdown
   }, dispatch);
 };
 
