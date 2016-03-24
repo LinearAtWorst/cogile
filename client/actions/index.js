@@ -78,3 +78,10 @@ export function smashUser() {
     type: 'SMASH_USER'
   }
 }
+
+export function changeLevel(level) {
+  return {
+    type: 'CHANGE_LEVEL',
+    payload: level
+  }
+}

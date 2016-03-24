@@ -9,12 +9,14 @@ import { connect } from 'react-redux';
 // import { startGame, endGame } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
+import LevelSelect from './LevelSelect';
 
 class Singleplayer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      puzzleName: 'N/A',
       currentPuzzle: 'N/A',
       minifiedPuzzle: 'N/A',
       gameFinished: false,
@@ -22,7 +24,32 @@ class Singleplayer extends Component {
     };
   };
 
+  componentDidUpdate() {
+    if (this.props.currentLevel) {
+      console.log('L28: Singleplayer.js : puzzleName ', this.state.puzzleName);
+      console.log(this.props.currentLevel.currentLevel);
+
+      if (this.state.puzzleName !== this.props.currentLevel.currentLevel) {
+        console.log('Switch Level');
+        axios.get('api/getPrompt/?puzzleName=' + this.props.currentLevel.currentLevel)
+          .then(function(res) {
+            var data = res.data;
+            var minifiedPuzzle = data.replace(/\s/g,'');
+
+            this.setState({
+              puzzleName: this.props.currentLevel.currentLevel,
+              currentPuzzle: data,
+              minifiedPuzzle: minifiedPuzzle
+            });
+          }.bind(this));
+      }
+    }
+  }
+
   componentWillMount() {
+    $.material.init();
+    // $('.select').dropdown({ 'autoinit' : '.select' });
+
     console.log(this.props.params.puzzleName);
       console.log(this.props.SavedUsername);
     if (this.props.params.puzzleName) {
@@ -30,9 +57,9 @@ class Singleplayer extends Component {
         .then(function(res) {
           var data = res.data;
           var minifiedPuzzle = data.replace(/\s/g,'');
-          console.log('Minified: ', minifiedPuzzle);
 
           this.setState({
+            puzzleName: this.props.params.puzzleName,
             currentPuzzle: data,
             minifiedPuzzle: minifiedPuzzle
           });
@@ -42,15 +69,14 @@ class Singleplayer extends Component {
         .then(function(res) {
           var data = res.data;
           var minifiedPuzzle = data.replace(/\s/g,'');
-          console.log('Minified: ', minifiedPuzzle);
 
           this.setState({
+            puzzleName: '01-identity',
             currentPuzzle: data,
             minifiedPuzzle: minifiedPuzzle
           });
         }.bind(this));
     }
-
   };
 
   saveTimeElapsed(tenthSeconds, seconds, minutes) {
@@ -79,6 +105,7 @@ class Singleplayer extends Component {
       <div>
         <Timer
           saveTimeElapsed={this.saveTimeElapsed.bind(this)} />
+        <LevelSelect />
         <CodePrompt puzzle={this.state.currentPuzzle} />
         <CodeEditor
           puzzle={this.state.currentPuzzle}
@@ -94,7 +121,8 @@ class Singleplayer extends Component {
 function mapStateToProps(state) {
   return {
     singleGame: state.singleGame,
-    SavedUsername: state.SavedUsername
+    SavedUsername: state.SavedUsername,
+    currentLevel: state.currentLevel
   }
 }
 

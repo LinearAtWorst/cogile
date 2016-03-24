@@ -6,6 +6,7 @@ import PlayersStatusesReducer from './PlayersStatusesReducer';
 import CountingDownReducer from './CountingDownReducer';
 import GameTimeReducer from './GameTimeReducer';
 import UserReducer from './UserReducer';
+import ChangeLevelReducer from './ChangeLevelReducer';
 
 const rootReducer = combineReducers({
   singleGame: SingleGameReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   playersStatuses: PlayersStatusesReducer,
   countingDown: CountingDownReducer,
   gameTime: GameTimeReducer,
-  SavedUsername: UserReducer
+  SavedUsername: UserReducer,
+  currentLevel: ChangeLevelReducer
 });
 
 export default rootReducer;

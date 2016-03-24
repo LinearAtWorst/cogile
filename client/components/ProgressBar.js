@@ -16,7 +16,8 @@ class ProgressBar extends Component {
   render() {
     return (
       <div className="progress-bar">
-        <div className="progress-fill" style={{width: this.props.percentComplete + '%'}}>
+        <div className="progress-fill-single" style={{width: this.props.percentComplete + '%'}}>
+          
         </div>
       </div>
     );
