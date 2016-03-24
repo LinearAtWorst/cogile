@@ -1,7 +1,31 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getUsername, smashUser } from '../actions/index';
+import { bindActionCreators } from 'redux';
 import NavLink from './NavLink';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: this.props.getUsername().payload
+    };
+  }
+
+  smash() {
+    if (this.props.getUsername().payload !== "guest"){
+      this.props.smashUser();
+      console.log('token removed');
+      this.setState({
+        username: 'guest'
+      });
+      return true;
+    }
+    console.log('not logged in');
+    return false;
+  };
+
   render() {
 
     return (
@@ -14,6 +38,10 @@ class App extends Component {
                 <li><NavLink to="" className="nav-label" onlyActiveOnIndex>Singleplayer</NavLink></li>
                 <li><NavLink to="multiplayer" className="nav-label">Multiplayer</NavLink></li>
                 <li><NavLink to="about" className="nav-label">About</NavLink></li>
+                <li><NavLink to="login" className="nav-label">Login</NavLink></li>
+                <li><NavLink to="register" className="nav-label">Register</NavLink></li>
+                <li><h3 className="nav-label">Welcome, {this.props.getUsername().payload}!</h3></li>
+                <li><button type="button" className="btn" onClick={this.smash.bind(this)}>Logout</button></li>
               </ul>
             </div>
           </div>
@@ -26,4 +54,15 @@ class App extends Component {
   }
 };
 
-export default App;
+function mapStateToProps(state) {
+  return {}
+};
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    getUsername: getUsername,
+    smashUser: smashUser
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
