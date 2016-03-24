@@ -6,7 +6,7 @@ import Timer from './Timer';
 import levenshtein from './../lib/levenshtein';
 import ProgressBar from '../components/ProgressBar';
 import { connect } from 'react-redux';
-// import { startGame, endGame } from '../actions/index';
+import { changeLevel } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import LevelSelect from './LevelSelect';
@@ -26,11 +26,11 @@ class Singleplayer extends Component {
 
   componentDidUpdate() {
     if (this.props.currentLevel) {
-      console.log('L28: Singleplayer.js : puzzleName ', this.state.puzzleName);
-      console.log(this.props.currentLevel.currentLevel);
+      // console.log('L28: Singleplayer.js : puzzleName ', this.state.puzzleName);
+      // console.log(this.props.currentLevel.currentLevel);
 
       if (this.state.puzzleName !== this.props.currentLevel.currentLevel) {
-        console.log('Switch Level');
+        // console.log('Switch Level');
         axios.get('api/getPrompt/?puzzleName=' + this.props.currentLevel.currentLevel)
           .then(function(res) {
             var data = res.data;
@@ -41,6 +41,11 @@ class Singleplayer extends Component {
               currentPuzzle: data,
               minifiedPuzzle: minifiedPuzzle
             });
+
+            // console.log('State Changed');
+            // console.log(this.state.puzzleName);
+            // console.log(this.state.currentPuzzle);
+            // console.log(this.state.minifiedPuzzle);
           }.bind(this));
       }
     }
@@ -58,6 +63,8 @@ class Singleplayer extends Component {
           var data = res.data;
           var minifiedPuzzle = data.replace(/\s/g,'');
 
+          this.props.changeLevel({'currentLevel': this.props.params.puzzleName})
+
           this.setState({
             puzzleName: this.props.params.puzzleName,
             currentPuzzle: data,
@@ -69,6 +76,8 @@ class Singleplayer extends Component {
         .then(function(res) {
           var data = res.data;
           var minifiedPuzzle = data.replace(/\s/g,'');
+
+          this.props.changeLevel({'currentLevel': '01-identity'})
 
           this.setState({
             puzzleName: '01-identity',
@@ -99,8 +108,6 @@ class Singleplayer extends Component {
   };
 
   render() {
-    console.log(this.props.SavedUsername);
-    
     return (
       <div>
         <Timer
@@ -127,7 +134,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators({changeLevel: changeLevel}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Singleplayer)

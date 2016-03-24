@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { changeLevel } from '../actions/index';
+import { changeLevel, leavePage } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class LevelSelect extends Component {
@@ -20,6 +20,7 @@ class LevelSelect extends Component {
     function closure(savedIndex) {
       return function() {
         this.props.changeLevel({'currentLevel': this.levels[savedIndex]});
+        this.props.leavePage();
       }.bind(this);
     };
 
@@ -38,11 +39,11 @@ class LevelSelect extends Component {
           <ul className="dropdown-menu" role="menu" aria-labelledby="menu1">
             <li role="presentation"><span tabIndex="-1">JavaScript</span></li>
             <li role="presentation" className="divider"></li>
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel0" href="#">Level 1</a></li>
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel1" href="#">Level 2</a></li>
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel2" href="#">Level 3</a></li>
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel3" href="#">Level 4</a></li>
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel4" href="#">Level 5</a></li>
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel0">Level 1</a></li>
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel1">Level 2</a></li>
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel2">Level 3</a></li>
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel3">Level 4</a></li>
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel4">Level 5</a></li>
           </ul>
         </div>
       </div>
@@ -56,7 +57,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({changeLevel: changeLevel}, dispatch);
+  return bindActionCreators({changeLevel: changeLevel, leavePage: leavePage}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LevelSelect);

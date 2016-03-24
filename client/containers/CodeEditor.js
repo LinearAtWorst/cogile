@@ -64,7 +64,8 @@ class CodeEditor extends Component {
       // if code matches the minified solution
       if (code === this.props.minifiedPuzzle) {
         // save the replay
-        localStorage.setItem('replay', JSON.stringify(this.record));
+        localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify(this.record));
+        console.log(localStorage);
         this.props.endGame();
         this.editor.setReadOnly(true);
       }
@@ -80,6 +81,11 @@ class CodeEditor extends Component {
   };
 
   componentDidUpdate() {
+    // if level has been changed or reset
+    if (this.props.singleGame === null) {
+      this.editor.setValue('');
+      this.editor.setReadOnly(true);
+    }
     // once game starts
     if (this.props.singleGame === 'STARTED_GAME') {
       // focus goes to CodeEditor and read-only disabled
@@ -101,7 +107,8 @@ class CodeEditor extends Component {
 
 function mapStateToProps(state) {
   return {
-    singleGame: state.singleGame
+    singleGame: state.singleGame,
+    currentLevel: state.currentLevel
   }
 }
 

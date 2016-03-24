@@ -77,6 +77,14 @@ class CodeGhost extends Component {
       this.setState({
         replayStarted: true
       });
+    } else if (this.props.singleGame === null) { // If game was reset
+      this.editor.setValue('');
+
+      // Clears all settimeouts if any still exist
+      var id = window.setTimeout(function() {}, 0);
+      while (id--) {
+          window.clearTimeout(id);
+      }
     }
   }
 
