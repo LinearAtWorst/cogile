@@ -21,6 +21,7 @@ class Login extends Component {
       <div className="container col-sm-6">
       <h1 className="about-title">LOGIN</h1>
       <div className="row row-spacer"></div>
+      <div>Not registered? Register <a href="/#/register">here</a></div>
       <form className="form" onSubmit={this._onSubmit.bind(this)}>
         <div className="form-group label-floating">
         <label htmlFor="username" className="control-label">Username</label>

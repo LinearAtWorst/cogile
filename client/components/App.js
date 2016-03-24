@@ -13,6 +13,10 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log(this.props.getUsername());
+  }
+
   smash() {
     if (this.props.getUsername().payload !== "guest"){
       this.props.smashUser();
@@ -38,10 +42,22 @@ class App extends Component {
                 <li><NavLink to="singleplayer" className="nav-label" onlyActiveOnIndex>Singleplayer</NavLink></li>
                 <li><NavLink to="multiplayer" className="nav-label">Multiplayer</NavLink></li>
                 <li><NavLink to="about" className="nav-label">About</NavLink></li>
-                <li><NavLink to="login" className="nav-label">Login</NavLink></li>
-                <li><NavLink to="register" className="nav-label">Register</NavLink></li>
-                <li><h3 className="nav-label">Welcome, {this.props.getUsername().payload}!</h3></li>
-                <li><button type="button" className="btn" onClick={this.smash.bind(this)}>Logout</button></li>
+                { /*<li><h3 className="nav-label">Welcome, {this.props.getUsername().payload}!</h3></li> */}
+                {
+                  (this.state.username === 'guest')
+                  ? 
+                  <li><NavLink to="login" className="nav-label">Login</NavLink></li>
+                  : 
+                  <li>
+                    <NavLink
+                      to="/"
+                      className="nav-label"
+                      onClick={this.smash.bind(this)}
+                      onlyActiveOnIndex>
+                      Logout
+                    </NavLink>
+                  </li>
+                }
               </ul>
             </div>
           </div>
