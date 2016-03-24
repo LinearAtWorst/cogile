@@ -5,6 +5,7 @@ import MultiTimerReducer from './MultiTimerReducer';
 import MultiGameProgressReducer from './MultiGameProgressReducer';
 import CountingDownReducer from './CountingDownReducer';
 import GameTimeReducer from './GameTimeReducer';
+import UserReducer from './UserReducer';
 
 const rootReducer = combineReducers({
   singleGame: SingleGameReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   multiTimer: MultiTimerReducer,
   multiGameProgress: MultiGameProgressReducer,
   countingDown: CountingDownReducer,
-  gameTime: GameTimeReducer
+  gameTime: GameTimeReducer,
+  SavedUsername: UserReducer
 });
 
 export default rootReducer;

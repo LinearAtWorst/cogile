@@ -31,13 +31,13 @@ var io = require('socket.io').listen(server);
 var socketEvents = require('./controllers/socketController.js').socketInit(io);
 
 
-// //TEST CREAT USER
-// var newUser = {
-//   body: {
-//     username: 'NEW TEST OUTSIDE FOLDER!',
-//     password: 'ENCRYPED!'
-//   }
-// }
-// userController.signup(newUser, {send: function(info){console.log(info);}});
+//TEST CREAT USER
+var newUser = {
+  body: {
+    username: 'nick',
+    password: '1111'
+  }
+}
+userController.signup(newUser, {send: function(info){console.log(info);}});
 
 module.exports = app;

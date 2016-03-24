@@ -24,6 +24,7 @@ class Singleplayer extends Component {
 
   componentWillMount() {
     console.log(this.props.params.puzzleName);
+      console.log(this.props.SavedUsername);
     if (this.props.params.puzzleName) {
       axios.get('api/getPrompt/?puzzleName=' + this.props.params.puzzleName)
         .then(function(res) {
@@ -65,13 +66,15 @@ class Singleplayer extends Component {
     var distance = levenshtein(this.state.minifiedPuzzle, playerCode);
 
     var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
-    
+
     this.setState({
       progress: percentCompleted
     });
   };
 
   render() {
+    console.log(this.props.SavedUsername);
+    
     return (
       <div>
         <Timer
@@ -90,7 +93,8 @@ class Singleplayer extends Component {
 
 function mapStateToProps(state) {
   return {
-    singleGame: state.singleGame
+    singleGame: state.singleGame,
+    SavedUsername: state.SavedUsername
   }
 }
 
