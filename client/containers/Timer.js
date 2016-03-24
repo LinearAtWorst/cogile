@@ -48,8 +48,6 @@ class Timer extends Component {
   } 
 
   componentDidUpdate() {
-    console.log('SingleGame : ', this.props.singleGame);
-    console.log('TimerOn : ', this.state.timerOn);
     // On game reset
     if (!this.props.singleGame) {
       if (this.state.minutes || this.state.seconds || this.state.tenthSeconds) {

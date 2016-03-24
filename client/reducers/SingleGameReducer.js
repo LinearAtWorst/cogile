@@ -5,7 +5,6 @@ export default function(state = null, action) {
     case 'ENDED_GAME':
       return action.payload;
     case 'LEAVE_PAGE':
-      console.log('L8: SingleGameReduer : LEAVE_PAGE action received');
       return null;
   }
 

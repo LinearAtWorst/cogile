@@ -26,11 +26,8 @@ class Singleplayer extends Component {
 
   componentDidUpdate() {
     if (this.props.currentLevel) {
-      // console.log('L28: Singleplayer.js : puzzleName ', this.state.puzzleName);
-      // console.log(this.props.currentLevel.currentLevel);
 
       if (this.state.puzzleName !== this.props.currentLevel.currentLevel) {
-        // console.log('Switch Level');
         axios.get('api/getPrompt/?puzzleName=' + this.props.currentLevel.currentLevel)
           .then(function(res) {
             var data = res.data;
@@ -42,10 +39,6 @@ class Singleplayer extends Component {
               minifiedPuzzle: minifiedPuzzle
             });
 
-            // console.log('State Changed');
-            // console.log(this.state.puzzleName);
-            // console.log(this.state.currentPuzzle);
-            // console.log(this.state.minifiedPuzzle);
           }.bind(this));
       }
     }
@@ -53,10 +46,7 @@ class Singleplayer extends Component {
 
   componentWillMount() {
     $.material.init();
-    // $('.select').dropdown({ 'autoinit' : '.select' });
 
-    console.log(this.props.params.puzzleName);
-      console.log(this.props.SavedUsername);
     if (this.props.params.puzzleName) {
       axios.get('api/getPrompt/?puzzleName=' + this.props.params.puzzleName)
         .then(function(res) {
@@ -118,7 +108,7 @@ class Singleplayer extends Component {
           puzzle={this.state.currentPuzzle}
           minifiedPuzzle={this.state.minifiedPuzzle}
           calculateProgress={this.calculateProgress.bind(this)} />
-        <CodeGhost singleGame={this.props.singleGame}/>
+        <CodeGhost singleGame={this.props.singleGame} currentLevel={this.state.puzzleName}/>
         <ProgressBar percentComplete={this.state.progress} />
       </div>
     )
