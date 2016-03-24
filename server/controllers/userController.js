@@ -23,11 +23,14 @@ module.exports = {
     new User({ username: username }).fetch()
     .then(function(found) {
       if(found) {
+        // console.log(found);
         bcrypt.compare(password, found.get('password'), function(err, result) {
           if(result) {
+            console.log(result);
             var token = jwt.encode({username: username}, secret);
             validObj.token = token;
             validObj.isValid = true;
+            validObj.username = username;
             res.send(validObj);
           }
         });

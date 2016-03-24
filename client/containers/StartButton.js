@@ -17,7 +17,7 @@ class StartButton extends Component {
 
   handleClick() {
     console.log('L26: StartButton.js : handleClick');
-    
+
     if (!this.state.buttonDisabled) {
       this.props.startCountdown();
 
