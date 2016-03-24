@@ -86,8 +86,6 @@ class CodeEditor extends Component {
       this.editor.setReadOnly(false);
       this.editor.focus();
     }
-
-    console.log(this.props.singleGame);
   }
 
   render() {

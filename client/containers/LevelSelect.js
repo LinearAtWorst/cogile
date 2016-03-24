@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { changeLevel } from '../actions/index';
 import { bindActionCreators } from 'redux';
-import { Router, browserHistory } from 'react-router';
+import { Link } from 'react-router';
 
 
 class LevelSelect extends Component {
@@ -46,7 +46,8 @@ class LevelSelect extends Component {
     }
 
     $("selectLevel3").click(function() {
-      browserHistory.push('/#/singleplayer');
+      // browserHistory.push('/#/singleplayer');
+      // window.location.assign('#/singleplayer');
     });
   }
 

@@ -25,7 +25,25 @@ class Singleplayer extends Component {
   };
 
   componentDidUpdate() {
-    console.log(this.props.currentLevel);
+    if (this.props.currentLevel) {
+      console.log('L28: Singleplayer.js : puzzleName ', this.state.puzzleName);
+      console.log(this.props.currentLevel.currentLevel);
+
+      if (this.state.puzzleName !== this.props.currentLevel.currentLevel) {
+        console.log('Switch Level');
+        axios.get('api/getPrompt/?puzzleName=' + this.props.currentLevel.currentLevel)
+          .then(function(res) {
+            var data = res.data;
+            var minifiedPuzzle = data.replace(/\s/g,'');
+
+            this.setState({
+              puzzleName: this.props.currentLevel.currentLevel,
+              currentPuzzle: data,
+              minifiedPuzzle: minifiedPuzzle
+            });
+          }.bind(this));
+      }
+    }
   }
 
   componentWillMount() {
