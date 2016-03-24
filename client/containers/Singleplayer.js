@@ -16,6 +16,7 @@ class Singleplayer extends Component {
     super(props);
 
     this.state = {
+      puzzleName: 'N/A',
       currentPuzzle: 'N/A',
       minifiedPuzzle: 'N/A',
       gameFinished: false,
@@ -23,19 +24,24 @@ class Singleplayer extends Component {
     };
   };
 
+  componentDidUpdate() {
+    console.log(this.props.currentLevel);
+  }
+
   componentWillMount() {
     $.material.init();
-    $('.select').dropdown({ 'autoinit' : '.select' });
+    // $('.select').dropdown({ 'autoinit' : '.select' });
 
     console.log(this.props.params.puzzleName);
+      console.log(this.props.SavedUsername);
     if (this.props.params.puzzleName) {
       axios.get('api/getPrompt/?puzzleName=' + this.props.params.puzzleName)
         .then(function(res) {
           var data = res.data;
           var minifiedPuzzle = data.replace(/\s/g,'');
-          console.log('Minified: ', minifiedPuzzle);
 
           this.setState({
+            puzzleName: this.props.params.puzzleName,
             currentPuzzle: data,
             minifiedPuzzle: minifiedPuzzle
           });
@@ -45,9 +51,9 @@ class Singleplayer extends Component {
         .then(function(res) {
           var data = res.data;
           var minifiedPuzzle = data.replace(/\s/g,'');
-          console.log('Minified: ', minifiedPuzzle);
 
           this.setState({
+            puzzleName: '01-identity',
             currentPuzzle: data,
             minifiedPuzzle: minifiedPuzzle
           });
@@ -68,13 +74,15 @@ class Singleplayer extends Component {
     var distance = levenshtein(this.state.minifiedPuzzle, playerCode);
 
     var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
-    
+
     this.setState({
       progress: percentCompleted
     });
   };
 
   render() {
+    console.log(this.props.SavedUsername);
+    
     return (
       <div>
         <Timer
@@ -94,7 +102,9 @@ class Singleplayer extends Component {
 
 function mapStateToProps(state) {
   return {
-    singleGame: state.singleGame
+    singleGame: state.singleGame,
+    SavedUsername: state.SavedUsername,
+    currentLevel: state.currentLevel
   }
 }
 

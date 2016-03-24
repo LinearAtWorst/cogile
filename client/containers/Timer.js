@@ -49,13 +49,13 @@ class Timer extends Component {
 
   componentDidUpdate() {
     // On game end, stop timer and send time elapsed to Singleplayer
-    if (this.props.singleGame === 'END_GAME') {
+    if (this.props.singleGame === 'ENDED_GAME') {
       clearInterval(this.intervalID);
 
       this.props.saveTimeElapsed(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
     }
     // On game start, start if not already running
-    if (this.props.singleGame === 'START_GAME' && !this.state.timerOn) {
+    if (this.props.singleGame === 'STARTED_GAME' && !this.state.timerOn) {
       this.startTimer();
     }
   }

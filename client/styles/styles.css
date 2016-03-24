@@ -107,9 +107,10 @@
 }
 
 .progress-bar {
-  height: 1.5em;
+  height: 1.8em;
   width: 100%;
   background-color: #E0E0E0;
+  vertical-align: middle;
 }
 
 .progress-fill {

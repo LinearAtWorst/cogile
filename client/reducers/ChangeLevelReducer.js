@@ -1,11 +1,8 @@
 export default function(state = null, action) {
   switch (action.type) {
-    case 'STARTED_GAME':
+    case 'CHANGE_LEVEL':
+      console.log('action payload in changelevel reducer', action.payload);
       return action.payload;
-    case 'ENDED_GAME':
-      return action.payload;
-    case 'LEAVE_PAGE':
-      return null;
   }
 
   return state;

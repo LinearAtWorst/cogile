@@ -81,7 +81,7 @@ class CodeEditor extends Component {
 
   componentDidUpdate() {
     // once game starts
-    if (this.props.singleGame === 'START_GAME') {
+    if (this.props.singleGame === 'STARTED_GAME') {
       // focus goes to CodeEditor and read-only disabled
       this.editor.setReadOnly(false);
       this.editor.focus();

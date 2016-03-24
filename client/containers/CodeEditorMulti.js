@@ -33,8 +33,8 @@ class CodeEditorMulti extends Component {
 
     this.editor.setOptions({
       fontSize: '12pt',
-      minLines: 15,
-      maxLines: 15,
+      minLines: 12,
+      maxLines: 12,
       enableBasicAutocompletion: true,
       enableSnippets: false,
       enableLiveAutocompletion: false
@@ -50,12 +50,13 @@ class CodeEditorMulti extends Component {
     // should lock CodeEditor to read-only until timer begins
     this.editor.setReadOnly(true);
 
+    // this code will be run everytime something is typed in the code editor
     this.editor.getSession().on("change", function() {
       var code = this.editor.getSession().getValue();
       var miniCode = code.replace(/\s/g,'');
 
       // sending player code to socket
-      this.props.updateAllProgress(code);
+      this.props.sendProgressToSockets(code);
 
       // sending minified code to progressBar display
       this.props.calculateProgress(miniCode);
@@ -79,10 +80,17 @@ class CodeEditorMulti extends Component {
 
   componentDidUpdate() {
     // once game starts
-    if (this.props.multiGame === 'START_GAME') {
+    if (this.props.multiGameState === 'STARTED_GAME') {
       // focus goes to CodeEditor and read-only disabled
       this.editor.setReadOnly(false);
       this.editor.focus();
+    }
+
+    // if END_GAME action is called
+    if (this.props.multiGameState === 'ENDED_GAME') {
+      console.log('inside CodeEditorMulti componentDidUpdate, game has ended');
+      // lock codeEditor to read-only
+      this.editor.setReadOnly(true);
     }
   };
 
@@ -99,7 +107,7 @@ class CodeEditorMulti extends Component {
 
 function mapStateToProps(state) {
   return {
-    multiGame: state.multiGame
+    multiGameState: state.multiGameState
   }
 };
 
