@@ -79,10 +79,17 @@ class CodeEditorMulti extends Component {
 
   componentDidUpdate() {
     // once game starts
-    if (this.props.multiGame === 'START_GAME') {
+    if (this.props.multiGameState === 'STARTED_GAME') {
       // focus goes to CodeEditor and read-only disabled
       this.editor.setReadOnly(false);
       this.editor.focus();
+    }
+
+    // if END_GAME action is called
+    if (this.props.multiGameState === 'ENDED_GAME') {
+      console.log('inside CodeEditorMulti componentDidUpdate, game has ended');
+      // lock codeEditor to read-only
+      this.editor.setReadOnly(true);
     }
   };
 
@@ -99,7 +106,7 @@ class CodeEditorMulti extends Component {
 
 function mapStateToProps(state) {
   return {
-    multiGame: state.multiGame
+    multiGameState: state.multiGameState
   }
 };
 

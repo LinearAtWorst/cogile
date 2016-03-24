@@ -1,8 +1,8 @@
 export default function(state = null, action) {
   switch (action.type) {
-    case 'START_GAME':
+    case 'STARTED_GAME':
       return action.payload;
-    case 'END_GAME':
+    case 'ENDED_GAME':
       return action.payload;
     case 'LEAVE_PAGE':
       return null;

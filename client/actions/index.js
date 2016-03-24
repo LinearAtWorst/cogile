@@ -1,14 +1,14 @@
 export function startGame() {
   return {
-    type: 'START_GAME',
-    payload: 'START_GAME'
+    type: 'STARTED_GAME',
+    payload: 'STARTED_GAME'
   }
 }
 
 export function endGame() {
   return {
-    type: 'END_GAME',
-    payload: 'END_GAME'
+    type: 'ENDED_GAME',
+    payload: 'ENDED_GAME'
   }
 }
 

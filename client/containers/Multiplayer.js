@@ -33,6 +33,9 @@ class Multiplayer extends Component {
   };
 
   componentDidMount() {
+    // console.log(this.props.params.gameId);
+
+    // establish connection to socket, currently just default namespace
     this.socket = io();
 
     // listen for a player joined event and update players store
@@ -65,8 +68,8 @@ class Multiplayer extends Component {
   };
 
   componentDidUpdate() {
-    // if player finishes the puzzle, END_GAME action is sent, and 'game won' socket emitted
-    if (this.props.multiGame === 'END_GAME') {
+    // if player finishes the puzzle, ENDED_GAME action is sent, and 'game won' socket emitted
+    if (this.props.multiGameState === 'ENDED_GAME') {
       var socketInfo = {
         id: this.socket.id,
         hasWon: true
@@ -141,7 +144,7 @@ class Multiplayer extends Component {
 
 function mapStateToProps(state) {
   return {
-    multiGame: state.multiGame,
+    multiGameState: state.multiGameState,
     gameTime: state.gameTime,
     multiGameProgress: state.multiGameProgress
   }
