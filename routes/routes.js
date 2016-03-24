@@ -17,6 +17,7 @@ var routes = (
       <Route path='/singleplayer/:puzzleName' component={Singleplayer}/>
       <Route path='/about' component={About}/>
       <Route path='/multiplayer' component={Multiplayer}/>
+      <Route path='/multiplayer/:gameId' component={Multiplayer}/>
       <Route path='/login' component={Login}/>
       <Route path='/register' component={Register}/>
     </Route>

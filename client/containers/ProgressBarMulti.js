@@ -34,7 +34,7 @@ class ProgressBarMulti extends Component {
   };
 
   renderBars() {
-    return underscore.map(this.props.multiGameProgress.store, function(player, key) {
+    return underscore.map(this.props.playersStatuses.store, function(player, key) {
       return (
         <div className="progress-bar" key={key} >
           <div
@@ -62,7 +62,7 @@ class ProgressBarMulti extends Component {
 
 function mapStateToProps(state) {
   return {
-    multiGameProgress: state.multiGameProgress
+    playersStatuses: state.playersStatuses
   }
 };
 

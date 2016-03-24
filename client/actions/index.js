@@ -2,15 +2,15 @@ import jwtDecode from 'jwt-decode';
 
 export function startGame() {
   return {
-    type: 'START_GAME',
-    payload: 'START_GAME'
+    type: 'STARTED_GAME',
+    payload: 'STARTED_GAME'
   }
 }
 
 export function endGame() {
   return {
-    type: 'END_GAME',
-    payload: 'END_GAME'
+    type: 'ENDED_GAME',
+    payload: 'ENDED_GAME'
   }
 }
 
@@ -41,10 +41,10 @@ export function updateElapsedTime(time) {
   }
 }
 
-export function updateProgresses(allCode) {
+export function syncPlayersStatuses(status) {
   return {
     type: 'UPDATE_PROGRESSES',
-    payload: allCode
+    payload: status
   }
 }
 

@@ -29,7 +29,7 @@ socketController.socketInit = function(io) {
 
     players[socket_id] = [color, 0, ''];
 
-    socket.emit('player joined', players);
+    io.emit('player joined', players);
 
     console.log('user ', socket.id, ' has connected. numUsers is now: ', numUsers);
 

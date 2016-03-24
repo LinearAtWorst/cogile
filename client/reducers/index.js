@@ -1,17 +1,17 @@
 import { combineReducers } from 'redux';
 import SingleGameReducer from './SingleGameReducer';
-import MultiGameReducer from './MultiGameReducer';
+import MultiGameStateReducer from './MultiGameStateReducer';
 import MultiTimerReducer from './MultiTimerReducer';
-import MultiGameProgressReducer from './MultiGameProgressReducer';
+import PlayersStatusesReducer from './PlayersStatusesReducer';
 import CountingDownReducer from './CountingDownReducer';
 import GameTimeReducer from './GameTimeReducer';
 import UserReducer from './UserReducer';
 
 const rootReducer = combineReducers({
   singleGame: SingleGameReducer,
-  multiGame: MultiGameReducer,
+  multiGameState: MultiGameStateReducer,
   multiTimer: MultiTimerReducer,
-  multiGameProgress: MultiGameProgressReducer,
+  playersStatuses: PlayersStatusesReducer,
   countingDown: CountingDownReducer,
   gameTime: GameTimeReducer,
   SavedUsername: UserReducer

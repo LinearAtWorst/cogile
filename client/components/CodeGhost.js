@@ -72,7 +72,7 @@ class CodeGhost extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.singleGame === 'START_GAME' && !this.state.replayStarted) {
+    if (this.props.singleGame === 'STARTED_GAME' && !this.state.replayStarted) {
       this.startGhostReplay();
       this.setState({
         replayStarted: true

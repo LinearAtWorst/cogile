@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import CodeEditorMulti from './CodeEditorMulti';
-import CodePrompt from '../components/CodePrompt';
+import CodePromptMulti from '../components/CodePromptMulti';
 import TimerMulti from './TimerMulti';
 import levenshtein from './../lib/levenshtein';
 import ProgressBarMulti from './ProgressBarMulti';
 import { connect } from 'react-redux';
-import { startGame, endGame, stopTimer, updateProgresses } from '../actions/index';
+import { startGame, endGame, stopTimer, syncPlayersStatuses, startCountdown } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import underscore from 'underscore';
 
@@ -33,11 +33,14 @@ class Multiplayer extends Component {
   };
 
   componentDidMount() {
+    // console.log(this.props.params.gameId);
+
+    // establish connection to socket, currently just default namespace
     this.socket = io();
 
-    // send new player's info to global store
+    // listen for a player joined event and update players store
     this.socket.on('player joined', function(players) {
-      this.props.updateProgresses(players);
+      this.props.syncPlayersStatuses(players);
     }.bind(this));
 
     // listening for a 'all players progress' socket event and
@@ -47,7 +50,7 @@ class Multiplayer extends Component {
         var playerPercent = this.calculatePercent(obj[2]);
         players[key][1] = playerPercent;
       }.bind(this));
-      this.props.updateProgresses(players);
+      this.props.syncPlayersStatuses(players);
 
     }.bind(this));
 
@@ -65,8 +68,8 @@ class Multiplayer extends Component {
   };
 
   componentDidUpdate() {
-    // if player finishes the puzzle, END_GAME action is sent, and 'game won' socket emitted
-    if (this.props.multiGame === 'END_GAME') {
+    // if player finishes the puzzle, ENDED_GAME action is sent, and 'game won' socket emitted
+    if (this.props.multiGameState === 'ENDED_GAME') {
       var socketInfo = {
         id: this.socket.id,
         hasWon: true
@@ -92,6 +95,7 @@ class Multiplayer extends Component {
   };
 
   calculateProgress(playerCode) {
+
     var totalChars = this.state.minifiedPuzzle.length;
     var distance = levenshtein(this.state.minifiedPuzzle, playerCode);
 
@@ -103,6 +107,7 @@ class Multiplayer extends Component {
   };
 
   calculatePercent(playerCode) {
+    // typed code is passed in, and percent completed is calculated and returned
     var miniCode = playerCode.replace(/\s/g,'');
     var totalChars = this.state.minifiedPuzzle.length;
     var distance = levenshtein(this.state.minifiedPuzzle, miniCode);
@@ -112,7 +117,7 @@ class Multiplayer extends Component {
   };
 
   // sends current player's code to the socket to broadcast
-  updateAllProgress(code) {
+  sendProgressToSockets(code) {
     var value = {
       id: this.socket.id,
       code: code
@@ -127,12 +132,12 @@ class Multiplayer extends Component {
         <TimerMulti
           saveTimeElapsed={this.saveTimeElapsed.bind(this)}
           socket={this.socket} />
-        <CodePrompt puzzle={this.state.currentPuzzle} />
+        <CodePromptMulti puzzle={this.state.currentPuzzle} />
         <CodeEditorMulti
           puzzle={this.state.currentPuzzle}
           minifiedPuzzle={this.state.minifiedPuzzle}
           calculateProgress={this.calculateProgress.bind(this)}
-          updateAllProgress={this.updateAllProgress.bind(this)} />
+          sendProgressToSockets={this.sendProgressToSockets.bind(this)} />
         <ProgressBarMulti socket={this.socket} />
       </div>
     )
@@ -141,9 +146,9 @@ class Multiplayer extends Component {
 
 function mapStateToProps(state) {
   return {
-    multiGame: state.multiGame,
+    multiGameState: state.multiGameState,
     gameTime: state.gameTime,
-    multiGameProgress: state.multiGameProgress
+    playersStatuses: state.playersStatuses
   }
 };
 
@@ -152,7 +157,8 @@ function mapDispatchToProps(dispatch) {
     startGame: startGame,
     endGame: endGame,
     stopTimer: stopTimer,
-    updateProgresses: updateProgresses
+    syncPlayersStatuses: syncPlayersStatuses,
+    startCountdown: startCountdown
   }, dispatch);
 };
 
