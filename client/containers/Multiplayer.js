@@ -5,7 +5,7 @@ import TimerMulti from './TimerMulti';
 import levenshtein from './../lib/levenshtein';
 import ProgressBarMulti from './ProgressBarMulti';
 import { connect } from 'react-redux';
-import { startGame, endGame, stopTimer, updateProgresses, startCountdown } from '../actions/index';
+import { startGame, endGame, stopTimer, syncPlayersStatuses, startCountdown } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import underscore from 'underscore';
 
@@ -40,7 +40,7 @@ class Multiplayer extends Component {
 
     // listen for a player joined event and update players store
     this.socket.on('player joined', function(players) {
-      this.props.updateProgresses(players);
+      this.props.syncPlayersStatuses(players);
     }.bind(this));
 
     // listening for a 'all players progress' socket event and
@@ -50,7 +50,7 @@ class Multiplayer extends Component {
         var playerPercent = this.calculatePercent(obj[2]);
         players[key][1] = playerPercent;
       }.bind(this));
-      this.props.updateProgresses(players);
+      this.props.syncPlayersStatuses(players);
 
     }.bind(this));
 
@@ -95,6 +95,7 @@ class Multiplayer extends Component {
   };
 
   calculateProgress(playerCode) {
+
     var totalChars = this.state.minifiedPuzzle.length;
     var distance = levenshtein(this.state.minifiedPuzzle, playerCode);
 
@@ -106,6 +107,7 @@ class Multiplayer extends Component {
   };
 
   calculatePercent(playerCode) {
+    // typed code is passed in, and percent completed is calculated and returned
     var miniCode = playerCode.replace(/\s/g,'');
     var totalChars = this.state.minifiedPuzzle.length;
     var distance = levenshtein(this.state.minifiedPuzzle, miniCode);
@@ -115,7 +117,7 @@ class Multiplayer extends Component {
   };
 
   // sends current player's code to the socket to broadcast
-  updateAllProgress(code) {
+  sendProgressToSockets(code) {
     var value = {
       id: this.socket.id,
       code: code
@@ -135,7 +137,7 @@ class Multiplayer extends Component {
           puzzle={this.state.currentPuzzle}
           minifiedPuzzle={this.state.minifiedPuzzle}
           calculateProgress={this.calculateProgress.bind(this)}
-          updateAllProgress={this.updateAllProgress.bind(this)} />
+          sendProgressToSockets={this.sendProgressToSockets.bind(this)} />
         <ProgressBarMulti socket={this.socket} />
       </div>
     )
@@ -146,7 +148,7 @@ function mapStateToProps(state) {
   return {
     multiGameState: state.multiGameState,
     gameTime: state.gameTime,
-    multiGameProgress: state.multiGameProgress
+    playersStatuses: state.playersStatuses
   }
 };
 
@@ -155,7 +157,7 @@ function mapDispatchToProps(dispatch) {
     startGame: startGame,
     endGame: endGame,
     stopTimer: stopTimer,
-    updateProgresses: updateProgresses,
+    syncPlayersStatuses: syncPlayersStatuses,
     startCountdown: startCountdown
   }, dispatch);
 };

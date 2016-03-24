@@ -39,9 +39,9 @@ export function updateElapsedTime(time) {
   }
 }
 
-export function updateProgresses(allCode) {
+export function syncPlayersStatuses(status) {
   return {
     type: 'UPDATE_PROGRESSES',
-    payload: allCode
+    payload: status
   }
 }

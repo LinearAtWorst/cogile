@@ -50,12 +50,13 @@ class CodeEditorMulti extends Component {
     // should lock CodeEditor to read-only until timer begins
     this.editor.setReadOnly(true);
 
+    // this code will be run everytime something is typed in the code editor
     this.editor.getSession().on("change", function() {
       var code = this.editor.getSession().getValue();
       var miniCode = code.replace(/\s/g,'');
 
       // sending player code to socket
-      this.props.updateAllProgress(code);
+      this.props.sendProgressToSockets(code);
 
       // sending minified code to progressBar display
       this.props.calculateProgress(miniCode);
