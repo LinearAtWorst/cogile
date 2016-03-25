@@ -35,8 +35,11 @@ class Multiplayer extends Component {
   componentDidMount() {
     // console.log(this.props.params.gameId);
 
-    // establish connection to socket, currently just default namespace
     this.socket = io();
+
+    if(this.props.params.gameId){
+      this.socket.emit('create new game',{roomcode:this.props.params.gameId, username: 'nick'});
+    }
 
     // listen for a player joined event and update players store
     this.socket.on('player joined', function(players) {
@@ -64,6 +67,7 @@ class Multiplayer extends Component {
   };
 
   componentWillUnmount() {
+    this.socket.emit('disconnected',{roomcode:this.props.params.gameId, username: 'nick'})
     this.socket.disconnect();
   };
 
@@ -71,10 +75,11 @@ class Multiplayer extends Component {
     // if player finishes the puzzle, ENDED_GAME action is sent, and 'game won' socket emitted
     if (this.props.multiGameState === 'ENDED_GAME') {
       var socketInfo = {
+        username: 'nick',
         id: this.socket.id,
         hasWon: true
       };
-      underscore.once(this.socket.emit('game won', socketInfo));
+      underscore.once(this.socket.emit('game won', socketInfo, 'nickgame6'));
     }
   };
 
@@ -89,7 +94,7 @@ class Multiplayer extends Component {
       // if current player is not the winner, display winner's ID
       swal({
         title: 'Sorry!',
-        text: winner.id + ' won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
+        text: winner.username + ' won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
       });
     }
   };
@@ -117,13 +122,14 @@ class Multiplayer extends Component {
   };
 
   // sends current player's code to the socket to broadcast
-  sendProgressToSockets(code) {
-    var value = {
+  sendProgressToSockets(code, roomcode) {
+    var data = {
+      roomcode: roomcode,
       id: this.socket.id,
       code: code
     }
 
-    this.socket.emit('player progress', value);
+    this.socket.emit('player progress', data);
   };
 
   render() {

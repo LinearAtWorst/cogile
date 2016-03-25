@@ -31,7 +31,7 @@ class StartButtonMulti extends Component {
       this.props.startCountdown();
 
       // emit event to socket that multigame is starting
-      this.props.socket.emit('game start', true);
+      this.props.socket.emit('game start', true, 'nickgame6');
 
       this.setState({
         text: 'Go!',
