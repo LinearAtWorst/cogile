@@ -65,7 +65,6 @@ class CodeEditor extends Component {
       if (code === this.props.minifiedPuzzle) {
         // save the replay
         localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify(this.record));
-        console.log(localStorage);
         this.props.endGame();
         this.editor.setReadOnly(true);
       }
