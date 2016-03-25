@@ -22,7 +22,7 @@ class Multiplayer extends Component {
   };
 
   componentWillMount() {
-    $.get('api/getPrompt', function(data) {
+    $.get('api/getRandomPrompt', function(data) {
       var minifiedPuzzle = data.replace(/\s/g,'');
 
       this.setState({

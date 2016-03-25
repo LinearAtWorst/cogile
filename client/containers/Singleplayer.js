@@ -67,10 +67,10 @@ class Singleplayer extends Component {
           var data = res.data;
           var minifiedPuzzle = data.replace(/\s/g,'');
 
-          this.props.changeLevel({'currentLevel': '01-identity'})
+          this.props.changeLevel({'currentLevel': '00-forloop'})
 
           this.setState({
-            puzzleName: '01-identity',
+            puzzleName: '00-forloop',
             currentPuzzle: data,
             minifiedPuzzle: minifiedPuzzle
           });

@@ -13,8 +13,10 @@ class LevelSelect extends Component {
 
   componentDidMount() {
     this.levels = [
-      '01-identity',
-      '02-first'
+      '00-forloop',
+      '01-size',
+      '02-fizzbuzz',
+      '03-jqueryclick'
     ];
 
     function closure(savedIndex) {

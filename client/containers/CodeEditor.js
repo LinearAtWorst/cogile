@@ -76,12 +76,15 @@ class CodeEditor extends Component {
         }
 
         var recordingDuration = recordingEndTime - recordingStartTime;
-        var oldReplayDuration = JSON.parse(localStorage.getItem(this.props.currentLevel.currentLevel)).duration
-        
-        // check elapsedTime vs. ghost's time
-        // if elapsedTime < ghost's time, then save new 
-        if (recordingDuration < oldReplayDuration) {
-          // save the replay
+        if (localStorage.getItem(this.props.currentLevel.currentLevel)) {
+          var oldReplayDuration = JSON.parse(localStorage.getItem(this.props.currentLevel.currentLevel)).duration
+          // check elapsedTime vs. ghost's time
+          // if elapsedTime < ghost's time, then save new 
+          if (recordingDuration < oldReplayDuration) {
+            // save the replay
+            localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify({ recording: this.record, duration: recordingDuration }));
+          }
+        } else {
           localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify({ recording: this.record, duration: recordingDuration }));
         }
         
