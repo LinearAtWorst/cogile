@@ -63,6 +63,9 @@ class CodeEditor extends Component {
 
       // if code matches the minified solution
       if (code === this.props.minifiedPuzzle) {
+        // check elapsedTime vs. ghost's time
+        // if elapsedTime < ghost's time, then save new 
+
         // save the replay
         localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify(this.record));
         this.props.endGame();
@@ -90,6 +93,11 @@ class CodeEditor extends Component {
       // focus goes to CodeEditor and read-only disabled
       this.editor.setReadOnly(false);
       this.editor.focus();
+
+      // start recording ghost replay when game starts
+      if (Object.keys(this.record).length === 0) {
+        this.record[(new Date()).getTime()] = '';
+      }
     }
   }
 
