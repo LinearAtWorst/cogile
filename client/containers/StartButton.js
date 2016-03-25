@@ -29,6 +29,18 @@ class StartButton extends Component {
     }
   }
 
+  componentDidUpdate() {
+    // Reset the button if level changes
+    if (!this.props.singleGame && this.state.buttonDisabled && this.props.countingDown !== 'START_COUNTDOWN') {
+      this.setState({
+        text: 'Start!',
+        buttonType: 'btn btn-raised btn-primary',
+        buttonDisabled: false,
+        handleMultiCalled: false
+      });
+    }
+  }
+
   render() {
     if (this.props.countingDown === 'START_COUNTDOWN') {
       return null;
@@ -49,6 +61,7 @@ class StartButton extends Component {
 
 function mapStateToProps(state) {
   return {
+    singleGame: state.singleGame,
     countingDown: state.countingDown
   }
 }

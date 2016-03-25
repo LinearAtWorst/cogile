@@ -44,13 +44,13 @@ class CodeGhost extends Component {
             }
         });
     }.bind(this));
-
-    // Get most recent recording from localStorage
-    this.record = JSON.parse(localStorage.getItem('replay'));
   }
 
   // Plays back replay stored in this.record on game start
   startGhostReplay() {
+    // Get most recent recording from localStorage
+    this.record = JSON.parse(localStorage.getItem(this.props.currentLevel));
+
     this.playbackClosure = function(value) {
       return function() {
         this.editor.setValue(value);
@@ -72,11 +72,24 @@ class CodeGhost extends Component {
   }
 
   componentDidUpdate() {
+    // On game start, start the ghost replay
     if (this.props.singleGame === 'STARTED_GAME' && !this.state.replayStarted) {
       this.startGhostReplay();
       this.setState({
         replayStarted: true
       });
+    } else if (this.props.singleGame === null && this.state.replayStarted) { // If game was reset
+      this.editor.setValue('');
+
+      this.setState({
+        replayStarted: false
+      });
+
+      // Clears all settimeouts if any still exist
+      var id = window.setTimeout(function() {}, 0);
+      while (id--) {
+          window.clearTimeout(id);
+      }
     }
   }
 
