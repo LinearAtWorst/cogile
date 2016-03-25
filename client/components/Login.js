@@ -7,6 +7,10 @@ import axios from 'axios';
 
 class Login extends Component {
 
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   constructor(props) {
     super(props);
 
@@ -64,10 +68,9 @@ class Login extends Component {
         console.log('response',response);
         if (response.data.isValid === true) {
           global.window.localStorage.setItem('com.nimblecode', response.data.token);
-          browserHistory.push('/');
           console.log("successful login");
           // this.props.storeUsername(this.state.username);
-
+          this.context.router.push('/');
         } else {
           console.log("unsuccessful login");
           return false;
