@@ -21,7 +21,7 @@ class TimerMulti extends Component {
   startTimer() {
     this.setState({
       timerOn: true,
-      message: '0.0'
+      message: '0:0.0'
     });
 
     this.intervalID = setInterval(function() {
