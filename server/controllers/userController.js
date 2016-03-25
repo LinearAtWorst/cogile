@@ -26,7 +26,7 @@ module.exports = {
         // console.log(found);
         bcrypt.compare(password, found.get('password'), function(err, result) {
           if(result) {
-            console.log(result);
+            console.log("HELLO!", result);
             var token = jwt.encode({username: username}, secret);
             validObj.token = token;
             validObj.isValid = true;
