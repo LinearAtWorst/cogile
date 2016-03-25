@@ -7,6 +7,10 @@ import axios from 'axios';
 
 class Login extends Component {
 
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   constructor(props) {
     super(props);
 
@@ -21,6 +25,7 @@ class Login extends Component {
       <div className="container col-sm-6">
       <h1 className="about-title">LOGIN</h1>
       <div className="row row-spacer"></div>
+      <div>Not registered? Register <a href="/#/register">here</a></div>
       <form className="form" onSubmit={this._onSubmit.bind(this)}>
         <div className="form-group label-floating">
         <label htmlFor="username" className="control-label">Username</label>
@@ -63,10 +68,9 @@ class Login extends Component {
         console.log('response',response);
         if (response.data.isValid === true) {
           global.window.localStorage.setItem('com.nimblecode', response.data.token);
-          browserHistory.push('/');
           console.log("successful login");
           // this.props.storeUsername(this.state.username);
-
+          this.context.router.push('/');
         } else {
           console.log("unsuccessful login");
           return false;
