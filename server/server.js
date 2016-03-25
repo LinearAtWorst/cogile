@@ -18,9 +18,9 @@ var app = express();
 var GitHubStrategy = require('passport-github2').Strategy;
 
 passport.use(new GitHubStrategy({
-    clientID: '5650911cf15eb84602a8',
-    clientSecret: 'e41b6c3c03214af93621c7f7d280c1cf5b2f9fe6',
-    callbackURL: 'http://127.0.0.1:8080/api/oauth/github/callback'
+    clientID: 'CLIENT_ID',
+    clientSecret: 'CLIENT_SECRET',
+    callbackURL: 'CALLBACK_URL'
   },
   function(accessToken, refreshToken, profile, done) {
     var profileObj = profile._json;
