@@ -1,4 +1,5 @@
 var express = require('express');
+var config = require('../../config.js');
 var path = require('path');
 var React = require('react');
 var Router = require('react-router');
@@ -18,9 +19,9 @@ var app = express();
 var GitHubStrategy = require('passport-github2').Strategy;
 
 passport.use(new GitHubStrategy({
-    clientID: 'CLIENT_ID',
-    clientSecret: 'CLIENT_SECRET',
-    callbackURL: 'CALLBACK_URL'
+    clientID: config.clientID,
+    clientSecret: config.clientSecret,
+    callbackURL: config.callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
     var profileObj = profile._json;
