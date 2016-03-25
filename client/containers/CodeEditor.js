@@ -53,7 +53,6 @@ class CodeEditor extends Component {
 
     this.editor.getSession().on("change", function(e) {
       var value = this.editor.getSession().getValue();
-      
       // populate record object with keys of the time, and values of text value
       this.record[(new Date()).getTime()] = value;
 
@@ -63,11 +62,29 @@ class CodeEditor extends Component {
 
       // if code matches the minified solution
       if (code === this.props.minifiedPuzzle) {
+        var recordingEndTime = 0;
+        var recordingStartTime = 1000000000000000000;
+
+        // find recordingEndTime and recordingStartTime
+        for (var key in this.record) {
+          if (parseInt(key) > recordingEndTime) {
+            recordingEndTime = parseInt(key);
+          }
+          if (parseInt(key) < recordingStartTime) {
+            recordingStartTime = parseInt(key);
+          }
+        }
+
+        var recordingDuration = recordingEndTime - recordingStartTime;
+        var oldReplayDuration = JSON.parse(localStorage.getItem(this.props.currentLevel.currentLevel)).duration
+        
         // check elapsedTime vs. ghost's time
         // if elapsedTime < ghost's time, then save new 
-
-        // save the replay
-        localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify(this.record));
+        if (recordingDuration < oldReplayDuration) {
+          // save the replay
+          localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify({ recording: this.record, duration: recordingDuration }));
+        }
+        
         this.props.endGame();
         this.editor.setReadOnly(true);
       }
