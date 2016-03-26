@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { startGame, endGame, newHighScore } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import axios from 'axios';
 
 class CodeEditor extends Component {
   constructor(props) {
@@ -51,6 +52,12 @@ class CodeEditor extends Component {
     // record that holds the "ghost" replay
     this.record = {};
 
+    // Get record high score for this puzzle
+    
+    // this.ghostReplay
+
+
+    // On every keypress in the code editor
     this.editor.getSession().on("change", function(e) {
       var value = this.editor.getSession().getValue();
       // populate record object with keys of the time, and values of text value
@@ -60,7 +67,7 @@ class CodeEditor extends Component {
       var code = value.replace(/\s/g,'');
       this.props.calculateProgress(code);
 
-      // if code matches the minified solution
+      // if code matches the minified solution, trigger win condition
       if (code === this.props.minifiedPuzzle) {
         var recordingEndTime = 0;
         var recordingStartTime = 1000000000000000000;
@@ -75,11 +82,17 @@ class CodeEditor extends Component {
           }
         }
 
+        // Calculate duration of the current recording's duration
         var recordingDuration = recordingEndTime - recordingStartTime;
+
+        // If a record exists for the current level
         if (localStorage.getItem(this.props.currentLevel.currentLevel)) {
+
+          // Grab the best replay's duration
           var oldReplayDuration = JSON.parse(localStorage.getItem(this.props.currentLevel.currentLevel)).duration
-          // check elapsedTime vs. ghost's time
-          // if elapsedTime < ghost's time, then save new 
+          
+          // check current duration vs. ghost's duration
+          // if current time < ghost's time, then save new record
           if (recordingDuration < oldReplayDuration) {
             // save the replay
             this.props.newHighScore({
@@ -87,13 +100,15 @@ class CodeEditor extends Component {
               oldReplayDuration: oldReplayDuration
             });
             localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify({ recording: this.record, duration: recordingDuration }));
-          } else {
+            
+
+          } else { // Broadcast action that no new high score was set
             this.props.newHighScore({
               newHighScore: false,
               oldReplayDuration: oldReplayDuration
             });
           }
-        } else {
+        } else { // If there is no current high score, just set the high score automatically
           this.props.newHighScore({
             newHighScore: true,
             oldReplayDuration: oldReplayDuration

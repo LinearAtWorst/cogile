@@ -100,3 +100,10 @@ export function newHighScore(boolean) {
   }
 }
 
+export function getListOfPrompts(prompts) {
+  return {
+    type: 'UPDATE_LIST',
+    payload: prompts
+  }
+}
+

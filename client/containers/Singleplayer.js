@@ -6,7 +6,7 @@ import Timer from './Timer';
 import levenshtein from './../lib/levenshtein';
 import ProgressBar from '../components/ProgressBar';
 import { connect } from 'react-redux';
-import { changeLevel } from '../actions/index';
+import { changeLevel, getListOfPrompts } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import LevelSelect from './LevelSelect';
@@ -82,7 +82,13 @@ class Singleplayer extends Component {
           });
         }.bind(this));
     }
+
+    axios.get('api/getAllPrompts').then(function(res) {
+      var list = res.data;
+      this.props.getListOfPrompts({prompts: list});
+    }.bind(this));
   };
+
 
   endingAlert() {
     // New Record was Achieved
@@ -174,7 +180,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({changeLevel: changeLevel}, dispatch);
+  return bindActionCreators({changeLevel: changeLevel, getListOfPrompts: getListOfPrompts}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Singleplayer)
