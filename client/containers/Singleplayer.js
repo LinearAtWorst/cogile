@@ -42,6 +42,12 @@ class Singleplayer extends Component {
           }.bind(this));
       }
     }
+
+    // Checks game victory when time is different from previously recorded win time
+    if (this.props.gameTime && this.props.gameTime !== this.prevTime) {
+      this.endingAlert();
+      this.prevTime = this.props.gameTime;
+    }
   }
 
   componentWillMount() {
@@ -77,6 +83,48 @@ class Singleplayer extends Component {
         }.bind(this));
     }
   };
+
+  endingAlert() {
+    // New Record was Achieved
+    if (this.props.newHighScore.newHighScore) {
+      swal({
+        title: 'Woohoo!',
+        text: "Your time of " 
+              + this.props.gameTime.minutes + ":" 
+              + this.props.gameTime.seconds + "." 
+              + this.props.gameTime.tenthSeconds 
+              + " beat the fastest time!  Your replay has been saved as the new leader."
+              + " Would you like to play the next level or try again?",
+        type: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Onward!',
+        cancelButtonText: 'Retry',
+        confirmButtonClass: 'btn  btn-raised btn-success',
+        cancelButtonClass: 'btn btn-raised btn-info',
+        buttonsStyling: false,
+        closeOnConfirm: true,
+        closeOnCancel: true
+      },
+      function(isConfirm) {
+        if (isConfirm === true) {
+          swal(
+            'Doh! Feature not finished yet!'
+          );
+        } else if (isConfirm === false) {
+          location.reload();
+          console.log('Confirm false, currentlevel', this.props.currentLevel);
+          this.props.changeLevel({'currentLevel': null});
+          this.props.changeLevel({'currentLevel': this.props.currentLevel.currentLevel});
+        } else {
+          // outside click, isConfirm is undefinded
+        }
+      }.bind(this))
+    } else {
+
+    }
+  }
 
   saveTimeElapsed(tenthSeconds, seconds, minutes) {
     // Sweet Alert with Info
@@ -119,7 +167,9 @@ function mapStateToProps(state) {
   return {
     singleGame: state.singleGame,
     SavedUsername: state.SavedUsername,
-    currentLevel: state.currentLevel
+    currentLevel: state.currentLevel,
+    gameTime: state.gameTime,
+    newHighScore: state.newHighScore
   }
 }
 

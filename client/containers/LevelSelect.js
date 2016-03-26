@@ -41,10 +41,10 @@ class LevelSelect extends Component {
           <ul className="dropdown-menu" role="menu" aria-labelledby="menu1">
             <li role="presentation"><span tabIndex="-1">JavaScript</span></li>
             <li role="presentation" className="divider"></li>
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel0">Level 1</a></li>
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel1">Level 2</a></li>
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel2">Level 3</a></li>
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel3">Level 4</a></li>
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel0" href="#/singleplayer/00-forloop">Level 1</a></li>
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel1" href="#/singleplayer/01-size">Level 2</a></li>
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel2" href="#/singleplayer/02-fizzbuzz">Level 3</a></li>
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel3" href="#/singleplayer/03-jqueryclick">Level 4</a></li>
             <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel4">Level 5</a></li>
           </ul>
         </div>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CountdownTimer from './CountdownTimer';
 import StartButton from './StartButton';
-import { leavePage } from '../actions/index';
+import { leavePage, updateElapsedTime } from '../actions/index';
 
 class Timer extends Component {
   constructor(props) {
@@ -65,7 +65,14 @@ class Timer extends Component {
     if (this.props.singleGame === 'ENDED_GAME' && this.state.timerOn) {
       clearInterval(this.intervalID);
       this.setState({timerOn : false});
-      this.props.saveTimeElapsed(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
+      // this.props.saveTimeElapsed(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
+      var time = {
+        tenthSeconds: this.state.tenthSeconds,
+        seconds: this.state.seconds,
+        minutes: this.state.minutes
+      }
+      this.props.updateElapsedTime(time);
+
     }
     // On game start, start if not already running
     if (this.props.singleGame === 'STARTED_GAME' && !this.state.timerOn) {
@@ -97,7 +104,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ leavePage: leavePage }, dispatch);
+  return bindActionCreators({ leavePage: leavePage, updateElapsedTime: updateElapsedTime }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);

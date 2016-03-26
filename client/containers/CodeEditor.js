@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { startGame, endGame } from '../actions/index';
+import { startGame, endGame, newHighScore } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class CodeEditor extends Component {
@@ -82,9 +82,22 @@ class CodeEditor extends Component {
           // if elapsedTime < ghost's time, then save new 
           if (recordingDuration < oldReplayDuration) {
             // save the replay
+            this.props.newHighScore({
+              newHighScore: true,
+              oldReplayDuration: oldReplayDuration
+            });
             localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify({ recording: this.record, duration: recordingDuration }));
+          } else {
+            this.props.newHighScore({
+              newHighScore: false,
+              oldReplayDuration: oldReplayDuration
+            });
           }
         } else {
+          this.props.newHighScore({
+            newHighScore: true,
+            oldReplayDuration: oldReplayDuration
+          });
           localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify({ recording: this.record, duration: recordingDuration }));
         }
         
@@ -104,7 +117,7 @@ class CodeEditor extends Component {
 
   componentDidUpdate() {
     // if level has been changed or reset
-    if (this.props.singleGame === null) {
+    if (this.props.singleGame === null || this.props.currentLevel.currentLevel === null) {
       this.editor.setValue('');
       this.editor.setReadOnly(true);
     }
@@ -140,7 +153,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({startGame: startGame, endGame: endGame}, dispatch);
+  return bindActionCreators({startGame: startGame, endGame: endGame, newHighScore: newHighScore}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CodeEditor);
