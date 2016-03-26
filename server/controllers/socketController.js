@@ -1,6 +1,7 @@
-var numUsers = 0;
+var promptController = require('./promptController.js');
+
+// Data structure that holds all concurrent rooms.
 var rooms = {};
-var colors = ['F44336', '4CAF50', '2196F3', 'FFEB3B']; // red, green, blue, yellow
 
 var socketController = {};
 
@@ -43,6 +44,7 @@ socketController.socketInit = function(io) {
 
           socket.join(data.roomcode);
           io.to(data.roomcode).emit('player joined', rooms[data.roomcode].players);
+          io.to(data.roomcode).emit('here is your prompt', rooms[data.roomcode].prompt);
           console.log('Successfully joined room.', data.roomcode);
           console.log('Room users count:', rooms[data.roomcode].numUsers);
         }
@@ -53,13 +55,18 @@ socketController.socketInit = function(io) {
         // Create player data set.
         rooms[data.roomcode].players = {};
 
+        // Establish code prompt for room.
+        rooms[data.roomcode].prompt = promptController.registerRandomPrompt();
+
         // When room is made, assume creator joins.
         rooms[data.roomcode].numUsers = 1;
 
         // Add creator as player.
         rooms[data.roomcode].players[data.username] = [rooms[data.roomcode].colors.shift(), 0, '', socket.id];
 
+        console.log('Room Data:', rooms[data.roomcode]);
         socket.join(data.roomcode);
+        io.to(data.roomcode).emit('here is your prompt', rooms[data.roomcode].prompt);
         console.log('successfully joined game with user:', data.username);
         console.log('Room users count:', rooms[data.roomcode].numUsers);
       }

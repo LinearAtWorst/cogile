@@ -13,6 +13,9 @@ var getRandomJS = function(){
 	return jsFiles[Math.floor(Math.random() * jsFiles.length)];
 };
 
+handlers.registerRandomPrompt = function(){
+	return fs.readFileSync(path.join(__dirname, '../library/prompts/' + /*req.data.language  ||*/  'js/' + /*req.data.prompt ||*/ getRandomJS()), 'utf-8');
+};
 
 handlers.random = function(req, res){
 	// console.log("__dirname", __dirname);

@@ -23,16 +23,6 @@ class Multiplayer extends Component {
   };
 
   componentWillMount() {
-    this.username = this.props.getUsername().payload;
-
-    $.get('api/getPrompt', function(data) {
-      var minifiedPuzzle = data.replace(/\s/g,'');
-
-      this.setState({
-        currentPuzzle: data,
-        minifiedPuzzle: minifiedPuzzle
-      });
-    }.bind(this));
   };
 
   componentDidMount() {
@@ -48,9 +38,20 @@ class Multiplayer extends Component {
       console.log('saved game is currently: ', this.props.savedGame);
     }
 
-    // listen for a player joined event and update players store
+    // listen
     this.socket.on('player joined', function(players) {
       this.props.syncPlayersStatuses(players);
+    }.bind(this));
+
+    // listen
+    this.socket.on('here is your prompt', function(prompt) {
+      var minifiedPuzzle = prompt.replace(/\s/g,'');
+
+      this.setState({
+        currentPuzzle: prompt,
+        minifiedPuzzle: minifiedPuzzle
+      });
+
     }.bind(this));
 
     // listening for a 'all players progress' socket event and
