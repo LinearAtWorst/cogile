@@ -22,10 +22,12 @@ class Login extends Component {
 
   render() {
     return(
-      <div className="container col-sm-6">
+      <div className="container">
+      <div className="col-sm-3"></div>
+      <div className="col-sm-6">
       <h1 className="about-title">LOGIN</h1>
       <div className="row row-spacer"></div>
-      <div>Not registered? Register <a href="/#/register">here</a></div>
+      <div className="text-center">Don't have an account? Register <a href="/#/register">here</a>. Only logged in users can access Multiplayer!</div>
       <form className="form" onSubmit={this._onSubmit.bind(this)}>
         <div className="form-group label-floating">
         <label htmlFor="username" className="control-label">Username</label>
@@ -37,10 +39,12 @@ class Login extends Component {
         </div>
         <center><div className="row">
         <button className="btn btn-raised" type="submit">Login</button>
-        <p className="lead">OR</p>
-        <a className="btn btn-raised"><span className="fa fa-github fa-3x"></span> Login with Github</a>
+        {/*<p className="lead">OR</p>
+        <a className="btn btn-raised"><span className="fa fa-github fa-3x"></span> Login with Github</a>*/}
         </div></center>
       </form>
+      </div>
+      <div className="col-sm-3"></div>
       </div>
     );
   }
