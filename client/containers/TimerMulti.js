@@ -67,9 +67,15 @@ class TimerMulti extends Component {
     if (this.props.multiGameState === 'STARTED_GAME' && !this.state.timerOn) {
       this.startTimer();
     }
+
+    // if someone leaves page, stop the timer
+    if (this.props.multiGameState === null) {
+      clearInterval(this.intervalID);
+    }
   };
 
   componentWillUnmount() {
+    clearInterval(this.intervalID);
     this.props.leavePage();
   };
   

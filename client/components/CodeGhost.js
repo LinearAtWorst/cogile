@@ -33,23 +33,38 @@ class CodeGhost extends Component {
     // Disables Selection of Text to Prevent Copy/Paste
     // Comment out for development purposes
     this.editor.on('changeSelection', function(e) {
-        this.editor.selection.setSelectionRange({
-            start: {
-                row: 0,
-                column: 0
-            },
-            end: {
-                row: 0,
-                column: 0
-            }
-        });
+      this.editor.selection.setSelectionRange({
+        start: {
+          row: 0,
+          column: 0
+        },
+        end: {
+          row: 0,
+          column: 0
+        }
+      });
     }.bind(this));
+
+    // TODO: Use ghost replay code to get percent/progress
+    // capture the valueof the code in the editor to send to calculateProgress
+    // this.editor.getSession().on("change", function(e) {
+    //   console.log(this.editor.getSession().getValue());
+    // }.bind(this)); 
   }
 
   // Plays back replay stored in this.record on game start
   startGhostReplay() {
     // Get most recent recording from localStorage
-    this.record = JSON.parse(localStorage.getItem(this.props.currentLevel));
+    if (localStorage.getItem(this.props.currentLevel)) {
+      this.record = JSON.parse(localStorage.getItem(this.props.currentLevel)).recording
+    } else {
+      this.record = {
+        recording: {
+          '1': 'No replay loaded'
+        },
+        duration: 999999999999
+      };
+    }
 
     this.playbackClosure = function(value) {
       return function() {

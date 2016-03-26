@@ -7,8 +7,10 @@ var path = require('path');
 var handlers = {};
 
 var jsFiles = [
-		"01-identity.js",
-		"02-first.js"
+		'00-forloop',
+		'01-size',
+		'02-fizzbuzz',
+		'03-jqueryclick'
 	];
 
 var getRandomJS = function(){
@@ -51,10 +53,14 @@ handlers.updateHighScore = function(req, res){
 };
 
 
+handlers.registerRandomPrompt = function(){
+	return fs.readFileSync(path.join(__dirname, '../library/prompts/' + /*req.data.language  ||*/  'js/' + /*req.data.prompt ||*/ getRandomJS() + '.js'), 'utf-8');
+};
+
 handlers.random = function(req, res){
 	// console.log("__dirname", __dirname);
 
-	fs.readFile(path.join(__dirname, '../library/prompts/' + /*req.data.language  ||*/  'js/' + /*req.data.prompt ||*/ getRandomJS()), 'utf-8', function(err, data){
+	fs.readFile(path.join(__dirname, '../library/prompts/' + /*req.data.language  ||*/  'js/' + /*req.data.prompt ||*/ getRandomJS() + '.js'), 'utf-8', function(err, data){
 		console.log(err);
 		// console.log(data);
 		res.send(data);

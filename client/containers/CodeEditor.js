@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { startGame, endGame } from '../actions/index';
+import { startGame, endGame, newHighScore } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class CodeEditor extends Component {
@@ -53,7 +53,6 @@ class CodeEditor extends Component {
 
     this.editor.getSession().on("change", function(e) {
       var value = this.editor.getSession().getValue();
-      
       // populate record object with keys of the time, and values of text value
       this.record[(new Date()).getTime()] = value;
 
@@ -63,8 +62,45 @@ class CodeEditor extends Component {
 
       // if code matches the minified solution
       if (code === this.props.minifiedPuzzle) {
-        // save the replay
-        localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify(this.record));
+        var recordingEndTime = 0;
+        var recordingStartTime = 1000000000000000000;
+
+        // find recordingEndTime and recordingStartTime
+        for (var key in this.record) {
+          if (parseInt(key) > recordingEndTime) {
+            recordingEndTime = parseInt(key);
+          }
+          if (parseInt(key) < recordingStartTime) {
+            recordingStartTime = parseInt(key);
+          }
+        }
+
+        var recordingDuration = recordingEndTime - recordingStartTime;
+        if (localStorage.getItem(this.props.currentLevel.currentLevel)) {
+          var oldReplayDuration = JSON.parse(localStorage.getItem(this.props.currentLevel.currentLevel)).duration
+          // check elapsedTime vs. ghost's time
+          // if elapsedTime < ghost's time, then save new 
+          if (recordingDuration < oldReplayDuration) {
+            // save the replay
+            this.props.newHighScore({
+              newHighScore: true,
+              oldReplayDuration: oldReplayDuration
+            });
+            localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify({ recording: this.record, duration: recordingDuration }));
+          } else {
+            this.props.newHighScore({
+              newHighScore: false,
+              oldReplayDuration: oldReplayDuration
+            });
+          }
+        } else {
+          this.props.newHighScore({
+            newHighScore: true,
+            oldReplayDuration: oldReplayDuration
+          });
+          localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify({ recording: this.record, duration: recordingDuration }));
+        }
+        
         this.props.endGame();
         this.editor.setReadOnly(true);
       }
@@ -81,7 +117,7 @@ class CodeEditor extends Component {
 
   componentDidUpdate() {
     // if level has been changed or reset
-    if (this.props.singleGame === null) {
+    if (this.props.singleGame === null || this.props.currentLevel.currentLevel === null) {
       this.editor.setValue('');
       this.editor.setReadOnly(true);
     }
@@ -90,6 +126,11 @@ class CodeEditor extends Component {
       // focus goes to CodeEditor and read-only disabled
       this.editor.setReadOnly(false);
       this.editor.focus();
+
+      // start recording ghost replay when game starts
+      if (Object.keys(this.record).length === 0) {
+        this.record[(new Date()).getTime()] = '';
+      }
     }
   }
 
@@ -112,7 +153,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({startGame: startGame, endGame: endGame}, dispatch);
+  return bindActionCreators({startGame: startGame, endGame: endGame, newHighScore: newHighScore}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CodeEditor);

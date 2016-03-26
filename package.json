@@ -1,7 +1,7 @@
 {
-  "name": "cogile",
+  "name": "nimblecode",
   "version": "1.0.0",
-  "description": "Cogile",
+  "description": "nimbleCode",
   "main": "index.js",
   "dependencies": {
     "axios": "^0.9.1",
@@ -47,12 +47,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LinearAtWorst/cogile.git"
+    "url": "git+https://github.com/LinearAtWorst/nimblecode.git"
   },
   "author": "LinearAtWorst",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/LinearAtWorst/cogile/issues"
+    "url": "https://github.com/LinearAtWorst/nimblecode/issues"
   },
-  "homepage": "https://github.com/LinearAtWorst/cogile#readme"
+  "homepage": "https://github.com/LinearAtWorst/nimblecode#readme"
 }
