@@ -35,7 +35,7 @@ handlers.specific = function(req, res){
 	if (req.query.puzzleName) {
 		puzzleName = req.query.puzzleName;
 	} else {
-		puzzleName = '01-identity';
+		puzzleName = jsFiles[0];
 	}
 
 	fs.readFile(path.join(__dirname, '../library/prompts/' + /*req.data.language  ||*/  'js/' + puzzleName + '.js'), 'utf-8', function(err, data){
@@ -44,6 +44,23 @@ handlers.specific = function(req, res){
 		res.send(data);
 	});
 
+}
+
+
+
+
+
+
+
+handlers.getAllPrompts = function(req, res) {
+	res.send(jsFiles);
+}
+
+handlers.getHighScore = function(req, res) {
+	var promptName = req.query.promptName;
+	console.log(promptName);
+
+	res.send('Sending back info for ' + promptName);
 }
 
 module.exports = handlers;
