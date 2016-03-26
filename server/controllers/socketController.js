@@ -39,8 +39,8 @@ socketController.socketInit = function(io) {
           // Otherwise, add user to the room.
 
           // each player will have an array with [color, codePercent, code, socket.id]
-
           rooms[data.roomcode].players[data.username] = [rooms[data.roomcode].colors.shift(), 0, '', data.username];
+          
           rooms[data.roomcode].numUsers++;
           console.log('Room Data:', rooms[data.roomcode]);
 
@@ -53,8 +53,8 @@ socketController.socketInit = function(io) {
       } else {
         console.log('Creating room:', data.roomcode);
         rooms[data.roomcode] = { colors: ['F44336', '4CAF50', '2196F3', 'FFEB3B'] };
-        // randomizing color array
-        console.log('our room is: ', rooms[data.roomcode]);
+        
+        // Randomizing color array.
         helperFunctions.shuffle(rooms[data.roomcode].colors);
 
         // Create player data set.
@@ -94,20 +94,22 @@ socketController.socketInit = function(io) {
     });
 
     socket.on('disconnected', function(data) {
-      if(rooms[data.roomcode].numUsers === 1){
-        console.log('Last player in room disconnected, destroying room.')
-        delete rooms[data.roomcode];
-      } else {
-        rooms[data.roomcode].numUsers--;
+      if (rooms[data.roomcode]) {
 
-        // var user = socket.id.slice(2);
-        var color = rooms[data.roomcode].players[data.username][0];
+        if(rooms[data.roomcode].numUsers === 1){
+          console.log('Last player in room disconnected, destroying room.')
+          delete rooms[data.roomcode];
+        } else {
+          rooms[data.roomcode].numUsers--;
 
-        delete rooms[data.roomcode].players[data.username];
+          var color = rooms[data.roomcode].players[data.username][0];
 
-        rooms[data.roomcode].colors.push(color);
+          delete rooms[data.roomcode].players[data.username];
 
-        console.log('User just disconnected in room:', rooms[data.roomcode], '. numUsers is now: ', rooms[data.roomcode].numUsers);
+          rooms[data.roomcode].colors.push(color);
+
+          console.log('User just disconnected in room:', rooms[data.roomcode], '. numUsers is now: ', rooms[data.roomcode].numUsers);
+        }
       }
     });
 
