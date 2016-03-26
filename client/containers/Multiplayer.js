@@ -23,6 +23,7 @@ class Multiplayer extends Component {
   };
 
   componentWillMount() {
+
   };
 
   componentDidMount() {
