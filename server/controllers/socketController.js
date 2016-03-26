@@ -1,4 +1,5 @@
 var promptController = require('./promptController.js');
+var helperFunctions = require('../../client/utils/helperFunctions.js');
 
 // Data structure that holds all concurrent rooms.
 var rooms = {};
@@ -22,8 +23,7 @@ socketController.joinRandomRoom = function(req, res) {
 socketController.socketInit = function(io) {
 
   io.on('connection', function(socket) {
-    var socket_id = socket.id.slice(2);
-
+    
     socket.on('create new game', function(data){
 
       // Room already exists, try to join it
@@ -37,8 +37,9 @@ socketController.socketInit = function(io) {
         } else {
           // Otherwise, add user to the room.
 
-          // each player will have an array with [color, codePercent, code, socket.id]
-          rooms[data.roomcode].players[data.username] = [rooms[data.roomcode].colors.shift(), 0, '', socket.id];
+          // each player will have an array with [color, codePercent, code, username]
+          rooms[data.roomcode].players[data.username] = [rooms[data.roomcode].colors.shift(), 0, '', data.username];
+          
           rooms[data.roomcode].numUsers++;
           console.log('Room Data:', rooms[data.roomcode]);
 
@@ -51,6 +52,9 @@ socketController.socketInit = function(io) {
       } else {
         console.log('Creating room:', data.roomcode);
         rooms[data.roomcode] = { colors: ['F44336', '4CAF50', '2196F3', 'FFEB3B'] };
+        
+        // Randomizing color array.
+        helperFunctions.shuffle(rooms[data.roomcode].colors);
 
         // Create player data set.
         rooms[data.roomcode].players = {};
@@ -62,7 +66,7 @@ socketController.socketInit = function(io) {
         rooms[data.roomcode].numUsers = 1;
 
         // Add creator as player.
-        rooms[data.roomcode].players[data.username] = [rooms[data.roomcode].colors.shift(), 0, '', socket.id];
+        rooms[data.roomcode].players[data.username] = [rooms[data.roomcode].colors.shift(), 0, '', data.username];
 
         console.log('Room Data:', rooms[data.roomcode]);
         socket.join(data.roomcode);
@@ -77,7 +81,9 @@ socketController.socketInit = function(io) {
     })
 
     socket.on('game won', function(value, roomcode) {
-      io.to(roomcode).emit('game over', value);
+      console.log('inside socket game won, roomcode is: ', value.gameId);
+      console.log('inside socket game won, value is: ', value);
+      io.to(value.gameId).emit('game over', value);
     });
 
     socket.on('player progress', function(data) {
@@ -87,20 +93,22 @@ socketController.socketInit = function(io) {
     });
 
     socket.on('disconnected', function(data) {
-      if(rooms[data.roomcode].numUsers === 1){
-        console.log('Last player in room disconnected, destroying room.')
-        delete rooms[data.roomcode];
-      } else {
-        rooms[data.roomcode].numUsers--;
+      if (rooms[data.roomcode]) {
 
-        // var user = socket.id.slice(2);
-        var color = rooms[data.roomcode].players[data.username][0];
+        if(rooms[data.roomcode].numUsers === 1){
+          console.log('Last player in room disconnected, destroying room.')
+          delete rooms[data.roomcode];
+        } else {
+          rooms[data.roomcode].numUsers--;
 
-        delete rooms[data.roomcode].players[data.username];
+          var color = rooms[data.roomcode].players[data.username][0];
 
-        rooms[data.roomcode].colors.push(color);
+          delete rooms[data.roomcode].players[data.username];
 
-        console.log('User just disconnected in room:', rooms[data.roomcode], '. numUsers is now: ', rooms[data.roomcode].numUsers);
+          rooms[data.roomcode].colors.push(color);
+
+          console.log('User just disconnected in room:', rooms[data.roomcode], '. numUsers is now: ', rooms[data.roomcode].numUsers);
+        }
       }
     });
 

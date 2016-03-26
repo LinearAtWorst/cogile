@@ -16,7 +16,7 @@ var getRandomJS = function(){
 };
 
 handlers.registerRandomPrompt = function(){
-	return fs.readFileSync(path.join(__dirname, '../library/prompts/' + /*req.data.language  ||*/  'js/' + /*req.data.prompt ||*/ getRandomJS()), 'utf-8');
+	return fs.readFileSync(path.join(__dirname, '../library/prompts/' + /*req.data.language  ||*/  'js/' + /*req.data.prompt ||*/ getRandomJS() + '.js'), 'utf-8');
 };
 
 handlers.random = function(req, res){
