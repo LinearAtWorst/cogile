@@ -50,7 +50,7 @@ class Multiplayer extends Component {
       this.setState({
         currentPuzzle: prompt,
         minifiedPuzzle: minifiedPuzzle
-      }).bind(this);
+      });
 
     }.bind(this));
 

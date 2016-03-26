@@ -62,11 +62,7 @@ socketController.socketInit = function(io) {
         rooms[data.roomcode].numUsers = 1;
 
         // Add creator as player.
-<<<<<<< Updated upstream
         rooms[data.roomcode].players[data.username] = [rooms[data.roomcode].colors.shift(), 0, '', socket.id];
-=======
-        rooms[data.roomcode].players[socket_id] = [rooms[data.roomcode].colors.shift(), 0, '', data.username || 'guest'];
->>>>>>> Stashed changes
 
         console.log('Room Data:', rooms[data.roomcode]);
         socket.join(data.roomcode);
