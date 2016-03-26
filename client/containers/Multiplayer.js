@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import CodeEditorMulti from './CodeEditorMulti';
 import CodePromptMulti from '../components/CodePromptMulti';
 import TimerMulti from './TimerMulti';
@@ -10,6 +10,11 @@ import { bindActionCreators } from 'redux';
 import underscore from 'underscore';
 
 class Multiplayer extends Component {
+  
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   constructor() {
     super();
 
@@ -90,19 +95,67 @@ class Multiplayer extends Component {
     }
   };
 
+  sendToMultiplayerLandingPage() {
+    this.context.router.push('multiplayer');
+  };
+
   saveTimeElapsed(tenthSeconds, seconds, minutes, winner) {
     if (winner === this.username) {
       // Sweet Alert with Info
       swal({
         title: 'Sweet!',
-        text: 'You completed the challenge with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
-      });
+        text: 'You won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Take me home',
+        cancelButtonText: 'Create/Join a new game',
+        confirmButtonClass: 'btn  btn-raised btn-success',
+        cancelButtonClass: 'btn btn-raised btn-info',
+        buttonsStyling: false,
+        closeOnConfirm: true,
+        closeOnCancel: true
+      }, function(isConfirm) {
+        if (isConfirm === true) {
+          console.log('user has clicked take me home');
+          this.context.router.push('/');
+        } else if (isConfirm === false) {
+          console.log('user wants to create/join new game');
+          this.context.router.push('multiplayer');
+        } else {
+          console.log('user has clicked outside, should send multiplayer');
+          // TODO: have some message that says, sending to multiplayer
+          this.context.router.push('multiplayer');
+        }
+      }.bind(this));
     } else {
       // if current player is not the winner, display winner's ID
       swal({
         title: 'Sorry!',
-        text: winner + ' won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
-      });
+        text: winner + ' won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Take me home',
+        cancelButtonText: 'Create/Join a new game',
+        confirmButtonClass: 'btn  btn-raised btn-success',
+        cancelButtonClass: 'btn btn-raised btn-info',
+        buttonsStyling: false,
+        closeOnConfirm: true,
+        closeOnCancel: true
+      }, function(isConfirm) {
+        if (isConfirm === true) {
+          console.log('user has clicked take me home');
+          this.context.router.push('/');
+        } else if (isConfirm === false) {
+          console.log('user wants to create/join new game');
+          this.context.router.push('multiplayer');
+        } else {
+          console.log('user has clicked outside, should send multiplayer');
+          // TODO: have some message that says, sending to multiplayer
+          this.context.router.push('multiplayer');
+        }
+      }.bind(this));
     }
   };
 
