@@ -32,7 +32,7 @@ socketController.socketInit = function(io) {
         console.log('Room users count:', rooms[data.roomcode].numUsers);
 
         // Room is full or the user is already joined, reject
-        if(rooms[data.roomcode].numUsers === 4 || rooms[data.roomcode].players[data.username] !== undefined){
+        if(rooms[data.roomcode].numUsers === 8 || rooms[data.roomcode].players[data.username] !== undefined){
           return false;
         } else {
           // Otherwise, add user to the room.
