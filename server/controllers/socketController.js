@@ -76,10 +76,6 @@ socketController.socketInit = function(io) {
       io.to(roomcode).emit('multigame start', rooms[roomcode].players);
     })
 
-    // socket.on('fetch prompt', function(roomcode) {
-    //   io.to(roomcode).emit('here is your prompt', rooms[roomcode].prompt);
-    // })
-
     socket.on('game won', function(value, roomcode) {
       io.to(roomcode).emit('game over', value);
     });
