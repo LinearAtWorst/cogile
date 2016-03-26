@@ -90,18 +90,64 @@ class Multiplayer extends Component {
     }
   };
 
+  multiGameEndAction(isConfirm) {
+    if (isConfirm === true) {
+      console.log('user has clicked ok, no further action needed');
+    } else if (isConfirm === false) {
+      console.log('user wants to create/join new game');
+    } else {
+      // outside click, isConfirm is undefinded
+    }
+  };
+
   saveTimeElapsed(tenthSeconds, seconds, minutes, winner) {
     if (winner === this.username) {
       // Sweet Alert with Info
       swal({
         title: 'Sweet!',
-        text: 'You completed the challenge with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
+        text: 'You completed the challenge with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ok!',
+        cancelButtonText: 'Create/Join a new game',
+        confirmButtonClass: 'btn  btn-raised btn-success',
+        cancelButtonClass: 'btn btn-raised btn-info',
+        buttonsStyling: false,
+        closeOnConfirm: true,
+        closeOnCancel: true
+      }, function(isConfirm) {
+        if (isConfirm === true) {
+          console.log('user has clicked ok, no further action needed');
+        } else if (isConfirm === false) {
+          console.log('user wants to create/join new game');
+        } else {
+          console.log('user has clicked outside, should send home');
+        }
       });
     } else {
       // if current player is not the winner, display winner's ID
       swal({
         title: 'Sorry!',
-        text: winner + ' won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
+        text: winner + ' won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ok!',
+        cancelButtonText: 'Create/Join a new game',
+        confirmButtonClass: 'btn  btn-raised btn-success',
+        cancelButtonClass: 'btn btn-raised btn-info',
+        buttonsStyling: false,
+        closeOnConfirm: true,
+        closeOnCancel: true
+      }, function(isConfirm) {
+        if (isConfirm === true) {
+          console.log('user has clicked ok, no further action needed');
+        } else if (isConfirm === false) {
+          console.log('user wants to create/join new game');
+        } else {
+          console.log('user has clicked outside, should send home');
+        }
       });
     }
   };
