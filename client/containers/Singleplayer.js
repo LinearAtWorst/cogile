@@ -91,16 +91,32 @@ class Singleplayer extends Component {
 
 
   endingAlert() {
+    let highScoreObj = this.props.newHighScore
+    let title = '';
+    let message = '';
+    let minutes = this.props.gameTime.minutes;
+    let seconds = this.props.gameTime.seconds;
+    let tenthSeconds = this.props.gameTime.tenthSeconds;
+
+    // Set title and message for sweet alert
+    if (highScoreObj.newHighScore && highScoreObj.loggedIn) {
+      title = 'Woohoo!';
+      message = 'You set a new record with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds +'. Your replay has been saved as the new leader.';
+    } else if (highScoreObj.newHighScore && !highScoreObj.loggedIn) {
+      title = 'Wow!';
+      message = 'You beat the high score with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds +'. Unfortunately, you need to be logged in so we can store your high score. Log in and try again!';
+    } else if (!highScoreObj.newHighScore && highScoreObj.loggedIn) {
+      title = 'Sweet!';
+      message = 'You completed the prompt in ' + minutes + ':' + seconds + '.' + tenthSeconds +'. Keep practicing to beat the record!';
+    } else if (!highScoreObj.newHighScore && !highScoreObj.loggedIn) {
+      title = 'Great!';
+      message = 'You completed the prompt in ' + minutes + ':' + seconds + '.' + tenthSeconds +'. Keep practicing to beat the record!';
+    }
+
     // New Record was Achieved
-    if (this.props.newHighScore.newHighScore) {
       swal({
-        title: 'Woohoo!',
-        text: "Your time of " 
-              + this.props.gameTime.minutes + ":" 
-              + this.props.gameTime.seconds + "." 
-              + this.props.gameTime.tenthSeconds 
-              + " beat the fastest time!  Your replay has been saved as the new leader."
-              + " Would you like to play the next level or try again?",
+        title: title,
+        text: message,
         type: 'success',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -127,9 +143,7 @@ class Singleplayer extends Component {
           // outside click, isConfirm is undefinded
         }
       }.bind(this))
-    } else {
 
-    }
   }
 
   saveTimeElapsed(tenthSeconds, seconds, minutes) {

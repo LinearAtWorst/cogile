@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { startGame, endGame, newHighScore } from '../actions/index';
+import { startGame, endGame, newHighScore, getUsername } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 
@@ -24,6 +24,9 @@ class CodeEditor extends Component {
   };
 
   componentDidMount() {
+    // Set username if it exists
+    this.username = this.props.getUsername().payload;
+
     this.editor = ace.edit('codeEditor');
     this.editor.setShowPrintMargin(false);
     this.editor.setTheme("ace/theme/twilight");
@@ -51,11 +54,6 @@ class CodeEditor extends Component {
 
     // record that holds the "ghost" replay
     this.record = {};
-
-    // Get record high score for this puzzle
-    
-    // this.ghostReplay
-
 
     // On every keypress in the code editor
     this.editor.getSession().on("change", function(e) {
@@ -86,21 +84,30 @@ class CodeEditor extends Component {
         var recordingDuration = recordingEndTime - recordingStartTime;
 
         // If a record exists for the current level
-        if (localStorage.getItem(this.props.currentLevel.currentLevel)) {
+        if (this.recordHigh) {
 
           // Grab the best replay's duration
-          var oldReplayDuration = JSON.parse(localStorage.getItem(this.props.currentLevel.currentLevel)).duration
-          
+          var oldReplayDuration = JSON.parse(this.recordHigh.recording).duration;
+
           // check current duration vs. ghost's duration
-          // if current time < ghost's time, then save new record
-          if (recordingDuration < oldReplayDuration) {
+          // if current time < ghost's time and user is logged in, then save new record
+          if (recordingDuration < oldReplayDuration && this.username !== 'guest') {
             // save the replay
             this.props.newHighScore({
               newHighScore: true,
-              oldReplayDuration: oldReplayDuration
+              oldReplayDuration: oldReplayDuration,
+              loggedIn: true
             });
-            localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify({ recording: this.record, duration: recordingDuration }));
-            
+            axios.post('api/setHighScore', {
+              username: this.username,
+              recording: JSON.stringify({
+                recording: this.record,
+                duration: recordingDuration
+              }),
+              puzzleName: this.props.currentLevel.currentLevel
+            }).then(function(res) {
+              // console.log(res);
+            }.bind(this));
 
           } else { // Broadcast action that no new high score was set
             this.props.newHighScore({
@@ -109,11 +116,30 @@ class CodeEditor extends Component {
             });
           }
         } else { // If there is no current high score, just set the high score automatically
-          this.props.newHighScore({
-            newHighScore: true,
-            oldReplayDuration: oldReplayDuration
-          });
-          localStorage.setItem(this.props.currentLevel.currentLevel, JSON.stringify({ recording: this.record, duration: recordingDuration }));
+          if (this.username !== 'guest') {
+            this.props.newHighScore({
+              newHighScore: true,
+              oldReplayDuration: oldReplayDuration,
+              loggedIn: true
+            });
+
+            axios.post('api/setHighScore', {
+              username: this.username,
+              recording: JSON.stringify({
+                recording: this.record,
+                duration: recordingDuration
+              }),
+              puzzleName: this.props.currentLevel.currentLevel
+            }).then(function(res) {
+              // console.log(res);
+            }.bind(this));
+          } else { // Else they are not logged in
+            this.props.newHighScore({
+              newHighScore: true,
+              oldReplayDuration: oldReplayDuration,
+              loggedIn: false
+            });
+          }
         }
         
         this.props.endGame();
@@ -146,6 +172,13 @@ class CodeEditor extends Component {
       if (Object.keys(this.record).length === 0) {
         this.record[(new Date()).getTime()] = '';
       }
+
+      axios.get('api/getHighScore/?promptName=' + this.props.currentLevel.currentLevel)
+        .then(function(res) {
+          var data = res.data;
+          this.recordHigh = res.data;
+          // console.log('Returned DATA FROM DB : ', data);
+        }.bind(this));
     }
   }
 
@@ -168,7 +201,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({startGame: startGame, endGame: endGame, newHighScore: newHighScore}, dispatch);
+  return bindActionCreators({startGame: startGame, endGame: endGame, newHighScore: newHighScore, getUsername: getUsername}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CodeEditor);
