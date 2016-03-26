@@ -23,8 +23,7 @@ socketController.joinRandomRoom = function(req, res) {
 socketController.socketInit = function(io) {
 
   io.on('connection', function(socket) {
-    var socket_id = socket.id.slice(2);
-
+    
     socket.on('create new game', function(data){
 
       // Room already exists, try to join it
@@ -38,7 +37,7 @@ socketController.socketInit = function(io) {
         } else {
           // Otherwise, add user to the room.
 
-          // each player will have an array with [color, codePercent, code, socket.id]
+          // each player will have an array with [color, codePercent, code, username]
           rooms[data.roomcode].players[data.username] = [rooms[data.roomcode].colors.shift(), 0, '', data.username];
           
           rooms[data.roomcode].numUsers++;

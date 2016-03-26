@@ -6,9 +6,9 @@ class LandingPage extends Component {
   componentWillMount() {
     this.content  = {
       boxOneTitle: 'Learning By Typing',
-      boxOneText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu placerat libero, a commodo ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus maximus ultrices rutrum. Donec eu nunc a elit sagittis interdum. Nunc sed turpis mi.',
-      boxTwoTitle: 'Multiplayer Mode',
-      boxTwoText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu placerat libero, a commodo ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus maximus ultrices rutrum. Donec eu nunc a elit sagittis interdum. Nunc sed turpis mi.',
+      boxOneText: 'Being a faster, more efficient coder is a goal of software engineers everywhere, whether they are beginning or expereienced.  An easy way to improve on that skill is to simply write lines of code.  So why not learn and have competitive fun at the same time?',
+      boxTwoTitle: 'Race Against Your Friends',
+      boxTwoText: 'Everyone loves some occasionl friendly competition.  At nimblecode, we provide an easy to use platform to display your coding prowess by competing against your friends in real time.  Stretch those fingers and try multiplayer mode with friends!',
       boxThreeTitle: 'About',
       boxThreeText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu placerat libero, a commodo ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus maximus ultrices rutrum. Donec eu nunc a elit sagittis interdum. Nunc sed turpis mi.',
       boxFourTitle: 'JS, Python, and More!',

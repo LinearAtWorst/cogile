@@ -55,7 +55,16 @@ class CodeGhost extends Component {
   // Plays back replay stored in this.record on game start
   startGhostReplay() {
     // Get most recent recording from localStorage
-    this.record = JSON.parse(localStorage.getItem(this.props.currentLevel)).recording;
+    if (localStorage.getItem(this.props.currentLevel)) {
+      this.record = JSON.parse(localStorage.getItem(this.props.currentLevel)).recording
+    } else {
+      this.record = {
+        recording: {
+          '1': 'No replay loaded'
+        },
+        duration: 999999999999
+      };
+    }
 
     this.playbackClosure = function(value) {
       return function() {

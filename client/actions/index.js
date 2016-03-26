@@ -92,3 +92,11 @@ export function changeLevel(level) {
     payload: level
   }
 }
+
+export function newHighScore(boolean) {
+  return {
+    type: 'NEW_HIGH_SCORE',
+    payload: boolean
+  }
+}
+
