@@ -81,6 +81,7 @@ class Timer extends Component {
   }
 
   componentWillUnmount() {
+    clearInterval(this.intervalID);
     this.props.leavePage();
   }
   
