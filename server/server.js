@@ -51,15 +51,15 @@ passport.use(new GitHubStrategy({
   })
 );
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+app.use(bodyParser());
 
 app.use(session({secret: 'secret'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function(user, done){
+  console.log("DONE: ", done);
   done(null, user);  
 });
 
@@ -67,13 +67,11 @@ passport.deserializeUser(function(user, done){
   done(null, user);
 });
 
-
 app.set('port', (process.env.PORT || 8080));
 
 var server = http.createServer(app).listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');
 });
-
 
 require('./routes/routes.js')(app, express, passport);
 
@@ -88,7 +86,7 @@ app.use(webpackMiddleware(bundler));
 // socket code
 var io = require('socket.io').listen(server);
 var socketEvents = require('./controllers/socketController.js').socketInit(io);
-
+//
 
 //TEST CREAT USER
 // var newUser = {
