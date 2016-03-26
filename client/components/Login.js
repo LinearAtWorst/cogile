@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { storeUsername } from '../actions/index';
+import { storeUsername, getUsername } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import { Router, Route, browserHistory, hashHistory, IndexRoute, useRouterHistory } from 'react-router';
 import axios from 'axios';
@@ -67,9 +67,14 @@ class Login extends Component {
       .then(function(response) {
         console.log('response',response);
         if (response.data.isValid === true) {
+          // saving token to localStorage
           global.window.localStorage.setItem('com.nimblecode', response.data.token);
           console.log("successful login");
-          // this.props.storeUsername(this.state.username);
+
+          // storing username into Redux App State
+          this.props.storeUsername(this.state.username);
+
+          // redirecting to homepage
           this.context.router.push('/');
         } else {
           console.log("unsuccessful login");
@@ -91,7 +96,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    storeUsername: storeUsername
+    storeUsername: storeUsername,
+    getUsername: getUsername
   }, dispatch);
 };
 

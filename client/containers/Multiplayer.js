@@ -5,7 +5,7 @@ import TimerMulti from './TimerMulti';
 import levenshtein from './../lib/levenshtein';
 import ProgressBarMulti from './ProgressBarMulti';
 import { connect } from 'react-redux';
-import { startGame, endGame, stopTimer, storeGameId, syncPlayersStatuses, startCountdown } from '../actions/index';
+import { startGame, endGame, stopTimer, storeGameId, syncPlayersStatuses, startCountdown, getUsername } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import underscore from 'underscore';
 
@@ -19,9 +19,12 @@ class Multiplayer extends Component {
       gameFinished: false,
       progress: 0
     };
+
   };
 
   componentWillMount() {
+    this.username = this.props.getUsername().payload;
+
     $.get('api/getPrompt', function(data) {
       var minifiedPuzzle = data.replace(/\s/g,'');
 
@@ -40,7 +43,7 @@ class Multiplayer extends Component {
     if(this.props.params.gameId){
       this.props.storeGameId(this.props.params.gameId);
 
-      this.socket.emit('create new game',{roomcode:this.props.params.gameId, username: 'nick'});
+      this.socket.emit('create new game', {roomcode:this.props.params.gameId, username: this.username});
 
       console.log('saved game is currently: ', this.props.savedGame);
     }
@@ -63,6 +66,7 @@ class Multiplayer extends Component {
 
     // listening for a 'game over' socket event to capture and stop time
     this.socket.on('game over', function(value) {
+      console.log('inside socket on gameover, this.props.gameTime is: ', this.props.gameTime);
       var time = this.props.gameTime;
       underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, value));
 
@@ -71,7 +75,7 @@ class Multiplayer extends Component {
   };
 
   componentWillUnmount() {
-    this.socket.emit('disconnected',{roomcode:this.props.params.gameId, username: 'nick'})
+    this.socket.emit('disconnected',{roomcode:this.props.params.gameId, username: this.username})
     this.socket.disconnect();
   };
 
@@ -79,7 +83,7 @@ class Multiplayer extends Component {
     // if player finishes the puzzle, ENDED_GAME action is sent, and 'game won' socket emitted
     if (this.props.multiGameState === 'ENDED_GAME') {
       var socketInfo = {
-        username: 'nick',
+        username: this.username,
         id: this.socket.id,
         hasWon: true
       };
@@ -129,7 +133,7 @@ class Multiplayer extends Component {
   sendProgressToSockets(code, roomcode) {
     var data = {
       roomcode: roomcode,
-      id: this.socket.id,
+      username: this.username,
       code: code
     }
 
@@ -159,7 +163,8 @@ function mapStateToProps(state) {
     multiGameState: state.multiGameState,
     gameTime: state.gameTime,
     savedGame: state.savedGame,
-    playersStatuses: state.playersStatuses
+    playersStatuses: state.playersStatuses,
+    SavedUsername: state.SavedUsername
   }
 };
 
@@ -170,7 +175,8 @@ function mapDispatchToProps(dispatch) {
     endGame: endGame,
     stopTimer: stopTimer,
     syncPlayersStatuses: syncPlayersStatuses,
-    startCountdown: startCountdown
+    startCountdown: startCountdown,
+    getUsername: getUsername
   }, dispatch);
 };
 

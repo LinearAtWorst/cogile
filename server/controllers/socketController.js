@@ -30,12 +30,14 @@ socketController.socketInit = function(io) {
         console.log('Room already exists! Attempting to join room:', data.roomcode);
         console.log('Room users count:', rooms[data.roomcode].numUsers);
 
-        // Room is full, reject
-        if(rooms[data.roomcode].numUsers === 4){
+        // Room is full or the user is already joined, reject
+        if(rooms[data.roomcode].numUsers === 4 || rooms[data.roomcode].players[data.username] !== undefined){
           return false;
         } else {
           // Otherwise, add user to the room.
-          rooms[data.roomcode].players[socket_id] = [rooms[data.roomcode].colors.shift(), 0, '', data.username];
+
+          // each player will have an array with [color, codePercent, code, socket.id]
+          rooms[data.roomcode].players[data.username] = [rooms[data.roomcode].colors.shift(), 0, '', socket.id];
           rooms[data.roomcode].numUsers++;
           console.log('Room Data:', rooms[data.roomcode]);
 
@@ -55,7 +57,7 @@ socketController.socketInit = function(io) {
         rooms[data.roomcode].numUsers = 1;
 
         // Add creator as player.
-        rooms[data.roomcode].players[socket_id] = [rooms[data.roomcode].colors.shift(), 0, '', data.username || 'gust'];
+        rooms[data.roomcode].players[data.username] = [rooms[data.roomcode].colors.shift(), 0, '', socket.id];
 
         socket.join(data.roomcode);
         console.log('successfully joined game with user:', data.username);
@@ -72,7 +74,8 @@ socketController.socketInit = function(io) {
     });
 
     socket.on('player progress', function(data) {
-      rooms[data.roomcode].players[data.id][2] = data.code;
+
+      rooms[data.roomcode].players[data.username][2] = data.code;
       io.to(data.roomcode).emit('all players progress', rooms[data.roomcode].players);
     });
 
@@ -83,10 +86,10 @@ socketController.socketInit = function(io) {
       } else {
         rooms[data.roomcode].numUsers--;
 
-        var user = socket.id.slice(2);
-        var color = rooms[data.roomcode].players[user][0];
+        // var user = socket.id.slice(2);
+        var color = rooms[data.roomcode].players[data.username][0];
 
-        delete rooms[data.roomcode].players[user];
+        delete rooms[data.roomcode].players[data.username];
 
         rooms[data.roomcode].colors.push(color);
 
