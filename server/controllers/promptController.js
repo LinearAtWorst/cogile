@@ -1,3 +1,5 @@
+var Highscore = require('../models/highscore.js');
+var Highscores = require('../collections/highScoreCollection.js');
 var prompts = require('./prompts');
 var fs = require('fs');
 var path = require('path');
@@ -11,6 +13,41 @@ var jsFiles = [
 
 var getRandomJS = function(){
 	return jsFiles[Math.floor(Math.random() * jsFiles.length)];
+};
+
+handlers.updateHighScore = function(req, res){
+	req.puzzleName = "02-ljsdsdlkf";
+	req.recording = "Existed";
+	req.username = 'NEW! IT WORKED OVERWRITING';
+
+	new Highscore({ puzzleName: req.puzzleName }).fetch()
+		.then(function(found) {
+      if(found){
+        Highscore.where({puzzleName: req.puzzleName})
+        .destroy()
+        .then(function(model){
+          new Highscore({
+            puzzleName: req.puzzleName,
+            username: req.username,
+            recording: req.recording
+          })
+          .save()
+          .then(function(highscore){
+            res.send(highscore);
+          });
+        });
+      }else{
+        new Highscore({
+          puzzleName: req.puzzleName,
+          username: req.username,
+          recording: req.recording
+        })
+        .save()
+        .then(function(highscore){
+          res.send(highscore);
+        });
+      }
+    });
 };
 
 
