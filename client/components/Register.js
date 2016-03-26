@@ -22,8 +22,10 @@ class Register extends Component {
 
   render() {
     return(
-      <div className="container col-sm-6">
-      <h3>Register an account</h3>
+      <div className="container">
+      <div className="col-sm-3"></div>
+      <div className="col-sm-6">
+      <h1 className="about-title">REGISTER ACCOUNT</h1>
       <form className="form" onSubmit={this._onSubmit.bind(this)}>
         <div className="form-group label-floating">
         <label htmlFor="username" className="control-label">Username</label>
@@ -37,6 +39,8 @@ class Register extends Component {
         <button className="btn" type="submit">Register</button>
         </div></center>
       </form>
+      </div>
+      <div className="col-sm-3"></div>
       </div>
     );
   }
