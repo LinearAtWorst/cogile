@@ -23,7 +23,7 @@ socketController.joinRandomRoom = function(req, res) {
 socketController.socketInit = function(io) {
 
   io.on('connection', function(socket) {
-    
+
     socket.on('create new game', function(data){
 
       // Room already exists, try to join it
@@ -39,7 +39,7 @@ socketController.socketInit = function(io) {
 
           // each player will have an array with [color, codePercent, code, username]
           rooms[data.roomcode].players[data.username] = [rooms[data.roomcode].colors.shift(), 0, '', data.username];
-          
+
           rooms[data.roomcode].numUsers++;
           console.log('Room Data:', rooms[data.roomcode]);
 
@@ -52,7 +52,7 @@ socketController.socketInit = function(io) {
       } else {
         console.log('Creating room:', data.roomcode);
         rooms[data.roomcode] = { colors: ['F44336', '4CAF50', '2196F3', 'FFEB3B'] };
-        
+
         // Randomizing color array.
         helperFunctions.shuffle(rooms[data.roomcode].colors);
 
