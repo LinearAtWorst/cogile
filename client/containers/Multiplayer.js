@@ -5,7 +5,7 @@ import TimerMulti from './TimerMulti';
 import levenshtein from './../lib/levenshtein';
 import ProgressBarMulti from './ProgressBarMulti';
 import { connect } from 'react-redux';
-import { startGame, endGame, stopTimer, storeGameId, syncPlayersStatuses, startCountdown, getUsername } from '../actions/index';
+import { startGame, endGame, stopTimer, storeGameId, syncPlayersStatuses, startCountdown, getUsername, leavePage } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import underscore from 'underscore';
 
@@ -23,20 +23,16 @@ class Multiplayer extends Component {
   };
 
   componentWillMount() {
-
+    this.username = this.props.getUsername().payload;
   };
 
   componentDidMount() {
-    // console.log(this.props.params.gameId);
-
     this.socket = io();
 
     if(this.props.params.gameId){
       this.props.storeGameId(this.props.params.gameId);
 
       this.socket.emit('create new game', {roomcode:this.props.params.gameId, username: this.username});
-
-      console.log('saved game is currently: ', this.props.savedGame);
     }
 
     // listen
@@ -59,7 +55,7 @@ class Multiplayer extends Component {
     // collects all players' code from socket
     this.socket.on('all players progress', function(players) {
       underscore.map(players, function(obj, key){
-        var playerPercent = this.calculatePercent(obj[2]);
+        var playerPercent = this.calculatePercent(players[key][2]);
         players[key][1] = playerPercent;
       }.bind(this));
       this.props.syncPlayersStatuses(players);
@@ -68,9 +64,8 @@ class Multiplayer extends Component {
 
     // listening for a 'game over' socket event to capture and stop time
     this.socket.on('game over', function(value) {
-      console.log('inside socket on gameover, this.props.gameTime is: ', this.props.gameTime);
       var time = this.props.gameTime;
-      underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, value));
+      underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, value.username));
 
       this.props.stopTimer();
     }.bind(this));
@@ -79,22 +74,24 @@ class Multiplayer extends Component {
   componentWillUnmount() {
     this.socket.emit('disconnected',{roomcode:this.props.params.gameId, username: this.username})
     this.socket.disconnect();
+    this.props.leavePage();
   };
 
   componentDidUpdate() {
     // if player finishes the puzzle, ENDED_GAME action is sent, and 'game won' socket emitted
     if (this.props.multiGameState === 'ENDED_GAME') {
       var socketInfo = {
+        gameId: this.props.params.gameId,
         username: this.username,
         id: this.socket.id,
         hasWon: true
       };
-      underscore.once(this.socket.emit('game won', socketInfo, this.props.params.gameId));
+      underscore.once(this.socket.emit('game won', socketInfo));
     }
   };
 
   saveTimeElapsed(tenthSeconds, seconds, minutes, winner) {
-    if (winner.id === this.socket.id) {
+    if (winner === this.username) {
       // Sweet Alert with Info
       swal({
         title: 'Sweet!',
@@ -104,7 +101,7 @@ class Multiplayer extends Component {
       // if current player is not the winner, display winner's ID
       swal({
         title: 'Sorry!',
-        text: winner.username + ' won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
+        text: winner + ' won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
       });
     }
   };
@@ -178,7 +175,8 @@ function mapDispatchToProps(dispatch) {
     stopTimer: stopTimer,
     syncPlayersStatuses: syncPlayersStatuses,
     startCountdown: startCountdown,
-    getUsername: getUsername
+    getUsername: getUsername,
+    leavePage: leavePage
   }, dispatch);
 };
 
