@@ -13,7 +13,8 @@ module.exports = function(app, express, passport) {
   app.get('/api/oauth/github', passport.authenticate('github'));
   app.get('/api/oauth/github/callback', passport.authenticate('github', { failureRedirect: '/hello' }),
       function(req, res) {
-      res.redirect('/loggedin');
+      res.user = req.user;
+      res.redirect('/');
   });
   //USERS
   app.post('/api/users/signup', userController.signup);
@@ -22,7 +23,9 @@ module.exports = function(app, express, passport) {
   //PROMPTS
   app.get('/api/getRandomPrompt', promptController.random);
   app.get('/api/getPrompt', promptController.specific);
+  app.get('/api/setHighScore', promptController.updateHighScore)
 
   //SOCKET
   app.get('/api/joinRandomRoom', socketController.joinRandomRoom);
+
 };
