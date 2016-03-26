@@ -19,4 +19,13 @@ helperFunctions.shuffle = function(array) {
   return array;
 };
 
+helperFunctions.requireAuth = function(nextState, replace) {
+  if (!global.window.localStorage.getItem('com.nimblecode')) {
+    replace({
+      pathname: '/login',
+      state: { nextPathname: nextState.location.pathname }
+    })
+  }
+}
+
 module.exports = helperFunctions;

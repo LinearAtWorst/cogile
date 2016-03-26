@@ -136,7 +136,7 @@ class Multiplayer extends Component {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Ok!',
+        confirmButtonText: 'Take me home',
         cancelButtonText: 'Create/Join a new game',
         confirmButtonClass: 'btn  btn-raised btn-success',
         cancelButtonClass: 'btn btn-raised btn-info',
