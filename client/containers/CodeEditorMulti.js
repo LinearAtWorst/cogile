@@ -95,7 +95,7 @@ class CodeEditorMulti extends Component {
   };
 
   render() {
-    const style = {fontSize: '14px !important', border: '1px solid lightgray'};
+    const style = {fontSize: '12px !important', border: '1px solid lightgray'};
 
     return React.DOM.div({
       id: 'codeEditor',
