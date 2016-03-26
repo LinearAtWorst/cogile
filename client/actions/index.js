@@ -55,6 +55,13 @@ export function storeUsername(username) {
   }
 }
 
+export function storeGameId(gameId) {
+  return {
+    type: 'STORE_GAMEID',
+    payload: gameId
+  }
+}
+
 export function getUsername() {
   var foundUsername = null;
   var decoded;
@@ -73,7 +80,7 @@ export function getUsername() {
 
 export function smashUser() {
   global.window.localStorage.removeItem('com.nimblecode');
-  
+
   return {
     type: 'SMASH_USER'
   }

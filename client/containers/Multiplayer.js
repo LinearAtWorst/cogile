@@ -5,7 +5,7 @@ import TimerMulti from './TimerMulti';
 import levenshtein from './../lib/levenshtein';
 import ProgressBarMulti from './ProgressBarMulti';
 import { connect } from 'react-redux';
-import { startGame, endGame, stopTimer, syncPlayersStatuses, startCountdown } from '../actions/index';
+import { startGame, endGame, stopTimer, storeGameId, syncPlayersStatuses, startCountdown, getUsername } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import underscore from 'underscore';
 
@@ -19,28 +19,40 @@ class Multiplayer extends Component {
       gameFinished: false,
       progress: 0
     };
+
   };
 
   componentWillMount() {
-    $.get('api/getRandomPrompt', function(data) {
-      var minifiedPuzzle = data.replace(/\s/g,'');
 
-      this.setState({
-        currentPuzzle: data,
-        minifiedPuzzle: minifiedPuzzle
-      });
-    }.bind(this));
   };
 
   componentDidMount() {
     // console.log(this.props.params.gameId);
 
-    // establish connection to socket, currently just default namespace
     this.socket = io();
 
-    // listen for a player joined event and update players store
+    if(this.props.params.gameId){
+      this.props.storeGameId(this.props.params.gameId);
+
+      this.socket.emit('create new game', {roomcode:this.props.params.gameId, username: this.username});
+
+      console.log('saved game is currently: ', this.props.savedGame);
+    }
+
+    // listen
     this.socket.on('player joined', function(players) {
       this.props.syncPlayersStatuses(players);
+    }.bind(this));
+
+    // listen
+    this.socket.on('here is your prompt', function(prompt) {
+      var minifiedPuzzle = prompt.replace(/\s/g,'');
+
+      this.setState({
+        currentPuzzle: prompt,
+        minifiedPuzzle: minifiedPuzzle
+      });
+
     }.bind(this));
 
     // listening for a 'all players progress' socket event and
@@ -56,6 +68,7 @@ class Multiplayer extends Component {
 
     // listening for a 'game over' socket event to capture and stop time
     this.socket.on('game over', function(value) {
+      console.log('inside socket on gameover, this.props.gameTime is: ', this.props.gameTime);
       var time = this.props.gameTime;
       underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, value));
 
@@ -64,6 +77,7 @@ class Multiplayer extends Component {
   };
 
   componentWillUnmount() {
+    this.socket.emit('disconnected',{roomcode:this.props.params.gameId, username: this.username})
     this.socket.disconnect();
   };
 
@@ -71,10 +85,11 @@ class Multiplayer extends Component {
     // if player finishes the puzzle, ENDED_GAME action is sent, and 'game won' socket emitted
     if (this.props.multiGameState === 'ENDED_GAME') {
       var socketInfo = {
+        username: this.username,
         id: this.socket.id,
         hasWon: true
       };
-      underscore.once(this.socket.emit('game won', socketInfo));
+      underscore.once(this.socket.emit('game won', socketInfo, this.props.params.gameId));
     }
   };
 
@@ -89,7 +104,7 @@ class Multiplayer extends Component {
       // if current player is not the winner, display winner's ID
       swal({
         title: 'Sorry!',
-        text: winner.id + ' won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
+        text: winner.username + ' won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
       });
     }
   };
@@ -117,13 +132,14 @@ class Multiplayer extends Component {
   };
 
   // sends current player's code to the socket to broadcast
-  sendProgressToSockets(code) {
-    var value = {
-      id: this.socket.id,
+  sendProgressToSockets(code, roomcode) {
+    var data = {
+      roomcode: roomcode,
+      username: this.username,
       code: code
     }
 
-    this.socket.emit('player progress', value);
+    this.socket.emit('player progress', data);
   };
 
   render() {
@@ -148,17 +164,21 @@ function mapStateToProps(state) {
   return {
     multiGameState: state.multiGameState,
     gameTime: state.gameTime,
-    playersStatuses: state.playersStatuses
+    savedGame: state.savedGame,
+    playersStatuses: state.playersStatuses,
+    SavedUsername: state.SavedUsername
   }
 };
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     startGame: startGame,
+    storeGameId: storeGameId,
     endGame: endGame,
     stopTimer: stopTimer,
     syncPlayersStatuses: syncPlayersStatuses,
-    startCountdown: startCountdown
+    startCountdown: startCountdown,
+    getUsername: getUsername
   }, dispatch);
 };
 
