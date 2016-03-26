@@ -56,7 +56,7 @@ class CodeEditorMulti extends Component {
       var miniCode = code.replace(/\s/g,'');
 
       // sending player code to socket
-      this.props.sendProgressToSockets(code, 'nickgame6');
+      this.props.sendProgressToSockets(code, this.props.savedGame);
 
       // sending minified code to progressBar display
       this.props.calculateProgress(miniCode);
@@ -107,7 +107,8 @@ class CodeEditorMulti extends Component {
 
 function mapStateToProps(state) {
   return {
-    multiGameState: state.multiGameState
+    multiGameState: state.multiGameState,
+    savedGame: state.savedGame
   }
 };
 

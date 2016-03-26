@@ -5,7 +5,7 @@ import TimerMulti from './TimerMulti';
 import levenshtein from './../lib/levenshtein';
 import ProgressBarMulti from './ProgressBarMulti';
 import { connect } from 'react-redux';
-import { startGame, endGame, stopTimer, syncPlayersStatuses, startCountdown } from '../actions/index';
+import { startGame, endGame, stopTimer, storeGameId, syncPlayersStatuses, startCountdown } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import underscore from 'underscore';
 
@@ -38,7 +38,11 @@ class Multiplayer extends Component {
     this.socket = io();
 
     if(this.props.params.gameId){
+      this.props.storeGameId(this.props.params.gameId);
+
       this.socket.emit('create new game',{roomcode:this.props.params.gameId, username: 'nick'});
+
+      console.log('saved game is currently: ', this.props.savedGame);
     }
 
     // listen for a player joined event and update players store
@@ -79,7 +83,7 @@ class Multiplayer extends Component {
         id: this.socket.id,
         hasWon: true
       };
-      underscore.once(this.socket.emit('game won', socketInfo, 'nickgame6'));
+      underscore.once(this.socket.emit('game won', socketInfo, this.props.params.gameId));
     }
   };
 
@@ -154,6 +158,7 @@ function mapStateToProps(state) {
   return {
     multiGameState: state.multiGameState,
     gameTime: state.gameTime,
+    savedGame: state.savedGame,
     playersStatuses: state.playersStatuses
   }
 };
@@ -161,6 +166,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     startGame: startGame,
+    storeGameId: storeGameId,
     endGame: endGame,
     stopTimer: stopTimer,
     syncPlayersStatuses: syncPlayersStatuses,
