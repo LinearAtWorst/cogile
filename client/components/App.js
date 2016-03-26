@@ -7,27 +7,14 @@ import NavLink from './NavLink';
 class App extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      username: this.props.getUsername().payload
-    };
-  }
-
-  componentDidMount() {
-    console.log(this.props.getUsername());
   }
 
   smash() {
     if (this.props.getUsername().payload !== "guest"){
       this.props.smashUser();
       console.log('token removed');
-      this.setState({
-        username: 'guest'
-      });
-      return true;
     }
     console.log('not logged in');
-    return false;
   };
 
   render() {
@@ -42,9 +29,8 @@ class App extends Component {
                 <li><NavLink to="singleplayer" className="nav-label" onlyActiveOnIndex>Singleplayer</NavLink></li>
                 <li><NavLink to="multiplayer" className="nav-label">Multiplayer</NavLink></li>
                 <li><NavLink to="about" className="nav-label">About</NavLink></li>
-                { /*<li><h3 className="nav-label">Welcome, {this.props.getUsername().payload}!</h3></li> */}
                 {
-                  (this.state.username === 'guest')
+                  (this.props.getUsername().payload === 'guest')
                   ? 
                   <li><NavLink to="login" className="nav-label">Login</NavLink></li>
                   : 
@@ -52,8 +38,7 @@ class App extends Component {
                     <NavLink
                       to="/"
                       className="nav-label"
-                      onClick={this.smash.bind(this)}
-                      onlyActiveOnIndex>
+                      onClick={this.smash.bind(this)}>
                       Logout
                     </NavLink>
                   </li>
@@ -71,7 +56,7 @@ class App extends Component {
 };
 
 function mapStateToProps(state) {
-  return {}
+  return { SavedUsername: state.SavedUsername }
 };
 
 function mapDispatchToProps(dispatch) {
