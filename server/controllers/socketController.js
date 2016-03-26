@@ -1,5 +1,5 @@
 var numUsers = 0;
-var players = {};
+var rooms = {};
 var colors = ['F44336', '4CAF50', '2196F3', 'FFEB3B']; // red, green, blue, yellow
 
 var socketController = {};
@@ -21,42 +21,79 @@ socketController.joinRandomRoom = function(req, res) {
 socketController.socketInit = function(io) {
 
   io.on('connection', function(socket) {
-
-    ++numUsers;
-    
     var socket_id = socket.id.slice(2);
-    var color = colors.shift();
 
-    players[socket_id] = [color, 0, ''];
+    socket.on('create new game', function(data){
 
-    io.emit('player joined', players);
+      // Room already exists, try to join it
+      if(rooms.hasOwnProperty(data.roomcode)){
+        console.log('Room already exists! Attempting to join room:', data.roomcode);
+        console.log('Room users count:', rooms[data.roomcode].numUsers);
 
-    console.log('user ', socket.id, ' has connected. numUsers is now: ', numUsers);
+        // Room is full, reject
+        if(rooms[data.roomcode].numUsers === 4){
+          return false;
+        } else {
+          // Otherwise, add user to the room.
+          rooms[data.roomcode].players[socket_id] = [rooms[data.roomcode].colors.shift(), 0, '', data.username];
+          rooms[data.roomcode].numUsers++;
+          console.log('Room Data:', rooms[data.roomcode]);
 
-    socket.on('game start', function(value) {
-      io.emit('multigame start', players);
+          socket.join(data.roomcode);
+          io.to(data.roomcode).emit('player joined', rooms[data.roomcode].players);
+          console.log('Successfully joined room.', data.roomcode);
+          console.log('Room users count:', rooms[data.roomcode].numUsers);
+        }
+      } else {
+        console.log('Creating room:', data.roomcode);
+        rooms[data.roomcode] = { colors: ['F44336', '4CAF50', '2196F3', 'FFEB3B'] };
+
+        // Create player data set.
+        rooms[data.roomcode].players = {};
+
+        // When room is made, assume creator joins.
+        rooms[data.roomcode].numUsers = 1;
+
+        // Add creator as player.
+        rooms[data.roomcode].players[socket_id] = [rooms[data.roomcode].colors.shift(), 0, '', data.username || 'gust'];
+
+        socket.join(data.roomcode);
+        console.log('successfully joined game with user:', data.username);
+        console.log('Room users count:', rooms[data.roomcode].numUsers);
+      }
     })
 
-    socket.on('game won', function(value) {
-      io.emit('game over', value);
+    socket.on('game start', function(value, roomcode) {
+      io.to(roomcode).emit('multigame start', rooms[roomcode].players);
+    })
+
+    socket.on('game won', function(value, roomcode) {
+      io.to(roomcode).emit('game over', value);
     });
 
-    socket.on('player progress', function(value) {
-      players[value.id]['2'] = value.code;
-      io.emit('all players progress', players);
+    socket.on('player progress', function(data) {
+      rooms[data.roomcode].players[data.id][2] = data.code;
+      io.to(data.roomcode).emit('all players progress', rooms[data.roomcode].players);
     });
 
-    socket.on('disconnect', function() {
-      --numUsers;
+    socket.on('disconnected', function(data) {
+      if(rooms[data.roomcode].numUsers === 1){
+        console.log('Last player in room disconnected, destroying room.')
+        delete rooms[data.roomcode];
+      } else {
+        rooms[data.roomcode].numUsers--;
 
-      var user = socket.id.slice(2);
+        var user = socket.id.slice(2);
+        var color = rooms[data.roomcode].players[user][0];
 
-      delete players[user];
+        delete rooms[data.roomcode].players[user];
 
-      colors.push(color);
+        rooms[data.roomcode].colors.push(color);
 
-      console.log('user: ', user, ' has disconnected. numUsers is now: ', numUsers);
+        console.log('User just disconnected in room:', rooms[data.roomcode], '. numUsers is now: ', rooms[data.roomcode].numUsers);
+      }
     });
+
   });
 }
 

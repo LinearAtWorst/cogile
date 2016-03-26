@@ -7,6 +7,7 @@ import CountingDownReducer from './CountingDownReducer';
 import GameTimeReducer from './GameTimeReducer';
 import UserReducer from './UserReducer';
 import ChangeLevelReducer from './ChangeLevelReducer';
+import RoomReducer from './RoomReducer';
 
 const rootReducer = combineReducers({
   singleGame: SingleGameReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   countingDown: CountingDownReducer,
   gameTime: GameTimeReducer,
   SavedUsername: UserReducer,
-  currentLevel: ChangeLevelReducer
+  currentLevel: ChangeLevelReducer,
+  savedGame: RoomReducer
 });
 
 export default rootReducer;
