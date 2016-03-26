@@ -24,21 +24,29 @@ class LandingPageMulti extends Component {
     });
   }
 
+  handleSubmit(e) {
+    e.preventDefault();
+    return;
+  }
+
   render() {
     return (
       <div>
-        <h1 className="text-center tagline">How fast can you join?</h1>
-        <div className="container-fluid">
+      <h1 className="text-center tagline">Welcome to Multiplayer! </h1>
+      <p className="text-center">Here you can join an existing game or make your own game and invite friends.</p>
+      <div className="container-fluid">
           <div className="row">
               <div className="col-sm-12 text-center">
-              <a href={this.roomcode} className="btn btn-raised btn-primary landing-btn">Start New Game</a>
-              <form className="form">
+              <center><form className="form-inline" onSubmit={this.handleSubmit.bind(this)}>
               <div className="form-group label-floating">
-                <label htmlFor="roomId" className="control-label">Room ID</label>
-                  <input type="text" id="roomId" className="form-control" value={this.state.roomId} onChange={this.changeRoomId.bind(this)} />
+                {/*<label htmlFor="roomId" className="control-label">Room ID</label>*/}
+                  <input type="text" id="roomId" className="form-control text-center" value={this.state.roomId} placeholder="Input room ID here." onChange={this.changeRoomId.bind(this)} />
                 </div>
-                <a href={"/#/multigame/" + this.state.roomId} type="submit" className="btn btn-raised btn-primary landing-btn">Join Game</a>
                 </form>
+                <a href={"/#/multigame/" + this.state.roomId} className="btn btn-raised btn-primary landing-btn">Join Game</a>
+                </center>
+                <h6 className="text-center"><strong>OR</strong></h6>
+                <a href={this.roomcode} className="btn btn-raised btn-primary landing-btn">Start New Game</a>
               </div>
           </div>
         </div>
