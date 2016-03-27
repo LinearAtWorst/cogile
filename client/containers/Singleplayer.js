@@ -131,9 +131,7 @@ class Singleplayer extends Component {
       },
       function(isConfirm) {
         if (isConfirm === true) {
-          swal(
-            'Doh! Feature not finished yet!'
-          );
+          console.log('Doh! Feature not implemented yet.')
         } else if (isConfirm === false) {
           location.reload();
           console.log('Confirm false, currentlevel', this.props.currentLevel);
@@ -176,7 +174,7 @@ class Singleplayer extends Component {
           puzzle={this.state.currentPuzzle}
           minifiedPuzzle={this.state.minifiedPuzzle}
           calculateProgress={this.calculateProgress.bind(this)} />
-        <CodeGhost singleGame={this.props.singleGame} currentLevel={this.state.puzzleName}/>
+        <CodeGhost singleGame={this.props.singleGame} />
         <ProgressBar percentComplete={this.state.progress} />
       </div>
     )
