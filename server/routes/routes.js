@@ -23,9 +23,10 @@ module.exports = function(app, express, passport) {
   //PROMPTS
   app.get('/api/getRandomPrompt', promptController.random);
   app.get('/api/getPrompt', promptController.specific);
-  app.get('/api/setHighScore', promptController.updateHighScore)
+  app.get('/api/getAllPrompts', promptController.getAllPrompts)
+  app.post('/api/setHighScore', promptController.updateHighScore)
+  app.get('/api/getHighScore', promptController.getHighScore);
 
   //SOCKET
   app.get('/api/joinRandomRoom', socketController.joinRandomRoom);
-
 };
