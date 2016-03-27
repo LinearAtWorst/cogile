@@ -32,7 +32,7 @@ socketController.socketInit = function(io) {
         console.log('Room users count:', rooms[data.roomcode].numUsers);
 
         // Room is full or the user is already joined, reject
-        if(rooms[data.roomcode].numUsers === 4 || rooms[data.roomcode].players[data.username] !== undefined){
+        if(rooms[data.roomcode].numUsers === 8 || rooms[data.roomcode].players[data.username] !== undefined){
           return false;
         } else {
           // Otherwise, add user to the room.
@@ -51,7 +51,7 @@ socketController.socketInit = function(io) {
         }
       } else {
         console.log('Creating room:', data.roomcode);
-        rooms[data.roomcode] = { colors: ['F44336', '4CAF50', '2196F3', 'FFEB3B'] };
+        rooms[data.roomcode] = { colors: ['F44336', '4CAF50', '2196F3', 'FFEB3B', 'FFB300', 'AB47BC', '009688', '9E9E9E'] };
 
         // Randomizing color array.
         helperFunctions.shuffle(rooms[data.roomcode].colors);

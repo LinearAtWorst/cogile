@@ -20,8 +20,8 @@ class CodePromptMulti extends Component {
     this.editor.setShowPrintMargin(false);
     this.editor.setOptions({
       fontSize: '12pt',
-      minLines: 12,
-      maxLines: 12,
+      minLines: 15,
+      maxLines: 15,
       dragEnabled: false
     });
     this.editor.setTheme("ace/theme/twilight");
@@ -32,18 +32,18 @@ class CodePromptMulti extends Component {
 
     // Disables Selection of Text to Prevent Copy/Paste
     // Comment out for development purposes
-    // this.editor.on('changeSelection', function(e) {
-    //     this.editor.selection.setSelectionRange({
-    //         start: {
-    //             row: 0,
-    //             column: 0
-    //         },
-    //         end: {
-    //             row: 0,
-    //             column: 0
-    //         }
-    //     });
-    // }.bind(this));
+    this.editor.on('changeSelection', function(e) {
+      this.editor.selection.setSelectionRange({
+        start: {
+          row: 0,
+          column: 0
+        },
+        end: {
+          row: 0,
+          column: 0
+        }
+      });
+    }.bind(this));
   }
 
   componentDidUpdate() {
@@ -52,12 +52,12 @@ class CodePromptMulti extends Component {
   }
 
   render() {
-    const style = {fontSize: '14px !important', border: '1px solid lightgray'};
+    const style = {fontSize: '12px !important', border: '1px solid lightgray'};
 
     return React.DOM.div({
       id: 'codePrompt',
       style: style,
-      className: 'col-md-12'
+      className: 'col-md-6'
     });
   }
 }
