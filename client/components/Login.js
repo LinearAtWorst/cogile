@@ -16,7 +16,9 @@ class Login extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      usernameFail: false,
+      passwordFail: false
     }
   };
 
@@ -33,9 +35,19 @@ class Login extends Component {
         <label htmlFor="username" className="control-label">Username</label>
           <input type="text" id="username" className="form-control" value={this.state.username} onChange={this._changeUsername.bind(this)} />
         </div>
+        <div className="row text-center"> {this.state.usernameFail ? (
+       <p className="failed-validation">Username couldn't be found! Please register an account.</p>
+        ) :
+        null  }
+        </div>
         <div className="form-group label-floating">
         <label htmlFor="password" className="control-label">Password</label>
           <input id="password" type="password" className="form-control" value={this.state.password} onChange={this._changePassword.bind(this)} />
+        </div>
+        <div className="row text-center"> {this.state.passwordFail ? (
+       <p className="failed-validation">Wrong password, fam!</p>
+        ) :
+        null  }
         </div>
         <center><div className="row">
         <button className="btn btn-raised" type="submit">Login</button>
@@ -81,8 +93,19 @@ class Login extends Component {
           // redirecting to homepage
           this.context.router.push('/');
         } else {
-          console.log("unsuccessful login");
-          return false;
+          if ( response.data.usernameFailed === true ) {
+            this.setState({
+              passwordFail: false,
+              usernameFail: true
+            });
+          }
+
+          if ( response.data.passwordFailed === true ) {
+            this.setState({
+              usernameFail: false,
+              passwordFail: true
+            });
+          }
         }
       }.bind(this))
       .catch(function(response) {
