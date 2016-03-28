@@ -1,10 +1,6 @@
 /** {
   font-family: Helvetica;
 }*/
-
-.failed-validation {
-  color: red;
-}
 .sitename {
   display: flex;
   align-items: center;
