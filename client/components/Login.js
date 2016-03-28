@@ -35,22 +35,23 @@ class Login extends Component {
         <label htmlFor="username" className="control-label">Username</label>
           <input type="text" id="username" className="form-control" value={this.state.username} onChange={this._changeUsername.bind(this)} />
         </div>
-        <div className="row text-center"> {this.state.usernameFail ? (
-       <p className="failed-validation">Username couldn't be found! Please register an account.</p>
-        ) :
-        null  }
-        </div>
         <div className="form-group label-floating">
         <label htmlFor="password" className="control-label">Password</label>
           <input id="password" type="password" className="form-control" value={this.state.password} onChange={this._changePassword.bind(this)} />
         </div>
-        <div className="row text-center"> {this.state.passwordFail ? (
-       <p className="failed-validation">Wrong password, fam!</p>
+        <center><div className="row">
+        <button className="btn btn-raised" type="submit">Login</button>
+        <br />
+        <div className="row text-center">{this.state.passwordFail ? (
+     <p className="failed-validation">Wrong password, fam.</p>
+        ) :
+        null  }
+
+        {this.state.usernameFail ? (
+     <p className="failed-validation">Username doesn't exist. Please register an account with us.</p>
         ) :
         null  }
         </div>
-        <center><div className="row">
-        <button className="btn btn-raised" type="submit">Login</button>
         {/*<p className="lead">OR</p>
         <a className="btn btn-raised"><span className="fa fa-github fa-3x"></span> Login with Github</a>*/}
         </div></center>
@@ -95,8 +96,8 @@ class Login extends Component {
         } else {
           if ( response.data.usernameFailed === true ) {
             this.setState({
-              passwordFail: false,
-              usernameFail: true
+                  usernameFail: true,
+                  passwordFail: false
             });
           }
 

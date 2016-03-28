@@ -4,7 +4,6 @@
 
 .failed-validation {
   color: red;
-  font-weight:bold;
 }
 .sitename {
   display: flex;
