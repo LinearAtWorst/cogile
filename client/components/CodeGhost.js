@@ -61,7 +61,6 @@ class CodeGhost extends Component {
 
   // Plays back replay stored in this.record on game start
   startGhostReplay() {
-    console.log('About to play : ', this.record);
 
     this.playbackClosure = function(value) {
       return function() {
@@ -91,7 +90,6 @@ class CodeGhost extends Component {
           if (res.data !== '') {
             this.record = {};
             this.record = JSON.parse(res.data.recording).recording;
-            console.log('Saved : ', this.record);
 
           } else {
             this.record = {
