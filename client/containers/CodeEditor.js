@@ -1,8 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { startGame, endGame, newHighScore, getUsername } from '../actions/index';
+import { startGame, endGame, newHighScore, getUsername, syncPlayersStatuses } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import levenshtein from './../lib/levenshtein';
 import axios from 'axios';
 
 class CodeEditor extends Component {
@@ -63,7 +64,14 @@ class CodeEditor extends Component {
 
       // strip whitepsace for win condition comparison
       var code = value.replace(/\s/g,'');
-      this.props.calculateProgress(code);
+
+      // calculate user's progress and send to ProgressBar
+      var userProgress = this.calculatePercent(value);
+      var thisUser = this.username;
+      
+      var tempPlayersStatuses = this.props.playersStatuses;
+      tempPlayersStatuses[thisUser][0] = userProgress;
+      this.props.syncPlayersStatuses(tempPlayersStatuses);
 
       // if code matches the minified solution, trigger win condition
       if (code === this.props.minifiedPuzzle) {
@@ -182,6 +190,16 @@ class CodeEditor extends Component {
     }
   }
 
+  calculatePercent(playerCode) {
+    // typed code is passed in, and percent completed is calculated and returned
+    var miniCode = playerCode.replace(/\s/g,'');
+    var totalChars = this.props.minifiedPuzzle.length;
+    var distance = levenshtein(this.props.minifiedPuzzle, miniCode);
+
+    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
+    return percentCompleted;
+  };
+
   render() {
     const style = {fontSize: '14px !important', border: '1px solid lightgray'};
     
@@ -196,12 +214,19 @@ class CodeEditor extends Component {
 function mapStateToProps(state) {
   return {
     singleGame: state.singleGame,
-    currentLevel: state.currentLevel
+    currentLevel: state.currentLevel,
+    playersStatuses: state.playersStatuses
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({startGame: startGame, endGame: endGame, newHighScore: newHighScore, getUsername: getUsername}, dispatch);
+  return bindActionCreators({
+    startGame: startGame,
+    endGame: endGame,
+    newHighScore: newHighScore,
+    getUsername: getUsername,
+    syncPlayersStatuses: syncPlayersStatuses
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CodeEditor);

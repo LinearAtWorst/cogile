@@ -1,4 +1,8 @@
 import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
+import { leavePage } from '../actions/index';
+import { bindActionCreators } from 'redux';
+import underscore from 'underscore';
 
 class ProgressBar extends Component {
   constructor(props) {
@@ -13,15 +17,49 @@ class ProgressBar extends Component {
     percentComplete: 0
   };
 
+  componentWillUnmount() {
+    this.props.leavePage();
+  };
+
+  renderBars() {
+    return underscore.map(this.props.playersStatuses.store, function(player, key) {
+      if (Array.isArray(player)) {
+        return (
+          <div className="progress-bar" key={key} >
+            <div
+              className="progress-fill"
+              style={{
+                width: player[0] + '%',
+                backgroundColor: '#' + player[1],
+                color: 'black'
+              }}>
+            {key}
+            </div> 
+          </div>
+        );
+        
+      }
+    }.bind(this));
+  }
+
   render() {
     return (
-      <div className="progress-bar">
-        <div className="progress-fill-single" style={{width: this.props.percentComplete + '%'}}>
-          
-        </div>
+      <div>
+        { this.renderBars() }
       </div>
     );
   }
 }
 
-export default ProgressBar;
+function mapStateToProps(state) {
+  return {
+    currentLevel: state.currentLevel,
+    playersStatuses: state.playersStatuses
+  }
+};
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators( {leavePage: leavePage} , dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProgressBar);
