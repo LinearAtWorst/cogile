@@ -152,17 +152,6 @@ class Singleplayer extends Component {
     });
   }
 
-  calculateProgress(playerCode) {
-    var totalChars = this.state.minifiedPuzzle.length;
-    var distance = levenshtein(this.state.minifiedPuzzle, playerCode);
-
-    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
-
-    this.setState({
-      progress: percentCompleted
-    });
-  };
-
   render() {
     return (
       <div>
@@ -172,10 +161,11 @@ class Singleplayer extends Component {
         <CodePrompt puzzle={this.state.currentPuzzle} />
         <CodeEditor
           puzzle={this.state.currentPuzzle}
-          minifiedPuzzle={this.state.minifiedPuzzle}
-          calculateProgress={this.calculateProgress.bind(this)} />
-        <CodeGhost singleGame={this.props.singleGame} />
-        <ProgressBar percentComplete={this.state.progress} />
+          minifiedPuzzle={this.state.minifiedPuzzle} />
+        <CodeGhost 
+          minifiedPuzzle={this.state.minifiedPuzzle}/>
+        <ProgressBar
+          percentComplete={this.state.progress} />
       </div>
     )
   };

@@ -7,34 +7,14 @@ import underscore from 'underscore';
 class ProgressBarMulti extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      playersProgress: {}
-    }
-  };
-
-  static propTypes = {
-    percentComplete: PropTypes.number
-  };
-
-  static defaultProps = {
-    percentComplete: 0
   };
 
   componentWillUnmount() {
     this.props.leavePage();
   };
 
-  // isCurrentPlayer(player) {
-  //   if(player === this.props.socket.id) {
-  //     return '' + player + '(You)';
-  //   } else {
-  //     return player;
-  //   }
-  // };
-
   renderBars() {
-    return underscore.map(this.props.playersStatuses.store, function(player, key) {
+    return underscore.map(this.props.playersStatuses, function(player, key) {
       return (
         <div className="progress-bar" key={key} >
           <div

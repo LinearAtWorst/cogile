@@ -71,6 +71,7 @@ socketController.socketInit = function(io) {
         console.log('Room Data:', rooms[data.roomcode]);
         socket.join(data.roomcode);
         io.to(data.roomcode).emit('here is your prompt', rooms[data.roomcode].prompt);
+        io.to(data.roomcode).emit('player joined', rooms[data.roomcode].players);
         console.log('successfully joined game with user:', data.username);
         console.log('Room users count:', rooms[data.roomcode].numUsers);
       }
@@ -106,6 +107,8 @@ socketController.socketInit = function(io) {
           delete rooms[data.roomcode].players[data.username];
 
           rooms[data.roomcode].colors.push(color);
+
+          io.to(data.roomcode).emit('player joined', rooms[data.roomcode].players);
 
           console.log('User just disconnected in room:', rooms[data.roomcode], '. numUsers is now: ', rooms[data.roomcode].numUsers);
         }

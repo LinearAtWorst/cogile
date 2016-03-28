@@ -1,6 +1,13 @@
 /** {
   font-family: Helvetica;
 }*/
+.failed-validation {
+  color: red;
+}
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
 .sitename {
   display: flex;
   align-items: center;
