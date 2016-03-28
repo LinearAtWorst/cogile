@@ -6,7 +6,7 @@ import { Router, Route, browserHistory, hashHistory, IndexRoute, useRouterHistor
 import axios from 'axios';
 
 class Register extends Component {
-  
+
   static contextTypes = {
     router: PropTypes.object
   };
@@ -16,7 +16,8 @@ class Register extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      usernameExists: false
     }
   };
 
@@ -30,6 +31,11 @@ class Register extends Component {
         <div className="form-group label-floating">
         <label htmlFor="username" className="control-label">Username</label>
           <input type="text" id="username" className="form-control" value={this.state.username} onChange={this._changeUsername.bind(this)} />
+        </div>
+        <div className="row text-center"> {this.state.usernameExists ? (
+       <p className="failed-validation">Username is taken already!</p>
+        ) :
+        null  }
         </div>
         <div className="form-group label-floating">
         <label htmlFor="password" className="control-label">Password</label>
@@ -69,16 +75,19 @@ class Register extends Component {
         if (response.data.isValid === true) {
           global.window.localStorage.setItem('com.nimblecode', response.data.token);
           console.log("successful signup");
-          
+
           // storing username into Redux App State
           this.props.storeUsername(this.state.username);
 
           // redirecting to homepage
           this.context.router.push('/');
         } else {
-          console.log("unsuccessful signup");
-          return false;
+          if ( response.data.usernameExists === true ) {
+            this.setState({
+              usernameExists: true
+            });
         }
+      }
       }.bind(this))
       .catch(function(response) {
         console.log(response);
