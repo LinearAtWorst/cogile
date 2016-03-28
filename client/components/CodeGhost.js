@@ -1,8 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { } from '../actions/index';
+import { syncPlayersStatuses, getUsername } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import levenshtein from './../lib/levenshtein';
 import axios from 'axios';
 
 class CodeGhost extends Component {
@@ -13,6 +14,8 @@ class CodeGhost extends Component {
       currentLevel: null,
       replayStarted : false
     };
+
+    this.highScoreUser = '';
   }
 
   static propTypes = {
@@ -22,6 +25,8 @@ class CodeGhost extends Component {
   };
 
   componentDidMount() {
+    this.username = this.props.getUsername().payload;
+
     this.editor = ace.edit('codeGhost');
     this.editor.setShowPrintMargin(false);
     this.editor.setOptions({
@@ -50,11 +55,16 @@ class CodeGhost extends Component {
       });
     }.bind(this));
 
-    // TODO: Use ghost replay code to get percent/progress
-    // capture the valueof the code in the editor to send to calculateProgress
-    // this.editor.getSession().on("change", function(e) {
-    //   console.log(this.editor.getSession().getValue());
-    // }.bind(this)); 
+    this.editor.getSession().on("change", function(e) {
+      var code = this.editor.getSession().getValue();
+      var highScoreProgress = this.calculatePercent(code);
+
+      var highScoreUser = this.highScoreUser;
+      var tempPlayersStatuses = this.props.playersStatuses;
+      tempPlayersStatuses[highScoreUser][0] = highScoreProgress;
+
+      this.props.syncPlayersStatuses(tempPlayersStatuses);
+    }.bind(this)); 
 
     this.record = {};
   }
@@ -91,6 +101,17 @@ class CodeGhost extends Component {
             this.record = {};
             this.record = JSON.parse(res.data.recording).recording;
 
+            // grab the highScoreUser and sync his/her
+            var highScoreUser = res.data.username + '_[TopScore]';
+            this.highScoreUser = highScoreUser;
+
+            var tempPlayersStatuses = this.props.playersStatuses;
+            var thisUser = this.username;
+            tempPlayersStatuses[thisUser] = [0, '4CAF50'];
+            tempPlayersStatuses[highScoreUser] = [0, 'F44336']
+
+            this.props.syncPlayersStatuses(tempPlayersStatuses);
+
           } else {
             this.record = {
               recording: {
@@ -125,6 +146,16 @@ class CodeGhost extends Component {
     }
   }
 
+  calculatePercent(playerCode) {
+    // typed code is passed in, and percent completed is calculated and returned
+    var miniCode = playerCode.replace(/\s/g,'');
+    var totalChars = this.props.minifiedPuzzle.length;
+    var distance = levenshtein(this.props.minifiedPuzzle, miniCode);
+
+    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
+    return percentCompleted;
+  };
+
   render() {
     const style = {fontSize: '14px !important', border: '1px solid lightgray'};
 
@@ -138,12 +169,17 @@ class CodeGhost extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentLevel: state.currentLevel
+    singleGame: state.singleGame,
+    currentLevel: state.currentLevel,
+    playersStatuses: state.playersStatuses
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({}, dispatch);
+  return bindActionCreators({
+    getUsername: getUsername,
+    syncPlayersStatuses: syncPlayersStatuses
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CodeGhost);

@@ -58,9 +58,6 @@ class CodeEditorMulti extends Component {
       // sending player code to socket
       this.props.sendProgressToSockets(code, this.props.savedGame);
 
-      // sending minified code to progressBar display
-      this.props.calculateProgress(miniCode);
-
       if (miniCode === this.props.minifiedPuzzle) {
         // calling endGame action
         this.props.endGame();
