@@ -24,7 +24,7 @@ class App extends Component {
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <div className="navbar-collapse navbar-responsive-collapse collapse in" aria-expanded="true">
-              <NavLink to="/" onlyActiveOnIndex className="sitename pull-left">nimblecode</NavLink>
+              <NavLink to="/" onlyActiveOnIndex className="sitename pull-left">nimble|<span id="code">code</span></NavLink>
               <ul role="nav" className="nav navbar-nav navbar-right">
                 <li><NavLink to="singleplayer" className="nav-label" onlyActiveOnIndex>Singleplayer</NavLink></li>
                 <li><NavLink to="multiplayer" className="nav-label">Multiplayer</NavLink></li>
