@@ -92,7 +92,7 @@ class CodeEditor extends Component {
         var recordingDuration = recordingEndTime - recordingStartTime;
 
         // If a record exists for the current level
-        if (this.recordHigh) {
+        if (this.recordHigh !== '') {
 
           // Grab the best replay's duration
           var oldReplayDuration = JSON.parse(this.recordHigh.recording).duration;
@@ -181,12 +181,12 @@ class CodeEditor extends Component {
         this.record[(new Date()).getTime()] = '';
       }
 
-      axios.get('api/getHighScore/?promptName=' + this.props.currentLevel.currentLevel)
-        .then(function(res) {
-          var data = res.data;
-          this.recordHigh = res.data;
-          // console.log('Returned DATA FROM DB : ', data);
-        }.bind(this));
+      if (this.recordHigh === undefined) {
+        axios.get('api/getHighScore/?promptName=' + this.props.currentLevel.currentLevel)
+          .then(function(res) {
+            this.recordHigh = res.data;
+          }.bind(this));
+      }
     }
   }
 
