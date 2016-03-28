@@ -23,19 +23,22 @@ class ProgressBar extends Component {
 
   renderBars() {
     return underscore.map(this.props.playersStatuses.store, function(player, key) {
-      return (
-        <div className="progress-bar" key={key} >
-          <div
-            className="progress-fill"
-            style={{
-              width: player[1] + '%',
-              backgroundColor: '#' + player[0],
-              color: 'black'
-            }}>
-          {key}
-          </div> 
-        </div>
-      );
+      if (Array.isArray(player)) {
+        return (
+          <div className="progress-bar" key={key} >
+            <div
+              className="progress-fill"
+              style={{
+                width: player[0] + '%',
+                backgroundColor: '#' + player[1],
+                color: 'black'
+              }}>
+            {key}
+            </div> 
+          </div>
+        );
+        
+      }
     }.bind(this));
   }
 
@@ -50,6 +53,7 @@ class ProgressBar extends Component {
 
 function mapStateToProps(state) {
   return {
+    currentLevel: state.currentLevel,
     playersStatuses: state.playersStatuses
   }
 };

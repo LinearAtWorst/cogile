@@ -14,7 +14,7 @@ class ProgressBarMulti extends Component {
   };
 
   renderBars() {
-    return underscore.map(this.props.playersStatuses.store, function(player, key) {
+    return underscore.map(this.props.playersStatuses, function(player, key) {
       return (
         <div className="progress-bar" key={key} >
           <div
