@@ -9,6 +9,7 @@ import UserReducer from './UserReducer';
 import ChangeLevelReducer from './ChangeLevelReducer';
 import NewHighScoreReducer from './NewHighScoreReducer';
 import RoomReducer from './RoomReducer';
+import ListOfPromptsReducer from './ListOfPromptsReducer';
 
 const rootReducer = combineReducers({
   singleGame: SingleGameReducer,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   SavedUsername: UserReducer,
   currentLevel: ChangeLevelReducer,
   newHighScore: NewHighScoreReducer,
-  savedGame: RoomReducer
+  savedGame: RoomReducer,
+  listOfPrompts: ListOfPromptsReducer
 });
 
 export default rootReducer;

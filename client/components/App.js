@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getUsername, smashUser } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import NavLink from './NavLink';
+import { Link } from 'react-router';
 
 class App extends Component {
   constructor(props) {
@@ -24,7 +25,9 @@ class App extends Component {
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <div className="navbar-collapse navbar-responsive-collapse collapse in" aria-expanded="true">
-              <NavLink to="/" onlyActiveOnIndex className="sitename pull-left">nimble|<span id="code">code</span></NavLink>
+
+              <Link to="/" onlyActiveOnIndex className="sitename pull-left">nimble|<span id="code">code</span></Link>
+
               <ul role="nav" className="nav navbar-nav navbar-right">
                 <li><NavLink to="singleplayer" className="nav-label" onlyActiveOnIndex>Singleplayer</NavLink></li>
                 <li><NavLink to="multiplayer" className="nav-label">Multiplayer</NavLink></li>
@@ -35,12 +38,12 @@ class App extends Component {
                   <li><NavLink to="login" className="nav-label">Login</NavLink></li>
                   : 
                   <li>
-                    <NavLink
+                    <Link
                       to="/"
                       className="nav-label"
                       onClick={this.smash.bind(this)}>
                       Logout
-                    </NavLink>
+                    </Link>
                   </li>
                 }
               </ul>

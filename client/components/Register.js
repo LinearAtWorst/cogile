@@ -1,7 +1,16 @@
 import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
+import { storeUsername, getUsername } from '../actions/index';
+import { bindActionCreators } from 'redux';
+import { Router, Route, browserHistory, hashHistory, IndexRoute, useRouterHistory } from 'react-router';
 import axios from 'axios';
 
 class Register extends Component {
+  
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
   constructor(props) {
     super(props);
 
@@ -13,8 +22,10 @@ class Register extends Component {
 
   render() {
     return(
-      <div className="container col-sm-6">
-      <h3>Register an account</h3>
+      <div className="container">
+      <div className="col-sm-3"></div>
+      <div className="col-sm-6">
+      <h1 className="about-title">REGISTER ACCOUNT</h1>
       <form className="form" onSubmit={this._onSubmit.bind(this)}>
         <div className="form-group label-floating">
         <label htmlFor="username" className="control-label">Username</label>
@@ -28,6 +39,8 @@ class Register extends Component {
         <button className="btn" type="submit">Register</button>
         </div></center>
       </form>
+      </div>
+      <div className="col-sm-3"></div>
       </div>
     );
   }
@@ -56,12 +69,17 @@ class Register extends Component {
         if (response.data.isValid === true) {
           global.window.localStorage.setItem('com.nimblecode', response.data.token);
           console.log("successful signup");
-          return true;
+          
+          // storing username into Redux App State
+          this.props.storeUsername(this.state.username);
+
+          // redirecting to homepage
+          this.context.router.push('/');
         } else {
           console.log("unsuccessful signup");
           return false;
         }
-      })
+      }.bind(this))
       .catch(function(response) {
         console.log(response);
       });
@@ -69,4 +87,17 @@ class Register extends Component {
   }
 }
 
-export default Register;
+function mapStateToProps(state) {
+  return {
+    SavedUsername: state.SavedUsername
+  }
+};
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    storeUsername: storeUsername,
+    getUsername: getUsername
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
