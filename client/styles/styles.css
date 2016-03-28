@@ -1,14 +1,18 @@
 /** {
   font-family: Helvetica;
 }*/
-
-
 .sitename {
+  font-family: 'Ropa Sans', sans-serif !important;
+  font-size: 29px !important;
   display: flex;
   align-items: center;
   height: 50px;
   font-size: 1.5em;
   color: #eee;
+}
+
+#code {
+  font-weight: 600 !important;
 }
 
 .sitename:hover {
