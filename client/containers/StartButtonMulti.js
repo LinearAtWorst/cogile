@@ -61,7 +61,7 @@ class StartButtonMulti extends Component {
     }
 
     return (
-      <div className="row" id="start-btn-container">
+      <div className="row text-center" id="start-btn-container">
         <button
           type="button"
           onClick={this.handleClick.bind(this)}

@@ -40,7 +40,6 @@ class LevelSelect extends Component {
       });
     }
 
-
     return (
       <div className="container col-sm-11 no-padding" id="level-select">
         <div className="dropdown pull-right">
