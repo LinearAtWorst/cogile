@@ -27,7 +27,7 @@ class Login extends Component {
       <div className="container">
       <div className="col-sm-3"></div>
       <div className="col-sm-6">
-      <h1 className="about-title">LOGIN</h1>
+      <h1 className="about-title">Login</h1>
       <div className="row row-spacer"></div>
       <div className="text-center">Don't have an account? Register <a href="/#/register">here</a>. Only logged in users can access Multiplayer!</div>
       <form className="form" onSubmit={this._onSubmit.bind(this)}>

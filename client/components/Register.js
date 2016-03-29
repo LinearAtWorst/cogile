@@ -26,16 +26,11 @@ class Register extends Component {
       <div className="container">
       <div className="col-sm-3"></div>
       <div className="col-sm-6">
-      <h1 className="about-title">REGISTER ACCOUNT</h1>
+      <h1 className="about-title">Register Account</h1>
       <form className="form" onSubmit={this._onSubmit.bind(this)}>
         <div className="form-group label-floating">
         <label htmlFor="username" className="control-label">Username</label>
           <input type="text" id="username" className="form-control" value={this.state.username} onChange={this._changeUsername.bind(this)} />
-        </div>
-        <div className="row text-center"> {this.state.usernameExists ? (
-       <p className="failed-validation">Username is taken already!</p>
-        ) :
-        null  }
         </div>
         <div className="form-group label-floating">
         <label htmlFor="password" className="control-label">Password</label>
@@ -45,6 +40,11 @@ class Register extends Component {
         <button className="btn" type="submit">Register</button>
         </div></center>
       </form>
+      <div className="row text-center"> {this.state.usernameExists ? (
+        <p className="failed-validation">Username is taken already! Please use a different one.</p>
+        ) :
+        null  }
+      </div>
       </div>
       <div className="col-sm-3"></div>
       </div>
