@@ -6,6 +6,7 @@ import NavLink from './NavLink';
 import { Link } from 'react-router';
 import Radium from 'radium';
 import color from 'color';
+import helperFunctions from '../utils/helperFunctions';
 
 var RadiumLink = Radium(Link)
 
@@ -15,7 +16,7 @@ class App extends Component {
   }
 
   smash() {
-    if (this.props.getUsername().payload !== "guest"){
+    if (helperFunctions.isLoggedIn() === true){
       this.props.smashUser();
       console.log('token removed');
     }
@@ -41,10 +42,10 @@ class App extends Component {
                 <li><NavLink to="multiplayer" className="nav-label">Multiplayer</NavLink></li>
                 <li><NavLink to="about" className="nav-label">About</NavLink></li>
                 {
-                  (this.props.getUsername().payload === 'guest')
-                  ? 
+                  (helperFunctions.isLoggedIn() === false)
+                  ?
                   <li><NavLink to="login" className="nav-label nav-login">Login</NavLink></li>
-                  : 
+                  :
                   <li>
                     <RadiumLink
                       to="/"
