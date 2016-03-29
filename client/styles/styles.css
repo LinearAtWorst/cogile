@@ -158,7 +158,7 @@ html, body {
   background-color: #009688; 
 }
 
-.nav-login {
-
+.no-padding {
+  padding: 0;
 }
 
