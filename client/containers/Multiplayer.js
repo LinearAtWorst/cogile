@@ -5,7 +5,7 @@ import TimerMulti from './TimerMulti';
 import levenshtein from './../lib/levenshtein';
 import ProgressBarMulti from './ProgressBarMulti';
 import { connect } from 'react-redux';
-import { startGame, endGame, stopTimer, storeGameId, syncPlayersStatuses, startCountdown, getUsername, leavePage } from '../actions/index';
+import { startGame, endGame, stopTimer, storeGameId, syncMultiplayerStatuses, startCountdown, getUsername, leavePage } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import underscore from 'underscore';
 
@@ -40,7 +40,7 @@ class Multiplayer extends Component {
 
     // listen
     this.socket.on('player joined', function(players) {
-      this.props.syncPlayersStatuses(players);
+      this.props.syncMultiplayerStatuses(players);
     }.bind(this));
 
     // listen
@@ -61,7 +61,7 @@ class Multiplayer extends Component {
         var playerPercent = this.calculatePercent(players[key][2]);
         players[key][1] = playerPercent;
       }.bind(this));
-      this.props.syncPlayersStatuses(players);
+      this.props.syncMultiplayerStatuses(players);
 
     }.bind(this));
 
@@ -200,7 +200,7 @@ function mapStateToProps(state) {
     multiGameState: state.multiGameState,
     gameTime: state.gameTime,
     savedGame: state.savedGame,
-    playersStatuses: state.playersStatuses,
+    multiplayerStatuses: state.multiplayerStatuses,
     SavedUsername: state.SavedUsername
   }
 };
@@ -211,7 +211,7 @@ function mapDispatchToProps(dispatch) {
     storeGameId: storeGameId,
     endGame: endGame,
     stopTimer: stopTimer,
-    syncPlayersStatuses: syncPlayersStatuses,
+    syncMultiplayerStatuses: syncMultiplayerStatuses,
     startCountdown: startCountdown,
     getUsername: getUsername,
     leavePage: leavePage
