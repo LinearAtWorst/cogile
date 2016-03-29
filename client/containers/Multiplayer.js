@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import CodeEditorMulti from './CodeEditorMulti';
 import CodePromptMulti from '../components/CodePromptMulti';
 import TimerMulti from './TimerMulti';
+import MultiplayerInfo from '../components/MultiplayerInfo';
 import levenshtein from './../lib/levenshtein';
 import ProgressBarMulti from './ProgressBarMulti';
 import { connect } from 'react-redux';
@@ -181,6 +182,7 @@ class Multiplayer extends Component {
   render() {
     return (
       <div>
+        <MultiplayerInfo gameId={this.props.params.gameId} />
         <TimerMulti
           saveTimeElapsed={this.saveTimeElapsed.bind(this)}
           socket={this.socket} />

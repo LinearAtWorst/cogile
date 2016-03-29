@@ -23,11 +23,9 @@ class Register extends Component {
 
   render() {
     return(
-      <div className="container">
-      <div className="col-sm-3"></div>
-      <div className="col-sm-6">
+    <div className="col-md-6">
       <h1 className="about-title">Register Account</h1>
-      <form className="form" onSubmit={this._onSubmit.bind(this)}>
+      <form className="form col-sm-6 col-sm-offset-3" onSubmit={this._onSubmit.bind(this)}>
         <div className="form-group label-floating">
         <label htmlFor="username" className="control-label">Username</label>
           <input type="text" id="username" className="form-control" value={this.state.username} onChange={this._changeUsername.bind(this)} />
@@ -36,17 +34,16 @@ class Register extends Component {
         <label htmlFor="password" className="control-label">Password</label>
           <input id="password" type="password" className="form-control" value={this.state.password} onChange={this._changePassword.bind(this)} />
         </div>
-        <center><div className="btn-group btn-group-raised">
-        <button className="btn" type="submit">Register</button>
-        </div></center>
+        <center>
+        <button className="btn btn-raised" type="submit">Login</button>
+        <br />
+        <div className="row text-center"> {this.state.usernameExists ? (
+          <p className="failed-validation">Username is taken already! Please use a different one.</p>
+          ) :
+          null  }
+        </div>
+        </center>
       </form>
-      <div className="row text-center"> {this.state.usernameExists ? (
-        <p className="failed-validation">Username is taken already! Please use a different one.</p>
-        ) :
-        null  }
-      </div>
-      </div>
-      <div className="col-sm-3"></div>
       </div>
     );
   }

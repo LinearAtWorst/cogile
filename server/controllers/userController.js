@@ -14,6 +14,10 @@ if (process.env.secret) {
 module.exports = {
 
   signin: function(req, res) {
+
+    if(req.user){
+      console.log("INSIDE OF SIGN IN OAUTHING: \n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    }
     //we want to check the database and see if the username and password exist
     var username = req.body.username;
     var password = req.body.password;

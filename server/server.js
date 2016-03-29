@@ -87,7 +87,7 @@ app.use(webpackMiddleware(bundler));
 var io = require('socket.io').listen(server);
 var socketEvents = require('./controllers/socketController.js').socketInit(io);
 //
-
+//
 //TEST CREAT USER
 // var newUser = {
 //   body: {
@@ -96,5 +96,9 @@ var socketEvents = require('./controllers/socketController.js').socketInit(io);
 //   }
 // }
 // userController.signup(newUser, {send: function(info){console.log(info);}});
+
+
+
+
 
 module.exports = app;

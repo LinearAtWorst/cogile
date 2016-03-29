@@ -120,6 +120,12 @@ class CodeGhost extends Component {
               },
               duration: 999999999999
             };
+
+            var tempPlayersStatuses = this.props.playersStatuses;
+            var thisUser = this.username;
+            tempPlayersStatuses[thisUser] = [0, '4CAF50'];
+
+            this.props.syncPlayersStatuses(tempPlayersStatuses);
           }
           this.pendingGetRequest = false;
           this.previousLevel = this.props.currentLevel.currentLevel;
