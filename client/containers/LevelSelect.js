@@ -21,7 +21,6 @@ class LevelSelect extends Component {
   componentDidUpdate() {
     if (this.levels) {
       for (let i = 0; i < this.levels.length ; i++) {
-
         $("#selectLevel" + i).unbind('click').click(function() {
           this.props.changeLevel({'currentLevel': this.levels[i]});
           this.props.leavePage();
