@@ -14,7 +14,8 @@ var jsFiles = [
     '04-slimredux-mapValues',
     '05-slimredux-combineReducers',
     '06-es6-letVariable',
-    '07-es6-class'
+    '07-es6-class',
+    '08-es6-promise'
 	];
 
 var getRandomJS = function(){
