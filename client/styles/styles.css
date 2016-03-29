@@ -125,7 +125,7 @@ html, body {
 }
 
 .progress-bar {
-  height: 1.8em;
+  height: 2em;
   width: 100%;
   background-color: #E0E0E0;
   vertical-align: middle;
@@ -139,6 +139,13 @@ html, body {
 .progress-fill-single {
   height: 100%;
   background-color: green;
+}
+
+.progress-bar-name {
+  font-size: 1.3em;
+  color: #181818;
+  margin-left: 10px;
+  font-weight: bold;
 }
 
 .no-height {
