@@ -99,29 +99,55 @@ class CodeEditor extends Component {
 
           // check current duration vs. ghost's duration
           // if current time < ghost's time and user is logged in, then save new record
-          if (recordingDuration < oldReplayDuration && this.username !== 'guest') {
-            // save the replay
-            this.props.newHighScore({
-              newHighScore: true,
-              oldReplayDuration: oldReplayDuration,
-              loggedIn: true
-            });
-            axios.post('api/setHighScore', {
-              username: this.username,
-              recording: JSON.stringify({
-                recording: this.record,
-                duration: recordingDuration
-              }),
-              puzzleName: this.props.currentLevel.currentLevel
-            }).then(function(res) {
-              // console.log(res);
-            }.bind(this));
+          if (recordingDuration < oldReplayDuration) {
+            if (this.username !== 'guest') {
+              console.log('Beat High Score, logged in')
+              // save the replay
+              this.props.newHighScore({
+                newHighScore: true,
+                oldReplayDuration: oldReplayDuration,
+                loggedIn: true
+              });
+              axios.post('api/setHighScore', {
+                username: this.username,
+                recording: JSON.stringify({
+                  recording: this.record,
+                  duration: recordingDuration
+                }),
+                puzzleName: this.props.currentLevel.currentLevel
+              }).then(function(res) {
+                // console.log(res);
+              }.bind(this));
+            // Beat high score but wasn't logged in, don't save
+            } else {
+              console.log('Beat High Score, was not logged in')
 
+              this.props.newHighScore({
+                newHighScore: true,
+                oldReplayDuration: oldReplayDuration,
+                loggedIn: false
+              });
+            }
           } else { // Broadcast action that no new high score was set
-            this.props.newHighScore({
-              newHighScore: false,
-              oldReplayDuration: oldReplayDuration
-            });
+            if (this.username === 'guest') {
+              console.log(recordingDuration)
+              console.log(oldReplayDuration);
+              console.log('Lost High Score, was not logged in')
+
+              this.props.newHighScore({
+                newHighScore: false,
+                oldReplayDuration: oldReplayDuration,
+                loggedIn: false
+              });
+            } else {
+              console.log('Lost High Score, was  logged in')
+
+              this.props.newHighScore({
+                newHighScore: false,
+                oldReplayDuration: oldReplayDuration,
+                loggedIn: true
+              });
+            }
           }
         } else { // If there is no current high score, just set the high score automatically
           if (this.username !== 'guest') {
