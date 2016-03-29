@@ -158,7 +158,11 @@ html, body {
   background-color: #009688; 
 }
 
+#level-select {
+  height: 20px;
+  z-index: 5;
+}
+
 .no-padding {
   padding: 0;
 }
-

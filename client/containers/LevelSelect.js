@@ -42,9 +42,9 @@ class LevelSelect extends Component {
 
 
     return (
-      <div className="container">
+      <div className="container col-sm-11 no-padding" id="level-select">
         <div className="dropdown pull-right">
-          <button className="btn btn-info btn-raised dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Level Select
+          <button className="btn btn-raised dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Level Select
           <span className="caret"></span></button>
           <ul className="dropdown-menu" role="menu" aria-labelledby="menu1">
             <li role="presentation"><a tabIndex="-1" ><strong> JavaScript </strong></a></li>
