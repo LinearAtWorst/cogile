@@ -117,11 +117,27 @@ class CodeEditor extends Component {
               // console.log(res);
             }.bind(this));
 
-          } else { // Broadcast action that no new high score was set
+            // Beat high score but wasn't logged in, don't save
+          } else if(recordingDuration < oldReplayDuration && this.username === 'guest') {
             this.props.newHighScore({
-              newHighScore: false,
-              oldReplayDuration: oldReplayDuration
+              newHighScore: true,
+              oldReplayDuration: oldReplayDuration,
+              loggedIn: false
             });
+          } else { // Broadcast action that no new high score was set
+            if (this.username === 'guest') {
+              this.props.newHighScore({
+                newHighScore: false,
+                oldReplayDuration: oldReplayDuration,
+                loggedIn: false,
+              });
+            } else {
+              this.props.newHighScore({
+                newHighScore: false,
+                oldReplayDuration: oldReplayDuration,
+                loggedIn: true,
+              });
+            }
           }
         } else { // If there is no current high score, just set the high score automatically
           if (this.username !== 'guest') {

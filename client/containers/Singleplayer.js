@@ -111,7 +111,7 @@ class Singleplayer extends Component {
       message = 'You completed the prompt in ' + minutes + ':' + seconds + '.' + tenthSeconds +'. Keep practicing to beat the record!';
     } else if (!highScoreObj.newHighScore && !highScoreObj.loggedIn) {
       title = 'Great!';
-      message = 'You completed the prompt in ' + minutes + ':' + seconds + '.' + tenthSeconds +'. Keep practicing to beat the record!';
+      message = 'You completed the prompt in ' + minutes + ':' + seconds + '.' + tenthSeconds +'.  Make sure you log in so we can post your record.  Keep practicing to be the best!';
     }
 
     // New Record was Achieved
