@@ -13,7 +13,8 @@ var jsFiles = [
 		'03-jqueryclick',
     '04-slimredux-mapValues',
     '05-slimredux-combineReducers',
-    '06-letVariable'
+    '06-es6-letVariable',
+    '07-es6-class'
 	];
 
 var getRandomJS = function(){
