@@ -141,11 +141,13 @@ html, body {
   background-color: green;
 }
 
-#start-btn-container {
-  height: 58px;
-  text-align: center;
+.no-height {
+  height: 0;
 }
 
+#start-btn {
+  z-index: 10;
+}
 
 #codingGif {
   height: 400px;
@@ -165,4 +167,8 @@ html, body {
 
 .no-padding {
   padding: 0;
+}
+
+.no-top-margin {
+  margin-top: 0;
 }

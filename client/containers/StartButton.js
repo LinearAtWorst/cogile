@@ -47,8 +47,9 @@ class StartButton extends Component {
     }
 
     return (
-      <div className="row" id="start-btn-container">
+      <div className="row no-height text-center" id="start-btn-container">
         <button
+          id="start-btn"
           type="button"
           onClick={this.handleClick.bind(this)}
           className={this.state.buttonType}>
