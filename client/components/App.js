@@ -4,6 +4,10 @@ import { getUsername, smashUser } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import NavLink from './NavLink';
 import { Link } from 'react-router';
+import Radium from 'radium';
+import color from 'color';
+
+var RadiumLink = Radium(Link)
 
 class App extends Component {
   constructor(props) {
@@ -25,7 +29,13 @@ class App extends Component {
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <div className="navbar-collapse navbar-responsive-collapse collapse in" aria-expanded="true">
-              <Link to="/" onlyActiveOnIndex className="sitename pull-left">nimblecode</Link>
+
+              <RadiumLink
+              to="/"
+              onlyActiveOnIndex
+              className="sitename pull-left"
+              style={styles.base}>nimble<span id="code">code</span></RadiumLink>
+
               <ul role="nav" className="nav navbar-nav navbar-right">
                 <li><NavLink to="singleplayer" className="nav-label" onlyActiveOnIndex>Singleplayer</NavLink></li>
                 <li><NavLink to="multiplayer" className="nav-label">Multiplayer</NavLink></li>
@@ -33,15 +43,15 @@ class App extends Component {
                 {
                   (this.props.getUsername().payload === 'guest')
                   ? 
-                  <li><NavLink to="login" className="nav-label">Login</NavLink></li>
+                  <li><NavLink to="login" className="nav-label nav-login">Login</NavLink></li>
                   : 
                   <li>
-                    <Link
+                    <RadiumLink
                       to="/"
                       className="nav-label"
                       onClick={this.smash.bind(this)}>
                       Logout
-                    </Link>
+                    </RadiumLink>
                   </li>
                 }
               </ul>
@@ -55,6 +65,22 @@ class App extends Component {
     );
   }
 };
+
+var styles = {
+  base: {
+    color: '#eee',
+
+    // Adding interactive state couldn't be easier! Add a special key to your
+    // style object (:hover, :focus, :active, or @media) with the additional rules.
+    ':hover': {
+      color: color('#eee')
+    },
+    ':focus': {
+      color: color('#eee'),
+      textDecoration: 'none'
+    }
+  }
+}
 
 function mapStateToProps(state) {
   return { SavedUsername: state.SavedUsername }
