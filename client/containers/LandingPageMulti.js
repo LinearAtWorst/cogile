@@ -30,7 +30,8 @@ class LandingPageMulti extends Component {
     });
   }
 
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault();
     this.context.router.push("/multigame/" + this.state.roomId);
   }
 
