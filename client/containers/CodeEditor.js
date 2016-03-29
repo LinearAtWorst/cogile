@@ -181,13 +181,10 @@ class CodeEditor extends Component {
       }
     }.bind(this));
 
-    // prevents copy pasting the whole thing
-    // this.editor.on("paste", function(e) {
-    //   if (e.text === this.props.puzzle) {
-    //     var shuffled = e.text.split('').sort(function(){return 0.5-Math.random()}).join('');
-    //     e.text = "Nice try, here's your copied text :P\n" + shuffled;
-    //   }
-    // }.bind(this));
+    // prevents pasting
+    this.editor.on("paste", function(e) {
+      e.text = "";
+    }.bind(this));
   };
 
   componentDidUpdate() {
