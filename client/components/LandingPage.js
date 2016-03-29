@@ -5,14 +5,14 @@ class LandingPage extends Component {
 
   componentWillMount() {
     this.content  = {
-      boxOneTitle: 'Learning By Typing',
-      boxOneText: 'Being a faster, more efficient coder is a goal of software engineers everywhere, whether they are beginning or expereienced.  An easy way to improve on that skill is to simply write lines of code.  So why not learn and have competitive fun at the same time?',
+      boxOneTitle: 'Learn By Typing',
+      boxOneText: 'Become a faster and more efficient coder, whether you are an experienced or beginner software engineer. One way to improve is to practice writing more lines of code. Why not learn and have competitive fun at the same time?',
       boxTwoTitle: 'Race Against Your Friends',
-      boxTwoText: 'Everyone loves some occasionl friendly competition.  At nimblecode, we provide an easy to use platform to display your coding prowess by competing against your friends in real time.  Stretch those fingers and try multiplayer mode with friends!',
+      boxTwoText: 'Everyone loves friendly competition. We help you display your coding prowess by competing against your friends in real time. Stretch those fingers and challenge your friends!',
       boxThreeTitle: 'About',
-      boxThreeText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu placerat libero, a commodo ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus maximus ultrices rutrum. Donec eu nunc a elit sagittis interdum. Nunc sed turpis mi.',
+      boxThreeText: 'Nimblecode was created by four software engineers at Makersquare, an immersive software engineering program in Los Angeles, CA.  Are you looking to hire? Check out our Github pages in our Contact page above!',
       boxFourTitle: 'JS, Python, and More!',
-      boxFourText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu placerat libero, a commodo ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus maximus ultrices rutrum. Donec eu nunc a elit sagittis interdum. Nunc sed turpis mi.'
+      boxFourText: 'We are four full stack JavaScript developers, but we understand that you may have a different favorite language.  Currently we only have lessons in JS, with Python under development.  If you would like to see nimblecode support more languages, let us know!'
     };
   }
 

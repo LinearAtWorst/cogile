@@ -10,6 +10,7 @@ import { changeLevel, getListOfPrompts } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import LevelSelect from './LevelSelect';
+import { browserHistory } from 'react-router';
 
 class Singleplayer extends Component {
   constructor(props) {
@@ -131,7 +132,17 @@ class Singleplayer extends Component {
       },
       function(isConfirm) {
         if (isConfirm === true) {
-          console.log('Doh! Feature not implemented yet.')
+          // Find index of current level
+          let indexOfCurrLevel = this.props.listOfPrompts.prompts.indexOf(this.props.currentLevel.currentLevel);
+          // Advance to next level
+          if (indexOfCurrLevel !== this.props.listOfPrompts.prompts.length - 1) {
+            indexOfCurrLevel++;
+            // this.props.changeLevel({'currentLevel': null});
+            // this.props.changeLevel({'currentLevel': this.props.listOfPrompts.prompts[indexOfCurrLevel]});
+            browserHistory.push('/#/singleplayer/' + this.props.listOfPrompts.prompts[indexOfCurrLevel]);
+            location.reload();
+          }
+
         } else if (isConfirm === false) {
           location.reload();
           console.log('Confirm false, currentlevel', this.props.currentLevel);
@@ -177,7 +188,8 @@ function mapStateToProps(state) {
     SavedUsername: state.SavedUsername,
     currentLevel: state.currentLevel,
     gameTime: state.gameTime,
-    newHighScore: state.newHighScore
+    newHighScore: state.newHighScore,
+    listOfPrompts: state.listOfPrompts
   }
 }
 

@@ -25,7 +25,9 @@ class CodeGhost extends Component {
   };
 
   componentDidMount() {
+    this.record = {};
     this.username = this.props.getUsername().payload;
+    this.pendingGetRequest = false;
 
     this.editor = ace.edit('codeGhost');
     this.editor.setShowPrintMargin(false);
@@ -65,13 +67,10 @@ class CodeGhost extends Component {
 
       this.props.syncPlayersStatuses(tempPlayersStatuses);
     }.bind(this)); 
-
-    this.record = {};
   }
 
   // Plays back replay stored in this.record on game start
   startGhostReplay() {
-    console.log('About to play : ', this.record);
 
     this.playbackClosure = function(value) {
       return function() {
@@ -95,7 +94,8 @@ class CodeGhost extends Component {
 
   componentDidUpdate() {
 
-    if (Object.keys(this.record).length === 0 || this.props.currentLevel.currentLevel !== this.previousLevel) {
+    if (Object.keys(this.record).length === 0 || this.props.currentLevel.currentLevel !== this.previousLevel && !this.pendingGetRequest) {
+      this.pendingGetRequest = true;
       axios.get('api/getHighScore/?promptName=' + this.props.currentLevel.currentLevel)
         .then(function(res) {
           if (res.data !== '') {
@@ -113,8 +113,6 @@ class CodeGhost extends Component {
 
             this.props.syncPlayersStatuses(tempPlayersStatuses);
 
-            console.log('Saved : ', this.record);
-
           } else {
             this.record = {
               recording: {
@@ -123,6 +121,7 @@ class CodeGhost extends Component {
               duration: 999999999999
             };
           }
+          this.pendingGetRequest = false;
           this.previousLevel = this.props.currentLevel.currentLevel;
         }.bind(this));
 
