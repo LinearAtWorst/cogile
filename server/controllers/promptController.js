@@ -7,15 +7,26 @@ var path = require('path');
 var handlers = {};
 
 var jsFiles = [
-    '00-forloop',
+    '00-forLoop',
     '01-size',
-    '02-fizzbuzz',
-    '03-jqueryclick',
-    '04-slimredux-mapValues',
-    '05-slimredux-combineReducers',
-    '06-es6-letVariable',
-    '07-es6-class',
-    '08-es6-promise'
+    '02-fizzBuzz',
+    '03-newObj',
+    '04-tree',
+    '05-factorial',
+    '06-linkedList',
+    '07-reverseArray',
+    '08-hashFunction',
+    '09-expressServer',
+    '10-jqueryClick',
+    '11-jqueryGet',
+    '12-es6-letVariable',
+    '13-es6-class',
+    '14-es6-promise',
+    '15-d3',
+    '16-angularController',
+    '17-reactComponent',
+    '18-slimredux-mapValues',
+    '19-slimredux-combineReducers',
   ];
 
 var getRandomJS = function(){
