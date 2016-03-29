@@ -28,4 +28,12 @@ helperFunctions.requireAuth = function(nextState, replace) {
   }
 }
 
+helperFunctions.isLoggedIn = function() {
+  if (!global.window.localStorage.getItem('com.nimblecode')) {
+    return false;
+  }
+
+  return true;
+}
+
 module.exports = helperFunctions;
