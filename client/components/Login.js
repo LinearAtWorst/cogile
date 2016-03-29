@@ -16,7 +16,9 @@ class Login extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      usernameFail: false,
+      passwordFail: false
     }
   };
 
@@ -39,6 +41,17 @@ class Login extends Component {
         </div>
         <center><div className="row">
         <button className="btn btn-raised" type="submit">Login</button>
+        <br />
+        <div className="row text-center">{this.state.passwordFail ? (
+     <p className="failed-validation">Wrong password, fam.</p>
+        ) :
+        null  }
+
+        {this.state.usernameFail ? (
+     <p className="failed-validation">Username doesn't exist. Please register an account with us.</p>
+        ) :
+        null  }
+        </div>
         {/*<p className="lead">OR</p>
         <a className="btn btn-raised"><span className="fa fa-github fa-3x"></span> Login with Github</a>*/}
         </div></center>
@@ -81,8 +94,19 @@ class Login extends Component {
           // redirecting to homepage
           this.context.router.push('/');
         } else {
-          console.log("unsuccessful login");
-          return false;
+          if ( response.data.usernameFailed === true ) {
+            this.setState({
+                  usernameFail: true,
+                  passwordFail: false
+            });
+          }
+
+          if ( response.data.passwordFailed === true ) {
+            this.setState({
+              usernameFail: false,
+              passwordFail: true
+            });
+          }
         }
       }.bind(this))
       .catch(function(response) {
