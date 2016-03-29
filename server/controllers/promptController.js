@@ -10,7 +10,9 @@ var jsFiles = [
 		'00-forloop',
 		'01-size',
 		'02-fizzbuzz',
-		'03-jqueryclick'
+		'03-jqueryclick',
+    '04-slimredux-mapValues',
+    '05-slimredux-combineReducers'
 	];
 
 var getRandomJS = function(){
