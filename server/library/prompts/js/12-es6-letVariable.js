@@ -8,4 +8,4 @@ function getFood(food) {
   return snack;
 }
 
-getFood(false); // 'Meow Mix'
+getFood(false);

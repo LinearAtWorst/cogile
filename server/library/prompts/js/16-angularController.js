@@ -1,5 +1,5 @@
 var myApp = angular.module('myApp',[]);
 
-myApp.controller('GreetingController', ['$scope', function($scope) {
+myApp.controller('Greet', ['$scope', function($scope) {
   $scope.greeting = 'Hola!';
 }]);

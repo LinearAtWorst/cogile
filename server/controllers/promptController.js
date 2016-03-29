@@ -25,8 +25,8 @@ var jsFiles = [
     '15-d3',
     '16-angularController',
     '17-reactComponent',
-    '18-redux-mapValues',
-    '19-redux-combineReducers',
+    '18-reduxMapValues',
+    '19-reduxReducer',
   ];
 
 var getRandomJS = function(){
