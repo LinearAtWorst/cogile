@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { startCountdown, storeGameId, syncPlayersStatuses } from '../actions/index';
+import { startCountdown, storeGameId, syncMultiplayerStatuses } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class StartButtonMulti extends Component {
@@ -20,7 +20,7 @@ class StartButtonMulti extends Component {
     if (this.props.countingDown !== 'START_COUNTDOWN') {
       this.props.socket.on('multigame start', function(players) {
         this.startGameFromSocket();
-        this.props.syncPlayersStatuses(players);
+        this.props.syncMultiplayerStatuses(players);
       }.bind(this));
     }
   };
@@ -81,7 +81,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({startCountdown: startCountdown, syncPlayersStatuses: syncPlayersStatuses, storeGameId: storeGameId }, dispatch);
+  return bindActionCreators({startCountdown: startCountdown, syncMultiplayerStatuses: syncMultiplayerStatuses, storeGameId: storeGameId }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(StartButtonMulti)
