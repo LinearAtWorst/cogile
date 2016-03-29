@@ -72,10 +72,10 @@ var styles = {
     // Adding interactive state couldn't be easier! Add a special key to your
     // style object (:hover, :focus, :active, or @media) with the additional rules.
     ':hover': {
-      color: color('#eee').lighten(0.2).hexString()
+      color: color('#eee')
     },
     ':focus': {
-      color: color('#eee').lighten(0.2).hexString(),
+      color: color('#eee'),
       textDecoration: 'none'
     }
   }
