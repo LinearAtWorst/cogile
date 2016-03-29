@@ -22,7 +22,7 @@ class LandingPage extends Component {
       <div>
         <h1 className="text-center tagline">How fast can you code?</h1>
         <div className="row">
-            <div className="col-sm-4 col-sm-offset-4" id="landingVideo">Cool video here</div>
+            <div className="col-sm-12 text-center" id="landingVideo"><img id="codingGif" src="../assets/coding.gif" /></div>
         </div>
         <div className="container-fluid">
           <div className="row">

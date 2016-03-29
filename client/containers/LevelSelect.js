@@ -39,7 +39,7 @@ class LevelSelect extends Component {
           <button className="btn btn-info btn-raised dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Level Select
           <span className="caret"></span></button>
           <ul className="dropdown-menu" role="menu" aria-labelledby="menu1">
-            <li role="presentation"><span tabIndex="-1">JavaScript</span></li>
+            <li role="presentation"><a tabIndex="-1" ><strong> JavaScript </strong></a></li>
             <li role="presentation" className="divider"></li>
             <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel0" href="#/singleplayer/00-forloop">Level 1</a></li>
             <li role="presentation"><a role="menuitem" tabIndex="-1" id="selectLevel1" href="#/singleplayer/01-size">Level 2</a></li>

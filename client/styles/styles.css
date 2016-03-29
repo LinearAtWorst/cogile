@@ -2,26 +2,30 @@
   font-family: Helvetica;
 }*/
 .sitename {
-  font-family: 'Ropa Sans', sans-serif !important;
+  /*font-family: 'Ropa Sans', sans-serif !important;*/
   font-size: 29px !important;
+  /*text-shadow: 1px 1px 1px white;*/
   display: flex;
   align-items: center;
-  height: 50px;
-  font-size: 1.5em;
-  color: #eee;
+  height: 60px;
+  /*font-size: 1.5em;*/
+  color: white;
 }
 
 #code {
+  color: #f1c40f;
   font-weight: 600 !important;
 }
 
 .sitename:hover {
-  color: #eee;
+  /*text-shadow: 2px 2px 2px white;*/
+  color: white;
   text-decoration: none;
 }
 
 .nav-label {
-  font-size: 1.3em;
+  font-weight: 400;
+  font-size: 20px;
 }
 
 .nav-label:hover {
@@ -32,6 +36,8 @@
 .nav-label.active {
   background-color: #00aa9a !important;
 }
+
+/*009688*/
 
 .icon-container {
   text-align:center;
@@ -90,8 +96,8 @@
 #landingVideo {
   margin-top: 25px;
   margin-bottom: 25px;
-  height: 200px;
-  border: 1px solid #222;
+  height: 400px;
+  /*border: 1px solid #222;*/
 }
 
 .landing-btn{
@@ -99,7 +105,7 @@
 }
 
 .tagline {
-  margin-top: 10%;
+  /*margin-top: 10%;*/
 }
 
 .border-gray {
@@ -107,7 +113,7 @@
 }
 
 .landing-info-container {
-  margin-top: 50px;
+  /*margin-top: 50px;*/
 }
 
 .progress-bar {
@@ -130,4 +136,19 @@
 #start-btn-container {
   height: 58px;
   text-align: center;
+}
+
+#codingGif {
+  height: 400px;
+  width: 800px;
+  margin: 0 auto;
+}
+
+#menu1{
+  color: white;
+  background-color: #009688; 
+}
+
+.nav-login {
+
 }

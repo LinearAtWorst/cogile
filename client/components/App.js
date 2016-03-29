@@ -26,7 +26,7 @@ class App extends Component {
           <div className="container-fluid">
             <div className="navbar-collapse navbar-responsive-collapse collapse in" aria-expanded="true">
 
-              <Link to="/" onlyActiveOnIndex className="sitename pull-left">nimble|<span id="code">code</span></Link>
+              <Link to="/" onlyActiveOnIndex className="sitename pull-left">nimble<span id="code">code</span></Link>
 
               <ul role="nav" className="nav navbar-nav navbar-right">
                 <li><NavLink to="singleplayer" className="nav-label" onlyActiveOnIndex>Singleplayer</NavLink></li>
@@ -35,7 +35,7 @@ class App extends Component {
                 {
                   (this.props.getUsername().payload === 'guest')
                   ? 
-                  <li><NavLink to="login" className="nav-label">Login</NavLink></li>
+                  <li><NavLink to="login" className="nav-label nav-login">Login</NavLink></li>
                   : 
                   <li>
                     <Link
