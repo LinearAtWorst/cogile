@@ -6,7 +6,7 @@ import { Router, Route, browserHistory, hashHistory, IndexRoute, useRouterHistor
 import axios from 'axios';
 
 class Register extends Component {
-  
+
   static contextTypes = {
     router: PropTypes.object
   };
@@ -16,7 +16,8 @@ class Register extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      usernameExists: false
     }
   };
 
@@ -25,7 +26,7 @@ class Register extends Component {
       <div className="container">
       <div className="col-sm-3"></div>
       <div className="col-sm-6">
-      <h1 className="about-title">REGISTER ACCOUNT</h1>
+      <h1 className="about-title">Register Account</h1>
       <form className="form" onSubmit={this._onSubmit.bind(this)}>
         <div className="form-group label-floating">
         <label htmlFor="username" className="control-label">Username</label>
@@ -39,6 +40,11 @@ class Register extends Component {
         <button className="btn" type="submit">Register</button>
         </div></center>
       </form>
+      <div className="row text-center"> {this.state.usernameExists ? (
+        <p className="failed-validation">Username is taken already! Please use a different one.</p>
+        ) :
+        null  }
+      </div>
       </div>
       <div className="col-sm-3"></div>
       </div>
@@ -69,16 +75,19 @@ class Register extends Component {
         if (response.data.isValid === true) {
           global.window.localStorage.setItem('com.nimblecode', response.data.token);
           console.log("successful signup");
-          
+
           // storing username into Redux App State
           this.props.storeUsername(this.state.username);
 
           // redirecting to homepage
           this.context.router.push('/');
         } else {
-          console.log("unsuccessful signup");
-          return false;
+          if ( response.data.usernameExists === true ) {
+            this.setState({
+              usernameExists: true
+            });
         }
+      }
       }.bind(this))
       .catch(function(response) {
         console.log(response);

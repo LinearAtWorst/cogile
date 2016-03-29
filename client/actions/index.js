@@ -48,6 +48,13 @@ export function syncPlayersStatuses(status) {
   }
 }
 
+export function syncMultiplayerStatuses(status) {
+  return {
+    type: 'UPDATE_MULTI_PROGRESSES',
+    payload: status
+  }
+}
+
 export function storeUsername(username) {
   return {
     type: 'STORE_USERNAME',

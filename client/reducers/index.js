@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import SingleGameReducer from './SingleGameReducer';
 import MultiGameStateReducer from './MultiGameStateReducer';
+import MultiplayerStatusesReducer from './MultiplayerStatusesReducer';
 import MultiTimerReducer from './MultiTimerReducer';
 import PlayersStatusesReducer from './PlayersStatusesReducer';
 import CountingDownReducer from './CountingDownReducer';
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   multiGameState: MultiGameStateReducer,
   multiTimer: MultiTimerReducer,
   playersStatuses: PlayersStatusesReducer,
+  multiplayerStatuses: MultiplayerStatusesReducer,
   countingDown: CountingDownReducer,
   gameTime: GameTimeReducer,
   SavedUsername: UserReducer,

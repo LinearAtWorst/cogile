@@ -32,9 +32,13 @@ module.exports = {
             validObj.isValid = true;
             validObj.username = username;
             res.send(validObj);
+          } else {
+            validObj.passwordFailed = true;
+            res.send(validObj);
           }
         });
       } else {
+        validObj.usernameFailed = true;
         res.send(validObj);
       }
     });
@@ -49,6 +53,7 @@ module.exports = {
     new User({username: username}).fetch()
       .then(function(found) {
         if(found) {
+          validObj.usernameExists = true;
           res.send(validObj);
         } else {
           bcrypt.genSalt(10, function(err, salt) {
