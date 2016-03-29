@@ -29,12 +29,13 @@ class App extends Component {
         <nav className="navbar navbar-default">
           <div className="container-fluid">
             <div className="navbar-collapse navbar-responsive-collapse collapse in" aria-expanded="true">
+
               <RadiumLink
               to="/"
               onlyActiveOnIndex
               className="sitename pull-left"
-              style={styles.base}>
-              nimblecode</RadiumLink>
+              style={styles.base}>nimble<span id="code">code</span></RadiumLink>
+
               <ul role="nav" className="nav navbar-nav navbar-right">
                 <li><NavLink to="singleplayer" className="nav-label" onlyActiveOnIndex>Singleplayer</NavLink></li>
                 <li><NavLink to="multiplayer" className="nav-label">Multiplayer</NavLink></li>
@@ -42,7 +43,7 @@ class App extends Component {
                 {
                   (this.props.getUsername().payload === 'guest')
                   ? 
-                  <li><NavLink to="login" className="nav-label">Login</NavLink></li>
+                  <li><NavLink to="login" className="nav-label nav-login">Login</NavLink></li>
                   : 
                   <li>
                     <RadiumLink
