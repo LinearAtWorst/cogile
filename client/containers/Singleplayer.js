@@ -94,30 +94,41 @@ class Singleplayer extends Component {
   endingAlert() {
     let highScoreObj = this.props.newHighScore
     let title = '';
-    let message = '';
+    let html = '';
     let minutes = this.props.gameTime.minutes;
     let seconds = this.props.gameTime.seconds;
     let tenthSeconds = this.props.gameTime.tenthSeconds;
+    let bestTime = (highScoreObj.oldReplayDuration / 1000).toFixed(2);
+    console.log(highScoreObj);
 
     // Set title and message for sweet alert
     if (highScoreObj.newHighScore && highScoreObj.loggedIn) {
       title = 'Woohoo!';
-      message = 'You set a new record with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds +'. Your replay has been saved as the new leader.';
+      html = '<h4>Your Time: ' + minutes + ':' + seconds + '.' + tenthSeconds + '</h4>' +
+            '<h4>Best Time: ' + bestTime + '</h4>' +
+            'You set the new record! Your replay has been saved as the new leader.';
     } else if (highScoreObj.newHighScore && !highScoreObj.loggedIn) {
       title = 'Wow!';
-      message = 'You beat the high score with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds +'. Unfortunately, you need to be logged in so we can store your high score. Log in and try again!';
+      html = '<h4>Your Time: ' + minutes + ':' + seconds + '.' + tenthSeconds + '</h4>' +
+            '<h4>Best Time: ' + bestTime + '</h4>' +
+            'You beat the high score!  Unfortunately, you need to be logged in so we can store your high score. Log in and try again!';
     } else if (!highScoreObj.newHighScore && highScoreObj.loggedIn) {
       title = 'Sweet!';
-      message = 'You completed the prompt in ' + minutes + ':' + seconds + '.' + tenthSeconds +'. Keep practicing to beat the record!';
+      html = '<h4>Your Time: ' + minutes + ':' + seconds + '.' + tenthSeconds + '</h4>' +
+            '<h4>Best Time: ' + bestTime + '</h4>' +
+            'You completed the prompt! Keep practicing to beat the record.';
     } else if (!highScoreObj.newHighScore && !highScoreObj.loggedIn) {
       title = 'Great!';
-      message = 'You completed the prompt in ' + minutes + ':' + seconds + '.' + tenthSeconds +'.  Make sure you log in so we can post your record.  Keep practicing to be the best!';
+      html = '<h4>Your Time: ' + minutes + ':' + seconds + '.' + tenthSeconds + '</h4>' +
+            '<h4>Best Time: ' + bestTime + '</h4>' +
+            'You completed the prompt! Make sure to log in and keep practicing to beat the record.';
     }
+
 
     // New Record was Achieved
       swal({
         title: title,
-        text: message,
+        html: html,
         type: 'success',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
