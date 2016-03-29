@@ -4,6 +4,7 @@ import { storeUsername, getUsername } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import { Router, Route, browserHistory, hashHistory, IndexRoute, useRouterHistory } from 'react-router';
 import axios from 'axios';
+import Register from './Register';
 
 class Login extends Component {
 
@@ -16,19 +17,19 @@ class Login extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      usernameFail: false,
+      passwordFail: false
     }
   };
 
   render() {
     return(
       <div className="container">
-      <div className="col-sm-3"></div>
-      <div className="col-sm-6">
-      <h1 className="about-title">LOGIN</h1>
-      <div className="row row-spacer"></div>
-      <div className="text-center">Don't have an account? Register <a href="/#/register">here</a>. Only logged in users can access Multiplayer!</div>
-      <form className="form" onSubmit={this._onSubmit.bind(this)}>
+      <div className="row">
+      <div className="col-md-6">
+      <h1 className="about-title">Login</h1>
+      <form className="form col-sm-6 col-sm-offset-3" onSubmit={this._onSubmit.bind(this)}>
         <div className="form-group label-floating">
         <label htmlFor="username" className="control-label">Username</label>
           <input type="text" id="username" className="form-control" value={this.state.username} onChange={this._changeUsername.bind(this)} />
@@ -39,12 +40,26 @@ class Login extends Component {
         </div>
         <center><div className="row">
         <button className="btn btn-raised" type="submit">Login</button>
+        <br />
+        <div className="row text-center">{this.state.passwordFail ? (
+     <p className="failed-validation">Wrong password, fam.</p>
+        ) :
+        null  }
+
+        {this.state.usernameFail ? (
+     <p className="failed-validation">Username doesn't exist. Please register an account with us.</p>
+        ) :
+        null  }
+        </div>
         {/*<p className="lead">OR</p>
         <a className="btn btn-raised"><span className="fa fa-github fa-3x"></span> Login with Github</a>*/}
         </div></center>
       </form>
       </div>
-      <div className="col-sm-3"></div>
+      <center>
+      <Register />
+      </center>
+      </div>
       </div>
     );
   }
@@ -81,8 +96,19 @@ class Login extends Component {
           // redirecting to homepage
           this.context.router.push('/');
         } else {
-          console.log("unsuccessful login");
-          return false;
+          if ( response.data.usernameFailed === true ) {
+            this.setState({
+                  usernameFail: true,
+                  passwordFail: false
+            });
+          }
+
+          if ( response.data.passwordFailed === true ) {
+            this.setState({
+              usernameFail: false,
+              passwordFail: true
+            });
+          }
         }
       }.bind(this))
       .catch(function(response) {

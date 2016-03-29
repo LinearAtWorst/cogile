@@ -6,7 +6,7 @@ import { Router, Route, browserHistory, hashHistory, IndexRoute, useRouterHistor
 import axios from 'axios';
 
 class Register extends Component {
-  
+
   static contextTypes = {
     router: PropTypes.object
   };
@@ -16,17 +16,16 @@ class Register extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      usernameExists: false
     }
   };
 
   render() {
     return(
-      <div className="container">
-      <div className="col-sm-3"></div>
-      <div className="col-sm-6">
-      <h1 className="about-title">REGISTER ACCOUNT</h1>
-      <form className="form" onSubmit={this._onSubmit.bind(this)}>
+    <div className="col-md-6">
+      <h1 className="about-title">Register Account</h1>
+      <form className="form col-sm-6 col-sm-offset-3" onSubmit={this._onSubmit.bind(this)}>
         <div className="form-group label-floating">
         <label htmlFor="username" className="control-label">Username</label>
           <input type="text" id="username" className="form-control" value={this.state.username} onChange={this._changeUsername.bind(this)} />
@@ -35,12 +34,16 @@ class Register extends Component {
         <label htmlFor="password" className="control-label">Password</label>
           <input id="password" type="password" className="form-control" value={this.state.password} onChange={this._changePassword.bind(this)} />
         </div>
-        <center><div className="btn-group btn-group-raised">
-        <button className="btn" type="submit">Register</button>
-        </div></center>
+        <center>
+        <button className="btn btn-raised" type="submit">Login</button>
+        <br />
+        <div className="row text-center"> {this.state.usernameExists ? (
+          <p className="failed-validation">Username is taken already! Please use a different one.</p>
+          ) :
+          null  }
+        </div>
+        </center>
       </form>
-      </div>
-      <div className="col-sm-3"></div>
       </div>
     );
   }
@@ -69,16 +72,19 @@ class Register extends Component {
         if (response.data.isValid === true) {
           global.window.localStorage.setItem('com.nimblecode', response.data.token);
           console.log("successful signup");
-          
+
           // storing username into Redux App State
           this.props.storeUsername(this.state.username);
 
           // redirecting to homepage
           this.context.router.push('/');
         } else {
-          console.log("unsuccessful signup");
-          return false;
+          if ( response.data.usernameExists === true ) {
+            this.setState({
+              usernameExists: true
+            });
         }
+      }
       }.bind(this))
       .catch(function(response) {
         console.log(response);

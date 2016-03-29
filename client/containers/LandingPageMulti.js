@@ -1,10 +1,16 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { storeGameId, getUsername } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import { Router, Route, browserHistory, hashHistory, IndexRoute, useRouterHistory } from 'react-router';
 import LandingPageInfoBox from '../components/LandingPageInfoBox';
 
 class LandingPageMulti extends Component {
+
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   constructor() {
     super();
 
@@ -24,9 +30,8 @@ class LandingPageMulti extends Component {
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    return;
+  handleSubmit() {
+    this.context.router.push("/multigame/" + this.state.roomId);
   }
 
   render() {

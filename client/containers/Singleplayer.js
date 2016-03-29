@@ -10,6 +10,7 @@ import { changeLevel, getListOfPrompts } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 import LevelSelect from './LevelSelect';
+import { browserHistory } from 'react-router';
 
 class Singleplayer extends Component {
   constructor(props) {
@@ -131,7 +132,17 @@ class Singleplayer extends Component {
       },
       function(isConfirm) {
         if (isConfirm === true) {
-          console.log('Doh! Feature not implemented yet.')
+          // Find index of current level
+          let indexOfCurrLevel = this.props.listOfPrompts.prompts.indexOf(this.props.currentLevel.currentLevel);
+          // Advance to next level
+          if (indexOfCurrLevel !== this.props.listOfPrompts.prompts.length - 1) {
+            indexOfCurrLevel++;
+            // this.props.changeLevel({'currentLevel': null});
+            // this.props.changeLevel({'currentLevel': this.props.listOfPrompts.prompts[indexOfCurrLevel]});
+            browserHistory.push('/#/singleplayer/' + this.props.listOfPrompts.prompts[indexOfCurrLevel]);
+            location.reload();
+          }
+
         } else if (isConfirm === false) {
           location.reload();
           console.log('Confirm false, currentlevel', this.props.currentLevel);
@@ -152,17 +163,6 @@ class Singleplayer extends Component {
     });
   }
 
-  calculateProgress(playerCode) {
-    var totalChars = this.state.minifiedPuzzle.length;
-    var distance = levenshtein(this.state.minifiedPuzzle, playerCode);
-
-    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
-
-    this.setState({
-      progress: percentCompleted
-    });
-  };
-
   render() {
     return (
       <div>
@@ -172,10 +172,11 @@ class Singleplayer extends Component {
         <CodePrompt puzzle={this.state.currentPuzzle} />
         <CodeEditor
           puzzle={this.state.currentPuzzle}
-          minifiedPuzzle={this.state.minifiedPuzzle}
-          calculateProgress={this.calculateProgress.bind(this)} />
-        <CodeGhost singleGame={this.props.singleGame} />
-        <ProgressBar percentComplete={this.state.progress} />
+          minifiedPuzzle={this.state.minifiedPuzzle} />
+        <CodeGhost 
+          minifiedPuzzle={this.state.minifiedPuzzle}/>
+        <ProgressBar
+          percentComplete={this.state.progress} />
       </div>
     )
   };
@@ -187,7 +188,8 @@ function mapStateToProps(state) {
     SavedUsername: state.SavedUsername,
     currentLevel: state.currentLevel,
     gameTime: state.gameTime,
-    newHighScore: state.newHighScore
+    newHighScore: state.newHighScore,
+    listOfPrompts: state.listOfPrompts
   }
 }
 

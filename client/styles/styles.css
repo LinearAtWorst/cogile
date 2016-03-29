@@ -1,6 +1,14 @@
 /** {
   font-family: Helvetica;
 }*/
+
+.failed-validation {
+  color: red;
+}
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
 .sitename {
   /*font-family: 'Ropa Sans', sans-serif !important;*/
   font-size: 29px !important;
@@ -138,6 +146,7 @@
   text-align: center;
 }
 
+
 #codingGif {
   height: 400px;
   width: 800px;
@@ -152,3 +161,4 @@
 .nav-login {
 
 }
+
