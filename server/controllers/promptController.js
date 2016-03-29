@@ -12,7 +12,8 @@ var jsFiles = [
 		'02-fizzbuzz',
 		'03-jqueryclick',
     '04-slimredux-mapValues',
-    '05-slimredux-combineReducers'
+    '05-slimredux-combineReducers',
+    '06-letVariable'
 	];
 
 var getRandomJS = function(){
