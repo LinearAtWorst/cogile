@@ -5,6 +5,7 @@ import { startGame, endGame, newHighScore, getUsername, syncPlayersStatuses } fr
 import { bindActionCreators } from 'redux';
 import levenshtein from './../lib/levenshtein';
 import axios from 'axios';
+import helperFunctions from '../utils/helperFunctions';
 
 class CodeEditor extends Component {
   constructor(props) {
@@ -26,7 +27,11 @@ class CodeEditor extends Component {
 
   componentDidMount() {
     // Set username if it exists
-    this.username = this.props.getUsername().payload;
+    if (helperFunctions.isLoggedIn()) {
+      this.username = helperFunctions.getUsername().username;
+    } else {
+      this.username = 'guest';
+    }
 
     this.editor = ace.edit('codeEditor');
     this.editor.setShowPrintMargin(false);
@@ -35,9 +40,9 @@ class CodeEditor extends Component {
     this.editor.getSession().setTabSize(2);
 
     this.editor.setOptions({
-      fontSize: '12pt',
-      minLines: 15,
-      maxLines: 15,
+      fontSize: '11pt',
+      minLines: 12,
+      maxLines: 12,
       enableBasicAutocompletion: true,
       enableSnippets: false,
       enableLiveAutocompletion: false
@@ -99,29 +104,55 @@ class CodeEditor extends Component {
 
           // check current duration vs. ghost's duration
           // if current time < ghost's time and user is logged in, then save new record
-          if (recordingDuration < oldReplayDuration && this.username !== 'guest') {
-            // save the replay
-            this.props.newHighScore({
-              newHighScore: true,
-              oldReplayDuration: oldReplayDuration,
-              loggedIn: true
-            });
-            axios.post('api/setHighScore', {
-              username: this.username,
-              recording: JSON.stringify({
-                recording: this.record,
-                duration: recordingDuration
-              }),
-              puzzleName: this.props.currentLevel.currentLevel
-            }).then(function(res) {
-              // console.log(res);
-            }.bind(this));
+          if (recordingDuration < oldReplayDuration) {
+            if (this.username !== 'guest') {
+              console.log('Beat High Score, logged in')
+              // save the replay
+              this.props.newHighScore({
+                newHighScore: true,
+                oldReplayDuration: oldReplayDuration,
+                loggedIn: true
+              });
+              axios.post('api/setHighScore', {
+                username: this.username,
+                recording: JSON.stringify({
+                  recording: this.record,
+                  duration: recordingDuration
+                }),
+                puzzleName: this.props.currentLevel.currentLevel
+              }).then(function(res) {
+                // console.log(res);
+              }.bind(this));
+            // Beat high score but wasn't logged in, don't save
+            } else {
+              console.log('Beat High Score, was not logged in')
 
+              this.props.newHighScore({
+                newHighScore: true,
+                oldReplayDuration: oldReplayDuration,
+                loggedIn: false
+              });
+            }
           } else { // Broadcast action that no new high score was set
-            this.props.newHighScore({
-              newHighScore: false,
-              oldReplayDuration: oldReplayDuration
-            });
+            if (this.username === 'guest') {
+              console.log(recordingDuration)
+              console.log(oldReplayDuration);
+              console.log('Lost High Score, was not logged in')
+
+              this.props.newHighScore({
+                newHighScore: false,
+                oldReplayDuration: oldReplayDuration,
+                loggedIn: false
+              });
+            } else {
+              console.log('Lost High Score, was  logged in')
+
+              this.props.newHighScore({
+                newHighScore: false,
+                oldReplayDuration: oldReplayDuration,
+                loggedIn: true
+              });
+            }
           }
         } else { // If there is no current high score, just set the high score automatically
           if (this.username !== 'guest') {
@@ -155,13 +186,10 @@ class CodeEditor extends Component {
       }
     }.bind(this));
 
-    // prevents copy pasting the whole thing
-    // this.editor.on("paste", function(e) {
-    //   if (e.text === this.props.puzzle) {
-    //     var shuffled = e.text.split('').sort(function(){return 0.5-Math.random()}).join('');
-    //     e.text = "Nice try, here's your copied text :P\n" + shuffled;
-    //   }
-    // }.bind(this));
+    // prevents pasting
+    this.editor.on("paste", function(e) {
+      e.text = "";
+    }.bind(this));
   };
 
   componentDidUpdate() {
@@ -201,12 +229,12 @@ class CodeEditor extends Component {
   };
 
   render() {
-    const style = {fontSize: '14px !important', border: '1px solid lightgray'};
+    const style = {fontSize: '14px !important', border: '5px solid #181818'};
     
     return React.DOM.div({
       id: 'codeEditor',
       style: style,
-      className: 'col-md-6'
+      className: 'col-sm-6'
     });
   }
 }
@@ -215,7 +243,8 @@ function mapStateToProps(state) {
   return {
     singleGame: state.singleGame,
     currentLevel: state.currentLevel,
-    playersStatuses: state.playersStatuses
+    playersStatuses: state.playersStatuses,
+    SavedUsername: state.SavedUsername
   }
 }
 

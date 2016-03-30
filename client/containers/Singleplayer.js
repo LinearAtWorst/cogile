@@ -94,30 +94,44 @@ class Singleplayer extends Component {
   endingAlert() {
     let highScoreObj = this.props.newHighScore
     let title = '';
-    let message = '';
+    let html = '';
     let minutes = this.props.gameTime.minutes;
     let seconds = this.props.gameTime.seconds;
     let tenthSeconds = this.props.gameTime.tenthSeconds;
+    let hundredthSeconds = this.props.gameTime.hundredthSeconds;
+    console.log('my minutes, seconds, tenthseconds is: ', minutes, seconds, tenthSeconds);
+    let yourTime = (minutes*60 + seconds + tenthSeconds/10 + hundredthSeconds/100).toFixed(2);
+    let bestTime = (highScoreObj.oldReplayDuration / 1000).toFixed(2);
+    console.log(highScoreObj);
 
     // Set title and message for sweet alert
     if (highScoreObj.newHighScore && highScoreObj.loggedIn) {
       title = 'Woohoo!';
-      message = 'You set a new record with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds +'. Your replay has been saved as the new leader.';
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
+            '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
+            'You set the new record! Your replay has been saved as the new leader.';
     } else if (highScoreObj.newHighScore && !highScoreObj.loggedIn) {
       title = 'Wow!';
-      message = 'You beat the high score with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds +'. Unfortunately, you need to be logged in so we can store your high score. Log in and try again!';
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
+            '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
+            'You beat the high score!  Unfortunately, you need to be logged in so we can store your high score. Log in and try again!';
     } else if (!highScoreObj.newHighScore && highScoreObj.loggedIn) {
       title = 'Sweet!';
-      message = 'You completed the prompt in ' + minutes + ':' + seconds + '.' + tenthSeconds +'. Keep practicing to beat the record!';
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
+            '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
+            'You completed the prompt! Keep practicing to beat the record.';
     } else if (!highScoreObj.newHighScore && !highScoreObj.loggedIn) {
       title = 'Great!';
-      message = 'You completed the prompt in ' + minutes + ':' + seconds + '.' + tenthSeconds +'. Keep practicing to beat the record!';
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
+            '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
+            'You completed the prompt! Make sure to log in and keep practicing to beat the record.';
     }
+
 
     // New Record was Achieved
       swal({
         title: title,
-        text: message,
+        html: html,
         type: 'success',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -169,12 +183,19 @@ class Singleplayer extends Component {
         <Timer
           saveTimeElapsed={this.saveTimeElapsed.bind(this)} />
         <LevelSelect />
+
+        <div className="col-sm-10 col-sm-offset-1"><h5><b>Copy this code...</b></h5></div>
         <CodePrompt puzzle={this.state.currentPuzzle} />
-        <CodeEditor
-          puzzle={this.state.currentPuzzle}
-          minifiedPuzzle={this.state.minifiedPuzzle} />
-        <CodeGhost 
-          minifiedPuzzle={this.state.minifiedPuzzle}/>
+
+        <div className="col-sm-10 col-sm-offset-1 no-padding">
+          <div className="col-sm-6"><h5><b>Type it here  </b></h5></div>
+          <div className="col-sm-6"><h5><b>Best Time Replay</b></h5></div>
+          <CodeEditor
+            puzzle={this.state.currentPuzzle}
+            minifiedPuzzle={this.state.minifiedPuzzle} />
+          <CodeGhost 
+            minifiedPuzzle={this.state.minifiedPuzzle}/>
+        </div>
         <ProgressBar
           percentComplete={this.state.progress} />
       </div>
@@ -185,7 +206,6 @@ class Singleplayer extends Component {
 function mapStateToProps(state) {
   return {
     singleGame: state.singleGame,
-    SavedUsername: state.SavedUsername,
     currentLevel: state.currentLevel,
     gameTime: state.gameTime,
     newHighScore: state.newHighScore,

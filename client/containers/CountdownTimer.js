@@ -15,7 +15,7 @@ class CountdownTimer extends Component {
     }
 
     return (
-      <div className="row text-center">
+      <div className="row text-center no-height">
         <ReactCountdownClock
           seconds={3}
           color="#55acee"

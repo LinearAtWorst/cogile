@@ -66,12 +66,9 @@ class CodeEditorMulti extends Component {
       }
     }.bind(this));
 
-    // prevents copy pasting the whole thing
+    // prevents pasting
     this.editor.on("paste", function(e) {
-      if (e.text === this.props.puzzle) {
-        var shuffled = e.text.split('').sort(function(){return 0.5-Math.random()}).join('');
-        e.text = "Nice try, here's your copied text :P\n" + shuffled;
-      }
+      e.text = "";
     }.bind(this));
   };
 

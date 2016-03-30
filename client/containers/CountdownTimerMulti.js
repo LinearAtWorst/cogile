@@ -20,7 +20,7 @@ class CountdownTimerMulti extends Component {
           seconds={5}
           color="#00BCD4"
           alpha={1}
-          size={53}
+          size={51}
           onComplete={this.props.startGame} />
       </div>
     );

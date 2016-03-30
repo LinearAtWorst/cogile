@@ -5,6 +5,7 @@ import { syncPlayersStatuses, getUsername } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import levenshtein from './../lib/levenshtein';
 import axios from 'axios';
+import helperFunctions from '../utils/helperFunctions';
 
 class CodeGhost extends Component {
   constructor(props) {
@@ -26,15 +27,21 @@ class CodeGhost extends Component {
 
   componentDidMount() {
     this.record = {};
-    this.username = this.props.getUsername().payload;
+    
+    if (helperFunctions.isLoggedIn()) {
+      this.username = helperFunctions.getUsername().username;
+    } else {
+      this.username = 'guest';
+    }
+
     this.pendingGetRequest = false;
 
     this.editor = ace.edit('codeGhost');
     this.editor.setShowPrintMargin(false);
     this.editor.setOptions({
-      fontSize: '12pt',
-      minLines: 15,
-      maxLines: 15,
+      fontSize: '11pt',
+      minLines: 12,
+      maxLines: 12,
       dragEnabled: false
     });
     this.editor.setTheme("ace/theme/twilight");
@@ -107,7 +114,15 @@ class CodeGhost extends Component {
             this.highScoreUser = highScoreUser;
 
             var tempPlayersStatuses = this.props.playersStatuses;
+
+            if (helperFunctions.isLoggedIn()) {
+              this.username = helperFunctions.getUsername().username;
+            } else {
+              this.username = 'guest';
+            }
+
             var thisUser = this.username;
+
             tempPlayersStatuses[thisUser] = [0, '4CAF50'];
             tempPlayersStatuses[highScoreUser] = [0, 'F44336']
 
@@ -120,6 +135,12 @@ class CodeGhost extends Component {
               },
               duration: 999999999999
             };
+
+            var tempPlayersStatuses = this.props.playersStatuses;
+            var thisUser = this.username;
+            tempPlayersStatuses[thisUser] = [0, '4CAF50'];
+
+            this.props.syncPlayersStatuses(tempPlayersStatuses);
           }
           this.pendingGetRequest = false;
           this.previousLevel = this.props.currentLevel.currentLevel;
@@ -159,12 +180,12 @@ class CodeGhost extends Component {
   };
 
   render() {
-    const style = {fontSize: '14px !important', border: '1px solid lightgray'};
+    const style = {fontSize: '14px !important', border: '5px solid #181818'};
 
     return React.DOM.div({
       id: 'codeGhost',
       style: style,
-      className: 'col-md-6'
+      className: 'col-sm-6'
     });
   }
 }
