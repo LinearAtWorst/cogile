@@ -65,14 +65,19 @@ class CodeGhost extends Component {
     }.bind(this));
 
     this.editor.getSession().on("change", function(e) {
-      var code = this.editor.getSession().getValue();
-      var highScoreProgress = this.calculatePercent(code);
+      var value = this.editor.getSession().getValue();
 
-      var highScoreUser = this.highScoreUser;
-      var tempPlayersStatuses = this.props.playersStatuses;
-      tempPlayersStatuses[highScoreUser][0] = highScoreProgress;
+      var code = value.replace(/\s/g,'');
 
-      this.props.syncPlayersStatuses(tempPlayersStatuses);
+      this.props.calculateProgress(code, true);
+
+      // var highScoreProgress = this.calculatePercent(code);
+
+      // var highScoreUser = this.highScoreUser;
+      // var tempPlayersStatuses = this.props.playersStatuses;
+      // tempPlayersStatuses[highScoreUser][0] = highScoreProgress;
+
+      // this.props.syncPlayersStatuses(tempPlayersStatuses);
     }.bind(this)); 
   }
 
@@ -113,7 +118,7 @@ class CodeGhost extends Component {
             var highScoreUser = res.data.username + '_[TopScore]';
             this.highScoreUser = highScoreUser;
 
-            var tempPlayersStatuses = this.props.playersStatuses;
+            // var tempPlayersStatuses = this.props.playersStatuses;
 
             if (helperFunctions.isLoggedIn()) {
               this.username = helperFunctions.getUsername().username;
@@ -123,10 +128,10 @@ class CodeGhost extends Component {
 
             var thisUser = this.username;
 
-            tempPlayersStatuses[thisUser] = [0, '4CAF50'];
-            tempPlayersStatuses[highScoreUser] = [0, 'F44336']
+            // tempPlayersStatuses[thisUser] = [0, '4CAF50'];
+            // tempPlayersStatuses[highScoreUser] = [0, 'F44336']
 
-            this.props.syncPlayersStatuses(tempPlayersStatuses);
+            // this.props.syncPlayersStatuses(tempPlayersStatuses);
 
           } else {
             this.record = {
@@ -136,11 +141,17 @@ class CodeGhost extends Component {
               duration: 999999999999
             };
 
-            var tempPlayersStatuses = this.props.playersStatuses;
-            var thisUser = this.username;
-            tempPlayersStatuses[thisUser] = [0, '4CAF50'];
+            if (helperFunctions.isLoggedIn()) {
+              this.username = helperFunctions.getUsername().username;
+            } else {
+              this.username = 'guest';
+            }
 
-            this.props.syncPlayersStatuses(tempPlayersStatuses);
+            // var tempPlayersStatuses = this.props.playersStatuses;
+            // var thisUser = this.username;
+            // tempPlayersStatuses[thisUser] = [0, '4CAF50'];
+
+            // this.props.syncPlayersStatuses(tempPlayersStatuses);
           }
           this.pendingGetRequest = false;
           this.previousLevel = this.props.currentLevel.currentLevel;

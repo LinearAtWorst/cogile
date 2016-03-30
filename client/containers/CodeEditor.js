@@ -70,13 +70,15 @@ class CodeEditor extends Component {
       // strip whitepsace for win condition comparison
       var code = value.replace(/\s/g,'');
 
-      // calculate user's progress and send to ProgressBar
-      var userProgress = this.calculatePercent(value);
-      var thisUser = this.username;
+      this.props.calculateProgress(code);
       
-      var tempPlayersStatuses = this.props.playersStatuses;
-      tempPlayersStatuses[thisUser][0] = userProgress;
-      this.props.syncPlayersStatuses(tempPlayersStatuses);
+      // calculate user's progress and send to ProgressBar
+      // var userProgress = this.calculatePercent(value);
+      // var thisUser = this.username;
+      
+      // var tempPlayersStatuses = this.props.playersStatuses;
+      // tempPlayersStatuses[thisUser][0] = userProgress;
+      // this.props.syncPlayersStatuses(tempPlayersStatuses);
 
       // if code matches the minified solution, trigger win condition
       if (code === this.props.minifiedPuzzle) {

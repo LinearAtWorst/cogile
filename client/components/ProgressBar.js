@@ -10,7 +10,9 @@ class ProgressBar extends Component {
   };
 
   static propTypes = {
-    percentComplete: PropTypes.number
+    percentComplete: PropTypes.number,
+    color: PropTypes.string,
+    text: PropTypes.string
   };
 
   static defaultProps = {
@@ -21,33 +23,43 @@ class ProgressBar extends Component {
     this.props.leavePage();
   };
 
-  renderBars() {
-    return underscore.map(this.props.playersStatuses.store, function(player, key) {
-      if (Array.isArray(player)) {
-        return (
-          <div className="progress-bar" key={key} >
-            <div
-              className="progress-fill"
-              style={{
-                width: player[0] + '%',
-                backgroundColor: '#' + player[1],
-              }}>
-              <span className="progress-bar-name">{key}</span>
-            </div> 
-          </div>
-        );
-        
-      }
-    }.bind(this));
-  }
-
   render() {
     return (
-      <div>
-        { this.renderBars() }
+      <div className="progress-bar">
+        <div className="progress-fill" style={{width: this.props.percentComplete + '%', backgroundColor: this.props.color}}>
+          <span className="progress-bar-name">{this.props.text}</span>
+        </div>
       </div>
-    );
+      );
   }
+
+  // renderBars() {
+  //   return underscore.map(this.props.playersStatuses.store, function(player, key) {
+  //     if (Array.isArray(player)) {
+  //       return (
+  //         <div className="progress-bar" key={key} >
+  //           <div
+  //             className="progress-fill"
+  //             style={{
+  //               width: player[0] + '%',
+  //               backgroundColor: '#' + player[1],
+  //             }}>
+  //             <span className="progress-bar-name">{key}</span>
+  //           </div> 
+  //         </div>
+  //       );
+        
+  //     }
+  //   }.bind(this));
+  // }
+
+  // render() {
+  //   return (
+  //     <div>
+  //       { this.renderBars() }
+  //     </div>
+  //   );
+  // }
 }
 
 function mapStateToProps(state) {

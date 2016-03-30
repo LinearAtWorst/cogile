@@ -90,6 +90,29 @@ class Singleplayer extends Component {
     }.bind(this));
   };
 
+  calculateProgress(playerCode, isGhostReplay) {
+    if (playerCode === "") {
+      return;
+    }
+    var totalChars = this.state.minifiedPuzzle.length;
+    var distance = levenshtein(this.state.minifiedPuzzle, playerCode);
+
+    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
+
+    console.log(percentCompleted)
+    if (isGhostReplay) {
+      this.setState({
+        ghostProgress: percentCompleted
+      });
+    } else {
+      this.setState({
+        progress: percentCompleted
+      });
+      
+    }
+  };
+   
+
 
   endingAlert() {
     let highScoreObj = this.props.newHighScore
@@ -184,20 +207,23 @@ class Singleplayer extends Component {
           saveTimeElapsed={this.saveTimeElapsed.bind(this)} />
         <LevelSelect />
 
-        <div className="col-sm-10 col-sm-offset-1"><h5><b>Copy this code...</b></h5></div>
+        <div className="col-sm-10 col-sm-offset-1"><h5><b>Copy this...</b></h5></div>
         <CodePrompt puzzle={this.state.currentPuzzle} />
 
         <div className="col-sm-10 col-sm-offset-1 no-padding">
-          <div className="col-sm-6"><h5><b>Type it here  </b></h5></div>
-          <div className="col-sm-6"><h5><b>Best Time Replay</b></h5></div>
+          <div className="col-sm-6"><h5><b>Type here...  </b></h5></div>
+          <div className="col-sm-6"><h5><b>Best Time</b></h5></div>
           <CodeEditor
             puzzle={this.state.currentPuzzle}
-            minifiedPuzzle={this.state.minifiedPuzzle} />
-          <CodeGhost minifiedPuzzle={this.state.minifiedPuzzle}/>
+            minifiedPuzzle={this.state.minifiedPuzzle} 
+            calculateProgress={this.calculateProgress.bind(this)} />            
+          <CodeGhost minifiedPuzzle={this.state.minifiedPuzzle}
+            calculateProgress={this.calculateProgress.bind(this)} />
         </div>
 
         <div className="col-sm-10 col-sm-offset-1 no-padding">
-          <ProgressBar percentComplete={this.state.progress} />
+          <ProgressBar percentComplete={this.state.progress} color="#009686" text="You"/>
+          <ProgressBar percentComplete={this.state.ghostProgress} color="#ffa25e" text="Record"/>
         </div>
       </div>
     )
