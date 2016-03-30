@@ -4,28 +4,28 @@ import AboutProfile from './AboutProfile.js';
 var team = [{
   key: 1,
   name: "Mark Kim",
-  bio: "Placeholder Bio",
+  bio: "Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.",
   image: "../assets/mark-profile.jpg",
   git: "https://github.com/marksanghoonkim",
   linked: "https://www.linkedin.com/in/marksanghoonkim"
 }, {
   key: 2,
   name: "Rick Yeh",
-  bio: "Placeholder Bio",
+  bio: "Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.",
   image: "../assets/rick-profile.jpg",
   git: "https://github.com/rickyeh",
   linked: "https://www.linkedin.com/in/rickyeh"
 }, {
   key: 3,
   name: "Jordan Allen",
-  bio: "Placeholder Bio",
+  bio: "Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.",
   image: "../assets/jordan-profile.jpg",
   git: "https://github.com/jordanallen98",
   linked: "https://www.linkedin.com/in/jordandallen"
 }, {
   key: 4,
   name: "Nicholas Der",
-  bio: "Placeholder Bio",
+  bio: "Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions.",
   image: "../assets/nick-profile.jpg",
   git: "https://github.com/kiritsuzu",
   linked: "https://www.linkedin.com/in/kiritsuzu"
