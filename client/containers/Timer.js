@@ -89,7 +89,7 @@ class Timer extends Component {
     return (
       <div className="container">
         <div className="row">
-          <h2 className="text-center">{this.state.message}</h2>
+          <h2 className="text-center no-top-margin">{this.state.message}</h2>
         </div>
         <StartButton />
         <CountdownTimer />

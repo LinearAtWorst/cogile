@@ -35,9 +35,9 @@ class CodeEditor extends Component {
     this.editor.getSession().setTabSize(2);
 
     this.editor.setOptions({
-      fontSize: '12pt',
-      minLines: 15,
-      maxLines: 15,
+      fontSize: '11pt',
+      minLines: 12,
+      maxLines: 12,
       enableBasicAutocompletion: true,
       enableSnippets: false,
       enableLiveAutocompletion: false
@@ -181,13 +181,10 @@ class CodeEditor extends Component {
       }
     }.bind(this));
 
-    // prevents copy pasting the whole thing
-    // this.editor.on("paste", function(e) {
-    //   if (e.text === this.props.puzzle) {
-    //     var shuffled = e.text.split('').sort(function(){return 0.5-Math.random()}).join('');
-    //     e.text = "Nice try, here's your copied text :P\n" + shuffled;
-    //   }
-    // }.bind(this));
+    // prevents pasting
+    this.editor.on("paste", function(e) {
+      e.text = "";
+    }.bind(this));
   };
 
   componentDidUpdate() {
@@ -227,12 +224,12 @@ class CodeEditor extends Component {
   };
 
   render() {
-    const style = {fontSize: '14px !important', border: '1px solid lightgray'};
+    const style = {fontSize: '14px !important', border: '5px solid #181818'};
     
     return React.DOM.div({
       id: 'codeEditor',
       style: style,
-      className: 'col-md-6'
+      className: 'col-sm-6'
     });
   }
 }

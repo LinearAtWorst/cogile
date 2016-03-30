@@ -180,12 +180,19 @@ class Singleplayer extends Component {
         <Timer
           saveTimeElapsed={this.saveTimeElapsed.bind(this)} />
         <LevelSelect />
+
+        <div className="col-sm-10 col-sm-offset-1"><h5><b>Copy this code...</b></h5></div>
         <CodePrompt puzzle={this.state.currentPuzzle} />
-        <CodeEditor
-          puzzle={this.state.currentPuzzle}
-          minifiedPuzzle={this.state.minifiedPuzzle} />
-        <CodeGhost 
-          minifiedPuzzle={this.state.minifiedPuzzle}/>
+
+        <div className="col-sm-10 col-sm-offset-1 no-padding">
+          <div className="col-sm-6"><h5><b>Type it here  </b></h5></div>
+          <div className="col-sm-6"><h5><b>Best Time Replay</b></h5></div>
+          <CodeEditor
+            puzzle={this.state.currentPuzzle}
+            minifiedPuzzle={this.state.minifiedPuzzle} />
+          <CodeGhost 
+            minifiedPuzzle={this.state.minifiedPuzzle}/>
+        </div>
         <ProgressBar
           percentComplete={this.state.progress} />
       </div>
