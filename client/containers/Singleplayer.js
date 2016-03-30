@@ -21,7 +21,8 @@ class Singleplayer extends Component {
       currentPuzzle: 'N/A',
       minifiedPuzzle: 'N/A',
       gameFinished: false,
-      progress: 0
+      progress: 0,
+      ghostProgress: 0
     };
   };
 
@@ -37,7 +38,9 @@ class Singleplayer extends Component {
             this.setState({
               puzzleName: this.props.currentLevel.currentLevel,
               currentPuzzle: data,
-              minifiedPuzzle: minifiedPuzzle
+              minifiedPuzzle: minifiedPuzzle,
+              progress: 0,
+              ghostProgress: 0
             });
 
           }.bind(this));
