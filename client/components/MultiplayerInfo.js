@@ -10,7 +10,7 @@ class MultiplayerInfo extends Component {
   render() {
     return (
       <div className="col-sm-12">
-        <h3 className="text-center">Multiplayer Game {this.props.gameId}</h3>
+        <h3 className="text-center no-top-margin">Multiplayer Game {this.props.gameId}</h3>
       </div>
     );
   }

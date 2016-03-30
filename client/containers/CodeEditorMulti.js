@@ -32,9 +32,9 @@ class CodeEditorMulti extends Component {
     this.editor.$blockScrolling = Infinity;
 
     this.editor.setOptions({
-      fontSize: '12pt',
-      minLines: 15,
-      maxLines: 15,
+      fontSize: '11pt',
+      minLines: 12,
+      maxLines: 12,
       enableBasicAutocompletion: true,
       enableSnippets: false,
       enableLiveAutocompletion: false
@@ -89,7 +89,7 @@ class CodeEditorMulti extends Component {
   };
 
   render() {
-    const style = {fontSize: '12px !important', border: '1px solid lightgray'};
+    const style = {fontSize: '12px !important', border: '5px solid #181818'};
 
     return React.DOM.div({
       id: 'codeEditor',
