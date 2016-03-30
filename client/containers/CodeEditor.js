@@ -5,6 +5,7 @@ import { startGame, endGame, newHighScore, getUsername, syncPlayersStatuses } fr
 import { bindActionCreators } from 'redux';
 import levenshtein from './../lib/levenshtein';
 import axios from 'axios';
+import helperFunctions from '../utils/helperFunctions';
 
 class CodeEditor extends Component {
   constructor(props) {
@@ -26,7 +27,16 @@ class CodeEditor extends Component {
 
   componentDidMount() {
     // Set username if it exists
-    this.username = this.props.getUsername().payload;
+    if (helperFunctions.isLoggedIn()) {
+      console.log('isloggedIn is true');
+      this.username = helperFunctions.getUsername().username;
+
+      console.log(this.username);
+    } else {
+      this.username = 'guest';
+      console.log('not logged in, username is: ', this.username);
+    }
+
 
     this.editor = ace.edit('codeEditor');
     this.editor.setShowPrintMargin(false);
@@ -238,7 +248,8 @@ function mapStateToProps(state) {
   return {
     singleGame: state.singleGame,
     currentLevel: state.currentLevel,
-    playersStatuses: state.playersStatuses
+    playersStatuses: state.playersStatuses,
+    SavedUsername: state.SavedUsername
   }
 }
 
