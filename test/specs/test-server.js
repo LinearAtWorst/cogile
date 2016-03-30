@@ -24,7 +24,7 @@ describe('userController', function(){
   });
 });
 
-describe('Database', function(){
+xdescribe('Database', function(){
   it('should have a users table', function(){
     expect(true).to.be.true;
   });
@@ -42,5 +42,7 @@ describe('Promts requests', function(){
       done();
     });
   });
+
+
 });
 
