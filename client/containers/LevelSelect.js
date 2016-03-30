@@ -35,8 +35,9 @@ class LevelSelect extends Component {
       var arrayOfLevels = this.levels.map(function(element, index) {
         var level = 'selectLevel' + index;
         var link = '#/singleplayer/'+ element;
+        var label = element.replace('-', '. ');
 
-        return (<li key={index} role="presentation"><a role="menuitem" tabIndex="-1" id={level} href={link}>Level {index}</a></li>)
+        return (<li key={index} role="presentation"><a role="menuitem" tabIndex="-1" id={level} href={link}>{label}</a></li>)
       });
     }
 
