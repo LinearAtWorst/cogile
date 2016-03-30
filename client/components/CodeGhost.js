@@ -29,10 +29,7 @@ class CodeGhost extends Component {
     this.record = {};
     
     if (helperFunctions.isLoggedIn()) {
-      console.log('isloggedIn is true');
       this.username = helperFunctions.getUsername().username;
-
-      console.log(this.username);
     } else {
       this.username = 'guest';
     }

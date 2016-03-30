@@ -28,15 +28,10 @@ class CodeEditor extends Component {
   componentDidMount() {
     // Set username if it exists
     if (helperFunctions.isLoggedIn()) {
-      console.log('isloggedIn is true');
       this.username = helperFunctions.getUsername().username;
-
-      console.log(this.username);
     } else {
       this.username = 'guest';
-      console.log('not logged in, username is: ', this.username);
     }
-
 
     this.editor = ace.edit('codeEditor');
     this.editor.setShowPrintMargin(false);
