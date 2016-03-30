@@ -98,29 +98,32 @@ class Singleplayer extends Component {
     let minutes = this.props.gameTime.minutes;
     let seconds = this.props.gameTime.seconds;
     let tenthSeconds = this.props.gameTime.tenthSeconds;
+    let hundredthSeconds = this.props.gameTime.hundredthSeconds;
+    console.log('my minutes, seconds, tenthseconds is: ', minutes, seconds, tenthSeconds);
+    let yourTime = (minutes*60 + seconds + tenthSeconds/10 + hundredthSeconds/100).toFixed(2);
     let bestTime = (highScoreObj.oldReplayDuration / 1000).toFixed(2);
     console.log(highScoreObj);
 
     // Set title and message for sweet alert
     if (highScoreObj.newHighScore && highScoreObj.loggedIn) {
       title = 'Woohoo!';
-      html = '<h4>Your Time: ' + minutes + ':' + seconds + '.' + tenthSeconds + '</h4>' +
-            '<h4>Best Time: ' + bestTime + '</h4>' +
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
+            '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
             'You set the new record! Your replay has been saved as the new leader.';
     } else if (highScoreObj.newHighScore && !highScoreObj.loggedIn) {
       title = 'Wow!';
-      html = '<h4>Your Time: ' + minutes + ':' + seconds + '.' + tenthSeconds + '</h4>' +
-            '<h4>Best Time: ' + bestTime + '</h4>' +
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
+            '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
             'You beat the high score!  Unfortunately, you need to be logged in so we can store your high score. Log in and try again!';
     } else if (!highScoreObj.newHighScore && highScoreObj.loggedIn) {
       title = 'Sweet!';
-      html = '<h4>Your Time: ' + minutes + ':' + seconds + '.' + tenthSeconds + '</h4>' +
-            '<h4>Best Time: ' + bestTime + '</h4>' +
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
+            '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
             'You completed the prompt! Keep practicing to beat the record.';
     } else if (!highScoreObj.newHighScore && !highScoreObj.loggedIn) {
       title = 'Great!';
-      html = '<h4>Your Time: ' + minutes + ':' + seconds + '.' + tenthSeconds + '</h4>' +
-            '<h4>Best Time: ' + bestTime + '</h4>' +
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
+            '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
             'You completed the prompt! Make sure to log in and keep practicing to beat the record.';
     }
 

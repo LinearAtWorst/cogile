@@ -69,7 +69,7 @@ class Multiplayer extends Component {
     // listening for a 'game over' socket event to capture and stop time
     this.socket.on('game over', function(value) {
       var time = this.props.gameTime;
-      underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, value.username));
+      underscore.once(this.saveTimeElapsed(time.hundredthSeconds, time.tenthSeconds, time.seconds, time.minutes, value.username));
 
       this.props.stopTimer();
     }.bind(this));
@@ -98,12 +98,13 @@ class Multiplayer extends Component {
     this.context.router.push('multiplayer');
   };
 
-  saveTimeElapsed(tenthSeconds, seconds, minutes, winner) {
+  saveTimeElapsed(hundredthSeconds, tenthSeconds, seconds, minutes, winner) {
+    let yourTime = (minutes*60 + seconds + tenthSeconds/10 + hundredthSeconds/100).toFixed(2);
     if (winner === this.username) {
       // Sweet Alert with Info
       swal({
         title: 'Sweet!',
-        text: 'You won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds,
+        text: 'You won with a time of ' + yourTime + ' seconds!',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -131,7 +132,7 @@ class Multiplayer extends Component {
       // if current player is not the winner, display winner's ID
       swal({
         title: 'Sorry!',
-        text: winner + ' won with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds,
+        text: winner + ' won with a time of ' + yourTime + ' seconds!',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
