@@ -15,13 +15,32 @@ class LandingPageMulti extends Component {
     super();
 
     this.state = {
-      roomId: ''
+      roomId: '',
+      randomRoom: ''
     };
 
   };
 
+  componentDidMount() {
+    this.socket = io();
+
+    this.socket.emit('roulette roulette', {username: this.username});
+
+    this.socket.on('roulette success', function(data) {
+      this.setState({
+        randomRoom: data.room
+      });
+    }.bind(this));
+
+    this.socket.on('roulette fail', function() {
+      console.log('no vacant rooms found, roulette failed');
+      return false;
+    }.bind(this));
+  }
+
   componentWillMount() {
     this.roomcode = "/#/multigame/" + Math.floor((Math.random()*100)+100);
+    this.username = this.props.getUsername().payload;
   }
 
   changeRoomId(room) {
@@ -53,7 +72,8 @@ class LandingPageMulti extends Component {
                 </center>
                 <h6 className="text-center"><strong>OR</strong></h6>
                 <a href={this.roomcode} className="btn btn-raised btn-primary landing-btn">Start New Game</a>
-              </div>
+                <a href={"/#/multigame/" + this.state.randomRoom} className="btn btn-raised btn-primary landing-btn">Random Room Roulette</a>
+                </div>
           </div>
         </div>
       </div>

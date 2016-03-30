@@ -24,6 +24,30 @@ socketController.socketInit = function(io) {
 
   io.on('connection', function(socket) {
 
+    socket.on('roulette roulette', function(data){
+
+    var openRooms = [];
+
+    for ( var key in rooms ){
+      if(rooms[key].numUsers < 8){
+        openRooms.push({name: key});
+      }
+    }
+
+    if (!openRooms.length) {
+      io.emit('roulette failed to find room', false);
+      return false;
+    }
+
+    var randomVacantRoom = Math.floor(Math.random() * openRooms.length);
+    console.log(randomVacantRoom);
+
+    console.log('Roulette Room Data:', rooms[openRooms[randomVacantRoom].name].numUsers);
+
+    io.emit('roulette success', {room: openRooms[randomVacantRoom].name});
+
+    })
+
     socket.on('create new game', function(data){
 
       // Room already exists, try to join it
