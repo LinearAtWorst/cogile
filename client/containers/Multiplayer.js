@@ -191,7 +191,7 @@ class Multiplayer extends Component {
     var totalChars = this.state.minifiedPuzzle.length;
     var distance = levenshtein(this.state.minifiedPuzzle, miniCode);
 
-    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
+    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 99);
     return percentCompleted;
   };
 

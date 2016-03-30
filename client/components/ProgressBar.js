@@ -26,7 +26,7 @@ class ProgressBar extends Component {
   render() {
     return (
       <div className="progress-bar">
-        <div className="progress-fill" style={{width: this.props.percentComplete + '%', backgroundColor: this.props.color}}>
+        <div className="progress-fill" style={{width: (1 + this.props.percentComplete) + '%', backgroundColor: this.props.color}}>
           <span className="progress-bar-name">{this.props.text}</span>
         </div>
       </div>
