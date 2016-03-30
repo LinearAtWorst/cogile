@@ -193,11 +193,12 @@ class Singleplayer extends Component {
           <CodeEditor
             puzzle={this.state.currentPuzzle}
             minifiedPuzzle={this.state.minifiedPuzzle} />
-          <CodeGhost 
-            minifiedPuzzle={this.state.minifiedPuzzle}/>
+          <CodeGhost minifiedPuzzle={this.state.minifiedPuzzle}/>
         </div>
-        <ProgressBar
-          percentComplete={this.state.progress} />
+
+        <div className="col-sm-10 col-sm-offset-1 no-padding">
+          <ProgressBar percentComplete={this.state.progress} />
+        </div>
       </div>
     )
   };

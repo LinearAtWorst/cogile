@@ -1,5 +1,5 @@
 var express = require('express');
-var config = require('../../config.js');
+var config = require('./db/config/config.js');
 var path = require('path');
 var React = require('react');
 var Router = require('react-router');

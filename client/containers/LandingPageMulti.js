@@ -38,7 +38,7 @@ class LandingPageMulti extends Component {
   render() {
     return (
       <div>
-      <h1 className="text-center tagline">Welcome to Multiplayer! </h1>
+      <h1 className="text-center" id="tagline">Welcome to Multiplayer! </h1>
       <p className="text-center">Here you can join an existing game or make your own game and invite friends.</p>
       <div className="container-fluid">
           <div className="row">
