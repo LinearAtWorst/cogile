@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class AboutProfile extends Component {
   render() {
     return (
-      <div className="col-md-3">
+      <div className="col-md-3 about">
         <h3 className="about-names">{this.props.name}</h3>
         <div className="img-container"><img className="about-img" src={this.props.image}></img>
         </div>

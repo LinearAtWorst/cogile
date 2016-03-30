@@ -38,10 +38,10 @@ class About extends Component {
     });
 
     return (
-      <div className="container">
+      <div className="container team">
         <h2 className="text-center no-top-margin">Meet The Team</h2>
         <div className="row row-spacer"></div>
-        <div className="row">
+        <div className="">
         {Profiles}
         </div>
       </div>

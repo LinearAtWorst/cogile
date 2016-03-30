@@ -56,6 +56,18 @@ html, body {
   border-color:#000;*/
 }
 
+.about {
+  background-color: rgba(0, 150, 136, .4);
+  height: 450px;
+  /*padding: 5px;*/
+  /*margin: 0 2px;*/
+  border-radius: 30px;
+
+}
+.team { 
+  margin: 0 auto !important;
+}
+
 .about-icon {
   /*color:#fa6d5f;*/
   color:#000;
