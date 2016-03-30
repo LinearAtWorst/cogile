@@ -188,8 +188,8 @@ class Multiplayer extends Component {
           saveTimeElapsed={this.saveTimeElapsed.bind(this)}
           socket={this.socket} />
         <div className="col-sm-10 col-sm-offset-1 no-padding">
-          <div className="col-sm-6"><h5><b>Copy this code</b></h5></div>
-          <div className="col-sm-6"><h5><b>Type it here</b></h5></div>
+          <div className="col-sm-6"><h5><b>Copy this...</b></h5></div>
+          <div className="col-sm-6"><h5><b>Type here...</b></h5></div>
           <CodePromptMulti puzzle={this.state.currentPuzzle} />
           <CodeEditorMulti
             puzzle={this.state.currentPuzzle}
