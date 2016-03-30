@@ -19,9 +19,9 @@ class CodePromptMulti extends Component {
     this.editor = ace.edit('codePrompt');
     this.editor.setShowPrintMargin(false);
     this.editor.setOptions({
-      fontSize: '12pt',
-      minLines: 15,
-      maxLines: 15,
+      fontSize: '11pt',
+      minLines: 12,
+      maxLines: 12,
       dragEnabled: false
     });
     this.editor.setTheme("ace/theme/twilight");
@@ -52,7 +52,7 @@ class CodePromptMulti extends Component {
   }
 
   render() {
-    const style = {fontSize: '12px !important', border: '1px solid lightgray'};
+    const style = {fontSize: '12px !important', border: '5px solid #181818'};
 
     return React.DOM.div({
       id: 'codePrompt',

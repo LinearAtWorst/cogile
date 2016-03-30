@@ -39,7 +39,7 @@ class About extends Component {
 
     return (
       <div className="container">
-        <h1 className="about-title">Meet The Team</h1>
+        <h2 className="text-center no-top-margin">Meet The Team</h2>
         <div className="row row-spacer"></div>
         <div className="row">
         {Profiles}

@@ -64,11 +64,6 @@ html, body {
   color:#696969;
 }
 
-.about-title {
-  font-weight:bold;
-  text-align:center;
-}
-
 .about-names {
   /*font-size: 22px;
   text-align:center;*/
@@ -113,7 +108,7 @@ html, body {
 }
 
 .tagline {
-  /*margin-top: 10%;*/
+  margin-top: 3%;
 }
 
 .border-gray {

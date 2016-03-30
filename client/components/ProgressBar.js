@@ -32,7 +32,7 @@ class ProgressBar extends Component {
                 width: player[0] + '%',
                 backgroundColor: '#' + player[1],
               }}>
-            <span className="progress-bar-name">{key}</span>
+              <span className="progress-bar-name">{key}</span>
             </div> 
           </div>
         );

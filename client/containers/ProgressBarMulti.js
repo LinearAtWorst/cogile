@@ -30,9 +30,8 @@ class ProgressBarMulti extends Component {
             style={{
               width: player[1] + '%',
               backgroundColor: '#' + player[0],
-              color: 'black'
             }}>
-          {this.isCurrentPlayer(key)}
+            <span className="progress-bar-name">{this.isCurrentPlayer(key)}</span>
           </div> 
         </div>
       );
