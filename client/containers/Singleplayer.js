@@ -100,7 +100,8 @@ class Singleplayer extends Component {
     var totalChars = this.state.minifiedPuzzle.length;
     var distance = levenshtein(this.state.minifiedPuzzle, playerCode);
 
-    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
+    // Calculate percent completed.  99% is complete because bar starts with 1%
+    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 99);
 
     if (isGhostReplay) {
       this.setState({
