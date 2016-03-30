@@ -28,13 +28,6 @@ class CodeGhost extends Component {
 
   componentDidMount() {
     this.record = {};
-    
-    // if (helperFunctions.isLoggedIn()) {
-    //   this.username = helperFunctions.getUsername().username;
-    // } else {
-    //   this.username = 'guest';
-    // }
-
 
     this.editor = ace.edit('codeGhost');
     this.editor.setShowPrintMargin(false);
@@ -108,26 +101,6 @@ class CodeGhost extends Component {
               this.record = JSON.parse(res.data.recording).recording;
               this.pendingGetRequest = false;
 
-
-              // grab the highScoreUser and sync his/her
-              // var highScoreUser = res.data.username + '_[TopScore]';
-              // this.highScoreUser = highScoreUser;
-
-              // var tempPlayersStatuses = this.props.playersStatuses;
-
-              // if (helperFunctions.isLoggedIn()) {
-              //   this.username = helperFunctions.getUsername().username;
-              // } else {
-              //   this.username = 'guest';
-              // }
-
-              // var thisUser = this.username;
-
-              // tempPlayersStatuses[thisUser] = [0, '4CAF50'];
-              // tempPlayersStatuses[highScoreUser] = [0, 'F44336']
-
-              // this.props.syncPlayersStatuses(tempPlayersStatuses);
-
             } else {
               this.record = {
                 recording: {
@@ -136,19 +109,6 @@ class CodeGhost extends Component {
                 duration: 999999999999
               };
               this.pendingGetRequest = false;
-
-
-              // if (helperFunctions.isLoggedIn()) {
-              //   this.username = helperFunctions.getUsername().username;
-              // } else {
-              //   this.username = 'guest';
-              // }
-
-              // var tempPlayersStatuses = this.props.playersStatuses;
-              // var thisUser = this.username;
-              // tempPlayersStatuses[thisUser] = [0, '4CAF50'];
-
-              // this.props.syncPlayersStatuses(tempPlayersStatuses);
             }
             this.previousLevel = this.props.currentLevel.currentLevel;
           }.bind(this));
