@@ -114,7 +114,15 @@ class CodeGhost extends Component {
             this.highScoreUser = highScoreUser;
 
             var tempPlayersStatuses = this.props.playersStatuses;
-            var thisUser = 'guest';
+
+            if (helperFunctions.isLoggedIn()) {
+              this.username = helperFunctions.getUsername().username;
+            } else {
+              this.username = 'guest';
+            }
+
+            var thisUser = this.username;
+
             tempPlayersStatuses[thisUser] = [0, '4CAF50'];
             tempPlayersStatuses[highScoreUser] = [0, 'F44336']
 
