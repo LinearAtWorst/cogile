@@ -9,7 +9,7 @@ class Timer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hundrethSeconds: 0,
+      hundredthSeconds: 0,
       tenthSeconds: 0,
       seconds: 0,
       minutes: 0,
@@ -25,14 +25,14 @@ class Timer extends Component {
     });
 
     this.intervalID = setInterval(function() {
-      var hundrethSeconds = this.state.hundrethSeconds + 1;
+      var hundredthSeconds = this.state.hundredthSeconds + 1;
       var tenthSeconds = this.state.tenthSeconds;
       var seconds = this.state.seconds;
       var minutes = this.state.minutes;
 
-      if (hundrethSeconds > 9) {
+      if (hundredthSeconds > 9) {
         tenthSeconds++;
-        hundrethSeconds = 0;
+        hundredthSeconds = 0;
       }
 
       if (tenthSeconds > 9) {
@@ -45,10 +45,10 @@ class Timer extends Component {
         seconds = 0;
       }
 
-      var totalTimeInSeconds = ((minutes * 60) + seconds + (tenthSeconds / 10) + (hundrethSeconds / 100)).toFixed(2);
+      var totalTimeInSeconds = ((minutes * 60) + seconds + (tenthSeconds / 10) + (hundredthSeconds / 100)).toFixed(2);
 
       this.setState({
-        hundrethSeconds : hundrethSeconds,
+        hundredthSeconds : hundredthSeconds,
         tenthSeconds : tenthSeconds,
         seconds : seconds,
         minutes: minutes,
@@ -77,7 +77,7 @@ class Timer extends Component {
       this.setState({timerOn : false});
       // this.props.saveTimeElapsed(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
       var time = {
-        hundrethSeconds: this.state.hundrethSeconds,
+        hundredthSeconds: this.state.hundredthSeconds,
         tenthSeconds: this.state.tenthSeconds,
         seconds: this.state.seconds,
         minutes: this.state.minutes

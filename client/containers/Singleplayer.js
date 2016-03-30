@@ -98,9 +98,9 @@ class Singleplayer extends Component {
     let minutes = this.props.gameTime.minutes;
     let seconds = this.props.gameTime.seconds;
     let tenthSeconds = this.props.gameTime.tenthSeconds;
-    let hundrethSeconds = this.props.gameTime.hundrethSeconds;
+    let hundredthSeconds = this.props.gameTime.hundredthSeconds;
     console.log('my minutes, seconds, tenthseconds is: ', minutes, seconds, tenthSeconds);
-    let yourTime = (minutes*60 + seconds + tenthSeconds/10 + hundrethSeconds/100).toFixed(2);
+    let yourTime = (minutes*60 + seconds + tenthSeconds/10 + hundredthSeconds/100).toFixed(2);
     let bestTime = (highScoreObj.oldReplayDuration / 1000).toFixed(2);
     console.log(highScoreObj);
 
