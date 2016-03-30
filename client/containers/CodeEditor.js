@@ -5,7 +5,7 @@ import { startGame, endGame, newHighScore, getUsername, syncPlayersStatuses } fr
 import { bindActionCreators } from 'redux';
 import levenshtein from './../lib/levenshtein';
 import axios from 'axios';
-import helperFunctions from '../utils/helperFunctions';
+// import helperFunctions from '../utils/helperFunctions';
 
 class CodeEditor extends Component {
   constructor(props) {
@@ -27,11 +27,11 @@ class CodeEditor extends Component {
 
   componentDidMount() {
     // Set username if it exists
-    if (helperFunctions.isLoggedIn()) {
-      this.username = helperFunctions.getUsername().username;
-    } else {
-      this.username = 'guest';
-    }
+    // if (helperFunctions.isLoggedIn()) {
+    //   this.username = helperFunctions.getUsername().username;
+    // } else {
+    //   this.username = 'guest';
+    // }
 
     this.editor = ace.edit('codeEditor');
     this.editor.setShowPrintMargin(false);
@@ -71,14 +71,6 @@ class CodeEditor extends Component {
       var code = value.replace(/\s/g,'');
 
       this.props.calculateProgress(code);
-      
-      // calculate user's progress and send to ProgressBar
-      // var userProgress = this.calculatePercent(value);
-      // var thisUser = this.username;
-      
-      // var tempPlayersStatuses = this.props.playersStatuses;
-      // tempPlayersStatuses[thisUser][0] = userProgress;
-      // this.props.syncPlayersStatuses(tempPlayersStatuses);
 
       // if code matches the minified solution, trigger win condition
       if (code === this.props.minifiedPuzzle) {
@@ -137,9 +129,6 @@ class CodeEditor extends Component {
             }
           } else { // Broadcast action that no new high score was set
             if (this.username === 'guest') {
-              console.log(recordingDuration)
-              console.log(oldReplayDuration);
-              console.log('Lost High Score, was not logged in')
 
               this.props.newHighScore({
                 newHighScore: false,
@@ -220,16 +209,6 @@ class CodeEditor extends Component {
     }
   }
 
-  calculatePercent(playerCode) {
-    // typed code is passed in, and percent completed is calculated and returned
-    var miniCode = playerCode.replace(/\s/g,'');
-    var totalChars = this.props.minifiedPuzzle.length;
-    var distance = levenshtein(this.props.minifiedPuzzle, miniCode);
-
-    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
-    return percentCompleted;
-  };
-
   render() {
     const style = {fontSize: '14px !important', border: '5px solid #181818'};
     
@@ -255,8 +234,7 @@ function mapDispatchToProps(dispatch) {
     startGame: startGame,
     endGame: endGame,
     newHighScore: newHighScore,
-    getUsername: getUsername,
-    syncPlayersStatuses: syncPlayersStatuses
+    getUsername: getUsername
   }, dispatch);
 }
 

@@ -28,11 +28,11 @@ class CodeGhost extends Component {
   componentDidMount() {
     this.record = {};
     
-    if (helperFunctions.isLoggedIn()) {
-      this.username = helperFunctions.getUsername().username;
-    } else {
-      this.username = 'guest';
-    }
+    // if (helperFunctions.isLoggedIn()) {
+    //   this.username = helperFunctions.getUsername().username;
+    // } else {
+    //   this.username = 'guest';
+    // }
 
     this.pendingGetRequest = false;
 
@@ -70,14 +70,6 @@ class CodeGhost extends Component {
       var code = value.replace(/\s/g,'');
 
       this.props.calculateProgress(code, true);
-
-      // var highScoreProgress = this.calculatePercent(code);
-
-      // var highScoreUser = this.highScoreUser;
-      // var tempPlayersStatuses = this.props.playersStatuses;
-      // tempPlayersStatuses[highScoreUser][0] = highScoreProgress;
-
-      // this.props.syncPlayersStatuses(tempPlayersStatuses);
     }.bind(this)); 
   }
 
@@ -115,18 +107,18 @@ class CodeGhost extends Component {
             this.record = JSON.parse(res.data.recording).recording;
 
             // grab the highScoreUser and sync his/her
-            var highScoreUser = res.data.username + '_[TopScore]';
-            this.highScoreUser = highScoreUser;
+            // var highScoreUser = res.data.username + '_[TopScore]';
+            // this.highScoreUser = highScoreUser;
 
             // var tempPlayersStatuses = this.props.playersStatuses;
 
-            if (helperFunctions.isLoggedIn()) {
-              this.username = helperFunctions.getUsername().username;
-            } else {
-              this.username = 'guest';
-            }
+            // if (helperFunctions.isLoggedIn()) {
+            //   this.username = helperFunctions.getUsername().username;
+            // } else {
+            //   this.username = 'guest';
+            // }
 
-            var thisUser = this.username;
+            // var thisUser = this.username;
 
             // tempPlayersStatuses[thisUser] = [0, '4CAF50'];
             // tempPlayersStatuses[highScoreUser] = [0, 'F44336']
@@ -141,11 +133,11 @@ class CodeGhost extends Component {
               duration: 999999999999
             };
 
-            if (helperFunctions.isLoggedIn()) {
-              this.username = helperFunctions.getUsername().username;
-            } else {
-              this.username = 'guest';
-            }
+            // if (helperFunctions.isLoggedIn()) {
+            //   this.username = helperFunctions.getUsername().username;
+            // } else {
+            //   this.username = 'guest';
+            // }
 
             // var tempPlayersStatuses = this.props.playersStatuses;
             // var thisUser = this.username;
@@ -180,16 +172,6 @@ class CodeGhost extends Component {
     }
   }
 
-  calculatePercent(playerCode) {
-    // typed code is passed in, and percent completed is calculated and returned
-    var miniCode = playerCode.replace(/\s/g,'');
-    var totalChars = this.props.minifiedPuzzle.length;
-    var distance = levenshtein(this.props.minifiedPuzzle, miniCode);
-
-    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
-    return percentCompleted;
-  };
-
   render() {
     const style = {fontSize: '14px !important', border: '5px solid #181818'};
 
@@ -204,15 +186,13 @@ class CodeGhost extends Component {
 function mapStateToProps(state) {
   return {
     singleGame: state.singleGame,
-    currentLevel: state.currentLevel,
-    playersStatuses: state.playersStatuses
+    currentLevel: state.currentLevel
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    getUsername: getUsername,
-    syncPlayersStatuses: syncPlayersStatuses
+    getUsername: getUsername
   }, dispatch);
 }
 

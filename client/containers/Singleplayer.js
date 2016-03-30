@@ -99,7 +99,6 @@ class Singleplayer extends Component {
 
     var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
 
-    console.log(percentCompleted)
     if (isGhostReplay) {
       this.setState({
         ghostProgress: percentCompleted
@@ -108,7 +107,6 @@ class Singleplayer extends Component {
       this.setState({
         progress: percentCompleted
       });
-      
     }
   };
    
