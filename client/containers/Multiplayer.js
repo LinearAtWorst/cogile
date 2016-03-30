@@ -98,20 +98,6 @@ class Multiplayer extends Component {
     this.context.router.push('multiplayer');
   };
 
-  swalertWinMessage(first, second, third, yourTime) {
-    return 'You won with a time of '
-    + yourTime + ' seconds!<br>' 
-    + second[1][1] + ' came in second place!<br>' 
-    + third[2][1] + ' came in third place!'
-  };
-
-  swalertLoseMessage(first, second, third, yourTime) {
-    return 'You won with a time of '
-    + yourTime + ' seconds!<br>' 
-    + second[1][1] + ' came in second place!<br>' 
-    + third[2][1] + ' came in third place!'
-  };
-
   isCurrentPlayer(username) {
     if(username === this.username) {
       return 'You';
