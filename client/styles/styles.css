@@ -23,7 +23,7 @@ html, body {
 #code {
   /*color: #f1c40f;*/
   color: #ffa25e;
-  font-weight: 600 !important;
+  font-weight: 400;
 }
 
 .sitename:hover {
@@ -146,6 +146,8 @@ html, body {
 
 #start-btn {
   z-index: 10;
+  color: #444;
+  background-color: #FFA25E;
 }
 
 #codingGif {
