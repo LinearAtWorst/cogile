@@ -98,42 +98,69 @@ class Multiplayer extends Component {
     this.context.router.push('multiplayer');
   };
 
-  saveTimeElapsed(hundredthSeconds, tenthSeconds, seconds, minutes, winner) {
-    let yourTime = (minutes*60 + seconds + tenthSeconds/10 + hundredthSeconds/100).toFixed(2);
-    if (winner === this.username) {
-      // Sweet Alert with Info
-      swal({
-        title: 'Sweet!',
-        text: 'You won with a time of ' + yourTime + ' seconds!',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Take me home',
-        cancelButtonText: 'Create/Join a new game',
-        confirmButtonClass: 'btn  btn-raised btn-success',
-        cancelButtonClass: 'btn btn-raised btn-info',
-        buttonsStyling: false,
-        closeOnConfirm: true,
-        closeOnCancel: true
-      }, function(isConfirm) {
-        if (isConfirm === true) {
-          console.log('user has clicked take me home');
-          this.context.router.push('/');
-        } else if (isConfirm === false) {
-          console.log('user wants to create/join new game');
-          this.context.router.push('multiplayer');
-        } else {
-          console.log('user has clicked outside, should send multiplayer');
-          // TODO: have some message that says, sending to multiplayer
-          this.context.router.push('multiplayer');
-        }
-      }.bind(this));
+  isCurrentPlayer(username) {
+    if(username === this.username) {
+      return 'You';
     } else {
-      // if current player is not the winner, display winner's ID
-      swal({
-        title: 'Sorry!',
-        text: winner + ' won with a time of ' + yourTime + ' seconds!',
-        showCancelButton: true,
+      return username;
+    }
+  };
+
+  saveTimeElapsed(hundredthSeconds, tenthSeconds, seconds, minutes, winner) {
+    var title, html;
+
+    let yourTime = (minutes*60 + seconds + tenthSeconds/10 + hundredthSeconds/100).toFixed(2);
+
+    var finalStats = this.props.multiplayerStatuses.store;
+      
+    var finalTimes = [];
+    for (var key in finalStats) {
+      var nameAndFinalTimeArray = [finalStats[key][1], key]
+      finalTimes.push(nameAndFinalTimeArray);
+    }
+    // console.log(finalTimes); // [ [progress1, name1], [progress2, name2] ]
+
+    finalTimes.sort(function(a, b) {
+      return b[0] - a[0];
+    });
+
+    // if there are only two players
+    if (finalTimes.length === 2) {
+      if (this.username === winner) {
+        title = "Nice! You've won!";
+        html  = '<div>' 
+              + '<p> <b>1st Place:</b> You (' + yourTime + ' seconds)</p><br>' 
+              + '<p> <b>2nd Place:</b> ' + finalTimes[1][1] + '</p>'
+              + '</div>';
+      } else {
+        title = "Too bad!";
+        html  = '<div>' 
+              + '<p> <b>1st Place:</b> ' + finalTimes[0][1] + ' (' + yourTime + ' seconds)</p><br>' 
+              + '<p> <b>2nd Place:</b> ' + this.isCurrentPlayer(finalTimes[1][1]) + '</p>'
+              + '</div>';
+      }
+    } else {
+      if (this.username === winner) {
+        title = "Nice! You've won!";
+        html  = '<div>' 
+              + '<p> <b>1st Place:</b> You (' + yourTime + ' seconds)</p><br>' 
+              + '<p> <b>2nd Place:</b> ' + finalTimes[1][1] + '</p><br>' 
+              + '<p> <b>3rd Place:</b> ' + finalTimes[2][1] + '</p>'
+              + '</div>';
+      } else {
+        title = "Too bad!";
+        html  = '<div>' 
+              + '<p> <b>1st Place:</b> ' + finalTimes[0][1] + ' (' + yourTime + ' seconds)</p><br>' 
+              + '<p> <b>2nd Place:</b> ' + this.isCurrentPlayer(finalTimes[1][1]) + '</p><br>' 
+              + '<p> <b>3rd Place:</b> ' + this.isCurrentPlayer(finalTimes[2][1]) + '</p>'
+              + '</div>';
+      }
+    }
+
+    swal({
+      title: title,
+      html: html,
+      showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         confirmButtonText: 'Take me home',
@@ -156,7 +183,6 @@ class Multiplayer extends Component {
           this.context.router.push('multiplayer');
         }
       }.bind(this));
-    }
   };
 
   calculatePercent(playerCode) {
