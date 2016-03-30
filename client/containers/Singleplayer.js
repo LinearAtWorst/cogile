@@ -150,7 +150,7 @@ class Singleplayer extends Component {
 
 
     // New Record was Achieved
-      swal({
+    swal({
         title: title,
         html: html,
         type: 'success',
@@ -187,22 +187,12 @@ class Singleplayer extends Component {
           // outside click, isConfirm is undefinded
         }
       }.bind(this))
-
-  }
-
-  saveTimeElapsed(tenthSeconds, seconds, minutes) {
-    // Sweet Alert with Info
-    swal({
-      title: 'Sweet!',
-      text: 'You completed the challenge with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
-    });
   }
 
   render() {
     return (
       <div>
-        <Timer
-          saveTimeElapsed={this.saveTimeElapsed.bind(this)} />
+        <Timer />
         <LevelSelect />
 
         <div className="col-sm-10 col-sm-offset-1"><h5><b>Copy this...</b></h5></div>

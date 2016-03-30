@@ -17,6 +17,7 @@ class CodeGhost extends Component {
     };
 
     this.highScoreUser = '';
+    this.pendingGetRequest = false;
   }
 
   static propTypes = {
@@ -34,7 +35,6 @@ class CodeGhost extends Component {
     //   this.username = 'guest';
     // }
 
-    this.pendingGetRequest = false;
 
     this.editor = ace.edit('codeGhost');
     this.editor.setShowPrintMargin(false);
@@ -97,58 +97,63 @@ class CodeGhost extends Component {
   }
 
   componentDidUpdate() {
+    if (this.props.currentLevel && !this.pendingGetRequest) {
+      if (Object.keys(this.record).length === 0 || this.props.currentLevel.currentLevel !== this.previousLevel) {
+        this.pendingGetRequest = true;
 
-    if (Object.keys(this.record).length === 0 || this.props.currentLevel.currentLevel !== this.previousLevel && !this.pendingGetRequest) {
-      this.pendingGetRequest = true;
-      axios.get('api/getHighScore/?promptName=' + this.props.currentLevel.currentLevel)
-        .then(function(res) {
-          if (res.data !== '') {
-            this.record = {};
-            this.record = JSON.parse(res.data.recording).recording;
+        axios.get('api/getHighScore/?promptName=' + this.props.currentLevel.currentLevel)
+          .then(function(res) {
+            if (res.data !== '') {
+              this.record = {};
+              this.record = JSON.parse(res.data.recording).recording;
+              this.pendingGetRequest = false;
 
-            // grab the highScoreUser and sync his/her
-            // var highScoreUser = res.data.username + '_[TopScore]';
-            // this.highScoreUser = highScoreUser;
 
-            // var tempPlayersStatuses = this.props.playersStatuses;
+              // grab the highScoreUser and sync his/her
+              // var highScoreUser = res.data.username + '_[TopScore]';
+              // this.highScoreUser = highScoreUser;
 
-            // if (helperFunctions.isLoggedIn()) {
-            //   this.username = helperFunctions.getUsername().username;
-            // } else {
-            //   this.username = 'guest';
-            // }
+              // var tempPlayersStatuses = this.props.playersStatuses;
 
-            // var thisUser = this.username;
+              // if (helperFunctions.isLoggedIn()) {
+              //   this.username = helperFunctions.getUsername().username;
+              // } else {
+              //   this.username = 'guest';
+              // }
 
-            // tempPlayersStatuses[thisUser] = [0, '4CAF50'];
-            // tempPlayersStatuses[highScoreUser] = [0, 'F44336']
+              // var thisUser = this.username;
 
-            // this.props.syncPlayersStatuses(tempPlayersStatuses);
+              // tempPlayersStatuses[thisUser] = [0, '4CAF50'];
+              // tempPlayersStatuses[highScoreUser] = [0, 'F44336']
 
-          } else {
-            this.record = {
-              recording: {
-                '1': 'No replay loaded'
-              },
-              duration: 999999999999
-            };
+              // this.props.syncPlayersStatuses(tempPlayersStatuses);
 
-            // if (helperFunctions.isLoggedIn()) {
-            //   this.username = helperFunctions.getUsername().username;
-            // } else {
-            //   this.username = 'guest';
-            // }
+            } else {
+              this.record = {
+                recording: {
+                  '1': 'No replay loaded'
+                },
+                duration: 999999999999
+              };
+              this.pendingGetRequest = false;
 
-            // var tempPlayersStatuses = this.props.playersStatuses;
-            // var thisUser = this.username;
-            // tempPlayersStatuses[thisUser] = [0, '4CAF50'];
 
-            // this.props.syncPlayersStatuses(tempPlayersStatuses);
-          }
-          this.pendingGetRequest = false;
-          this.previousLevel = this.props.currentLevel.currentLevel;
-        }.bind(this));
+              // if (helperFunctions.isLoggedIn()) {
+              //   this.username = helperFunctions.getUsername().username;
+              // } else {
+              //   this.username = 'guest';
+              // }
 
+              // var tempPlayersStatuses = this.props.playersStatuses;
+              // var thisUser = this.username;
+              // tempPlayersStatuses[thisUser] = [0, '4CAF50'];
+
+              // this.props.syncPlayersStatuses(tempPlayersStatuses);
+            }
+            this.previousLevel = this.props.currentLevel.currentLevel;
+          }.bind(this));
+
+      }
     }
 
     // On game start, start the ghost replay
