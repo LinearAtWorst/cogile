@@ -9,6 +9,7 @@ class TimerMulti extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      hundredthSeconds: 0,
       tenthSeconds: 0,
       seconds: 0,
       minutes: 0,
@@ -21,13 +22,19 @@ class TimerMulti extends Component {
   startTimer() {
     this.setState({
       timerOn: true,
-      message: '0:0.0'
+      message: '0.00'
     });
 
     this.intervalID = setInterval(function() {
-      var tenthSeconds = this.state.tenthSeconds + 1;
+      var hundredthSeconds = this.state.hundredthSeconds + 1;
+      var tenthSeconds = this.state.tenthSeconds;
       var seconds = this.state.seconds;
       var minutes = this.state.minutes;
+
+      if (hundredthSeconds > 9) {
+        tenthSeconds++;
+        hundredthSeconds = 0;
+      }
 
       if (tenthSeconds > 9) {
         seconds++;
@@ -39,7 +46,10 @@ class TimerMulti extends Component {
         seconds = 0;
       }
 
+      var totalTimeInSeconds = ((minutes * 60) + seconds + (tenthSeconds / 10) + (hundredthSeconds / 100)).toFixed(2);
+
       var time = {
+        hundredthSeconds: hundredthSeconds,
         tenthSeconds: tenthSeconds,
         seconds: seconds,
         minutes: minutes
@@ -49,12 +59,13 @@ class TimerMulti extends Component {
       this.props.updateElapsedTime(time);
 
       this.setState({
+        hundredthSeconds : hundredthSeconds,
         tenthSeconds : tenthSeconds,
         seconds : seconds,
         minutes: minutes,
-        message: minutes + ':' + seconds + '.' + tenthSeconds
+        message: totalTimeInSeconds + ' seconds'
       });
-    }.bind(this), 100);
+    }.bind(this), 10);
   };
 
   componentDidUpdate() {

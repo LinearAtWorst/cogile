@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { leavePage } from '../actions/index';
+import { leavePage, getUsername } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import underscore from 'underscore';
 
@@ -11,6 +11,14 @@ class ProgressBarMulti extends Component {
 
   componentWillUnmount() {
     this.props.leavePage();
+  };
+
+  isCurrentPlayer(player) {
+    if(player === this.props.SavedUsername) {
+      return '' + player + '(You)';
+    } else {
+      return player;
+    }
   };
 
   renderBars() {
@@ -24,7 +32,7 @@ class ProgressBarMulti extends Component {
               backgroundColor: '#' + player[0],
               color: 'black'
             }}>
-          {key}
+          {this.isCurrentPlayer(key)}
           </div> 
         </div>
       );
@@ -42,12 +50,16 @@ class ProgressBarMulti extends Component {
 
 function mapStateToProps(state) {
   return {
-    multiplayerStatuses: state.multiplayerStatuses
+    multiplayerStatuses: state.multiplayerStatuses,
+    SavedUsername: state.SavedUsername
   }
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators( {leavePage: leavePage} , dispatch);
+  return bindActionCreators( {
+    leavePage: leavePage,
+    getUsername: getUsername
+  }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProgressBarMulti);

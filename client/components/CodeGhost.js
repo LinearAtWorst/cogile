@@ -5,6 +5,7 @@ import { syncPlayersStatuses, getUsername } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import levenshtein from './../lib/levenshtein';
 import axios from 'axios';
+import helperFunctions from '../utils/helperFunctions';
 
 class CodeGhost extends Component {
   constructor(props) {
@@ -26,7 +27,13 @@ class CodeGhost extends Component {
 
   componentDidMount() {
     this.record = {};
-    this.username = this.props.getUsername().payload;
+    
+    if (helperFunctions.isLoggedIn()) {
+      this.username = helperFunctions.getUsername().username;
+    } else {
+      this.username = 'guest';
+    }
+
     this.pendingGetRequest = false;
 
     this.editor = ace.edit('codeGhost');
@@ -107,7 +114,15 @@ class CodeGhost extends Component {
             this.highScoreUser = highScoreUser;
 
             var tempPlayersStatuses = this.props.playersStatuses;
+
+            if (helperFunctions.isLoggedIn()) {
+              this.username = helperFunctions.getUsername().username;
+            } else {
+              this.username = 'guest';
+            }
+
             var thisUser = this.username;
+
             tempPlayersStatuses[thisUser] = [0, '4CAF50'];
             tempPlayersStatuses[highScoreUser] = [0, 'F44336']
 

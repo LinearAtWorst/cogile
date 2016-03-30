@@ -34,3 +34,6 @@ node_modules
 
 # DS_Store
 .DS_Store
+
+# Config file
+server/db/config/config.js

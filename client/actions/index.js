@@ -73,7 +73,7 @@ export function getUsername() {
   var foundUsername = null;
   var decoded;
   if(!global.window.localStorage.getItem('com.nimblecode')){
-    foundUsername = 'NimbleCoder' + Math.floor((Math.random()*100)+100);
+    foundUsername = 'NimbleCoder' + Math.floor((Math.random()*1000)+1000);
   } else {
     decoded = jwtDecode(global.window.localStorage.getItem('com.nimblecode'));
     foundUsername = decoded.username;
