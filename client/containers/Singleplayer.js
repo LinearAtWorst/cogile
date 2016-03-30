@@ -203,7 +203,6 @@ class Singleplayer extends Component {
 function mapStateToProps(state) {
   return {
     singleGame: state.singleGame,
-    SavedUsername: state.SavedUsername,
     currentLevel: state.currentLevel,
     gameTime: state.gameTime,
     newHighScore: state.newHighScore,
