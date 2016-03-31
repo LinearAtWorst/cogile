@@ -15,8 +15,11 @@ class LandingPageMulti extends Component {
     super();
 
     this.state = {
-      roomId: '',
-      randomRoom: ''
+      publicRoomId: '',
+      privateRoomId: '',
+      defaultedRoomId: true,
+      randomRoom: '',
+      noRoomsFound: false
     };
 
   };
@@ -34,46 +37,65 @@ class LandingPageMulti extends Component {
 
     this.socket.on('roulette fail', function() {
       console.log('no vacant rooms found, roulette failed');
-      return false;
+      this.setState({
+        noRoomsFound: true
+      });
     }.bind(this));
   }
 
   componentWillMount() {
-    this.roomcode = "/#/multigame/" + Math.floor((Math.random()*100)+100);
     this.username = this.props.getUsername().payload;
   }
 
-  changeRoomId(room) {
+  changePrivateRoomId(room) {
     this.setState({
-      roomId: room.target.value
+      privateRoomId: room.target.value,
+      defaultedRoomId: false
     });
   }
 
-  handleSubmit(e) {
+  handleSubmitPrivate(e) {
     e.preventDefault();
-    this.context.router.push("/multigame/" + this.state.roomId);
+    if (this.state.defaultedRoomId){
+      this.context.router.push("/multigame/" + "P" + Math.floor((Math.random()*100)+100) + "?status=private");
+    } else {
+      this.context.router.push("/multigame/" + "P" +  this.state.privateRoomId + "?status=private");
+    }
+  }
+
+  handleSubmitPublic(e) {
+    e.preventDefault();
+    if (this.state.noRoomsFound){
+      this.context.router.push("/multigame/" + Math.floor((Math.random()*100)+100) + "?status=public");
+    } else {
+      this.context.router.push("/multigame/" + this.state.randomRoom + "?status=public");
+    }
   }
 
   render() {
     return (
       <div>
       <h1 className="text-center tagline">Welcome to Multiplayer! </h1>
-      <p className="text-center">Here you can join an existing game or make your own game and invite friends.</p>
+      <p className="text-center">Here you can join an existing game or make your own private game and invite friends.</p>
       <div className="container-fluid">
           <div className="row">
               <div className="col-sm-12 text-center">
-              <center><form className="form-inline" onSubmit={this.handleSubmit.bind(this)}>
-              <div className="form-group label-floating">
-                {/*<label htmlFor="roomId" className="control-label">Room ID</label>*/}
-                  <input type="text" id="roomId" className="form-control text-center" value={this.state.roomId} placeholder="Input room ID here." onChange={this.changeRoomId.bind(this)} />
-                </div>
-                </form>
-                <a href={"/#/multigame/" + this.state.roomId} className="btn btn-raised btn-primary landing-btn">Join Game</a>
-                </center>
-                <h6 className="text-center"><strong>OR</strong></h6>
-                <a href={this.roomcode} className="btn btn-raised btn-primary landing-btn">Start New Game</a>
-                <a href={"/#/multigame/" + this.state.randomRoom} className="btn btn-raised btn-primary landing-btn">Random Room Roulette</a>
-                </div>
+
+              <center>
+                <button type="button" onClick={this.handleSubmitPublic.bind(this)} className="btn btn-raised btn-primary landing-btn">Join Public Room</button>
+              </center>
+
+              <h2 className="text-center"><strong>--- OR ---</strong></h2>
+
+              <center><form className="form-inline" onSubmit={this.handleSubmitPrivate.bind(this)}>
+                <div className="form-group label-floating">
+                  <label htmlFor="roomId" className="control-label">Room ID (Number)</label>
+                    <input type="number" id="roomId" className="form-control text-center" value={this.state.privateRoomId} onChange={this.changePrivateRoomId.bind(this)} />
+                  </div>
+                 </form>
+                <button type="button" onClick={this.handleSubmitPrivate.bind(this)} className="btn btn-raised btn-primary landing-btn">Create/Join Private Room</button>
+              </center>
+            </div>
           </div>
         </div>
       </div>

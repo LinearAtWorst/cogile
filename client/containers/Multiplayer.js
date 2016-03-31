@@ -11,7 +11,7 @@ import { bindActionCreators } from 'redux';
 import underscore from 'underscore';
 
 class Multiplayer extends Component {
-  
+
   static contextTypes = {
     router: PropTypes.object
   }
@@ -34,9 +34,10 @@ class Multiplayer extends Component {
     this.socket = io();
 
     if(this.props.params.gameId){
+      console.log(this.props.params.gameId);
       this.props.storeGameId(this.props.params.gameId);
 
-      this.socket.emit('create new game', {roomcode:this.props.params.gameId, username: this.username});
+      this.socket.emit('create new game', {roomcode:this.props.params.gameId, username: this.username, privacySetting: this.props.location.query.status});
     }
 
     // listen
