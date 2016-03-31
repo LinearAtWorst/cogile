@@ -5,6 +5,7 @@ import { startGame, endGame, newHighScore, getUsername, syncPlayersStatuses } fr
 import { bindActionCreators } from 'redux';
 import levenshtein from './../lib/levenshtein';
 import axios from 'axios';
+import helperFunctions from '../utils/helperFunctions';
 
 class CodeEditor extends Component {
   constructor(props) {
@@ -25,6 +26,12 @@ class CodeEditor extends Component {
   };
 
   componentDidMount() {
+    this.username = helperFunctions.getUsername();
+    if (this.username) {
+      this.username = this.username.username;
+    } else {
+      this.username = 'guest'; 
+    }
 
     this.editor = ace.edit('codeEditor');
     this.editor.setShowPrintMargin(false);

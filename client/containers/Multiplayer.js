@@ -11,7 +11,7 @@ import { bindActionCreators } from 'redux';
 import underscore from 'underscore';
 
 class Multiplayer extends Component {
-  
+
   static contextTypes = {
     router: PropTypes.object
   }
@@ -34,9 +34,10 @@ class Multiplayer extends Component {
     this.socket = io();
 
     if(this.props.params.gameId){
+      console.log(this.props.params.gameId);
       this.props.storeGameId(this.props.params.gameId);
 
-      this.socket.emit('create new game', {roomcode:this.props.params.gameId, username: this.username});
+      this.socket.emit('create new game', {roomcode:this.props.params.gameId, username: this.username, privacySetting: this.props.location.query.status});
     }
 
     // listen
@@ -112,7 +113,7 @@ class Multiplayer extends Component {
     let yourTime = (minutes*60 + seconds + tenthSeconds/10).toFixed(1);
 
     var finalStats = this.props.multiplayerStatuses.store;
-      
+
     var finalTimes = [];
     for (var key in finalStats) {
       var nameAndFinalTimeArray = [finalStats[key][1], key]
@@ -128,30 +129,30 @@ class Multiplayer extends Component {
     if (finalTimes.length === 2) {
       if (this.username === winner) {
         title = "Nice! You've won!";
-        html  = '<div>' 
-              + '<p> <b>1st Place:</b> You (' + yourTime + ' seconds)</p><br>' 
+        html  = '<div>'
+              + '<p> <b>1st Place:</b> You (' + yourTime + ' seconds)</p><br>'
               + '<p> <b>2nd Place:</b> ' + finalTimes[1][1] + '</p>'
               + '</div>';
       } else {
         title = "Too bad!";
-        html  = '<div>' 
-              + '<p> <b>1st Place:</b> ' + finalTimes[0][1] + ' (' + yourTime + ' seconds)</p><br>' 
+        html  = '<div>'
+              + '<p> <b>1st Place:</b> ' + finalTimes[0][1] + ' (' + yourTime + ' seconds)</p><br>'
               + '<p> <b>2nd Place:</b> ' + this.isCurrentPlayer(finalTimes[1][1]) + '</p>'
               + '</div>';
       }
     } else {
       if (this.username === winner) {
         title = "Nice! You've won!";
-        html  = '<div>' 
-              + '<p> <b>1st Place:</b> You (' + yourTime + ' seconds)</p><br>' 
-              + '<p> <b>2nd Place:</b> ' + finalTimes[1][1] + '</p><br>' 
+        html  = '<div>'
+              + '<p> <b>1st Place:</b> You (' + yourTime + ' seconds)</p><br>'
+              + '<p> <b>2nd Place:</b> ' + finalTimes[1][1] + '</p><br>'
               + '<p> <b>3rd Place:</b> ' + finalTimes[2][1] + '</p>'
               + '</div>';
       } else {
         title = "Too bad!";
-        html  = '<div>' 
-              + '<p> <b>1st Place:</b> ' + finalTimes[0][1] + ' (' + yourTime + ' seconds)</p><br>' 
-              + '<p> <b>2nd Place:</b> ' + this.isCurrentPlayer(finalTimes[1][1]) + '</p><br>' 
+        html  = '<div>'
+              + '<p> <b>1st Place:</b> ' + finalTimes[0][1] + ' (' + yourTime + ' seconds)</p><br>'
+              + '<p> <b>2nd Place:</b> ' + this.isCurrentPlayer(finalTimes[1][1]) + '</p><br>'
               + '<p> <b>3rd Place:</b> ' + this.isCurrentPlayer(finalTimes[2][1]) + '</p>'
               + '</div>';
       }
@@ -209,7 +210,7 @@ class Multiplayer extends Component {
   render() {
     return (
       <div>
-        <MultiplayerInfo gameId={this.props.params.gameId} />
+        <MultiplayerInfo gameId={ this.props.params.gameId.charAt(0) === "P" ? ( "- Private ID:" + this.props.params.gameId.slice(1) ) : ( "- Public ID:" + this.props.params.gameId ) } />
         <TimerMulti
           saveTimeElapsed={this.saveTimeElapsed.bind(this)}
           socket={this.socket} />
@@ -222,8 +223,8 @@ class Multiplayer extends Component {
             minifiedPuzzle={this.state.minifiedPuzzle}
             sendProgressToSockets={this.sendProgressToSockets.bind(this)} />
         </div>
-        
-        <div className="col-sm-10 col-sm-offset-1 no-padding">        
+
+        <div className="col-sm-10 col-sm-offset-1 no-padding">
           <ProgressBarMulti socket={this.socket} />
         </div>
 
