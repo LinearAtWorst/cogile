@@ -229,7 +229,7 @@ class Multiplayer extends Component {
           <ProgressBarMulti socket={this.socket} />
         </div>
 
-        <div>
+        <div className="col-sm-10 col-sm-offset-1 no-padding">
           <AllMiniViews />
         </div>
 

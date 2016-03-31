@@ -4,9 +4,6 @@ import ReactDOM from 'react-dom';
 class CodeMiniView extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-    };
   }
 
   componentDidMount() {
@@ -38,13 +35,7 @@ class CodeMiniView extends Component {
         }
       });
     }.bind(this));
-
-    this.editor.getSession().on("change", function(e) {
-      var value = this.editor.getSession().getValue();
-
-    }.bind(this)); 
   }
-
 
   componentDidUpdate() {
     this.editor.setValue(this.props.playerCode);
@@ -56,7 +47,7 @@ class CodeMiniView extends Component {
     return React.DOM.div({
       id: this.props.playerKey,
       style: style,
-      className: 'col-sm-3'
+      className: 'col-sm-4'
     });
   }
 }

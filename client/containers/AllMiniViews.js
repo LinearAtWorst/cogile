@@ -34,7 +34,7 @@ class AllMiniViews extends Component {
 
   render() {
     return (
-      <div>
+      <div className="">
         { this.renderMiniViews() }
       </div>
     );
