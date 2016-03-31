@@ -27,6 +27,8 @@ class LandingPageMulti extends Component {
   componentDidMount() {
     this.socket = io();
 
+    var fetchRoom = function() {
+
     this.socket.emit('roulette roulette', {username: this.username});
 
     this.socket.on('roulette success', function(data) {
@@ -41,11 +43,23 @@ class LandingPageMulti extends Component {
         noRoomsFound: true
       });
     }.bind(this));
+
+    }.bind(this);
+
+    fetchRoom();
+
+    this.intervalID = setInterval(fetchRoom,1000);
+
   }
 
   componentWillMount() {
     this.username = this.props.getUsername().payload;
   }
+
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+    this.socket.disconnect();
+  };
 
   changePrivateRoomId(room) {
     this.setState({
