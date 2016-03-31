@@ -57,7 +57,7 @@ class LandingPageMulti extends Component {
   handleSubmitPrivate(e) {
     e.preventDefault();
     if (this.state.defaultedRoomId){
-      this.context.router.push("/multigame/" + "P" + Math.floor((Math.random()*100)+100) + "?status=private");
+      this.context.router.push("/multigame/" + "P" + Math.floor((Math.random()*9999)+100) + "?status=private");
     } else {
       this.context.router.push("/multigame/" + "P" +  this.state.privateRoomId + "?status=private");
     }
@@ -66,7 +66,7 @@ class LandingPageMulti extends Component {
   handleSubmitPublic(e) {
     e.preventDefault();
     if (this.state.noRoomsFound){
-      this.context.router.push("/multigame/" + Math.floor((Math.random()*100)+100) + "?status=public");
+      this.context.router.push("/multigame/" + Math.floor((Math.random()*9999)+100) + "?status=public");
     } else {
       this.context.router.push("/multigame/" + this.state.randomRoom + "?status=public");
     }
