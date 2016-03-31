@@ -21,7 +21,8 @@ class Singleplayer extends Component {
       currentPuzzle: 'N/A',
       minifiedPuzzle: 'N/A',
       gameFinished: false,
-      progress: 0
+      progress: 0,
+      ghostProgress: 0
     };
   };
 
@@ -37,7 +38,9 @@ class Singleplayer extends Component {
             this.setState({
               puzzleName: this.props.currentLevel.currentLevel,
               currentPuzzle: data,
-              minifiedPuzzle: minifiedPuzzle
+              minifiedPuzzle: minifiedPuzzle,
+              progress: 0,
+              ghostProgress: 0
             });
 
           }.bind(this));
@@ -90,6 +93,28 @@ class Singleplayer extends Component {
     }.bind(this));
   };
 
+  calculateProgress(playerCode, isGhostReplay) {
+    if (playerCode === "") {
+      return;
+    }
+    var totalChars = this.state.minifiedPuzzle.length;
+    var distance = levenshtein(this.state.minifiedPuzzle, playerCode);
+
+    // Calculate percent completed.  99% is complete because bar starts with 1%
+    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 99);
+
+    if (isGhostReplay) {
+      this.setState({
+        ghostProgress: percentCompleted
+      });
+    } else {
+      this.setState({
+        progress: percentCompleted
+      });
+    }
+  };
+   
+
 
   endingAlert() {
     let highScoreObj = this.props.newHighScore
@@ -98,35 +123,38 @@ class Singleplayer extends Component {
     let minutes = this.props.gameTime.minutes;
     let seconds = this.props.gameTime.seconds;
     let tenthSeconds = this.props.gameTime.tenthSeconds;
+    let hundredthSeconds = this.props.gameTime.hundredthSeconds;
+    console.log('my minutes, seconds, tenthseconds is: ', minutes, seconds, tenthSeconds);
+    let yourTime = (minutes*60 + seconds + tenthSeconds/10 + hundredthSeconds/100).toFixed(2);
     let bestTime = (highScoreObj.oldReplayDuration / 1000).toFixed(2);
     console.log(highScoreObj);
 
     // Set title and message for sweet alert
     if (highScoreObj.newHighScore && highScoreObj.loggedIn) {
       title = 'Woohoo!';
-      html = '<h4>Your Time: ' + minutes + ':' + seconds + '.' + tenthSeconds + '</h4>' +
-            '<h4>Best Time: ' + bestTime + '</h4>' +
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
+            '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
             'You set the new record! Your replay has been saved as the new leader.';
     } else if (highScoreObj.newHighScore && !highScoreObj.loggedIn) {
       title = 'Wow!';
-      html = '<h4>Your Time: ' + minutes + ':' + seconds + '.' + tenthSeconds + '</h4>' +
-            '<h4>Best Time: ' + bestTime + '</h4>' +
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
+            '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
             'You beat the high score!  Unfortunately, you need to be logged in so we can store your high score. Log in and try again!';
     } else if (!highScoreObj.newHighScore && highScoreObj.loggedIn) {
       title = 'Sweet!';
-      html = '<h4>Your Time: ' + minutes + ':' + seconds + '.' + tenthSeconds + '</h4>' +
-            '<h4>Best Time: ' + bestTime + '</h4>' +
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
+            '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
             'You completed the prompt! Keep practicing to beat the record.';
     } else if (!highScoreObj.newHighScore && !highScoreObj.loggedIn) {
       title = 'Great!';
-      html = '<h4>Your Time: ' + minutes + ':' + seconds + '.' + tenthSeconds + '</h4>' +
-            '<h4>Best Time: ' + bestTime + '</h4>' +
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
+            '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
             'You completed the prompt! Make sure to log in and keep practicing to beat the record.';
     }
 
 
     // New Record was Achieved
-      swal({
+    swal({
         title: title,
         html: html,
         type: 'success',
@@ -163,38 +191,32 @@ class Singleplayer extends Component {
           // outside click, isConfirm is undefinded
         }
       }.bind(this))
-
-  }
-
-  saveTimeElapsed(tenthSeconds, seconds, minutes) {
-    // Sweet Alert with Info
-    swal({
-      title: 'Sweet!',
-      text: 'You completed the challenge with a time of ' + minutes + ':' + seconds + '.' + tenthSeconds
-    });
   }
 
   render() {
     return (
       <div>
-        <Timer
-          saveTimeElapsed={this.saveTimeElapsed.bind(this)} />
+        <Timer />
         <LevelSelect />
 
-        <div className="col-sm-10 col-sm-offset-1"><h5><b>Copy this code...</b></h5></div>
+        <div className="col-sm-10 col-sm-offset-1"><h5><b>Copy this...</b></h5></div>
         <CodePrompt puzzle={this.state.currentPuzzle} />
 
         <div className="col-sm-10 col-sm-offset-1 no-padding">
-          <div className="col-sm-6"><h5><b>Type it here  </b></h5></div>
-          <div className="col-sm-6"><h5><b>Best Time Replay</b></h5></div>
+          <div className="col-sm-6"><h5><b>Type here...  </b></h5></div>
+          <div className="col-sm-6"><h5><b>Best Time</b></h5></div>
           <CodeEditor
             puzzle={this.state.currentPuzzle}
-            minifiedPuzzle={this.state.minifiedPuzzle} />
-          <CodeGhost 
-            minifiedPuzzle={this.state.minifiedPuzzle}/>
+            minifiedPuzzle={this.state.minifiedPuzzle} 
+            calculateProgress={this.calculateProgress.bind(this)} />            
+          <CodeGhost minifiedPuzzle={this.state.minifiedPuzzle}
+            calculateProgress={this.calculateProgress.bind(this)} />
         </div>
-        <ProgressBar
-          percentComplete={this.state.progress} />
+
+        <div className="col-sm-10 col-sm-offset-1 no-padding">
+          <ProgressBar percentComplete={this.state.progress} color="#009686" text="You"/>
+          <ProgressBar percentComplete={this.state.ghostProgress} color="#ffa25e" text="Record"/>
+        </div>
       </div>
     )
   };

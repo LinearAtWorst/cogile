@@ -21,8 +21,9 @@ html, body {
 }
 
 #code {
-  color: #f1c40f;
-  font-weight: 600 !important;
+  /*color: #f1c40f;*/
+  color: #ffa25e;
+  font-weight: 400;
 }
 
 .sitename:hover {
@@ -62,11 +63,6 @@ html, body {
 
 .about-icon:hover {
   color:#696969;
-}
-
-.about-title {
-  font-weight:bold;
-  text-align:center;
 }
 
 .about-names {
@@ -113,7 +109,7 @@ html, body {
 }
 
 .tagline {
-  /*margin-top: 10%;*/
+  margin-top: 3%;
 }
 
 .border-gray {
@@ -125,7 +121,7 @@ html, body {
 }
 
 .progress-bar {
-  height: 1.8em;
+  height: 2.3em;
   width: 100%;
   background-color: #E0E0E0;
   vertical-align: middle;
@@ -136,9 +132,12 @@ html, body {
   text-align: left;
 }
 
-.progress-fill-single {
-  height: 100%;
-  background-color: green;
+.progress-bar-name {
+  font-size: 1.3em;
+  color: #181818;
+  margin-left: 15px;
+  font-weight: bold;
+  line-height: 2em
 }
 
 .no-height {
@@ -147,6 +146,8 @@ html, body {
 
 #start-btn {
   z-index: 10;
+  color: #444;
+  background-color: #FFA25E;
 }
 
 #codingGif {
