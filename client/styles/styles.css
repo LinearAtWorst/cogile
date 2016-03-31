@@ -1,3 +1,4 @@
+
 .failed-validation {
   color: red;
 }
@@ -43,17 +44,13 @@ html, body {
   width:262.5px;
 }
 
-.about {
-  background-color: rgba(0, 150, 136, .4);
-  height: 450px;
-  border-radius: 30px;
-}
 .team { 
   margin: 0 auto !important;
 }
 
 .about-icon {
   color:#000;
+  margin: 2px;
 }
 
 .about-icon:hover {
@@ -81,6 +78,7 @@ html, body {
   font-size:13.5px;
   height:90px;
   margin-top:30px;
+  margin-bottom: 20px;
   text-align:center;
 }
 
@@ -96,6 +94,10 @@ html, body {
 
 .landing-btn{
   margin: 10px;
+}
+
+.landing-content {
+  margin-bottom: 60px;
 }
 
 .tagline {
