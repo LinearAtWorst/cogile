@@ -21,7 +21,9 @@ class Singleplayer extends Component {
       currentPuzzle: 'N/A',
       minifiedPuzzle: 'N/A',
       gameFinished: false,
-      progress: 0
+      progress: 0,
+      ghostProgress: 0,
+      recordUsername: ''
     };
   };
 
@@ -37,7 +39,9 @@ class Singleplayer extends Component {
             this.setState({
               puzzleName: this.props.currentLevel.currentLevel,
               currentPuzzle: data,
-              minifiedPuzzle: minifiedPuzzle
+              minifiedPuzzle: minifiedPuzzle,
+              progress: 0,
+              ghostProgress: 0
             });
 
           }.bind(this));
@@ -97,7 +101,8 @@ class Singleplayer extends Component {
     var totalChars = this.state.minifiedPuzzle.length;
     var distance = levenshtein(this.state.minifiedPuzzle, playerCode);
 
-    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 100);
+    // Calculate percent completed.  99% is complete because bar starts with 1%
+    var percentCompleted = Math.floor(((totalChars - distance) / totalChars) * 99);
 
     if (isGhostReplay) {
       this.setState({
@@ -110,8 +115,6 @@ class Singleplayer extends Component {
     }
   };
    
-
-
   endingAlert() {
     let highScoreObj = this.props.newHighScore
     let title = '';
@@ -119,10 +122,9 @@ class Singleplayer extends Component {
     let minutes = this.props.gameTime.minutes;
     let seconds = this.props.gameTime.seconds;
     let tenthSeconds = this.props.gameTime.tenthSeconds;
-    let hundredthSeconds = this.props.gameTime.hundredthSeconds;
     console.log('my minutes, seconds, tenthseconds is: ', minutes, seconds, tenthSeconds);
-    let yourTime = (minutes*60 + seconds + tenthSeconds/10 + hundredthSeconds/100).toFixed(2);
-    let bestTime = (highScoreObj.oldReplayDuration / 1000).toFixed(2);
+    let yourTime = (minutes*60 + seconds + tenthSeconds/10).toFixed(1);
+    let bestTime = (highScoreObj.oldReplayDuration / 1000).toFixed(1);
     console.log(highScoreObj);
 
     // Set title and message for sweet alert
@@ -189,7 +191,13 @@ class Singleplayer extends Component {
       }.bind(this))
   }
 
+  fetchRecordUsername(username) {
+    this.setState({recordUsername: username});
+  }
+
   render() {
+    var recordName = 'Record('.concat(this.state.recordUsername,')');
+
     return (
       <div>
         <Timer />
@@ -206,12 +214,13 @@ class Singleplayer extends Component {
             minifiedPuzzle={this.state.minifiedPuzzle} 
             calculateProgress={this.calculateProgress.bind(this)} />            
           <CodeGhost minifiedPuzzle={this.state.minifiedPuzzle}
-            calculateProgress={this.calculateProgress.bind(this)} />
+            calculateProgress={this.calculateProgress.bind(this)}
+            fetchRecordUsername={this.fetchRecordUsername.bind(this)} />
         </div>
 
         <div className="col-sm-10 col-sm-offset-1 no-padding">
           <ProgressBar percentComplete={this.state.progress} color="#009686" text="You"/>
-          <ProgressBar percentComplete={this.state.ghostProgress} color="#ffa25e" text="Record"/>
+          <ProgressBar percentComplete={this.state.ghostProgress} color="#ffa25e" text={recordName} />
         </div>
       </div>
     )

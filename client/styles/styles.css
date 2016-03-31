@@ -16,7 +16,7 @@ html, body {
 
 #code {
   color: #ffa25e;
-  font-weight: 600 !important;
+  font-weight: 400;
 }
 
 .sitename:hover {
@@ -109,7 +109,7 @@ html, body {
 }
 
 .progress-bar {
-  height: 2em;
+  height: 2.3em;
   width: 100%;
   background-color: #E0E0E0;
   vertical-align: middle;
@@ -123,8 +123,9 @@ html, body {
 .progress-bar-name {
   font-size: 1.3em;
   color: #181818;
-  margin-left: 10px;
+  margin-left: 15px;
   font-weight: bold;
+  line-height: 2em
 }
 
 .no-height {
@@ -133,6 +134,8 @@ html, body {
 
 #start-btn {
   z-index: 10;
+  color: #444;
+  background-color: #FFA25E;
 }
 
 #codingGif {

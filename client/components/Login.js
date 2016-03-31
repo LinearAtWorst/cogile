@@ -28,7 +28,7 @@ class Login extends Component {
       <div className="container">
       <div className="row">
       <div className="col-md-6">
-      <h1 className="about-title">Login</h1>
+      <h1 className="text-center">Login</h1>
       <form className="form col-sm-6 col-sm-offset-3" onSubmit={this._onSubmit.bind(this)}>
         <div className="form-group label-floating">
         <label htmlFor="username" className="control-label">Username</label>
