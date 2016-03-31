@@ -70,7 +70,7 @@ class Multiplayer extends Component {
     // listening for a 'game over' socket event to capture and stop time
     this.socket.on('game over', function(value) {
       var time = this.props.gameTime;
-      underscore.once(this.saveTimeElapsed(time.hundredthSeconds, time.tenthSeconds, time.seconds, time.minutes, value.username));
+      underscore.once(this.saveTimeElapsed(time.tenthSeconds, time.seconds, time.minutes, value.username));
 
       this.props.stopTimer();
     }.bind(this));
@@ -107,10 +107,10 @@ class Multiplayer extends Component {
     }
   };
 
-  saveTimeElapsed(hundredthSeconds, tenthSeconds, seconds, minutes, winner) {
+  saveTimeElapsed(tenthSeconds, seconds, minutes, winner) {
     var title, html;
 
-    let yourTime = (minutes*60 + seconds + tenthSeconds/10 + hundredthSeconds/100).toFixed(2);
+    let yourTime = (minutes*60 + seconds + tenthSeconds/10).toFixed(1);
 
     var finalStats = this.props.multiplayerStatuses.store;
 
