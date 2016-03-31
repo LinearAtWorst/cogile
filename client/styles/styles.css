@@ -161,3 +161,40 @@ html, body {
 .no-top-margin {
   margin-top: 0;
 }
+
+.oj-btn {
+  z-index: 10;
+  color: #444;
+  background-color: #FFA25E !important;
+}
+
+.oj-btn:active {
+  z-index: 10;
+  color: #444;
+  background-color: #FFA666 !important;
+}
+
+.oj-btn:hover {
+  z-index: 10;
+  color: #444;
+  background-color: #FFA666 !important;
+}
+
+
+.teal-btn {
+  z-index: 10;
+  color: #444;
+  background-color: #20A294 !important;
+}
+
+.teal-btn:active {
+  z-index: 10;
+  color: #444;
+  background-color: #42B2A6 !important;
+}
+
+.teal-btn:hover {
+  z-index: 10;
+  color: #444;
+  background-color: #42B2A6 !important;
+}
