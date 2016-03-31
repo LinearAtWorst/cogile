@@ -126,8 +126,14 @@ class Multiplayer extends Component {
       return b[0] - a[0];
     });
 
-    // if there are only two players
-    if (finalTimes.length === 2) {
+    // if playing multiplayer alone
+    if (finalTimes.length === 1) {
+      title = "Nice! You've won!";
+      html  = '<div>'
+            + '<p> <b>1st Place:</b> You (' + yourTime + ' seconds)</p><br>'
+            + '</div>';
+    } else if (finalTimes.length === 2) {
+      // if there are only two players
       if (this.username === winner) {
         title = "Nice! You've won!";
         html  = '<div>'

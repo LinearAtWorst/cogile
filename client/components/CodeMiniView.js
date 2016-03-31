@@ -12,8 +12,8 @@ class CodeMiniView extends Component {
     this.editor.setShowPrintMargin(false);
     this.editor.setOptions({
       fontSize: '6pt',
-      minLines: 12,
-      maxLines: 12,
+      minLines: 15,
+      maxLines: 15,
       dragEnabled: false
     });
     this.editor.setTheme("ace/theme/twilight");
