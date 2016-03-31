@@ -11,7 +11,7 @@ Here is a quick step by step to get started with our project
 
 Fork the repo and clone locally
 
-#### You must node installed and have a MySQL db to connect to
+#### You must have node installed and have a MySQL db to connect to
 The config file to connect to db is in server->db->config->config.js
 
 #####Example of config layout:
@@ -26,8 +26,6 @@ module.exports = {
     clientID: 'CLIENT_ID',
     clientSecret: 'CLIENT SECRET'
   };
-
-
 ```
 
 ### Installing
@@ -58,36 +56,27 @@ default port on the project is 8080 as compiance with AWS
 it should console.log 
 ```
 listening at http://localhost:8080/
-
+```
 ## Running the tests
+We have a few tests for server side, please feel free to add more.
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
+Our config is setup to run the test easily with npm.
 ```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
+npm test
 ```
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Deployment info will change bewteen your choice of platform to use.  We used a AWS(Amazon Web Services) EC2 instance that hosted our server and Database on the same instance.  There is tutorials and info to do this on Amazon.
 
 ## Built With
 
-* Dropwizard - Bla bla bla
-* Maven - Maybe
-* Atom - ergaerga
+* MySQL
+* Node.js
+* Bookshelf.js
+* knex.js
+* socket.io
+* React.js
 
 ## Contributing
 
