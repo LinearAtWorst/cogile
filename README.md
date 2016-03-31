@@ -32,21 +32,32 @@ module.exports = {
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
+clone repo where you would like
 
 ```
-Give the example
+git clone https://github.com/LinearAtWorst/nimblecode.git
 ```
-
-And repeat
-
+cd into directory
 ```
-until finished
+cd nimblecode
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
+run npm install
+```
+npm install
+```
+We often use nodemon to run node and it will relaunch node when changes are saved.
+To get nodemon 
+```
+npm install nodemon -g
+```
+get it started!
+```
+nodemon server/server.js
+```
+default port on the project is 8080 as compiance with AWS
+it should console.log 
+```
+listening at http://localhost:8080/
 
 ## Running the tests
 
