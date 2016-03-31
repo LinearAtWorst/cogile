@@ -44,11 +44,12 @@ class CodeMiniView extends Component {
   render() {
     const style = {fontSize: '6px !important', border: '3px solid #181818'};
 
-    return React.DOM.div({
-      id: this.props.playerKey,
-      style: style,
-      className: 'col-sm-4'
-    });
+    return (
+      <div className="col-sm-4 no-padding">
+        <div id={this.props.playerKey} style={style}></div>
+        <p className="text-center">{this.props.playerKey}</p>
+      </div>
+    )
   }
 }
 
