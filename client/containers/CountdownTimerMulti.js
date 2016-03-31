@@ -18,7 +18,7 @@ class CountdownTimerMulti extends Component {
       <div className="row text-center">
         <ReactCountdownClock
           seconds={5}
-          color="#00BCD4"
+          color="#304B78"
           alpha={1}
           size={51}
           onComplete={this.props.startGame} />

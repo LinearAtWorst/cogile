@@ -18,7 +18,7 @@ class CountdownTimer extends Component {
       <div className="row text-center no-height">
         <ReactCountdownClock
           seconds={3}
-          color="#55acee"
+          color="#304B78"
           alpha={1}
           size={53}
           onComplete={this.props.startGame} />
