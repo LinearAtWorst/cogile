@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { changeLevel, getListOfPrompts } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
+import LevelDisplay from '../components/LevelDisplay';
 import LevelSelect from './LevelSelect';
 import { browserHistory } from 'react-router';
 
@@ -17,8 +18,8 @@ class Singleplayer extends Component {
     super(props);
 
     this.state = {
-      puzzleName: 'N/A',
-      currentPuzzle: 'N/A',
+      puzzleName: '00-forloop',
+      currentPuzzle: 'Error loading puzzle.  Please refresh or rejoin the game.',
       minifiedPuzzle: 'N/A',
       gameFinished: false,
       progress: 0,
@@ -197,6 +198,7 @@ class Singleplayer extends Component {
     return (
       <div>
         <Timer />
+        <LevelDisplay currentLevel={this.state.puzzleName} />
         <LevelSelect />
 
         <div className="col-sm-10 col-sm-offset-1"><h5><b>Copy this...</b></h5></div>

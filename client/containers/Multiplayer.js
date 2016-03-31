@@ -8,6 +8,7 @@ import ProgressBarMulti from './ProgressBarMulti';
 import { connect } from 'react-redux';
 import { startGame, endGame, stopTimer, storeGameId, syncMultiplayerStatuses, startCountdown, getUsername, leavePage } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import LevelDisplay from '../components/LevelDisplay';
 import underscore from 'underscore';
 import AllMiniViews from './AllMiniViews';
 
@@ -21,6 +22,7 @@ class Multiplayer extends Component {
     super();
 
     this.state = {
+      puzzleName: 'LOADING...',
       currentPuzzle: 'N/A',
       minifiedPuzzle: 'N/A'
     };
@@ -48,11 +50,14 @@ class Multiplayer extends Component {
 
     // listen
     this.socket.on('here is your prompt', function(prompt) {
-      var minifiedPuzzle = prompt.replace(/\s/g,'');
+      var promptCode = prompt.promptCode;
+      var promptName = prompt.promptName;
+      var minifiedPuzzle = promptCode.replace(/\s/g,'');
 
       this.setState({
-        currentPuzzle: prompt,
-        minifiedPuzzle: minifiedPuzzle
+        currentPuzzle: promptCode,
+        minifiedPuzzle: minifiedPuzzle,
+        puzzleName: promptName
       });
 
     }.bind(this));
@@ -215,17 +220,24 @@ class Multiplayer extends Component {
   };
 
   render() {
+    var privateRoomMsg = "Your friends can enter the room ID above to join this room. When you're all ready, click the start button to begin the countdown! Let it rip!";
+    var publicRoomMsg = "This is a public random room. Wait for other players to join then click the start button to begin the countdown."
+
+    if (this.props.params.gameId.charAt(0) === 'P') {
+      var welcomeMsg = privateRoomMsg;
+    } else {
+      var welcomeMsg = publicRoomMsg;
+    }
+
+
     return (
       <div>
         <MultiplayerInfo gameId={ this.props.params.gameId.charAt(0) === "P" ? ( "- Private ID:" + this.props.params.gameId.slice(1) ) : ( "- Public") } />
         <TimerMulti
           saveTimeElapsed={this.saveTimeElapsed.bind(this)}
           socket={this.socket} />
-           { this.props.params.gameId.charAt(0) === "P" ?
-          ( <p className="text-center">Welcome to Multiplayer Mode! Your friends can enter the room ID above to join this room. When you're all ready, click the start button to begin the countdown! Let it rip! </p> )
-           :
-          ( <p className="text-center">Welcome to Multiplayer Mode! You've just entered a random room. Wait for other players to join then click the start button to begin the countdown!</p> )
-          }
+        <LevelDisplay currentLevel={this.state.puzzleName} />
+        <div className="col-sm-10 col-sm-offset-1 no-padding text-center"> {welcomeMsg} </div>
         <div className="col-sm-10 col-sm-offset-1 no-padding">
           <div className="col-sm-6"><h5><b>Copy this...</b></h5></div>
           <div className="col-sm-6"><h5><b>Type here...</b></h5></div>
@@ -255,7 +267,7 @@ function mapStateToProps(state) {
     gameTime: state.gameTime,
     savedGame: state.savedGame,
     multiplayerStatuses: state.multiplayerStatuses,
-    SavedUsername: state.SavedUsername
+    SavedUsername: state.SavedUsername,
   }
 };
 
