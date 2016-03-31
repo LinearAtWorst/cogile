@@ -99,6 +99,7 @@ class CodeGhost extends Component {
             if (res.data !== '') {
               this.record = {};
               this.record = JSON.parse(res.data.recording).recording;
+              this.props.fetchRecordUsername(res.data.username);
               this.pendingGetRequest = false;
 
             } else {
