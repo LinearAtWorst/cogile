@@ -32,7 +32,7 @@ class LandingPage extends Component {
               </div>
           </div>
         </div>
-        <div className="container-fluid landing-info-container">
+        <div className="container-fluid landing-info-container landing-content">
           <div className="row">
               <div className="col-sm-1"></div>
               <LandingPageInfoBox title={this.content.boxOneTitle} text={this.content.boxOneText} />
