@@ -1,17 +1,34 @@
 # nimblecode
 
-One Paragraph of project description goes here
+Nimblecode was created by four software engineers at Makersquare, an immersive software engineering program in Los Angeles, CA. Are you looking to hire? Check out our Github pages.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+Here is a quick step by step to get started with our project
+
 
 ### Prerequisities
 
-What things you need to install the software and how to install them
+Fork the repo and clone locally
 
+#### You must node installed and have a MySQL db to connect to
+The config file to connect to db is in server->db->config->config.js
+
+#####Example of config layout:
 ```
-Give examples
+module.exports = {
+    db_host: '52.53.212.182',
+    db_user: 'remote',
+    db_password: 'hello321',
+    db_name: 'nimble_code_db',
+    charset: 'utf8',
+    secret: 'nimble_code_secret',
+    clientID: '5650911cf15eb84602a8',
+    clientSecret: 'e41b6c3c03214af93621c7f7d280c1cf5b2f9fe6',
+    callbackURL: 'http://127.0.0.1:8080/api/oauth/github/callback'
+  };
+
+
 ```
 
 ### Installing
