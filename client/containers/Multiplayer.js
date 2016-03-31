@@ -175,6 +175,8 @@ class Multiplayer extends Component {
         cancelButtonText: 'Create/Join a new game',
         confirmButtonClass: 'btn  btn-raised btn-success',
         cancelButtonClass: 'btn btn-raised btn-info',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
         buttonsStyling: false,
         closeOnConfirm: true,
         closeOnCancel: true
