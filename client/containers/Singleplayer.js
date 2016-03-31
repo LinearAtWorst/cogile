@@ -22,7 +22,8 @@ class Singleplayer extends Component {
       minifiedPuzzle: 'N/A',
       gameFinished: false,
       progress: 0,
-      ghostProgress: 0
+      ghostProgress: 0,
+      recordUsername: ''
     };
   };
 
@@ -114,8 +115,6 @@ class Singleplayer extends Component {
     }
   };
    
-
-
   endingAlert() {
     let highScoreObj = this.props.newHighScore
     let title = '';
@@ -193,7 +192,13 @@ class Singleplayer extends Component {
       }.bind(this))
   }
 
+  fetchRecordUsername(username) {
+    this.setState({recordUsername: username});
+  }
+
   render() {
+    var recordName = 'Record('.concat(this.state.recordUsername,')');
+
     return (
       <div>
         <Timer />
@@ -210,12 +215,13 @@ class Singleplayer extends Component {
             minifiedPuzzle={this.state.minifiedPuzzle} 
             calculateProgress={this.calculateProgress.bind(this)} />            
           <CodeGhost minifiedPuzzle={this.state.minifiedPuzzle}
-            calculateProgress={this.calculateProgress.bind(this)} />
+            calculateProgress={this.calculateProgress.bind(this)}
+            fetchRecordUsername={this.fetchRecordUsername.bind(this)} />
         </div>
 
         <div className="col-sm-10 col-sm-offset-1 no-padding">
           <ProgressBar percentComplete={this.state.progress} color="#009686" text="You"/>
-          <ProgressBar percentComplete={this.state.ghostProgress} color="#ffa25e" text="Record"/>
+          <ProgressBar percentComplete={this.state.ghostProgress} color="#ffa25e" text={recordName} />
         </div>
       </div>
     )
