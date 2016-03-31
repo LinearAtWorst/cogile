@@ -22,11 +22,10 @@ var jsFiles = [
     '12-es6-letVariable',
     '13-es6-class',
     '14-es6-promise',
-    '15-d3',
-    '16-angularController',
-    '17-reactComponent',
-    '18-reduxMapValues',
-    '19-reduxReducer',
+    '15-angularController',
+    '16-reactComponent',
+    '17-reduxMapValues',
+    '18-reduxReducer',
   ];
 
 var getRandomJS = function(){
