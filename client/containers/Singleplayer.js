@@ -155,20 +155,22 @@ class Singleplayer extends Component {
     swal({
         title: title,
         html: html,
-        type: 'success',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Onward!',
-        cancelButtonText: 'Retry',
-        confirmButtonClass: 'btn  btn-raised btn-success',
-        cancelButtonClass: 'btn btn-raised btn-info',
+        confirmButtonText: 'Retry',
+        cancelButtonText: 'Onward!',
+        confirmButtonClass: 'teal-btn btn',
+        cancelButtonClass: 'oj-btn btn',
         buttonsStyling: false,
         closeOnConfirm: true,
         closeOnCancel: true
       },
       function(isConfirm) {
         if (isConfirm === true) {
+          location.reload();
+          console.log('Confirm false, currentlevel', this.props.currentLevel);
+          this.props.changeLevel({'currentLevel': null});
+          this.props.changeLevel({'currentLevel': this.props.currentLevel.currentLevel});
+        } else if (isConfirm === false) {
           // Find index of current level
           let indexOfCurrLevel = this.props.listOfPrompts.prompts.indexOf(this.props.currentLevel.currentLevel);
           // Advance to next level
@@ -179,12 +181,6 @@ class Singleplayer extends Component {
             browserHistory.push('/#/singleplayer/' + this.props.listOfPrompts.prompts[indexOfCurrLevel]);
             location.reload();
           }
-
-        } else if (isConfirm === false) {
-          location.reload();
-          console.log('Confirm false, currentlevel', this.props.currentLevel);
-          this.props.changeLevel({'currentLevel': null});
-          this.props.changeLevel({'currentLevel': this.props.currentLevel.currentLevel});
         } else {
           // outside click, isConfirm is undefinded
         }

@@ -169,28 +169,28 @@ class Multiplayer extends Component {
       title: title,
       html: html,
       showCancelButton: true,
-        confirmButtonText: 'Take me home',
-        cancelButtonText: 'Create/Join a new game',
-        confirmButtonClass: 'teal-btn btn',
-        cancelButtonClass: 'oj-btn btn',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        buttonsStyling: false,
-        closeOnConfirm: true,
-        closeOnCancel: true
-      }, function(isConfirm) {
-        if (isConfirm === true) {
-          console.log('user has clicked take me home');
-          this.context.router.push('/');
-        } else if (isConfirm === false) {
-          console.log('user wants to create/join new game');
-          this.context.router.push('multiplayer');
-        } else {
-          console.log('user has clicked outside, should send multiplayer');
-          // TODO: have some message that says, sending to multiplayer
-          this.context.router.push('multiplayer');
-        }
-      }.bind(this));
+      confirmButtonText: 'Take me home',
+      cancelButtonText: 'Create/Join a new game',
+      confirmButtonClass: 'teal-btn btn',
+      cancelButtonClass: 'oj-btn btn',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      buttonsStyling: false,
+      closeOnConfirm: true,
+      closeOnCancel: true
+    }, function(isConfirm) {
+      if (isConfirm === true) {
+        console.log('user has clicked take me home');
+        this.context.router.push('/');
+      } else if (isConfirm === false) {
+        console.log('user wants to create/join new game');
+        this.context.router.push('multiplayer');
+      } else {
+        console.log('user has clicked outside, should send multiplayer');
+        // TODO: have some message that says, sending to multiplayer
+        this.context.router.push('multiplayer');
+      }
+    }.bind(this));
   };
 
   calculatePercent(playerCode) {
