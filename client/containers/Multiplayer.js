@@ -210,10 +210,15 @@ class Multiplayer extends Component {
   render() {
     return (
       <div>
-        <MultiplayerInfo gameId={ this.props.params.gameId.charAt(0) === "P" ? ( "- Private ID:" + this.props.params.gameId.slice(1) ) : ( "- Public ID:" + this.props.params.gameId ) } />
+        <MultiplayerInfo gameId={ this.props.params.gameId.charAt(0) === "P" ? ( "- Private ID:" + this.props.params.gameId.slice(1) ) : ( "- Public") } />
         <TimerMulti
           saveTimeElapsed={this.saveTimeElapsed.bind(this)}
           socket={this.socket} />
+           { this.props.params.gameId.charAt(0) === "P" ?
+          ( <p className="text-center">Welcome to Multiplayer Mode! Your friends can enter the room ID above to join this room. When you're all ready, click the start button to begin the countdown! Let it rip! </p> )
+           :
+          ( <p className="text-center">Welcome to Multiplayer Mode! You've just entered a random room. Wait for other players to join then click the start button to begin the countdown!</p> )
+          }
         <div className="col-sm-10 col-sm-offset-1 no-padding">
           <div className="col-sm-6"><h5><b>Copy this...</b></h5></div>
           <div className="col-sm-6"><h5><b>Type here...</b></h5></div>
