@@ -17,15 +17,14 @@ The config file to connect to db is in server->db->config->config.js
 #####Example of config layout:
 ```
 module.exports = {
-    db_host: '52.53.212.182',
-    db_user: 'remote',
-    db_password: 'hello321',
-    db_name: 'nimble_code_db',
+    db_host: 'HOST_IP',
+    db_user: 'DB_USER',
+    db_password: 'DB_PASSWORD',
+    db_name: 'DB_NAME',
     charset: 'utf8',
-    secret: 'nimble_code_secret',
-    clientID: '5650911cf15eb84602a8',
-    clientSecret: 'e41b6c3c03214af93621c7f7d280c1cf5b2f9fe6',
-    callbackURL: 'http://127.0.0.1:8080/api/oauth/github/callback'
+    secret: 'DB_SECRET',
+    clientID: 'CLIENT_ID',
+    clientSecret: 'CLIENT SECRET'
   };
 
 
