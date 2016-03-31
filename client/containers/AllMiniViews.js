@@ -34,7 +34,7 @@ class AllMiniViews extends Component {
 
   render() {
     return (
-      <div className="">
+      <div className="" id="mini-view-wrapper">
         { this.renderMiniViews() }
       </div>
     );

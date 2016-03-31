@@ -47,16 +47,9 @@ class CodeMiniView extends Component {
     return (
       <div className="col-sm-4 no-padding">
         <div id={this.props.playerKey} style={style}></div>
-        <p>{this.props.playerKey}</p>
+        <p className="text-center">{this.props.playerKey}</p>
       </div>
     )
-
-    // React.DOM.div(
-    // {
-    //   id: this.props.playerKey,
-    //   style: style,
-    //   className: 'col-sm-4'
-    // });
   }
 }
 
