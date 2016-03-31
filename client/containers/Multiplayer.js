@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { startGame, endGame, stopTimer, storeGameId, syncMultiplayerStatuses, startCountdown, getUsername, leavePage } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import underscore from 'underscore';
+import AllMiniViews from './AllMiniViews';
 
 class Multiplayer extends Component {
 
@@ -226,6 +227,10 @@ class Multiplayer extends Component {
 
         <div className="col-sm-10 col-sm-offset-1 no-padding">
           <ProgressBarMulti socket={this.socket} />
+        </div>
+
+        <div>
+          <AllMiniViews />
         </div>
 
       </div>
