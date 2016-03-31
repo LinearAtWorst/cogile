@@ -8,6 +8,7 @@ import ProgressBarMulti from './ProgressBarMulti';
 import { connect } from 'react-redux';
 import { startGame, endGame, stopTimer, storeGameId, syncMultiplayerStatuses, startCountdown, getUsername, leavePage } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import LevelDisplay from '../components/LevelDisplay';
 import underscore from 'underscore';
 
 class Multiplayer extends Component {
@@ -20,6 +21,7 @@ class Multiplayer extends Component {
     super();
 
     this.state = {
+      puzzleName: 'LOADING...',
       currentPuzzle: 'N/A',
       minifiedPuzzle: 'N/A'
     };
@@ -47,11 +49,14 @@ class Multiplayer extends Component {
 
     // listen
     this.socket.on('here is your prompt', function(prompt) {
-      var minifiedPuzzle = prompt.replace(/\s/g,'');
+      var promptCode = prompt.promptCode;
+      var promptName = prompt.promptName;
+      var minifiedPuzzle = promptCode.replace(/\s/g,'');
 
       this.setState({
-        currentPuzzle: prompt,
-        minifiedPuzzle: minifiedPuzzle
+        currentPuzzle: promptCode,
+        minifiedPuzzle: minifiedPuzzle,
+        puzzleName: promptName
       });
 
     }.bind(this));
@@ -214,6 +219,9 @@ class Multiplayer extends Component {
         <TimerMulti
           saveTimeElapsed={this.saveTimeElapsed.bind(this)}
           socket={this.socket} />
+        <LevelDisplay currentLevel={this.state.puzzleName} />
+
+
         <div className="col-sm-10 col-sm-offset-1 no-padding">
           <div className="col-sm-6"><h5><b>Copy this...</b></h5></div>
           <div className="col-sm-6"><h5><b>Type here...</b></h5></div>
@@ -239,7 +247,7 @@ function mapStateToProps(state) {
     gameTime: state.gameTime,
     savedGame: state.savedGame,
     multiplayerStatuses: state.multiplayerStatuses,
-    SavedUsername: state.SavedUsername
+    SavedUsername: state.SavedUsername,
   }
 };
 
