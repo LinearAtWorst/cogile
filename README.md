@@ -101,29 +101,33 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ##Mark
 ####Product Owner aka React/Redux Master
 <img src="./client/assets/mark-profile.jpg" width="200" height="200" />
-####About Role and Experience
+#####About Role and Experience
 Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.
-
+  
+  
 ##Rick 
-###React/Redux Master
+####React/Redux Master
 <img src="./client/assets/rick-profile.jpg" width="200" height="200" />
-####About Role and Experience
+#####About Role and Experience
 Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.
-
+  
+  
 ##Nick 
-###Full Stack Monster aka multiplayer socket whizzz
+####Full Stack Monster aka multiplayer socket whizzz
 <img src="./client/assets/nick-profile.jpg" width="200" height="200" />
-####About Role and Experience
+#####About Role and Experience
 Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.
-
+  
+  
 ##Jordan
-###Back-end aficionado
+####Back-end aficionado
 <img src="./client/assets/jordan-profile.jpg" width="200" height="200" />
-####About Role and Experience
-Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.
+#####About Role and Experience
+Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.  Why is this not being committed?
 
 ## Acknowledgments
 
 * Hat tip to anyone who's code was used
 * Inspiration
 * etc
+* more
