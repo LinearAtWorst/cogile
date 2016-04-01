@@ -25,8 +25,11 @@ Here is a quick step by step to get started with our project
 
 Fork the repo and clone locally
 
-#### You must have node installed and have a MySQL db to connect to
-The config file to connect to db is in server -->db -->config -->config.js
+**You must have node installed and have a MySQL db to connect to**
+
+You can set up a local db to connect to
+
+The config file to connect to db is in **server -->db -->config -->config.js**
 
 #####Example of config layout:
 ```
