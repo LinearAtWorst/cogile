@@ -96,11 +96,11 @@ socketController.socketInit = function(io) {
           // Create player data set.
           rooms[data.roomcode].players = {};
 
-          // Establish code prompt for room.
-          rooms[data.roomcode].prompt = promptController.registerRandomPrompt().promptCode;
+          // Get a random prompt for the room
+          var randomPrompt = promptController.registerRandomPrompt();
+          rooms[data.roomcode].prompt = randomPrompt.promptCode;
+          rooms[data.roomcode].promptName = randomPrompt.promptName;
 
-          // Establish code name for room.
-          rooms[data.roomcode].promptName = promptController.registerRandomPrompt().promptName;
 
           // When room is made, assume creator joins.
           rooms[data.roomcode].numUsers = 1;
@@ -161,11 +161,10 @@ socketController.socketInit = function(io) {
           // Create player data set.
           privateRooms[data.roomcode].players = {};
 
-          // Establish code prompt for room.
-          privateRooms[data.roomcode].prompt = promptController.registerRandomPrompt().promptCode;
-
-          // Establish code name for room.
-          privateRooms[data.roomcode].promptName = promptController.registerRandomPrompt().promptName;
+          // Get random prompt for private room
+          var randomPrompt = promptController.registerRandomPrompt();
+          privateRooms[data.roomcode].prompt = randomPrompt.promptCode;
+          privateRooms[data.roomcode].promptName = randomPrompt.promptName;
 
           // When room is made, assume creator joins.
           privateRooms[data.roomcode].numUsers = 1;
@@ -179,8 +178,8 @@ socketController.socketInit = function(io) {
           console.log('PRIVATE: Room Data:', privateRooms[data.roomcode]);
           socket.join(data.roomcode);
           io.to(data.roomcode).emit('here is your prompt', {
-                                                             promptCode: rooms[data.roomcode].prompt,
-                                                             promptName: rooms[data.roomcode].promptName
+                                                             promptCode: privateRooms[data.roomcode].prompt,
+                                                             promptName: privateRooms[data.roomcode].promptName
                                                            });
           io.to(data.roomcode).emit('player joined', privateRooms[data.roomcode].players);
           console.log('PRIVATE: successfully joined game with user:', data.username);
