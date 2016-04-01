@@ -26,7 +26,7 @@ class CodeEditorMulti extends Component {
   componentDidMount() {
     this.editor = ace.edit('codeEditor');
     this.editor.setShowPrintMargin(false);
-    this.editor.setTheme("ace/theme/twilight");
+    this.editor.setTheme("ace/theme/tomorrow_night_bright");
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.getSession().setTabSize(2);
     this.editor.$blockScrolling = Infinity;

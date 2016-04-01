@@ -231,7 +231,7 @@ class Multiplayer extends Component {
 
 
     return (
-      <div>
+      <div className="footer">
         <MultiplayerInfo gameId={ this.props.params.gameId.charAt(0) === "P" ? ( "- Private ID:" + this.props.params.gameId.slice(1) ) : ( "- Public") } />
         <TimerMulti
           saveTimeElapsed={this.saveTimeElapsed.bind(this)}
@@ -255,7 +255,7 @@ class Multiplayer extends Component {
         <div className="col-sm-10 col-sm-offset-1 no-padding" id="allMiniViewsWrapper">
           <AllMiniViews />
         </div>
-
+        <div class="footer">footer</div>
       </div>
     )
   };
