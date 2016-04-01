@@ -39,9 +39,9 @@ class App extends Component {
               </RadiumLink>
 
               <ul role="nav" className="nav navbar-nav navbar-right">
-                <li><NavLink to="singleplayer/00-forLoop" className="nav-label" onlyActiveOnIndex>Singleplayer</NavLink></li>
-                <li><NavLink to="multiplayer" className="nav-label">Multiplayer</NavLink></li>
-                <li><NavLink to="about" className="nav-label">About</NavLink></li>
+                <li className="nav-item"><NavLink to="singleplayer/00-forLoop" className="nav-label" onlyActiveOnIndex>Singleplayer</NavLink></li>
+                <li className="nav-item"><NavLink to="multiplayer" className="nav-label">Multiplayer</NavLink></li>
+                <li className="nav-item"><NavLink to="about" className="nav-label">About</NavLink></li>
                 {
                   (helperFunctions.isLoggedIn() === false)
                   ?
