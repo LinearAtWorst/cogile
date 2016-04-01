@@ -7,4 +7,4 @@ function factorialRecursive(n) {
 }
 
 answer = factorialRecursive(5);
-console.log("Recursion Answer: " + answer);
+console.log('Recursive Answer: ' + answer);

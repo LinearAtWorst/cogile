@@ -19,13 +19,32 @@ class AllMiniViews extends Component {
   };
 
   renderMiniViews() {
+    if (this.props.multiplayerStatuses.store) {
+      var miniViewSize;
+      
+      switch(Object.keys(this.props.multiplayerStatuses.store).length) {
+        case 2:
+          miniViewSize = 'col-sm-12 no-padding';
+          break;
+        case 3:
+          miniViewSize = 'col-sm-6 no-padding';
+          break;
+        case 4:
+          miniViewSize = 'col-sm-4 no-padding';
+          break;
+        default:
+          miniViewSize = 'col-sm-4 no-padding';
+          break;
+      }
+    }
+
     return underscore.map(this.props.multiplayerStatuses.store, function(player, key) {
       if (this.isCurrentPlayer(key)) {
         return null;
       }
 
       return (
-        <div className="code-mini-view" key={key} >
+        <div className={miniViewSize} key={key} >
           <CodeMiniView playerKey={key} playerCode={player[2]}/>
         </div>
       );
@@ -34,7 +53,7 @@ class AllMiniViews extends Component {
 
   render() {
     return (
-      <div className="">
+      <div className="flex-container" id="mini-view-wrapper">
         { this.renderMiniViews() }
       </div>
     );

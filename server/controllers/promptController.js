@@ -86,7 +86,13 @@ handlers.getHighScore = function(req, res) {
 
 
 handlers.registerRandomPrompt = function(){
-  return fs.readFileSync(path.join(__dirname, '../library/prompts/' + /*req.data.language  ||*/  'js/' + /*req.data.prompt ||*/ getRandomJS() + '.js'), 'utf-8');
+  var randomJSFile = getRandomJS();
+  var code = fs.readFileSync(path.join(__dirname, '../library/prompts/' + /*req.data.language  ||*/  'js/' + /*req.data.prompt ||*/ randomJSFile + '.js'), 'utf-8');
+
+  return {
+    promptName: randomJSFile,
+    promptCode : code
+  }
 };
 
 handlers.random = function(req, res){

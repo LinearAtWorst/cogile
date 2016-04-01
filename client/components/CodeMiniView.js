@@ -12,8 +12,8 @@ class CodeMiniView extends Component {
     this.editor.setShowPrintMargin(false);
     this.editor.setOptions({
       fontSize: '6pt',
-      minLines: 12,
-      maxLines: 12,
+      minLines: 15,
+      maxLines: 15,
       dragEnabled: false
     });
     this.editor.setTheme("ace/theme/twilight");
@@ -44,11 +44,12 @@ class CodeMiniView extends Component {
   render() {
     const style = {fontSize: '6px !important', border: '3px solid #181818'};
 
-    return React.DOM.div({
-      id: this.props.playerKey,
-      style: style,
-      className: 'col-sm-4'
-    });
+    return (
+      <div className="no-padding">
+        <div id={this.props.playerKey} style={style}></div>
+        <p className="text-center">{this.props.playerKey}</p>
+      </div>
+    )
   }
 }
 
