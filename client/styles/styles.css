@@ -10,8 +10,10 @@ html, body {
   font-size: 29px;
   display: inline-flex;
   align-items: center;
-  height: 60px;
+  min-height: 50px; 
+  max-height: 60px;
   color: white;
+  margin: 5px;
 }
 
 @media (max-width: 768px) {
@@ -31,14 +33,21 @@ html, body {
   text-decoration: none;
 }
 
+.nav-item {
+  min-height: 50px;
+  max-height: 60px;
+}
+
 .nav-label {
   font-weight: 400;
   font-size: 20px;
+  border-bottom: 3px solid rgba(200, 200, 200, .0);
 }
 
 .nav-label:hover {
   cursor: pointer !important;
-  background-color: #00aa9a !important;
+  /*background-color: #00aa9a !important;*/
+  border-bottom: 3px solid #ffa25e;
 }
 
 .nav-label.active {
