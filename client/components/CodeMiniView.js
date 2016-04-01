@@ -45,7 +45,7 @@ class CodeMiniView extends Component {
     const style = {fontSize: '6px !important', border: '3px solid #181818'};
 
     return (
-      <div className="col-sm-4 no-padding">
+      <div className="no-padding">
         <div id={this.props.playerKey} style={style}></div>
         <p className="text-center">{this.props.playerKey}</p>
       </div>
