@@ -7,11 +7,18 @@ html, body {
     overflow-x: hidden;
 }
 .sitename {
-  font-size: 29px !important;
-  display: flex;
+  font-size: 29px;
+  display: inline-flex;
   align-items: center;
   height: 60px;
   color: white;
+}
+
+@media (max-width: 768px) {
+  .sitename {
+    height: 30px;
+    padding-top: 30px;
+  }
 }
 
 #code {
@@ -36,6 +43,13 @@ html, body {
 
 .nav-label.active {
   background-color: #00aa9a !important;
+}
+
+@media (max-width: 1199px) {
+  .navbar .navbar-nav>li>a {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 }
 
 .icon-container {
@@ -237,3 +251,5 @@ html, body {
 .flex-item {
   width: 33%;
 }
+
+
