@@ -4,8 +4,6 @@ A code type racing game to improve your speed and accuracy as a coder.  You can 
 
 Nimblecode was created by four software engineers in Los Angeles, CA. Currently looking for new opportunities.
 
-[Mark](https://github.com/marksanghoonkim "GitHub")    [Rick](https://github.com/rickyeh "GitHub")     [Nick](https://github.com/kiritsuzu "GitHub")    [Jordan](https://github.com/jordanallen98 "GitHub")
-
 ## Table of Contents
 - [Getting Started](#getting-started)
 - [Prerequisities](#prerequisities)
@@ -94,7 +92,7 @@ Deployment info will change bewteen your choice of platform to use.  We used a A
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details
 
 #Our Team
 
