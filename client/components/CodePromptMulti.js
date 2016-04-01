@@ -24,7 +24,7 @@ class CodePromptMulti extends Component {
       maxLines: 12,
       dragEnabled: false
     });
-    this.editor.setTheme("ace/theme/twilight");
+    this.editor.setTheme("ace/theme/tomorrow_night_bright");
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.setReadOnly(true);
     this.editor.$blockScrolling = Infinity;
