@@ -4,15 +4,18 @@ A code type racing game to improve your speed and accuracy as a coder.  You can 
 
 Nimblecode was created by four software engineers in Los Angeles, CA. Currently looking for new opportunities.
 
-[Mark](https://github.com/marksanghoonkim "GitHub") -
-[Rick](https://github.com/rickyeh "GitHub") -
-[Nick](https://github.com/kiritsuzu "GitHub") -
-[Jordan](https://github.com/jordanallen98 "GitHub")
+[Mark](https://github.com/marksanghoonkim "GitHub")    [Rick](https://github.com/rickyeh "GitHub")     [Nick](https://github.com/kiritsuzu "GitHub")    [Jordan](https://github.com/jordanallen98 "GitHub")
 
-## Directory
-##### [Getting Started](#getting-started)
-Prerequisities
-
+## Table of Contents
+- [Getting Started](#getting-started)
+- [Prerequisities](#prerequisities)
+- [Installing](#installing)
+- [Running the tests](#running-the-tests)
+- [Deployment](#deployment)
+- [Tech Stack](#tech-stack)
+- [License](#license)
+- [Our Team](#our-team)
+	
 ## Getting Started
 
 Here is a quick step by step to get started with our project
@@ -77,7 +80,7 @@ npm test
 
 Deployment info will change bewteen your choice of platform to use.  We used a AWS(Amazon Web Services) EC2 instance that hosted our server and Database on the same instance.  There is tutorials and info to do this on Amazon.
 
-## Built With
+## Tech Stack
 
 * MySQL
 * Node.js
