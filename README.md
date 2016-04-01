@@ -1,6 +1,17 @@
 # nimblecode
 
-Nimblecode was created by four software engineers at Makersquare, an immersive software engineering program in Los Angeles, CA. Are you looking to hire? Check out our Github pages.
+A code type racing game to improve your speed and accuracy as a coder.  You can race against the clock, other high score coders, or live muliplayer with your friends in a private game or in a random public game.
+
+Nimblecode was created by four software engineers in Los Angeles, CA. Currently looking for new opportunities.
+
+[Mark](https://github.com/marksanghoonkim "GitHub") -
+[Rick](https://github.com/rickyeh "GitHub") -
+[Nick](https://github.com/kiritsuzu "GitHub") -
+[Jordan](https://github.com/jordanallen98 "GitHub")
+
+## Directory
+##### [Getting Started](#getting-started)
+Prerequisities
 
 ## Getting Started
 
@@ -11,8 +22,8 @@ Here is a quick step by step to get started with our project
 
 Fork the repo and clone locally
 
-#### You must node installed and have a MySQL db to connect to
-The config file to connect to db is in server->db->config->config.js
+#### You must have node installed and have a MySQL db to connect to
+The config file to connect to db is in server -->db -->config -->config.js
 
 #####Example of config layout:
 ```
@@ -21,76 +32,59 @@ module.exports = {
     db_user: 'DB_USER',
     db_password: 'DB_PASSWORD',
     db_name: 'DB_NAME',
-    charset: 'utf8',
-    secret: 'DB_SECRET',
-    clientID: 'CLIENT_ID',
-    clientSecret: 'CLIENT SECRET'
+    charset: 'utf8'
   };
-
-
 ```
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
+clone repo where you would like
 
 ```
-Give the example
+git clone https://github.com/LinearAtWorst/nimblecode.git
 ```
-
-And repeat
-
+cd into directory
 ```
-until finished
+cd nimblecode
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
-
+run npm install
+```
+npm install
+```
+We often use nodemon to run node and it will relaunch node when changes are saved.
+To get nodemon 
+```
+npm install nodemon -g
+```
+get it started!
+```
+nodemon server/server.js
+```
+default port on the project is 8080 as compiance with AWS
+it should console.log 
+```
+listening at http://localhost:8080/
+```
 ## Running the tests
+We have a few tests for server side, please feel free to add more.
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
+Our config is setup to run the test easily with npm.
 ```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
+npm test
 ```
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Deployment info will change bewteen your choice of platform to use.  We used a AWS(Amazon Web Services) EC2 instance that hosted our server and Database on the same instance.  There is tutorials and info to do this on Amazon.
 
 ## Built With
 
-* Dropwizard - Bla bla bla
-* Maven - Maybe
-* Atom - ergaerga
-
-## Contributing
-
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* MySQL
+* Node.js
+* Bookshelf.js
+* knex.js
+* socket.io
+* React.js
 
 ## License
 
@@ -125,9 +119,3 @@ Objectively innovate empowered manufactured products whereas parallel platforms.
 #####About Role and Experience
 Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.  Why is this not being committed?
 
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
-* more
