@@ -24,42 +24,39 @@ class Login extends Component {
   };
 
   render() {
-    return(
+    return (
       <div className="container">
-      <div className="row">
-      <div className="col-md-6">
-      <h1 className="text-center">Login</h1>
-      <form className="form col-sm-6 col-sm-offset-3" onSubmit={this._onSubmit.bind(this)}>
-        <div className="form-group label-floating">
-        <label htmlFor="username" className="control-label">Username</label>
-          <input type="text" id="username" className="form-control" value={this.state.username} onChange={this._changeUsername.bind(this)} />
-        </div>
-        <div className="form-group label-floating">
-        <label htmlFor="password" className="control-label">Password</label>
-          <input id="password" type="password" className="form-control" value={this.state.password} onChange={this._changePassword.bind(this)} />
-        </div>
-        <center><div className="row">
-        <button className="btn btn-raised" type="submit">Login</button>
-        <br />
-        <div className="row text-center">{this.state.passwordFail ? (
-     <p className="failed-validation">Wrong password, fam.</p>
-        ) :
-        null  }
+        <div className="row">
+          <div className="col-sm-6">
+            <h1 className="text-center">Login</h1>
+            <form className="form col-sm-6 col-sm-offset-3" onSubmit={this._onSubmit.bind(this)}>
+              <div className="form-group label-floating">
+                <label htmlFor="username" className="control-label">Username</label>
+                <input type="text" id="username" className="form-control" value={this.state.username} onChange={this._changeUsername.bind(this)} />
+              </div>
 
-        {this.state.usernameFail ? (
-     <p className="failed-validation">Username doesn't exist. Please register an account with us.</p>
-        ) :
-        null  }
+              <div className="form-group label-floating">
+                <label htmlFor="password" className="control-label">Password</label>
+                <input id="password" type="password" className="form-control" value={this.state.password} onChange={this._changePassword.bind(this)} />
+              </div>
+
+              <center>
+                <div className="row">
+                  <button className="btn btn-raised" type="submit">Login</button>
+                  <br />
+                  <div className="row text-center">{this.state.passwordFail ? ( <p className="failed-validation">Wrong password, fam.</p> ) : null }
+                    {this.state.usernameFail ? ( <p className="failed-validation">Username doesn't exist. Please register an account with us.</p> ) : null }
+                  </div>
+                  {/*<p className="lead">OR</p>
+                  <a className="btn btn-raised"><span className="fa fa-github fa-3x"></span> Login with Github</a>*/}
+                </div>
+              </center>
+            </form>
+          </div>
+          <center>
+            <Register />
+          </center>
         </div>
-        {/*<p className="lead">OR</p>
-        <a className="btn btn-raised"><span className="fa fa-github fa-3x"></span> Login with Github</a>*/}
-        </div></center>
-      </form>
-      </div>
-      <center>
-      <Register />
-      </center>
-      </div>
       </div>
     );
   }

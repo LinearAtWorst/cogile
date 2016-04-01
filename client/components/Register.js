@@ -23,7 +23,7 @@ class Register extends Component {
 
   render() {
     return(
-    <div className="col-md-6">
+    <div className="col-sm-6">
       <h1 className="about-title">Register Account</h1>
       <form className="form col-sm-6 col-sm-offset-3" onSubmit={this._onSubmit.bind(this)}>
         <div className="form-group label-floating">
@@ -35,7 +35,7 @@ class Register extends Component {
           <input id="password" type="password" className="form-control" value={this.state.password} onChange={this._changePassword.bind(this)} />
         </div>
         <center>
-        <button className="btn btn-raised" type="submit">Login</button>
+        <button className="btn btn-raised" type="submit">Sign Up</button>
         <br />
         <div className="row text-center"> {this.state.usernameExists ? (
           <p className="failed-validation">Username is taken already! Please use a different one.</p>
