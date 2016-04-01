@@ -255,7 +255,7 @@ class Multiplayer extends Component {
         <div className="col-sm-10 col-sm-offset-1 no-padding" id="allMiniViewsWrapper">
           <AllMiniViews />
         </div>
-        <div class="footer">footer</div>
+        <div class="footer"></div>
       </div>
     )
   };

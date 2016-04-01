@@ -220,7 +220,7 @@ class Singleplayer extends Component {
           <ProgressBar percentComplete={this.state.progress} color="#009686" text="You"/>
           <ProgressBar percentComplete={this.state.ghostProgress} color="#ffa25e" text={recordName} />
         </div>
-        <div className="footer">footer</div>
+        <div className="footer"></div>
       </div>
     )
   };
