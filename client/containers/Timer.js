@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CountdownTimer from './CountdownTimer';
 import StartButton from './StartButton';
-import { leavePage } from '../actions/index';
+import { leavePage, updateElapsedTime } from '../actions/index';
 
 class Timer extends Component {
   constructor(props) {
@@ -38,29 +38,52 @@ class Timer extends Component {
         seconds = 0;
       }
 
+      var totalTimeInSeconds = ((minutes * 60) + seconds + (tenthSeconds / 10)).toFixed(1);
+
       this.setState({
         tenthSeconds : tenthSeconds,
         seconds : seconds,
         minutes: minutes,
-        message: minutes + ':' + seconds + '.' + tenthSeconds
+        message: totalTimeInSeconds + ' seconds'
       });
     }.bind(this), 100);
   } 
 
   componentDidUpdate() {
-    // On game end, stop timer and send time elapsed to Singleplayer
-    if (this.props.singleGame === 'END_GAME') {
-      clearInterval(this.intervalID);
+    // On game reset
+    if (!this.props.singleGame) {
+      if (this.state.minutes || this.state.seconds || this.state.tenthSeconds) {
+        this.setState({
+          minutes: 0,
+          seconds: 0,
+          tenthSeconds: 0,
+          message: '0.0',
+          timerOn: false
+        });
+      }
+    }
 
-      this.props.saveTimeElapsed(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
+    // On game end, stop timer and send time elapsed to Singleplayer
+    if (this.props.singleGame === 'ENDED_GAME' && this.state.timerOn) {
+      clearInterval(this.intervalID);
+      this.setState({timerOn : false});
+      // this.props.saveTimeElapsed(this.state.tenthSeconds, this.state.seconds, this.state.minutes);
+      var time = {
+        tenthSeconds: this.state.tenthSeconds,
+        seconds: this.state.seconds,
+        minutes: this.state.minutes
+      }
+      this.props.updateElapsedTime(time);
+
     }
     // On game start, start if not already running
-    if (this.props.singleGame === 'START_GAME' && !this.state.timerOn) {
+    if (this.props.singleGame === 'STARTED_GAME' && !this.state.timerOn) {
       this.startTimer();
     }
   }
 
   componentWillUnmount() {
+    clearInterval(this.intervalID);
     this.props.leavePage();
   }
   
@@ -68,7 +91,7 @@ class Timer extends Component {
     return (
       <div className="container">
         <div className="row">
-          <h2 className="text-center">{this.state.message}</h2>
+          <h2 className="text-center no-top-margin">{this.state.message}</h2>
         </div>
         <StartButton />
         <CountdownTimer />
@@ -84,7 +107,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ leavePage: leavePage }, dispatch);
+  return bindActionCreators({ leavePage: leavePage, updateElapsedTime: updateElapsedTime }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);

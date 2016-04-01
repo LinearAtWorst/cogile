@@ -1,4 +1,4 @@
-var config = require('../../../config.js');
+var config = require('./config/config.js');
 
 console.log(config);
 
@@ -38,6 +38,20 @@ db.knex.schema.hasTable('prompts')
       user.string('language', 100);
       user.string('name', 100);
       user.string('code', 100); 
+    }).then(function(table) {
+      console.log('Created Table', table);
+    });
+  }
+});
+
+db.knex.schema.hasTable('highscores')
+.then(function(exists) {
+  if (!exists) {
+    knex.schema.createTable('highscores', function(user) {
+      user.increments('id').primary();
+      user.string('puzzleName', 30);
+      user.string('username', 100);
+      user.string('recording', 30000);
     }).then(function(table) {
       console.log('Created Table', table);
     });

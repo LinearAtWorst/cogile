@@ -3,32 +3,32 @@ import AboutProfile from './AboutProfile.js';
 
 var team = [{
   key: 1,
-  name: "Nicholas Der",
-  bio: "Placeholder Bio",
-  image: "../assets/nick-profile.jpeg",
-  git: "https://github.com/kiritsuzu",
-  linked: "https://www.linkedin.com/in/kiritsuzu"
+  name: "Mark Kim",
+  bio: "Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.",
+  image: "../assets/mark-profile.jpg",
+  git: "https://github.com/marksanghoonkim",
+  linked: "https://www.linkedin.com/in/marksanghoonkim"
 }, {
   key: 2,
   name: "Rick Yeh",
-  bio: "Placeholder Bio",
-  image: "../assets/rick-profile.jpeg",
+  bio: "Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.",
+  image: "../assets/rick-profile.jpg",
   git: "https://github.com/rickyeh",
   linked: "https://www.linkedin.com/in/rickyeh"
 }, {
   key: 3,
   name: "Jordan Allen",
-  bio: "Placeholder Bio",
-  image: "../assets/jordan-profile.jpeg",
+  bio: "Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.",
+  image: "../assets/jordan-profile.jpg",
   git: "https://github.com/jordanallen98",
   linked: "https://www.linkedin.com/in/jordandallen"
 }, {
   key: 4,
-  name: "Mark Kim",
-  bio: "Placeholder Bio",
-  image: "../assets/mark-profile.jpeg",
-  git: "https://github.com/marksanghoonkim",
-  linked: "https://www.linkedin.com/in/marksanghoonkim"
+  name: "Nicholas Der",
+  bio: "Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions.",
+  image: "../assets/nick-profile.jpg",
+  git: "https://github.com/kiritsuzu",
+  linked: "https://www.linkedin.com/in/kiritsuzu"
 }];
 
 class About extends Component {
@@ -39,9 +39,10 @@ class About extends Component {
 
     return (
       <div className="container">
-        <h1 className="about-title">Meet The Team</h1>
+        <h2 className="text-center no-top-margin">Meet The Team</h2>
+        <h4 className="text-center"><a href="http://github.com/linearatworst/nimblecode"><i className="text-center fa fa-github-square fa-2x about-icon"></i></a> nimblecode repo</h4>
         <div className="row row-spacer"></div>
-        <div className="row">
+        <div className="">
         {Profiles}
         </div>
       </div>

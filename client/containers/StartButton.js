@@ -9,7 +9,7 @@ class StartButton extends Component {
 
     this.state = {
       text: 'Start!',
-      buttonType: 'btn btn-primary btn-lg center-block',
+      buttonType: 'btn btn-raised btn-primary',
       buttonDisabled: false,
       handleMultiCalled: false
     }
@@ -17,14 +17,28 @@ class StartButton extends Component {
 
   handleClick() {
     console.log('L26: StartButton.js : handleClick');
-    
-    this.props.startCountdown();
 
-    this.setState({
-      text: 'Go!',
-      buttonType: 'btn btn-success btn-lg center-block',
-      buttonDisabled: true
-    });
+    if (!this.state.buttonDisabled) {
+      this.props.startCountdown();
+
+      this.setState({
+        text: 'Go!',
+        buttonType: 'btn btn-raised btn-success',
+        buttonDisabled: true
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    // Reset the button if level changes
+    if (!this.props.singleGame && this.state.buttonDisabled && this.props.countingDown !== 'START_COUNTDOWN') {
+      this.setState({
+        text: 'Start!',
+        buttonType: 'btn btn-raised btn-primary',
+        buttonDisabled: false,
+        handleMultiCalled: false
+      });
+    }
   }
 
   render() {
@@ -33,9 +47,9 @@ class StartButton extends Component {
     }
 
     return (
-      <div className="row" id="start-btn-container">
+      <div className="row no-height text-center" id="start-btn-container">
         <button
-          disabled={this.state.buttonDisabled}
+          id="start-btn"
           type="button"
           onClick={this.handleClick.bind(this)}
           className={this.state.buttonType}>
@@ -48,6 +62,7 @@ class StartButton extends Component {
 
 function mapStateToProps(state) {
   return {
+    singleGame: state.singleGame,
     countingDown: state.countingDown
   }
 }

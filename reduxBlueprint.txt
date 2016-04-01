@@ -5,9 +5,9 @@ Store = {
 
 Actions:
   startGame :
-    type: 'START_GAME'
+    type: 'STARTED_GAME'
   endGame: 
-    type: 'END_GAME'
+    type: 'ENDED_GAME'
   startCountdown:
     type:'START_COUNTDOWN'
 
@@ -17,7 +17,7 @@ Reducers:
 
 App
   About
-  Home (Container: 
+  Singleplayer 
     Timer
       StartButton
       CountdownTimer
@@ -25,11 +25,11 @@ App
     CodeEditor
     CodePrompt (Component)
     ProgressBar
-  Multiplayer
-    Timer
-      StartButton
-      CountdownTimer
+  Multiplayer (C)
+    TimerMulti (C)
+      StartButton (C)
+      CountdownTimer (C)
         ReactCountdownClock
-    CodeEditor
-    CodePrompt
-    ProgressBar
+    CodeEditorMulti (C)
+    CodePromptMulti
+    ProgressBarMulti (C)

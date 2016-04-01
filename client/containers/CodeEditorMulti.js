@@ -32,9 +32,9 @@ class CodeEditorMulti extends Component {
     this.editor.$blockScrolling = Infinity;
 
     this.editor.setOptions({
-      fontSize: '12pt',
-      minLines: 15,
-      maxLines: 15,
+      fontSize: '11pt',
+      minLines: 12,
+      maxLines: 12,
       enableBasicAutocompletion: true,
       enableSnippets: false,
       enableLiveAutocompletion: false
@@ -50,15 +50,13 @@ class CodeEditorMulti extends Component {
     // should lock CodeEditor to read-only until timer begins
     this.editor.setReadOnly(true);
 
+    // this code will be run everytime something is typed in the code editor
     this.editor.getSession().on("change", function() {
       var code = this.editor.getSession().getValue();
       var miniCode = code.replace(/\s/g,'');
 
       // sending player code to socket
-      this.props.updateAllProgress(code);
-
-      // sending minified code to progressBar display
-      this.props.calculateProgress(miniCode);
+      this.props.sendProgressToSockets(code, this.props.savedGame);
 
       if (miniCode === this.props.minifiedPuzzle) {
         // calling endGame action
@@ -68,27 +66,31 @@ class CodeEditorMulti extends Component {
       }
     }.bind(this));
 
-    // prevents copy pasting the whole thing
+    // prevents pasting
     this.editor.on("paste", function(e) {
-      if (e.text === this.props.puzzle) {
-        var shuffled = e.text.split('').sort(function(){return 0.5-Math.random()}).join('');
-        e.text = "Nice try, here's your copied text :P\n" + shuffled;
-      }
+      e.text = "";
     }.bind(this));
   };
 
   componentDidUpdate() {
     // once game starts
-    if (this.props.multiGame === 'START_GAME') {
+    if (this.props.multiGameState === 'STARTED_GAME') {
       // focus goes to CodeEditor and read-only disabled
       this.editor.setReadOnly(false);
       this.editor.focus();
     }
+
+    // if END_GAME action is called
+    if (this.props.multiGameState === 'ENDED_GAME') {
+      console.log('inside CodeEditorMulti componentDidUpdate, game has ended');
+      // lock codeEditor to read-only
+      this.editor.setReadOnly(true);
+    }
   };
 
   render() {
-    const style = {fontSize: '14px !important', border: '1px solid lightgray'};
-    
+    const style = {fontSize: '12px !important', border: '5px solid #181818'};
+
     return React.DOM.div({
       id: 'codeEditor',
       style: style,
@@ -99,7 +101,8 @@ class CodeEditorMulti extends Component {
 
 function mapStateToProps(state) {
   return {
-    multiGame: state.multiGame
+    multiGameState: state.multiGameState,
+    savedGame: state.savedGame
   }
 };
 

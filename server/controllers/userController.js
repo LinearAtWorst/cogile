@@ -2,7 +2,7 @@ var User = require('../models/userModel.js');
 var Users = require('../collections/userCollection.js');
 var jwt = require('jwt-simple');
 var bcrypt = require('bcrypt-nodejs');
-var config = require('../../../config.js');
+var config = require('../db/config/config.js');
 
 // token secret
 if (process.env.secret) {
@@ -23,15 +23,22 @@ module.exports = {
     new User({ username: username }).fetch()
     .then(function(found) {
       if(found) {
+        // console.log(found);
         bcrypt.compare(password, found.get('password'), function(err, result) {
           if(result) {
+            console.log("HELLO!", result);
             var token = jwt.encode({username: username}, secret);
             validObj.token = token;
             validObj.isValid = true;
+            validObj.username = username;
+            res.send(validObj);
+          } else {
+            validObj.passwordFailed = true;
             res.send(validObj);
           }
         });
       } else {
+        validObj.usernameFailed = true;
         res.send(validObj);
       }
     });
@@ -46,6 +53,7 @@ module.exports = {
     new User({username: username}).fetch()
       .then(function(found) {
         if(found) {
+          validObj.usernameExists = true;
           res.send(validObj);
         } else {
           bcrypt.genSalt(10, function(err, salt) {

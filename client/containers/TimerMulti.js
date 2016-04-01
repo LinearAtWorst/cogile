@@ -39,6 +39,8 @@ class TimerMulti extends Component {
         seconds = 0;
       }
 
+      var totalTimeInSeconds = ((minutes * 60) + seconds + (tenthSeconds / 10)).toFixed(1);
+
       var time = {
         tenthSeconds: tenthSeconds,
         seconds: seconds,
@@ -52,7 +54,7 @@ class TimerMulti extends Component {
         tenthSeconds : tenthSeconds,
         seconds : seconds,
         minutes: minutes,
-        message: minutes + ':' + seconds + '.' + tenthSeconds
+        message: totalTimeInSeconds + ' seconds'
       });
     }.bind(this), 100);
   };
@@ -64,12 +66,18 @@ class TimerMulti extends Component {
     }
 
     // On game start, start if not already running
-    if (this.props.multiGame === 'START_GAME' && !this.state.timerOn) {
+    if (this.props.multiGameState === 'STARTED_GAME' && !this.state.timerOn) {
       this.startTimer();
+    }
+
+    // if someone leaves page, stop the timer
+    if (this.props.multiGameState === null) {
+      clearInterval(this.intervalID);
     }
   };
 
   componentWillUnmount() {
+    clearInterval(this.intervalID);
     this.props.leavePage();
   };
   
@@ -88,7 +96,7 @@ class TimerMulti extends Component {
 
 function mapStateToProps(state) {
   return {
-    multiGame: state.multiGame,
+    multiGameState: state.multiGameState,
     multiTimer: state.multiTimer
   }
 }
