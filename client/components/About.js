@@ -40,8 +40,9 @@ class About extends Component {
     return (
       <div className="container">
         <h2 className="text-center no-top-margin">Meet The Team</h2>
+        <h4 className="text-center"><a href="http://github.com/linearatworst/nimblecode"><i className="text-center fa fa-github-square fa-2x about-icon"></i></a> nimblecode repo</h4>
         <div className="row row-spacer"></div>
-        <div className="row">
+        <div className="">
         {Profiles}
         </div>
       </div>

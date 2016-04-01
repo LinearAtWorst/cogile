@@ -8,7 +8,9 @@ import ProgressBarMulti from './ProgressBarMulti';
 import { connect } from 'react-redux';
 import { startGame, endGame, stopTimer, storeGameId, syncMultiplayerStatuses, startCountdown, getUsername, leavePage } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import LevelDisplay from '../components/LevelDisplay';
 import underscore from 'underscore';
+import AllMiniViews from './AllMiniViews';
 
 class Multiplayer extends Component {
 
@@ -20,6 +22,7 @@ class Multiplayer extends Component {
     super();
 
     this.state = {
+      puzzleName: 'LOADING...',
       currentPuzzle: 'N/A',
       minifiedPuzzle: 'N/A'
     };
@@ -47,11 +50,14 @@ class Multiplayer extends Component {
 
     // listen
     this.socket.on('here is your prompt', function(prompt) {
-      var minifiedPuzzle = prompt.replace(/\s/g,'');
+      var promptCode = prompt.promptCode;
+      var promptName = prompt.promptName;
+      var minifiedPuzzle = promptCode.replace(/\s/g,'');
 
       this.setState({
-        currentPuzzle: prompt,
-        minifiedPuzzle: minifiedPuzzle
+        currentPuzzle: promptCode,
+        minifiedPuzzle: minifiedPuzzle,
+        puzzleName: promptName
       });
 
     }.bind(this));
@@ -125,8 +131,14 @@ class Multiplayer extends Component {
       return b[0] - a[0];
     });
 
-    // if there are only two players
-    if (finalTimes.length === 2) {
+    // if playing multiplayer alone
+    if (finalTimes.length === 1) {
+      title = "Nice! You've won!";
+      html  = '<div>'
+            + '<p> <b>1st Place:</b> You (' + yourTime + ' seconds)</p><br>'
+            + '</div>';
+    } else if (finalTimes.length === 2) {
+      // if there are only two players
       if (this.username === winner) {
         title = "Nice! You've won!";
         html  = '<div>'
@@ -162,28 +174,28 @@ class Multiplayer extends Component {
       title: title,
       html: html,
       showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Take me home',
-        cancelButtonText: 'Create/Join a new game',
-        confirmButtonClass: 'btn  btn-raised btn-success',
-        cancelButtonClass: 'btn btn-raised btn-info',
-        buttonsStyling: false,
-        closeOnConfirm: true,
-        closeOnCancel: true
-      }, function(isConfirm) {
-        if (isConfirm === true) {
-          console.log('user has clicked take me home');
-          this.context.router.push('/');
-        } else if (isConfirm === false) {
-          console.log('user wants to create/join new game');
-          this.context.router.push('multiplayer');
-        } else {
-          console.log('user has clicked outside, should send multiplayer');
-          // TODO: have some message that says, sending to multiplayer
-          this.context.router.push('multiplayer');
-        }
-      }.bind(this));
+      confirmButtonText: 'Take me home',
+      cancelButtonText: 'Create/Join a new game',
+      confirmButtonClass: 'teal-btn btn',
+      cancelButtonClass: 'oj-btn btn',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      buttonsStyling: false,
+      closeOnConfirm: true,
+      closeOnCancel: true
+    }, function(isConfirm) {
+      if (isConfirm === true) {
+        console.log('user has clicked take me home');
+        this.context.router.push('/');
+      } else if (isConfirm === false) {
+        console.log('user wants to create/join new game');
+        this.context.router.push('multiplayer');
+      } else {
+        console.log('user has clicked outside, should send multiplayer');
+        // TODO: have some message that says, sending to multiplayer
+        this.context.router.push('multiplayer');
+      }
+    }.bind(this));
   };
 
   calculatePercent(playerCode) {
@@ -208,17 +220,24 @@ class Multiplayer extends Component {
   };
 
   render() {
+    var privateRoomMsg = "Your friends can enter the room ID above to join this room. When you're all ready, click the start button to begin the countdown! Let it rip!";
+    var publicRoomMsg = "This is a public random room. Wait for other players to join then click the start button to begin the countdown."
+
+    if (this.props.params.gameId.charAt(0) === 'P') {
+      var welcomeMsg = privateRoomMsg;
+    } else {
+      var welcomeMsg = publicRoomMsg;
+    }
+
+
     return (
-      <div>
+      <div className="footer">
         <MultiplayerInfo gameId={ this.props.params.gameId.charAt(0) === "P" ? ( "- Private ID:" + this.props.params.gameId.slice(1) ) : ( "- Public") } />
         <TimerMulti
           saveTimeElapsed={this.saveTimeElapsed.bind(this)}
           socket={this.socket} />
-           { this.props.params.gameId.charAt(0) === "P" ?
-          ( <p className="text-center">Welcome to Multiplayer Mode! Your friends can enter the room ID above to join this room. When you're all ready, click the start button to begin the countdown! Let it rip! </p> )
-           :
-          ( <p className="text-center">Welcome to Multiplayer Mode! You've just entered a random room. Wait for other players to join then click the start button to begin the countdown!</p> )
-          }
+        <LevelDisplay currentLevel={this.state.puzzleName} />
+        <div className="col-sm-10 col-sm-offset-1 no-padding text-center"> {welcomeMsg} </div>
         <div className="col-sm-10 col-sm-offset-1 no-padding">
           <div className="col-sm-6"><h5><b>Copy this...</b></h5></div>
           <div className="col-sm-6"><h5><b>Type here...</b></h5></div>
@@ -233,6 +252,10 @@ class Multiplayer extends Component {
           <ProgressBarMulti socket={this.socket} />
         </div>
 
+        <div className="col-sm-10 col-sm-offset-1 no-padding" id="allMiniViewsWrapper">
+          <AllMiniViews />
+        </div>
+        <div class="footer"></div>
       </div>
     )
   };
@@ -244,7 +267,7 @@ function mapStateToProps(state) {
     gameTime: state.gameTime,
     savedGame: state.savedGame,
     multiplayerStatuses: state.multiplayerStatuses,
-    SavedUsername: state.SavedUsername
+    SavedUsername: state.SavedUsername,
   }
 };
 

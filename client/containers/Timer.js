@@ -57,7 +57,7 @@ class Timer extends Component {
           minutes: 0,
           seconds: 0,
           tenthSeconds: 0,
-          message: '0.00',
+          message: '0.0',
           timerOn: false
         });
       }

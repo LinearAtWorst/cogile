@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { changeLevel, getListOfPrompts } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
+import LevelDisplay from '../components/LevelDisplay';
 import LevelSelect from './LevelSelect';
 import { browserHistory } from 'react-router';
 
@@ -17,8 +18,8 @@ class Singleplayer extends Component {
     super(props);
 
     this.state = {
-      puzzleName: 'N/A',
-      currentPuzzle: 'N/A',
+      puzzleName: '00-forloop',
+      currentPuzzle: 'Error loading puzzle.  Please refresh or rejoin the game.',
       minifiedPuzzle: 'N/A',
       gameFinished: false,
       progress: 0,
@@ -155,20 +156,22 @@ class Singleplayer extends Component {
     swal({
         title: title,
         html: html,
-        type: 'success',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Onward!',
-        cancelButtonText: 'Retry',
-        confirmButtonClass: 'btn  btn-raised btn-success',
-        cancelButtonClass: 'btn btn-raised btn-info',
+        confirmButtonText: 'Retry',
+        cancelButtonText: 'Onward!',
+        confirmButtonClass: 'teal-btn btn',
+        cancelButtonClass: 'oj-btn btn',
         buttonsStyling: false,
         closeOnConfirm: true,
         closeOnCancel: true
       },
       function(isConfirm) {
         if (isConfirm === true) {
+          location.reload();
+          console.log('Confirm false, currentlevel', this.props.currentLevel);
+          this.props.changeLevel({'currentLevel': null});
+          this.props.changeLevel({'currentLevel': this.props.currentLevel.currentLevel});
+        } else if (isConfirm === false) {
           // Find index of current level
           let indexOfCurrLevel = this.props.listOfPrompts.prompts.indexOf(this.props.currentLevel.currentLevel);
           // Advance to next level
@@ -179,12 +182,6 @@ class Singleplayer extends Component {
             browserHistory.push('/#/singleplayer/' + this.props.listOfPrompts.prompts[indexOfCurrLevel]);
             location.reload();
           }
-
-        } else if (isConfirm === false) {
-          location.reload();
-          console.log('Confirm false, currentlevel', this.props.currentLevel);
-          this.props.changeLevel({'currentLevel': null});
-          this.props.changeLevel({'currentLevel': this.props.currentLevel.currentLevel});
         } else {
           // outside click, isConfirm is undefinded
         }
@@ -201,6 +198,7 @@ class Singleplayer extends Component {
     return (
       <div>
         <Timer />
+        <LevelDisplay currentLevel={this.state.puzzleName} />
         <LevelSelect />
 
         <div className="col-sm-10 col-sm-offset-1"><h5><b>Copy this...</b></h5></div>
@@ -222,6 +220,7 @@ class Singleplayer extends Component {
           <ProgressBar percentComplete={this.state.progress} color="#009686" text="You"/>
           <ProgressBar percentComplete={this.state.ghostProgress} color="#ffa25e" text={recordName} />
         </div>
+        <div className="footer"></div>
       </div>
     )
   };

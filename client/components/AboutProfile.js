@@ -9,8 +9,8 @@ class AboutProfile extends Component {
         </div>
         <h6 className="about-bio">{this.props.bio}</h6>
         <div className="row icon-container">
-          <a href={this.props.git} target="_blank"><i className="fa fa-github-square fa-4x about-icon"></i></a>
-          <a href={this.props.linked} target="_blank"><i className="fa fa-linkedin-square fa-4x about-icon"></i></a>
+          <a href={this.props.git} target="_blank"><i className="fa fa-github-square fa-2x about-icon"></i></a>
+          <a href={this.props.linked} target="_blank"><i className="fa fa-linkedin-square fa-2x about-icon"></i></a>
         </div>
       </div>
     );

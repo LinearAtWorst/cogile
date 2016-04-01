@@ -1,35 +1,26 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class CodePromptMulti extends Component {
+class CodeMiniView extends Component {
   constructor(props) {
     super(props);
   }
 
-  static propTypes = {
-    mode: PropTypes.string
-  };
-
-  static defaultProps = {
-    mode: 'javascript',
-    puzzle: 'Error'
-  };
-
   componentDidMount() {
-    this.editor = ace.edit('codePrompt');
+    console.log('this key is: ', this.props.playerKey);
+    this.editor = ace.edit(this.props.playerKey);
     this.editor.setShowPrintMargin(false);
     this.editor.setOptions({
-      fontSize: '11pt',
-      minLines: 12,
-      maxLines: 12,
+      fontSize: '6pt',
+      minLines: 15,
+      maxLines: 15,
       dragEnabled: false
     });
-    this.editor.setTheme("ace/theme/tomorrow_night_bright");
+    this.editor.setTheme("ace/theme/tomorrow_night");
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.setReadOnly(true);
     this.editor.$blockScrolling = Infinity;
     
-
     // Disables Selection of Text to Prevent Copy/Paste
     // Comment out for development purposes
     this.editor.on('changeSelection', function(e) {
@@ -47,19 +38,19 @@ class CodePromptMulti extends Component {
   }
 
   componentDidUpdate() {
-    this.editor.setValue(this.props.puzzle);
-    this.editor.clearSelection();
+    this.editor.setValue(this.props.playerCode);
   }
 
   render() {
-    const style = {fontSize: '12px !important', border: '5px solid #181818'};
+    const style = {fontSize: '6px !important', border: '3px solid #181818'};
 
-    return React.DOM.div({
-      id: 'codePrompt',
-      style: style,
-      className: 'col-md-6'
-    });
+    return (
+      <div className="no-padding">
+        <div id={this.props.playerKey} style={style}></div>
+        <p className="text-center">{this.props.playerKey}</p>
+      </div>
+    )
   }
 }
 
-export default CodePromptMulti;
+export default CodeMiniView;

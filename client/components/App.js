@@ -32,15 +32,16 @@ class App extends Component {
             <div className="navbar-collapse navbar-responsive-collapse collapse in" aria-expanded="true">
 
               <RadiumLink
-              to="/"
-              onlyActiveOnIndex
-              className="sitename pull-left"
-              style={styles.base}>nimble<span id="code">code</span></RadiumLink>
+                to="/"
+                onlyActiveOnIndex
+                className="sitename"
+                style={styles.base}>nimble<span id="code">code</span>
+              </RadiumLink>
 
               <ul role="nav" className="nav navbar-nav navbar-right">
-                <li><NavLink to="singleplayer/00-forLoop" className="nav-label" onlyActiveOnIndex>Singleplayer</NavLink></li>
-                <li><NavLink to="multiplayer" className="nav-label">Multiplayer</NavLink></li>
-                <li><NavLink to="about" className="nav-label">About</NavLink></li>
+                <li className="nav-item"><NavLink to="singleplayer/00-forLoop" className="nav-label" onlyActiveOnIndex>Singleplayer</NavLink></li>
+                <li className="nav-item"><NavLink to="multiplayer" className="nav-label">Multiplayer</NavLink></li>
+                <li className="nav-item"><NavLink to="about" className="nav-label">About</NavLink></li>
                 {
                   (helperFunctions.isLoggedIn() === false)
                   ?
