@@ -20,6 +20,7 @@ class CodeMiniView extends Component {
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.setReadOnly(true);
     this.editor.$blockScrolling = Infinity;
+    this.editor.setHighlightActiveLine(false);
     
     // Disables Selection of Text to Prevent Copy/Paste
     // Comment out for development purposes
