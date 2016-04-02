@@ -10,7 +10,7 @@ export function startGame() {
 export function endGame() {
   return {
     type: 'ENDED_GAME',
-    payload: 'ENDExD_GAME'
+    payload: 'ENDED_GAME'
   }
 }
 
