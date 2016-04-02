@@ -151,7 +151,7 @@ socketController.socketInit = function(io) {
           console.log('PRIVATE: Creating room:', data.roomcode);
           privateRooms[data.roomcode] = {
             gameStarted: false,
-            colors: ['F44336', '4CAF50', '2196F3', 'FFEB3B', 'FFB300', 'AB47BC', '009688', '9E9E9E']
+            colors: ['2C837A', '38568C', 'D3A247', 'D38247', '489890', '5571A3', 'F5C773', 'F5AA73']
           };
 
           // Randomizing color array.
