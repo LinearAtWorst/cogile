@@ -18,7 +18,7 @@ var team = [{
 }, {
   key: 3,
   name: "Jordan Allen",
-  bio: "Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI.",
+  bio: "I owned my own business at 21, self taught(mostly) guitarist, owned and worked on a couple project cars(0 - 60 around 4 seconds), I have loved traveling around a few different parts of the world.",
   image: "../assets/jordan-profile.jpg",
   git: "https://github.com/jordanallen98",
   linked: "https://www.linkedin.com/in/jordandallen"
