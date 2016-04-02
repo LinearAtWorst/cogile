@@ -4,10 +4,11 @@ import AboutProfile from './AboutProfile.js';
 var team = [{
   key: 1,
   name: "Mark Kim",
-  bio: "Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas. Dynamically innovate resource-leveling customer service for state of the art customer service.",
+  bio: "Mark is a software engineer interested in using software to build useful products. He strongly believes that empathy is key. It is key in designing good products, in working well as a member of a team, and in growing as a developer, a leader, and as a person.",
   image: "../assets/mark-profile.jpg",
   git: "https://github.com/marksanghoonkim",
-  linked: "https://www.linkedin.com/in/marksanghoonkim"
+  linked: "https://www.linkedin.com/in/marksanghoonkim",
+  twitter: "https://twitter.com/marksanghoonkim"
 }, {
   key: 2,
   name: "Rick Yeh",
@@ -18,7 +19,7 @@ var team = [{
 }, {
   key: 3,
   name: "Jordan Allen",
-  bio: "Jordan is a Software Engineer who owned his own business at 21, is a avid, self taught(mostly), guitarist, and also has owned and worked on a couple project cars(0 - 60 around 4 seconds). He loves traveling around the world every chance he gets.",
+  bio: "Jordan is a software engineer who owned his own business at 21, is a avid, self-taught(mostly) guitarist, and also has owned and worked on a couple project cars(0 - 60 around 4 seconds). He loves traveling around the world every chance he gets.",
   image: "../assets/jordan-profile.jpg",
   git: "https://github.com/jordanallen98",
   linked: "https://www.linkedin.com/in/jordandallen"
