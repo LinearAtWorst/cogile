@@ -14,7 +14,7 @@ class LevelSelect extends Component {
 
   componentWillUpdate() {
     if (this.props.listOfPrompts) {
-      this.levels = this.props.listOfPrompts.prompts;
+      this.levels = this.props.listOfPrompts.prompts.prompts;
     }
   }
 
@@ -26,6 +26,10 @@ class LevelSelect extends Component {
           this.props.leavePage();
         }.bind(this));
       }
+    } else { // Call set timeout to re-render component after 500ms if no data yet to fix bug
+      setTimeout(function() {
+        this.setState({loading: true});
+      }.bind(this), 500);
     }
   }
 
