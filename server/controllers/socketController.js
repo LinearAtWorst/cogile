@@ -101,7 +101,6 @@ socketController.socketInit = function(io) {
           rooms[data.roomcode].prompt = randomPrompt.promptCode;
           rooms[data.roomcode].promptName = randomPrompt.promptName;
 
-
           // When room is made, assume creator joins.
           rooms[data.roomcode].numUsers = 1;
 
