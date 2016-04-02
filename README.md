@@ -120,6 +120,10 @@ Objectively innovate empowered manufactured products whereas parallel platforms.
 ##Jordan
 ####Back-end aficionado
 <img src="./client/assets/jordan-profile.jpg" width="200" height="200" />
-#####About Role and Experience
+######Contribution
+Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.  Why is this not being committed?
+######Challenges
+Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.  Why is this not being committed?
+######Goals
 Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.  Why is this not being committed?
 
