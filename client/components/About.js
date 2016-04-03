@@ -12,7 +12,7 @@ var team = [{
 }, {
   key: 2,
   name: "Rick Yeh",
-  bio: "Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.",
+  bio: "Rick loves travelling the world and eating awesome food everywhere he goes.  When he's not being an amateur foodie, his goal in life is to become a React ninja, whipping up components like no other.",
   image: "../assets/rick-profile.jpg",
   git: "https://github.com/rickyeh",
   linked: "https://www.linkedin.com/in/rickyeh"
@@ -39,12 +39,26 @@ class About extends Component {
     });
 
     return (
-      <div className="container">
-        <h2 className="text-center no-top-margin">Meet The Team</h2>
-        <h4 className="text-center"><a href="http://github.com/linearatworst/nimblecode"><i className="text-center fa fa-github-square fa-2x about-icon"></i></a> nimblecode repo</h4>
-        <div className="row row-spacer"></div>
-        <div className="">
-        {Profiles}
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-sm-1"></div>
+          <div className="col-sm-10 about-description">
+            <h2 className="text-center no-top-margin">Meet The Team</h2>
+            <div className="">{Profiles}</div>
+          </div>
+          <div className="col-sm-1"></div>
+        </div>
+        <div className="row">
+          <div className="col-sm-1"></div>
+          <div className="col-sm-10 about-description">
+            <p>Nimblecode was started by four software engineers in Los Angeles with a vision of building a game that was both fun and educational. It was developed a React and Redux front-end with an Express backend. It leverages socket.io for real-time, bidirectional communication and utilizes Ace for the code editors.</p>
+            <p>If you'd like to contact us about any opportunities, or would like to contribute to our project, check us out at our github repo or send us an email. </p>
+            <h4 className="text-center">
+              <a href="http://github.com/nimblecode/nimblecode"><i className="text-center fa fa-github-square fa-2x about-icon"></i></a>
+              <a href="mailto:nimblecodeio@gmail.com"><i className="text-center fa fa-envelope fa-2x about-icon"></i></a>
+            </h4>
+          </div>
+          <div className="col-sm-1"></div>
         </div>
       </div>
     );
