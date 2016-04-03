@@ -38,7 +38,6 @@ class LandingPageMulti extends Component {
     }.bind(this));
 
     this.socket.on('roulette fail', function() {
-      console.log('no vacant rooms found, roulette failed');
       this.setState({
         noRoomsFound: true
       });
