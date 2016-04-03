@@ -14,7 +14,7 @@ class LevelSelect extends Component {
 
   componentWillUpdate() {
     if (this.props.listOfPrompts) {
-      this.levels = this.props.listOfPrompts.prompts.prompts;
+      this.levels = this.props.listOfPrompts.prompts;
     }
   }
 
