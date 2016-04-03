@@ -82,7 +82,6 @@ class CodeEditorMulti extends Component {
 
     // if END_GAME action is called
     if (this.props.multiGameState === 'ENDED_GAME') {
-      console.log('inside CodeEditorMulti componentDidUpdate, game has ended');
       // lock codeEditor to read-only
       this.editor.setReadOnly(true);
     }

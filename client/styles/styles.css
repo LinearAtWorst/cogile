@@ -104,7 +104,7 @@ html, body {
 .about-bio {
   font-size: 14px;
   font-weight: 500;
-  height: 180px;
+  /*height: 180px;*/
   margin-top: 25px;
   margin-bottom: 20px;
 }
