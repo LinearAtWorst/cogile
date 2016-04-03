@@ -63,8 +63,6 @@ html, body {
 
 .icon-container {
   text-align:center;
-  margin-left:3px;
-  width:262.5px;
 }
 
 .team { 
@@ -78,6 +76,12 @@ html, body {
 
 .about-icon:hover {
   color:#696969;
+}
+
+.about-description {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 20px 0;
 }
 
 .about-names {
@@ -98,11 +102,11 @@ html, body {
 }
 
 .about-bio {
-  font-size:13.5px;
-  height:90px;
-  margin-top:30px;
+  font-size: 14px;
+  font-weight: 500;
+  height: 180px;
+  margin-top: 25px;
   margin-bottom: 20px;
-  text-align:center;
 }
 
 .img-container {
