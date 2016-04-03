@@ -26,7 +26,7 @@ var team = [{
 }, {
   key: 4,
   name: "Nicholas Der",
-  bio: "Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar solutions without functional solutions.",
+  bio: "Nick is a software engineer focused on combining creative and technical skill to invent fun and beneficial products. An avid enthusiast of games, film, narrative theory, virtual reality, sushi, and dogs. When not building software, he's writing movie scripts, eating fresh fish, or playing with his dogs.",
   image: "../assets/nick-profile.jpg",
   git: "https://github.com/kiritsuzu",
   linked: "https://www.linkedin.com/in/kiritsuzu"
