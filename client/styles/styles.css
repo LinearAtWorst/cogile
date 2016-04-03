@@ -109,10 +109,15 @@ html, body {
   text-align:center;
 }
 
-#landingVideo {
-  margin-top: 25px;
-  margin-bottom: 25px;
+#codingGif {
   height: 400px;
+  width: 980px;
+  margin: 0 auto;
+}
+
+#landingVideo {
+  margin-top: 0px;
+  margin-bottom:0px;
 }
 
 .landing-btn{
@@ -159,12 +164,6 @@ html, body {
   z-index: 10;
   color: #444;
   background-color: #FFA25E;
-}
-
-#codingGif {
-  height: 400px;
-  width: 800px;
-  margin: 0 auto;
 }
 
 #menu1{
