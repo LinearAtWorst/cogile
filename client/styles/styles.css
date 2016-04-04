@@ -85,8 +85,12 @@ html, body {
 }
 
 .about-names {
+  background-color: #009688;
+  border-radius: 1px;
+  color: #eee;
   font-size: 22px;
-  margin-bottom: 10px;
+  font-weight: 300;
+  margin-bottom: 25px;
   text-align:center;
 }
 

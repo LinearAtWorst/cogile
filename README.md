@@ -1,8 +1,8 @@
 # nimblecode
 
-A code type racing game to improve your speed and accuracy as a coder.  You can race against the clock, other high score coders, or live muliplayer with your friends in a private game or in a random public game.
+Nimblecode is a code type-racing game to improve your speed and accuracy as a coder.  You can race either against the clock, show off your skills in live muliplayer with your friends in a private or public game.
 
-Nimblecode was created by four software engineers in Los Angeles, CA. Currently looking for new opportunities.
+Nimblecode was started by four software engineers in Los Angeles with a vision of building a game that was both fun and educational. Play today at [nimblecode.io](http://nimblecode.io).
 
 ## Table of Contents
 - [Getting Started](#getting-started)
@@ -16,7 +16,7 @@ Nimblecode was created by four software engineers in Los Angeles, CA. Currently 
 	
 ## Getting Started
 
-Here is a quick step by step to get started with our project
+Here is a quick step by step if you'd liek to contribute to our project
 
 
 ### Prerequisities
@@ -27,7 +27,7 @@ Fork the repo and clone locally
 
 You can set up a local db to connect to
 
-The config file to connect to db is in **server -->db -->config -->config.js**
+The config file to connect to your db should be placed in **server -->db -->config -->config.js**
 
 #####Example of config layout:
 ```
@@ -42,10 +42,10 @@ module.exports = {
 
 ### Installing
 
-clone repo where you would like
+clone the repo where you would like
 
 ```
-git clone https://github.com/LinearAtWorst/nimblecode.git
+git clone https://github.com/nimblecode/nimblecode.git
 ```
 cd into directory
 ```
@@ -60,9 +60,9 @@ To get nodemon
 ```
 npm install nodemon -g
 ```
-get it started!
+start the server!
 ```
-nodemon server/server.js
+npm start
 ```
 default port on the project is 8080 as compiance with AWS
 it should console.log 
@@ -79,16 +79,20 @@ npm test
 
 ## Deployment
 
-Deployment info will change bewteen your choice of platform to use.  We used a AWS(Amazon Web Services) EC2 instance that hosted our server and Database on the same instance.  There is tutorials and info to do this on Amazon.
+Deployment info will change bewteen your choice of platform to use.  We used a AWS(Amazon Web Services) EC2 instance that hosted our server and Database on the same instance.  There are tutorials and info to do this on Amazon.
 
 ## Tech Stack
 
-* MySQL
+* React
+* Redux
+* React Router
 * Node.js
+* Express
 * Bookshelf.js
-* knex.js
-* socket.io
-* React.js
+* MySQL
+* Knex.js
+* Socket.io
+* Ace Code Editor
 
 ## License
 
