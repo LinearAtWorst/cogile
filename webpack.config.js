@@ -1,10 +1,17 @@
 var path = require('path');
+var webpack = require('webpack');
 
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
   template: __dirname + '/client/index.html',
   filename: 'index.html',
   inject: 'body'
+});
+
+var UglifyJsPluginConfig = new webpack.optimize.UglifyJsPlugin({
+    compress: {
+        warnings: false
+    }
 });
 
 module.exports = {
@@ -31,5 +38,5 @@ module.exports = {
     },
     extensions: ['', '.js']
   },
-  plugins: [HTMLWebpackPluginConfig]
+  plugins: [HTMLWebpackPluginConfig, UglifyJsPluginConfig]
 }
