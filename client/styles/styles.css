@@ -171,56 +171,56 @@ html, body {
 
 #start-btn {
   z-index: 10;
-  color: #565656;
-  background-color: #FFB37B; 
+  color: #444;
+  background-color: #FFA25E; 
 }
 
 #start-btn:active {
   z-index: 10;
-  color: #565656;
-  background-color: #FFC4A1 !important;
+  color: #444;
+  background-color: #FFB37B !important;
 }
 
 #start-btn:hover {
   z-index: 10;
-  color: #565656;
-  background-color: #FFC4A1 !important;
+  color: #444;
+  background-color: #FFB37B !important;
 }
 
 #login-register-btn {
   z-index: 10;
-  color: #565656;
-  background-color: #FFB37B; 
+  color: #444;
+  background-color: #FFA25E; 
 }
 
 #login-register-btn:active {
   z-index: 10;
-  color: #565656;
-  background-color: #FFC4A1 !important;
+  color: #444;
+  background-color: #FFB37B !important;
 }
 
 #login-register-btn:hover {
   z-index: 10;
-  color: #565656;
-  background-color: #FFC4A1 !important;
+  color: #444;
+  background-color: #FFB37B !important;
 }
 
 #join-multi-btn {
   z-index: 10;
-  color: #565656;
-  background-color: #FFB37B; 
+  color: #444;
+  background-color: #FFA25E; 
 }
 
 #join-multi-btn:active {
   z-index: 10;
-  color: #565656;
-  background-color: #FFC4A1 !important;
+  color: #444;
+  background-color: #FFB37B !important;
 }
 
 #join-multi-btn:hover {
   z-index: 10;
-  color: #565656;
-  background-color: #FFC4A1 !important;
+  color: #444;
+  background-color: #FFB37B !important;
 }
 
 #menu1 {
@@ -268,20 +268,20 @@ html, body {
 
 .oj-btn {
   z-index: 10;
-  color: #565656;
-  background-color: #FFB37B !important;
+  color: #444;
+  background-color: #FFA25E !important;
 }
 
 .oj-btn:active {
   z-index: 10;
-  color: #565656;
-  background-color: #FFC4A1 !important;
+  color: #444;
+  background-color: #FFB37B !important;
 }
 
 .oj-btn:hover {
   z-index: 10;
-  color: #565656;
-  background-color: #FFC4A1 !important;
+  color: #444;
+  background-color: #FFB37B !important;
 }
 
 .teal-btn {
