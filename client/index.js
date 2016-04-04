@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import reactRoutes from './../routes/routes.js';
-import NavBar from './components/navBar.js';
+import ReactRoutes from './../routes/routes.js';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 
-class TestDiv extends Component {
-  render() {
-    return (
-      <div>
-        <NavBar />
-      </div>
-    );
-  }
-}
+import reducers from './reducers';
 
-ReactDOM.render(<TestDiv />, document.getElementById('app'));
+const createStoreWithMiddleware = applyMiddleware()(createStore);
 
-
-// ReactDOM.render(reactRoutes, document.getElementById('app'));
+ReactDOM.render(
+  <Provider store={createStoreWithMiddleware(reducers)}>
+    {ReactRoutes}
+  </Provider>
+, document.getElementById('app'));

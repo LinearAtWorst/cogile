@@ -1,0 +1,35 @@
+Store = {
+  singleGame: SingleGameReducer
+  countingDown: CountingDownReducer
+}
+
+Actions:
+  startGame :
+    type: 'STARTED_GAME'
+  endGame: 
+    type: 'ENDED_GAME'
+  startCountdown:
+    type:'START_COUNTDOWN'
+
+Reducers:
+  SingleGame - Listens for game start and end actions
+  CountingDownReducer - Listens for countdown start and game start actions
+
+App
+  About
+  Singleplayer 
+    Timer
+      StartButton
+      CountdownTimer
+        ReactCountdownClock
+    CodeEditor
+    CodePrompt (Component)
+    ProgressBar
+  Multiplayer (C)
+    TimerMulti (C)
+      StartButton (C)
+      CountdownTimer (C)
+        ReactCountdownClock
+    CodeEditorMulti (C)
+    CodePromptMulti
+    ProgressBarMulti (C)
