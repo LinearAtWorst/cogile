@@ -1,6 +1,6 @@
 # nimblecode
 
-Nimblecode is a code type-racing game to improve your speed and accuracy as a coder.  You can race either against the clock, show off your skills in live muliplayer with your friends in a private or public game.
+Nimblecode is a code type-racing game to improve your speed and accuracy as a coder.  You can either race against the clock, or show off your skills in live muliplayer with your friends in a private or public game.
 
 Nimblecode was started by four software engineers in Los Angeles with a vision of building a game that was both fun and educational. Play today at [nimblecode.io](http://nimblecode.io).
 
@@ -16,7 +16,7 @@ Nimblecode was started by four software engineers in Los Angeles with a vision o
 	
 ## Getting Started
 
-Here is a quick step by step if you'd liek to contribute to our project
+Here is a quick step by step if you'd like to contribute to our project
 
 
 ### Prerequisities
@@ -88,9 +88,7 @@ Deployment info will change bewteen your choice of platform to use.  We used a A
 * React Router
 * Node.js
 * Express
-* Bookshelf.js
 * MySQL
-* Knex.js
 * Socket.io
 * Ace Code Editor
 
@@ -101,38 +99,25 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 #Our Team
 
 ##Mark
-####Product Owner aka React/Redux Master
 <img src="./client/assets/mark-profile.jpg" width="200" height="200" />
-#####About Role and Experience
-Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.
+
+Mark is interested in using software to build useful products. He believes that empathy is key in designing great products, in collaborating with others, and in growing as a developer, as a leader, and as a person.
   
   
 ##Rick 
-####React/Redux Master
 <img src="./client/assets/rick-profile.jpg" width="200" height="200" />
-#####About Role and Experience
-Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.
+
+Rick loves travelling the world and eating awesome food everywhere he goes. When he's not being an amateur foodie, his goal in life is to become a React ninja, whipping up components and containers in no time.
   
   
 ##Nick 
-####Full Stack Monster aka multiplayer socket whizzz
 <img src="./client/assets/nick-profile.jpg" width="200" height="200" />
-#####About Role and Experience
-Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.
+
+Nick is a software engineer focused on combining creative and technical skill to invent fun and beneficial products. He is an avid enthusiast of games, film, narrative theory, virtual reality, sushi, and dogs.
   
   
 ##Jordan
-####Back-end aficionado
 <img src="./client/assets/jordan-profile.jpg" width="200" height="200" />
 
-**Tech-Stack:** Node, Express, Bookshelf, Knex, MySQL, AWS  
-#####Contribution
-- Configured and devlopment of server and database
-- Managed setup and consistent **deployment** on AWS
-- Contributed on design and styling of front end
-
-#####Challenges
-Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.  Why is this not being committed?
-#####Goals
-Objectively innovate empowered manufactured products whereas parallel platforms. Holisticly predominate extensible testing procedures for reliable supply chains. Dramatically engage top-line web services vis-a-vis cutting-edge deliverables.  Why is this not being committed?
+Jordan is a software engineer who owned his own business at 21. He is an avid, self-taught guitarist, who has owned and worked on a few project cars(0-60 in 4 sec). He also loves travelling around the world.
 
