@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route, browserHistory, hashHistory, IndexRoute, useRouterHistory } from 'react-router';
 import { createHashHistory } from 'history';
-import App from '../components/App.js';
+import App from '../containers/App.js';
 import Singleplayer from '../containers/Singleplayer.js';
 import Multiplayer from '../containers/Multiplayer.js';
 import About from '../components/About';

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUsername, smashUser } from '../actions/index';
 import { bindActionCreators } from 'redux';
-import NavLink from './NavLink';
+import NavLink from '../components/NavLink';
 import { Link } from 'react-router';
 import Radium from 'radium';
 import color from 'color';
