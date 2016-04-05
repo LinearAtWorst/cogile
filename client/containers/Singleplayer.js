@@ -6,10 +6,10 @@ import { browserHistory } from 'react-router';
 import axios from 'axios';
 import CodeEditor from './CodeEditor';
 import CodePrompt from '../components/CodePrompt';
-import CodeGhost from '../components/CodeGhost';
+import CodeGhost from './CodeGhost';
 import Timer from './Timer';
 import levenshtein from './../lib/levenshtein';
-import ProgressBar from '../components/ProgressBar';
+import ProgressBar from './ProgressBar';
 import LevelDisplay from '../components/LevelDisplay';
 import LevelSelect from './LevelSelect';
 
@@ -123,10 +123,8 @@ class Singleplayer extends Component {
     let minutes = this.props.gameTime.minutes;
     let seconds = this.props.gameTime.seconds;
     let tenthSeconds = this.props.gameTime.tenthSeconds;
-    console.log('my minutes, seconds, tenthseconds is: ', minutes, seconds, tenthSeconds);
     let yourTime = (minutes*60 + seconds + tenthSeconds/10).toFixed(1);
     let bestTime = (highScoreObj.oldReplayDuration / 1000).toFixed(1);
-    console.log(highScoreObj);
 
     // Set title and message for sweet alert
     if (highScoreObj.newHighScore && highScoreObj.loggedIn) {
@@ -168,7 +166,6 @@ class Singleplayer extends Component {
       function(isConfirm) {
         if (isConfirm === true) {
           location.reload();
-          console.log('Confirm false, currentlevel', this.props.currentLevel);
           this.props.changeLevel({'currentLevel': null});
           this.props.changeLevel({'currentLevel': this.props.currentLevel.currentLevel});
         } else if (isConfirm === false) {

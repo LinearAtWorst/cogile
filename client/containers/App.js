@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUsername, smashUser } from '../actions/index';
 import { bindActionCreators } from 'redux';
-import NavLink from './NavLink';
+import NavLink from '../components/NavLink';
 import { Link } from 'react-router';
 import Radium from 'radium';
 import color from 'color';
@@ -18,9 +18,7 @@ class App extends Component {
   smash() {
     if (helperFunctions.isLoggedIn() === true){
       this.props.smashUser();
-      console.log('token removed');
     }
-    console.log('not logged in');
   };
 
   render() {

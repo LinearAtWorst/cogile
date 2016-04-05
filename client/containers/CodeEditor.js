@@ -102,7 +102,6 @@ class CodeEditor extends Component {
           // if current time < ghost's time and user is logged in, then save new record
           if (recordingDuration < oldReplayDuration) {
             if (this.username !== 'guest') {
-              console.log('Beat High Score, logged in')
               // save the replay
               this.props.newHighScore({
                 newHighScore: true,
@@ -121,8 +120,6 @@ class CodeEditor extends Component {
               }.bind(this));
             // Beat high score but wasn't logged in, don't save
             } else {
-              console.log('Beat High Score, was not logged in')
-
               this.props.newHighScore({
                 newHighScore: true,
                 oldReplayDuration: oldReplayDuration,
@@ -138,8 +135,6 @@ class CodeEditor extends Component {
                 loggedIn: false
               });
             } else {
-              console.log('Lost High Score, was  logged in')
-
               this.props.newHighScore({
                 newHighScore: false,
                 oldReplayDuration: oldReplayDuration,

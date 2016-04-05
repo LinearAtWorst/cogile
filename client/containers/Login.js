@@ -86,11 +86,9 @@ class Login extends Component {
         password: this.state.password
       })
       .then(function(response) {
-        console.log('response',response);
         if (response.data.isValid === true) {
           // saving token to localStorage
           global.window.localStorage.setItem('com.nimblecode', response.data.token);
-          console.log("successful login");
 
           // storing username into Redux App State
           this.props.storeUsername(this.state.username);
