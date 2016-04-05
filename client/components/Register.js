@@ -1,8 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { storeUsername, getUsername } from '../actions/index';
+import { storeUsername } from '../actions/index';
 import { bindActionCreators } from 'redux';
-import { Router, Route, browserHistory, hashHistory, IndexRoute, useRouterHistory } from 'react-router';
+import { Router, Route } from 'react-router';
 import axios from 'axios';
 
 class Register extends Component {
@@ -35,7 +35,7 @@ class Register extends Component {
           <input id="password" type="password" className="form-control" value={this.state.password} onChange={this._changePassword.bind(this)} />
         </div>
         <center>
-        <button className="btn btn-raised" type="submit">Sign Up</button>
+        <button id="login-register-btn" className="oj-btn btn btn-raised" type="submit">Sign Up</button>
         <br />
         <div className="row text-center"> {this.state.usernameExists ? (
           <p className="failed-validation">Username is taken already! Please use a different one.</p>
@@ -71,7 +71,6 @@ class Register extends Component {
         console.log('response',response);
         if (response.data.isValid === true) {
           global.window.localStorage.setItem('com.nimblecode', response.data.token);
-          console.log("successful signup");
 
           // storing username into Redux App State
           this.props.storeUsername(this.state.username);
@@ -89,7 +88,6 @@ class Register extends Component {
       .catch(function(response) {
         console.log(response);
       });
-
   }
 }
 
@@ -101,8 +99,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    storeUsername: storeUsername,
-    getUsername: getUsername
+    storeUsername: storeUsername
   }, dispatch);
 };
 
