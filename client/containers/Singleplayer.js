@@ -12,6 +12,8 @@ import levenshtein from './../lib/levenshtein';
 import ProgressBar from '../components/ProgressBar';
 import LevelDisplay from '../components/LevelDisplay';
 import LevelSelect from './LevelSelect';
+import LanguageSelect from './LanguageSelect';
+
 
 class Singleplayer extends Component {
   constructor(props) {
@@ -199,7 +201,11 @@ class Singleplayer extends Component {
       <div>
         <Timer />
         <LevelDisplay currentLevel={this.state.puzzleName} />
-        <LevelSelect />
+
+        <div className="container col-sm-11 no-padding" id="level-select">
+          <LevelSelect />
+          <LanguageSelect />
+        </div>
 
         <div className="col-sm-10 col-sm-offset-1"><h5><b>Copy this...</b></h5></div>
         <CodePrompt puzzle={this.state.currentPuzzle} />

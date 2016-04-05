@@ -257,6 +257,10 @@ html, body {
   z-index: 5;
 }
 
+.singleplayer-switch {
+  margin-left: 10px;
+}
+
 .no-padding {
   padding: 0;
 }
