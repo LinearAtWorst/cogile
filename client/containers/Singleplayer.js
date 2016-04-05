@@ -6,7 +6,7 @@ import { browserHistory } from 'react-router';
 import axios from 'axios';
 import CodeEditor from './CodeEditor';
 import CodePrompt from '../components/CodePrompt';
-import CodeGhost from '../components/CodeGhost';
+import CodeGhost from './CodeGhost';
 import Timer from './Timer';
 import levenshtein from './../lib/levenshtein';
 import ProgressBar from '../components/ProgressBar';
