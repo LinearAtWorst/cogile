@@ -35,7 +35,7 @@ class Register extends Component {
           <input id="password" type="password" className="form-control" value={this.state.password} onChange={this._changePassword.bind(this)} />
         </div>
         <center>
-        <button className="btn btn-raised" type="submit">Sign Up</button>
+        <button id="login-register-btn" className="oj-btn btn btn-raised" type="submit">Sign Up</button>
         <br />
         <div className="row text-center"> {this.state.usernameExists ? (
           <p className="failed-validation">Username is taken already! Please use a different one.</p>
