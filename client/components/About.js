@@ -13,7 +13,7 @@ const team = [{
 }, {
   key: 2,
   name: "Rick Yeh",
-  bio: "Rick loves travelling the world and eating awesome food everywhere he goes.  When he's not being an amateur foodie, his goal in life is to become a React ninja, whipping up components and containers in no time.",
+  bio: "Rick loves traveling the world and eating awesome food everywhere he goes.  When he's not being an amateur foodie, he's developing his React skills, whipping up components and containers on his free time.",
   image: "../assets/rick-profile.jpg",
   git: "https://github.com/rickyeh",
   linked: "https://www.linkedin.com/in/rickyeh",
