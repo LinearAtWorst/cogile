@@ -7,7 +7,6 @@ class CodeMiniView extends Component {
   }
 
   componentDidMount() {
-    console.log('this key is: ', this.props.playerKey);
     this.editor = ace.edit(this.props.playerKey);
     this.editor.setShowPrintMargin(false);
     this.editor.setOptions({

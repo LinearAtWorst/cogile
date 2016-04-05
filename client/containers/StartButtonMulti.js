@@ -53,9 +53,6 @@ class StartButtonMulti extends Component {
   };
 
   render() {
-
-    console.log('Game Id is: ', this.props.savedGame);
-
     if (this.props.countingDown === 'START_COUNTDOWN') {
       return null;
     }
