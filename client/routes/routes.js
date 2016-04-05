@@ -7,8 +7,7 @@ import Multiplayer from '../containers/Multiplayer.js';
 import About from '../components/About';
 import LandingPage from '../components/LandingPage';
 import LandingPageMulti from '../containers/LandingPageMulti';
-import Login from '../components/Login';
-import Register from '../components/Register';
+import Login from '../containers/Login';
 import helperFunctions from '../utils/helperFunctions';
 
 const appHistory = useRouterHistory(createHashHistory)({ queryKey: false});
@@ -23,7 +22,6 @@ var routes = (
       <Route path='/multiplayer' component={LandingPageMulti} />
       <Route path='/multigame/:gameId' component={Multiplayer}/>
       <Route path='/login' component={Login}/>
-      <Route path='/register' component={Register}/>
     </Route>
   </Router>
 );

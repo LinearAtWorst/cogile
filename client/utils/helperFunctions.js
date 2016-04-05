@@ -48,7 +48,6 @@ helperFunctions.isLoggedIn = function() {
 
 helperFunctions.getUsername = function() {
   if(global.window.localStorage.getItem('com.nimblecode')) {
-    console.log('is logged in, and username is: ', jwt.decode(global.window.localStorage.getItem('com.nimblecode'), secret));
     return jwt.decode(global.window.localStorage.getItem('com.nimblecode'), secret);
   }
 }

@@ -68,7 +68,6 @@ class Register extends Component {
         password: this.state.password
       })
       .then(function(response) {
-        console.log('response',response);
         if (response.data.isValid === true) {
           global.window.localStorage.setItem('com.nimblecode', response.data.token);
 

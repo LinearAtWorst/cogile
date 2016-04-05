@@ -18,9 +18,7 @@ class App extends Component {
   smash() {
     if (helperFunctions.isLoggedIn() === true){
       this.props.smashUser();
-      console.log('token removed');
     }
-    console.log('not logged in');
   };
 
   render() {
