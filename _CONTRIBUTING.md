@@ -9,22 +9,19 @@
   - test/...
   - doc/...
   - refactor/...
-1. Make commits to your feature branch. Prefix each commit like so:
-  - [feat] Added a new feature
-  - [fix] Fixed inconsistent tests [Fixes #0]
+1. Make commits to your feature branch.  Use present tense and Prefix each commit like so:
+  - [feat] adds a new feature
+  - [fix] fixes inconsistent tests [Fixes #0]
   - [refactor] ...
   - [cleanup] ...
   - [test] ...
   - [doc] ...
-1. When you've finished with your fix or feature, commit all your changes, pull from our main repo upstream changes into your branch. submit a [pull request][]
-   directly to master. Include a description of your changes.
-1. Your pull request will be reviewed by another maintainer. The point of code
-   reviews is to help keep the codebase clean and of high quality and, equally
-   as important, to help you grow as a programmer. If your code reviewer
+1. When you've finished with your fix or feature, commit all your changes, pull from our main repo upstream changes into your branch. submit a pull request to dev. Include a description of your changes.
+1. Your pull request will be reviewed by the scrum master or another team member. If your code reviewer
    requests you make a change you don't understand, ask them why.
 1. Fix any issues raised by your code reviwer, and push your fixes as a single
    new commit.
-1. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
+1. Once the pull request has been reviewed, it will be merged by another member of the team.
 
 ## Detailed Workflow
 
@@ -33,7 +30,7 @@
 Use github’s interface to make a fork of the repo, then add that repo as an upstream remote:
 
 ```
-git remote add upstream https://github.com/LinearAtWorst/nimblecode.git
+git remote add upstream https://github.com/nimblecode/nimblecode.git
 ```
 
 ### Cut a namespaced feature branch from master
@@ -56,8 +53,8 @@ git checkout -b `your-branch-name`
 ### Make commits to your feature branch. 
 
 Prefix each commit like so
-  - [feat] Added a new feature
-  - [fix] Fixed inconsistent tests [Fixes #0]
+  - [feat] adds a new feature
+  - [fix] fixes inconsistent tests [Fixes #0]
   - [refactor] ...
   - [cleanup] ...
   - [test] ...
@@ -110,7 +107,7 @@ your changes incorporated into this repo.
 At least one other person MUST give your changes a code review, and once
 they are satisfied they will merge your changes into upstream. Alternatively,
 they may have some requested changes. You should make more commits to your
-branch to fix these, then follow this process again from rebasing onwards.
+branch to fix these, then follow this process again from pulling from master onwards.
 
 Once you get back here, make a comment requesting further review and
 someone will look at your code again. If they like it, it will get merged,

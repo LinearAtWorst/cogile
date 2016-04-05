@@ -63,8 +63,6 @@ html, body {
 
 .icon-container {
   text-align:center;
-  margin-left:3px;
-  width:262.5px;
 }
 
 .team { 
@@ -80,9 +78,19 @@ html, body {
   color:#696969;
 }
 
+.about-description {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 20px 0;
+}
+
 .about-names {
+  background-color: #009688;
+  border-radius: 1px;
+  color: #eee;
   font-size: 22px;
-  margin-bottom: 10px;
+  font-weight: 300;
+  margin-bottom: 25px;
   text-align:center;
 }
 
@@ -98,24 +106,29 @@ html, body {
 }
 
 .about-bio {
-  font-size:13.5px;
-  height:90px;
-  margin-top:30px;
+  font-size: 14px;
+  font-weight: 500;
+  /*height: 180px;*/
+  margin-top: 25px;
   margin-bottom: 20px;
-  text-align:center;
 }
 
 .img-container {
   text-align:center;
 }
 
+#codingGif {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
 #landingVideo {
-  margin-top: 25px;
-  margin-bottom: 25px;
-  height: 400px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .landing-btn{
+  color: #565656;
   margin: 10px;
 }
 
@@ -158,18 +171,65 @@ html, body {
 #start-btn {
   z-index: 10;
   color: #444;
-  background-color: #FFA25E;
+  background-color: #FFA25E; 
 }
 
-#codingGif {
-  height: 400px;
-  width: 800px;
-  margin: 0 auto;
+#start-btn:active {
+  z-index: 10;
+  color: #444;
+  background-color: #FFB37B !important;
 }
 
-#menu1{
+#start-btn:hover {
+  z-index: 10;
+  color: #444;
+  background-color: #FFB37B !important;
+}
+
+#login-register-btn {
+  z-index: 10;
+  color: #444;
+  background-color: #FFA25E; 
+}
+
+#login-register-btn:active {
+  z-index: 10;
+  color: #444;
+  background-color: #FFB37B !important;
+}
+
+#login-register-btn:hover {
+  z-index: 10;
+  color: #444;
+  background-color: #FFB37B !important;
+}
+
+#join-multi-btn {
+  z-index: 10;
+  color: #444;
+  background-color: #FFA25E; 
+}
+
+#join-multi-btn:active {
+  z-index: 10;
+  color: #444;
+  background-color: #FFB37B !important;
+}
+
+#join-multi-btn:hover {
+  z-index: 10;
+  color: #444;
+  background-color: #FFB37B !important;
+}
+
+#menu1 {
   color: white;
   background-color: #009688; 
+}
+
+#menu1:hover {
+  color: white;
+  background-color: #20A294; 
 }
 
 #level-display-container {
@@ -214,15 +274,14 @@ html, body {
 .oj-btn:active {
   z-index: 10;
   color: #444;
-  background-color: #FFA666 !important;
+  background-color: #FFB37B !important;
 }
 
 .oj-btn:hover {
   z-index: 10;
   color: #444;
-  background-color: #FFA666 !important;
+  background-color: #FFB37B !important;
 }
-
 
 .teal-btn {
   z-index: 10;

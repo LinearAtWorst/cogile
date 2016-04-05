@@ -35,9 +35,11 @@ class CodeEditorMulti extends Component {
       fontSize: '11pt',
       minLines: 12,
       maxLines: 12,
-      enableBasicAutocompletion: true,
+      enableBasicAutocompletion: false,
       enableSnippets: false,
-      enableLiveAutocompletion: false
+      enableLiveAutocompletion: true,
+      liveAutocompletionDelay: 100,
+      liveAutocompletionThreshold: 2
     });
 
     // autocomplete tries to fire on every input
@@ -82,7 +84,6 @@ class CodeEditorMulti extends Component {
 
     // if END_GAME action is called
     if (this.props.multiGameState === 'ENDED_GAME') {
-      console.log('inside CodeEditorMulti componentDidUpdate, game has ended');
       // lock codeEditor to read-only
       this.editor.setReadOnly(true);
     }

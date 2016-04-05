@@ -87,8 +87,9 @@ socketController.socketInit = function(io) {
           console.log('Creating room:', data.roomcode);
           rooms[data.roomcode] = {
             gameStarted: false,
-            colors: ['2C837A', '38568C', 'D3A247', 'D38247', '489890', '5571A3', 'F5C773', 'F5AA73']
+            colors: ['2C837A', '38568C', 'D3A247', 'D38247']
           };
+          // lighter shades , '489890', '5571A3', 'F5C773', 'F5AA73'
 
           // Randomizing color array.
           helperFunctions.shuffle(rooms[data.roomcode].colors);
@@ -151,8 +152,9 @@ socketController.socketInit = function(io) {
           console.log('PRIVATE: Creating room:', data.roomcode);
           privateRooms[data.roomcode] = {
             gameStarted: false,
-            colors: ['F44336', '4CAF50', '2196F3', 'FFEB3B', 'FFB300', 'AB47BC', '009688', '9E9E9E']
+            colors: ['2C837A', '38568C', 'D3A247', 'D38247']
           };
+          // lighter shades , '489890', '5571A3', 'F5C773', 'F5AA73'
 
           // Randomizing color array.
           helperFunctions.shuffle(privateRooms[data.roomcode].colors);
