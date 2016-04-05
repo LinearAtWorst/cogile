@@ -9,7 +9,7 @@ import CodePrompt from '../components/CodePrompt';
 import CodeGhost from './CodeGhost';
 import Timer from './Timer';
 import levenshtein from './../lib/levenshtein';
-import ProgressBar from '../components/ProgressBar';
+import ProgressBar from './ProgressBar';
 import LevelDisplay from '../components/LevelDisplay';
 import LevelSelect from './LevelSelect';
 
