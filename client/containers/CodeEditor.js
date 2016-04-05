@@ -43,9 +43,11 @@ class CodeEditor extends Component {
       fontSize: '11pt',
       minLines: 12,
       maxLines: 12,
-      enableBasicAutocompletion: true,
+      enableBasicAutocompletion: false,
       enableSnippets: false,
-      enableLiveAutocompletion: false
+      enableLiveAutocompletion: true,
+      liveAutocompletionDelay: 100,
+      liveAutocompletionThreshold: 2
     });
 
     // autocomplete tries to fire on every input

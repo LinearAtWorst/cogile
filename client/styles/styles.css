@@ -128,6 +128,7 @@ html, body {
 }
 
 .landing-btn{
+  color: #565656;
   margin: 10px;
 }
 
@@ -170,12 +171,65 @@ html, body {
 #start-btn {
   z-index: 10;
   color: #444;
-  background-color: #FFA25E;
+  background-color: #FFA25E; 
 }
 
-#menu1{
+#start-btn:active {
+  z-index: 10;
+  color: #444;
+  background-color: #FFB37B !important;
+}
+
+#start-btn:hover {
+  z-index: 10;
+  color: #444;
+  background-color: #FFB37B !important;
+}
+
+#login-register-btn {
+  z-index: 10;
+  color: #444;
+  background-color: #FFA25E; 
+}
+
+#login-register-btn:active {
+  z-index: 10;
+  color: #444;
+  background-color: #FFB37B !important;
+}
+
+#login-register-btn:hover {
+  z-index: 10;
+  color: #444;
+  background-color: #FFB37B !important;
+}
+
+#join-multi-btn {
+  z-index: 10;
+  color: #444;
+  background-color: #FFA25E; 
+}
+
+#join-multi-btn:active {
+  z-index: 10;
+  color: #444;
+  background-color: #FFB37B !important;
+}
+
+#join-multi-btn:hover {
+  z-index: 10;
+  color: #444;
+  background-color: #FFB37B !important;
+}
+
+#menu1 {
   color: white;
   background-color: #009688; 
+}
+
+#menu1:hover {
+  color: white;
+  background-color: #20A294; 
 }
 
 #level-display-container {
@@ -220,15 +274,14 @@ html, body {
 .oj-btn:active {
   z-index: 10;
   color: #444;
-  background-color: #FFA666 !important;
+  background-color: #FFB37B !important;
 }
 
 .oj-btn:hover {
   z-index: 10;
   color: #444;
-  background-color: #FFA666 !important;
+  background-color: #FFB37B !important;
 }
-
 
 .teal-btn {
   z-index: 10;
