@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { changeLevel, getListOfPrompts } from '../actions/index';
+import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
+import axios from 'axios';
 import CodeEditor from './CodeEditor';
 import CodePrompt from '../components/CodePrompt';
 import CodeGhost from '../components/CodeGhost';
 import Timer from './Timer';
 import levenshtein from './../lib/levenshtein';
 import ProgressBar from '../components/ProgressBar';
-import { connect } from 'react-redux';
-import { changeLevel, getListOfPrompts } from '../actions/index';
-import { bindActionCreators } from 'redux';
-import axios from 'axios';
 import LevelDisplay from '../components/LevelDisplay';
 import LevelSelect from './LevelSelect';
-import { browserHistory } from 'react-router';
 
 class Singleplayer extends Component {
   constructor(props) {

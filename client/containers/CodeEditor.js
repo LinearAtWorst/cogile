@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { startGame, endGame, newHighScore, getUsername, syncPlayersStatuses } from '../actions/index';
+import { startGame, endGame, newHighScore } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import levenshtein from './../lib/levenshtein';
 import axios from 'axios';
@@ -224,8 +224,7 @@ function mapStateToProps(state) {
   return {
     singleGame: state.singleGame,
     currentLevel: state.currentLevel,
-    playersStatuses: state.playersStatuses,
-    SavedUsername: state.SavedUsername
+    playersStatuses: state.playersStatuses
   }
 }
 
@@ -233,8 +232,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     startGame: startGame,
     endGame: endGame,
-    newHighScore: newHighScore,
-    getUsername: getUsername
+    newHighScore: newHighScore
   }, dispatch);
 }
 

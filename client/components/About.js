@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AboutProfile from './AboutProfile.js';
 
-var team = [{
+const team = [{
   key: 1,
   name: "Mark Kim",
   bio: "Mark is interested in using software to build useful products. He believes that empathy is key in designing great products, in collaborating with others, and in growing as a developer, as a leader, and as a person.",

@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { syncPlayersStatuses, getUsername } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import levenshtein from './../lib/levenshtein';
 import axios from 'axios';
@@ -21,9 +20,9 @@ class CodeGhost extends Component {
   }
 
   static propTypes = {
-  };
-
-  static defaultProps = {
+    minifiedPuzzle: PropTypes.string,
+    calculateProgress: PropTypes.func,
+    fetchRecordUsername: PropTypes.func
   };
 
   componentDidMount() {
@@ -159,7 +158,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    getUsername: getUsername
   }, dispatch);
 }
 
