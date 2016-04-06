@@ -64,10 +64,12 @@ class Multiplayer extends Component {
     // listening for a 'all players progress' socket event and
     // collects all players' code from socket
     this.socket.on('all players progress', function(players) {
-      underscore.map(players, function(obj, key){
-        var playerPercent = this.calculatePercent(players[key][2]);
-        players[key][1] = playerPercent;
-      }.bind(this));
+      if (this.props.multiGameState === 'STARTED_GAME') {
+        underscore.map(players, function(obj, key){
+          var playerPercent = this.calculatePercent(players[key][2]);
+          players[key][1] = playerPercent;
+        }.bind(this));
+      }
       this.props.syncMultiplayerStatuses(players);
 
     }.bind(this));
