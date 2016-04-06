@@ -113,3 +113,10 @@ export function getListOfPrompts(prompts) {
     payload: prompts
   }
 }
+
+export function changeLanguage(language) {
+  return {
+    type: 'CHANGE_LANGUAGE',
+    payload: language
+  }
+}

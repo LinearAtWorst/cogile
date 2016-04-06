@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { changeLevel, leavePage } from '../actions/index';
+import { changeLanguage, changeLevel, leavePage } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 
@@ -31,6 +31,23 @@ class LanguageSelect extends Component {
     // }
   }
 
+  componentDidMount() {
+    console.log('ComponentDidMount : ', this.props.currentLanguage)
+
+    $("#javascript").unbind('click').click(function() {
+      this.props.changeLanguage({language: "javascript"});
+      console.log('Current Language : ', this.props.currentLanguage)
+
+    }.bind(this));
+    $("#python").unbind('click').click(function() {
+      // Action to change to python
+      this.props.changeLanguage({language: "python"});
+
+      console.log('Current Language : ', this.props.currentLanguage)
+
+    }.bind(this));
+  }
+
 
   render() {
 
@@ -39,8 +56,8 @@ class LanguageSelect extends Component {
           <button className="btn btn-raised dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Language
           <span className="caret"></span></button>
           <ul className="dropdown-menu" role="menu" aria-labelledby="menu1">
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="Javascript" href="">Javascript</a></li>
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="Python" href="">Python</a></li>
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="javascript" href="#/singleplayer/">Javascript</a></li>
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="python" href="#/singleplayer/">Python</a></li>
           </ul>
         </div>
     );
@@ -50,12 +67,18 @@ class LanguageSelect extends Component {
 function mapStateToProps(state) {
   return {
     currentLevel: state.currentLevel,
-    listOfPrompts: state.listOfPrompts
+    listOfPrompts: state.listOfPrompts,
+    currentLanguage: state.currentLanguage
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({changeLevel: changeLevel, leavePage: leavePage}, dispatch);
+  return bindActionCreators({
+    changeLevel: changeLevel,
+    leavePage: leavePage,
+    changeLanguage: changeLanguage
+  }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LanguageSelect);
+
