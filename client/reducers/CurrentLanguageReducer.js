@@ -1,4 +1,4 @@
-const INITIAL_STATE = {language: "javascript"};
+const INITIAL_STATE = {language: "js"};
 
 export default function(state = INITIAL_STATE, action) {
 

@@ -34,7 +34,7 @@ class Singleplayer extends Component {
     if (this.props.currentLevel) {
 
       if (this.state.puzzleName !== this.props.currentLevel.currentLevel) {
-        axios.get('api/getPrompt/?puzzleName=' + this.props.currentLevel.currentLevel)
+        axios.get('api/getPrompt/?puzzleName=' + this.props.currentLevel.currentLevel + '&lang=' + this.props.currentLanguage.language)
           .then(function(res) {
             var data = res.data;
             var minifiedPuzzle = data.replace(/\s/g,'');
@@ -62,7 +62,7 @@ class Singleplayer extends Component {
     $.material.init();
 
     if (this.props.params.puzzleName) {
-      axios.get('api/getPrompt/?puzzleName=' + this.props.params.puzzleName)
+      axios.get('api/getPrompt/?puzzleName=' + this.props.params.puzzleName + '&lang=' + this.props.currentLanguage.language)
         .then(function(res) {
           var data = res.data;
           var minifiedPuzzle = data.replace(/\s/g,'');
@@ -200,7 +200,7 @@ class Singleplayer extends Component {
         <LevelDisplay currentLevel={this.state.puzzleName} />
 
         <div className="container col-sm-11 no-padding" id="level-select">
-          <LevelSelect />
+          <LevelSelect puzzleName={this.state.puzzleName} />
           <LanguageSelect />
         </div>
 
@@ -235,7 +235,8 @@ function mapStateToProps(state) {
     currentLevel: state.currentLevel,
     gameTime: state.gameTime,
     newHighScore: state.newHighScore,
-    listOfPrompts: state.listOfPrompts
+    listOfPrompts: state.listOfPrompts,
+    currentLanguage: state.currentLanguage
   }
 }
 
