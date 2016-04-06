@@ -13,12 +13,16 @@ class LevelSelect extends Component {
   };
 
   componentWillUpdate() {
+
     if (this.props.listOfPrompts) {
-      this.levels = this.props.listOfPrompts.prompts;
+      var objectName = this.props.currentLanguage.language + 'Files';
+
+      this.levels = this.props.listOfPrompts.prompts[objectName];
     }
   }
 
   componentDidUpdate() {
+
     if (this.levels) {
       for (let i = 0; i < this.levels.length ; i++) {
         $("#selectLevel" + i).unbind('click').click(function() {
@@ -46,17 +50,13 @@ class LevelSelect extends Component {
     }
 
     return (
-      <div className="container col-sm-11 no-padding" id="level-select">
-        <div className="dropdown pull-right">
-          <button className="btn btn-raised dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Level Select
+        <div className="dropdown pull-right singleplayer-switch">
+          <button className="btn btn-raised dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">{this.props.puzzleName}
           <span className="caret"></span></button>
           <ul className="dropdown-menu" role="menu" aria-labelledby="menu1">
-            <li role="presentation"><a tabIndex="-1" ><strong> JavaScript </strong></a></li>
-            <li role="presentation" className="divider"></li>
             {arrayOfLevels}
           </ul>
         </div>
-      </div>
     );
   }
 }
@@ -64,7 +64,8 @@ class LevelSelect extends Component {
 function mapStateToProps(state) {
   return {
     currentLevel: state.currentLevel,
-    listOfPrompts: state.listOfPrompts
+    listOfPrompts: state.listOfPrompts,
+    currentLanguage: state.currentLanguage
   }
 }
 

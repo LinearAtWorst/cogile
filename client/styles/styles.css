@@ -232,19 +232,14 @@ html, body {
   background-color: #20A294; 
 }
 
-#level-display-container {
+#language-display-container {
   height: 0px;
 }
 
-#level-display {
+#language-select {
   position: absolute;
   right: 0;
   bottom: 0;
-  /*width: 161px;*/
-  box-shadow: 0 0 0 0;
-  webkit-box-shadow: 0 0 0 0;
-  border: 1px solid #888;
-  border-radius: 2px;
 }
 
 #level-display:hover {
@@ -255,6 +250,10 @@ html, body {
 #level-select {
   height: 20px;
   z-index: 5;
+}
+
+.singleplayer-switch {
+  margin-left: 10px;
 }
 
 .no-padding {

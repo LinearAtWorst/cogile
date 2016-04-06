@@ -1,6 +1,5 @@
 var Highscore = require('../models/highscore.js');
 var Highscores = require('../collections/highScoreCollection.js');
-var prompts = require('./prompts');
 var fs = require('fs');
 var path = require('path');
 
@@ -27,6 +26,15 @@ var jsFiles = [
     '17-reduxMapValues',
     '18-reduxReducer',
   ];
+
+var pyFiles = [
+    '00-helloWorld'
+  ];
+
+var allFiles = {
+  jsFiles: jsFiles,
+  pyFiles: pyFiles
+}
 
 var getRandomJS = function(){
   return jsFiles[Math.floor(Math.random() * jsFiles.length)];
@@ -114,7 +122,8 @@ handlers.specific = function(req, res){
     puzzleName = jsFiles[0];
   }
 
-  fs.readFile(path.join(__dirname, '../library/prompts/' + /*req.data.language  ||*/  'js/' + puzzleName + '.js'), 'utf-8', function(err, data){
+
+  fs.readFile(path.join(__dirname, '../library/prompts/' + req.query.lang + '/' + puzzleName + '.' + req.query.lang), 'utf-8', function(err, data){
     console.log(err);
     // console.log(data);
     res.send(data);
@@ -123,7 +132,7 @@ handlers.specific = function(req, res){
 }
 
 handlers.getAllPrompts = function(req, res) {
-  res.send(jsFiles);
+  res.send(allFiles);
 }
 
 module.exports = handlers;

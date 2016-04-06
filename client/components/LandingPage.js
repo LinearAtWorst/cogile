@@ -27,7 +27,7 @@ class LandingPage extends Component {
         <div className="container-fluid">
           <div className="row">
               <div className="col-sm-12 text-center">
-                <a href="/#/singleplayer/00-forLoop" className="btn btn-raised btn-primary landing-btn">Start Now!</a>
+                <a href="/#/singleplayer/00-forLoop/js" className="btn btn-raised btn-primary landing-btn">Start Now!</a>
                 <a href="/#/multiplayer" className="btn btn-raised btn-primary landing-btn">Challenge a Friend</a>
               </div>
           </div>
