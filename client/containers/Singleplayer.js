@@ -126,37 +126,43 @@ class Singleplayer extends Component {
     let yourTime = (minutes*60 + seconds + tenthSeconds/10).toFixed(1);
     let bestTime = (highScoreObj.oldReplayDuration / 1000).toFixed(1);
 
+    function successMessage() {
+      let messages = ['Sweet!', 'Awesome!', 'So Nimble!', 'Amazing', 'Great!', 'Nice!'];
+      let randomIndex = Math.floor(Math.random() * messages.length);
+
+      return messages[randomIndex];
+    } 
+
     // Set title and message for sweet alert
     if (highScoreObj.newHighScore && highScoreObj.loggedIn) {
-      title = 'Woohoo!';
+      title = successMessage();
       html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
             '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
             'You set the new record! Your replay has been saved as the new leader.';
     } else if (highScoreObj.newHighScore && !highScoreObj.loggedIn) {
-      title = 'Wow!';
+      title = successMessage();
       html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
             '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
-            'You beat the high score!  Unfortunately, you need to be logged in so we can store your high score. Log in and try again!';
+            'You beat the high score!<br>Unfortunately, you need to be logged in so we can store your high score. Log in and try again!';
     } else if (!highScoreObj.newHighScore && highScoreObj.loggedIn) {
-      title = 'Sweet!';
+      title = successMessage();
       html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
             '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
-            'You completed the prompt! Keep practicing to beat the record.';
+            'You completed the level! Can you beat the best time?';
     } else if (!highScoreObj.newHighScore && !highScoreObj.loggedIn) {
-      title = 'Great!';
+      title = successMessage();
       html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
             '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
-            'You completed the prompt! Make sure to log in and keep practicing to beat the record.';
+            'You completed the level!<br>Make sure to log in and keep practicing to beat the record.';
     }
-
 
     // New Record was Achieved
     swal({
         title: title,
         html: html,
         showCancelButton: true,
-        confirmButtonText: 'Retry',
-        cancelButtonText: 'Onward!',
+        confirmButtonText: 'Try Again?',
+        cancelButtonText: 'Go Forward',
         confirmButtonClass: 'teal-btn btn',
         cancelButtonClass: 'oj-btn btn',
         buttonsStyling: false,

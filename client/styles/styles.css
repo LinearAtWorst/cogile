@@ -269,36 +269,48 @@ html, body {
   z-index: 10;
   color: #444;
   background-color: #FFA25E !important;
+  margin-right: 25px;
+  margin-left: 25px;
 }
 
 .oj-btn:active {
   z-index: 10;
   color: #444;
   background-color: #FFB37B !important;
+  margin-right: 25px;
+  margin-left: 25px;
 }
 
 .oj-btn:hover {
   z-index: 10;
   color: #444;
   background-color: #FFB37B !important;
+  margin-right: 25px;
+  margin-left: 25px;
 }
 
 .teal-btn {
   z-index: 10;
   color: #444;
   background-color: #20A294 !important;
+  margin-right: 25px;
+  margin-left: 25px;
 }
 
 .teal-btn:active {
   z-index: 10;
   color: #444;
   background-color: #42B2A6 !important;
+  margin-right: 25px;
+  margin-left: 25px;
 }
 
 .teal-btn:hover {
   z-index: 10;
   color: #444;
   background-color: #42B2A6 !important;
+  margin-right: 25px;
+  margin-left: 25px;
 }
 
 .flex-container {
