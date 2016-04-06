@@ -313,6 +313,25 @@ html, body {
   margin-left: 25px;
 }
 
+.go-btn {
+  visibility: hidden;
+  color: #444;
+  background-color: #E0E0E0 !important;
+}
+
+.go-btn:active {
+  visibility: hidden;
+  color: #444;
+  background-color: #E0E0E0 !important;
+}
+
+.go-btn:hover {
+  visibility: hidden;
+  color: #444;
+  background-color: #E0E0E0 !important;
+}
+
+
 .flex-container {
   padding: 0;
   margin: 0;
