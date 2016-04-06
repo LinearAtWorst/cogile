@@ -233,7 +233,6 @@ class Multiplayer extends Component {
         <TimerMulti
           saveTimeElapsed={this.saveTimeElapsed.bind(this)}
           socket={this.socket} />
-        <LevelDisplay currentLevel={this.state.puzzleName} />
         <div className="col-sm-10 col-sm-offset-1 no-padding text-center"> {welcomeMsg} </div>
         <div className="col-sm-10 col-sm-offset-1 no-padding">
           <div className="col-sm-6"><h5><b>Copy this...</b></h5></div>
