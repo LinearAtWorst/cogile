@@ -14,13 +14,10 @@ class LevelSelect extends Component {
 
   componentWillUpdate() {
 
-    console.log(this.props.listOfPrompts);
     if (this.props.listOfPrompts) {
       var objectName = this.props.currentLanguage.language + 'Files';
-      console.log('Object Name : ', objectName)
 
       this.levels = this.props.listOfPrompts.prompts[objectName];
-      console.log('this.levels : ', this.levels);
     }
   }
 
