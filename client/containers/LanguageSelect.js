@@ -9,6 +9,7 @@ class LanguageSelect extends Component {
     super(props);
 
     this.state = {
+      language: "Javascript"
     }
   };
 
@@ -32,18 +33,20 @@ class LanguageSelect extends Component {
   }
 
   componentDidMount() {
-    console.log('ComponentDidMount : ', this.props.currentLanguage)
 
     $("#javascript").unbind('click').click(function() {
-      this.props.changeLanguage({language: "javascript"});
-      console.log('Current Language : ', this.props.currentLanguage)
+      this.props.changeLanguage({language: "js"});
+      this.props.changeLevel({'currentLevel': '00-forLoop'});
+      this.props.leavePage();
+      this.setState({language: 'Javascript'})
 
     }.bind(this));
-    $("#python").unbind('click').click(function() {
-      // Action to change to python
-      this.props.changeLanguage({language: "python"});
 
-      console.log('Current Language : ', this.props.currentLanguage)
+    $("#python").unbind('click').click(function() {
+      this.props.changeLanguage({language: "py"});
+      this.props.changeLevel({'currentLevel': '00-helloWorld'});
+      this.props.leavePage();
+      this.setState({language: 'Python'})
 
     }.bind(this));
   }
@@ -53,11 +56,11 @@ class LanguageSelect extends Component {
 
     return (
         <div className="dropdown pull-right singleplayer-switch">
-          <button className="btn btn-raised dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Language
+          <button className="btn btn-raised dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">{this.state.language}
           <span className="caret"></span></button>
           <ul className="dropdown-menu" role="menu" aria-labelledby="menu1">
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="javascript" href="#/singleplayer/">Javascript</a></li>
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="python" href="#/singleplayer/">Python</a></li>
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="javascript" href="#/singleplayer/00-forLoop">Javascript</a></li>
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="python" href="#/singleplayer/00-helloWorld">Python</a></li>
           </ul>
         </div>
     );
