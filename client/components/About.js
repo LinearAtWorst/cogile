@@ -13,7 +13,7 @@ const team = [{
 }, {
   key: 2,
   name: "Rick Yeh",
-  bio: "Rick loves travelling the world and eating awesome food everywhere he goes.  When he's not being an amateur foodie, his goal in life is to become a React ninja, whipping up components and containers in no time.",
+  bio: "Rick loves traveling the world and eating awesome food everywhere he goes.  When he's not being an amateur foodie, he's developing his React skills, whipping up components and containers on his free time.",
   image: "../assets/rick-profile.jpg",
   git: "https://github.com/rickyeh",
   linked: "https://www.linkedin.com/in/rickyeh",
@@ -65,7 +65,7 @@ class About extends Component {
         <div className="row">
           <div className="col-sm-1"></div>
           <div className="col-sm-10 about-description">
-            <p>Nimblecode was started by four software engineers in Los Angeles with a vision of building a game that was both fun and educational. It was developed with a React/Redux front-end and a Node/Express back-end. It leverages socket.io for real-time, bidirectional communication and utilizes Ace for the code editors.</p>
+            <p>Nimblecode was started by four software engineers in Los Angeles with a vision of building a game that was both fun and educational. It was developed with a React/Redux front-end and Node/Express running on EC2 for the back-end. It leverages socket.io for real-time, bidirectional communication and utilizes Ace for the code editors.</p>
             <p>If you'd like to contact us about any opportunities, or would like to contribute to our project, check us out at our <a href="http://github.com/nimblecode/nimblecode" target="_blank">github repo</a> or send us an <a href="mailto:nimblecodeio@gmail.com" target="_blank">email</a>. </p>
             <h4 className="text-center">
               <a href="http://github.com/nimblecode/nimblecode" target="_blank"><i className="text-center fa fa-github-square fa-2x about-icon"></i></a>

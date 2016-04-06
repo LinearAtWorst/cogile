@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeLevel, getListOfPrompts } from '../actions/index';
+import { changeLevel, getListOfPrompts, changeLanguage } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
@@ -12,6 +12,8 @@ import levenshtein from './../lib/levenshtein';
 import ProgressBar from './ProgressBar';
 import LevelDisplay from '../components/LevelDisplay';
 import LevelSelect from './LevelSelect';
+import LanguageSelect from './LanguageSelect';
+
 
 class Singleplayer extends Component {
   constructor(props) {
@@ -24,7 +26,8 @@ class Singleplayer extends Component {
       gameFinished: false,
       progress: 0,
       ghostProgress: 0,
-      recordUsername: ''
+      recordUsername: '',
+      currentLanguage: 'js'
     };
   };
 
@@ -32,7 +35,7 @@ class Singleplayer extends Component {
     if (this.props.currentLevel) {
 
       if (this.state.puzzleName !== this.props.currentLevel.currentLevel) {
-        axios.get('api/getPrompt/?puzzleName=' + this.props.currentLevel.currentLevel)
+        axios.get('api/getPrompt/?puzzleName=' + this.props.currentLevel.currentLevel + '&lang=' + (this.props.params.lang || this.props.currentLanguage.language))
           .then(function(res) {
             var data = res.data;
             var minifiedPuzzle = data.replace(/\s/g,'');
@@ -60,7 +63,7 @@ class Singleplayer extends Component {
     $.material.init();
 
     if (this.props.params.puzzleName) {
-      axios.get('api/getPrompt/?puzzleName=' + this.props.params.puzzleName)
+      axios.get('api/getPrompt/?puzzleName=' + this.props.params.puzzleName + '&lang=' + this.props.params.lang)
         .then(function(res) {
           var data = res.data;
           var minifiedPuzzle = data.replace(/\s/g,'');
@@ -87,6 +90,11 @@ class Singleplayer extends Component {
             minifiedPuzzle: minifiedPuzzle
           });
         }.bind(this));
+    }
+
+    if (this.props.currentLanguage !== this.state.currentLanguage) {
+      this.props.changeLanguage({language: this.props.params.lang})
+      this.setState({currentLanguage: this.props.params.lang});
     }
 
     axios.get('api/getAllPrompts').then(function(res) {
@@ -201,8 +209,11 @@ class Singleplayer extends Component {
     return (
       <div>
         <Timer />
-        <LevelDisplay currentLevel={this.state.puzzleName} />
-        <LevelSelect />
+        <LanguageSelect />
+
+        <div className="container col-sm-11 no-padding" id="level-select">
+          <LevelSelect puzzleName={this.state.puzzleName} />
+        </div>
 
         <div className="col-sm-10 col-sm-offset-1"><h5><b>Copy this...</b></h5></div>
         <CodePrompt puzzle={this.state.currentPuzzle} />
@@ -235,12 +246,13 @@ function mapStateToProps(state) {
     currentLevel: state.currentLevel,
     gameTime: state.gameTime,
     newHighScore: state.newHighScore,
-    listOfPrompts: state.listOfPrompts
+    listOfPrompts: state.listOfPrompts,
+    currentLanguage: state.currentLanguage
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({changeLevel: changeLevel, getListOfPrompts: getListOfPrompts}, dispatch);
+  return bindActionCreators({changeLevel: changeLevel, getListOfPrompts: getListOfPrompts, changeLanguage: changeLanguage}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Singleplayer)
