@@ -35,7 +35,7 @@ class StartButtonMulti extends Component {
 
       this.setState({
         text: 'Go!',
-        buttonType: 'btn btn-raised btn-success',
+        buttonType: 'go-btn btn btn-success',
         buttonDisabled: true
       });
     }
@@ -47,7 +47,7 @@ class StartButtonMulti extends Component {
 
     this.setState({
       text: 'Go!',
-      buttonType: 'btn btn-raised btn-success',
+      buttonType: 'go-btn btn btn-success',
       buttonDisabled: true
     });
   };
