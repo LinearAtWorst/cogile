@@ -50,7 +50,8 @@
   "scripts": {
     "test": "mocha ./test/specs/test-server.js -w",
     "start": "nodemon server/server.js",
-    "prod": "webpack -p"
+    "prod": "webpack -p",
+    "build": "NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
