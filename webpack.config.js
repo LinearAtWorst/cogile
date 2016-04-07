@@ -14,14 +14,19 @@ var UglifyJsPluginConfig = new webpack.optimize.UglifyJsPlugin({
     }
 });
 
+// var PROD = JSON.parse(process.env.PROD_DEV || "0");
+var PROD = true;
+
 module.exports = {
   entry: [
     './client/index.js'
   ],
+
   output: {
     path: __dirname,
     filename: 'bundle.js'
   },
+
   module: {
     loaders: [{
       test: /\.js$/,
@@ -32,11 +37,22 @@ module.exports = {
       },
     }]
   },
+
   resolve: {
     alias: {
       'react': path.join(__dirname, 'node_modules', 'react')
     },
     extensions: ['', '.js']
   },
-  plugins: [HTMLWebpackPluginConfig, UglifyJsPluginConfig]
+  
+  plugins: PROD ? [
+    new webpack.NoErrorsPlugin(),
+    HTMLWebpackPluginConfig,
+    UglifyJsPluginConfig,
+    new webpack.DefinePlugin({ 
+       'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') } 
+    })
+  ] : [
+    new webpack.NoErrorsPlugin()
+  ]
 }
