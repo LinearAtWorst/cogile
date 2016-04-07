@@ -181,6 +181,15 @@ class CodeEditor extends Component {
   };
 
   componentDidUpdate() {
+    // if language gets updated
+    if (this.props.currentLanguage.language === 'py') {
+      this.editor.getSession().setMode("ace/mode/python");
+      this.editor.getSession().setTabSize(4);
+    } else if (this.props.currentLanguage.language === 'js') {
+      this.editor.getSession().setMode("ace/mode/javascript");
+      this.editor.getSession().setTabSize(2);
+    }
+
     // if level has been changed or reset
     if (this.props.singleGame === null || this.props.currentLevel.currentLevel === null) {
       this.editor.setValue('');
@@ -221,7 +230,8 @@ function mapStateToProps(state) {
   return {
     singleGame: state.singleGame,
     currentLevel: state.currentLevel,
-    playersStatuses: state.playersStatuses
+    playersStatuses: state.playersStatuses,
+    currentLanguage: state.currentLanguage
   }
 }
 

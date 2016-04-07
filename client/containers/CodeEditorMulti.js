@@ -49,10 +49,9 @@ class CodeEditorMulti extends Component {
       }
     }.bind(this));
 
-    // should lock CodeEditor to read-only until timer begins
-    // this.editor.setReadOnly(true);
+    this.editor.setValue('Feel free to chat here before the game starts\nOther people will see what you type here');
 
-    this.editor.setValue('Feel free to chat here before the game starts');
+    this.editor.focus();
 
     // this code will be run everytime something is typed in the code editor
     this.editor.getSession().on("change", function() {

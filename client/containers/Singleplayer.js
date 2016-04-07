@@ -184,13 +184,19 @@ class Singleplayer extends Component {
           this.props.changeLevel({'currentLevel': this.props.currentLevel.currentLevel});
         } else if (isConfirm === false) {
           // Find index of current level
-          let indexOfCurrLevel = this.props.listOfPrompts.prompts.indexOf(this.props.currentLevel.currentLevel);
+          console.log(this.props.listOfPrompts);
+
+          let languageString = this.props.currentLanguage.language + 'Files';
+          let promptsArray = this.props.listOfPrompts.prompts[languageString];
+          console.log(promptsArray);
+
+          let indexOfCurrLevel = promptsArray.indexOf(this.props.currentLevel.currentLevel);
           // Advance to next level
-          if (indexOfCurrLevel !== this.props.listOfPrompts.prompts.length - 1) {
+          if (indexOfCurrLevel !== promptsArray.length - 1) {
             indexOfCurrLevel++;
             // this.props.changeLevel({'currentLevel': null});
             // this.props.changeLevel({'currentLevel': this.props.listOfPrompts.prompts[indexOfCurrLevel]});
-            browserHistory.push('/#/singleplayer/' + this.props.listOfPrompts.prompts[indexOfCurrLevel]);
+            browserHistory.push('/#/singleplayer/' + promptsArray[indexOfCurrLevel] + '/' + this.props.currentLanguage.language);
             location.reload();
           }
         } else {
@@ -216,8 +222,9 @@ class Singleplayer extends Component {
         </div>
 
         <div className="col-sm-10 col-sm-offset-1"><h5><b>Copy this...</b></h5></div>
-        <CodePrompt puzzle={this.state.currentPuzzle} />
-
+        <CodePrompt
+          puzzle={this.state.currentPuzzle}
+          currentLanguage={this.props.currentLanguage} />
         <div className="col-sm-10 col-sm-offset-1 no-padding">
           <div className="col-sm-6"><h5><b>Type here...  </b></h5></div>
           <div className="col-sm-6"><h5><b>Best Time</b></h5></div>

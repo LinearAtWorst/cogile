@@ -237,7 +237,9 @@ class Multiplayer extends Component {
         <div className="col-sm-10 col-sm-offset-1 no-padding">
           <div className="col-sm-6"><h5><b>Copy this...</b></h5></div>
           <div className="col-sm-6"><h5><b>Type here...</b></h5></div>
-          <CodePromptMulti puzzle={this.state.currentPuzzle} />
+          <CodePromptMulti
+            puzzle={this.state.currentPuzzle}
+            countingDownState={this.props.countingDown} />
           <CodeEditorMulti
             puzzle={this.state.currentPuzzle}
             minifiedPuzzle={this.state.minifiedPuzzle}
@@ -260,6 +262,7 @@ class Multiplayer extends Component {
 function mapStateToProps(state) {
   return {
     multiGameState: state.multiGameState,
+    countingDown: state.countingDown,
     gameTime: state.gameTime,
     savedGame: state.savedGame,
     multiplayerStatuses: state.multiplayerStatuses,
