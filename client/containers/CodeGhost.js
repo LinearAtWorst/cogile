@@ -90,6 +90,12 @@ class CodeGhost extends Component {
   }
 
   componentDidUpdate() {
+    if (this.props.currentLanguage.language === 'py') {
+      this.editor.getSession().setMode("ace/mode/python");
+    } else if (this.props.currentLanguage.language === 'js') {
+      this.editor.getSession().setMode("ace/mode/javascript");
+    }
+
     if (this.props.currentLevel && !this.pendingGetRequest) {
       if (Object.keys(this.record).length === 0 || this.props.currentLevel.currentLevel !== this.previousLevel) {
         this.pendingGetRequest = true;
@@ -152,7 +158,8 @@ class CodeGhost extends Component {
 function mapStateToProps(state) {
   return {
     singleGame: state.singleGame,
-    currentLevel: state.currentLevel
+    currentLevel: state.currentLevel,
+    currentLanguage: state.currentLanguage
   }
 }
 

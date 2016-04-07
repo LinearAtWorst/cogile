@@ -89,7 +89,8 @@ class LandingPageMulti extends Component {
     return (
       <div>
       <h1 className="text-center tagline">Welcome to Multiplayer! </h1>
-      <p className="text-center">Here you can join an existing game or make your own private game and invite friends.</p>
+      <p className="text-center">Please join a public room or create a private game to play with friends.</p>
+      <p className="text-center">You can also type in the Private Room ID to join your friend's game.</p>
       <div className="container-fluid">
           <div className="row">
               <div className="col-sm-12 text-center">

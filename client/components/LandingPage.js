@@ -14,6 +14,8 @@ class LandingPage extends Component {
       boxFourTitle: 'JS, Python, and More!',
       boxFourText: 'We are four full stack JavaScript developers, but we understand that you may have a different favorite language.  Currently we only have lessons in JS, with Python under development.  If you would like to see nimblecode support more languages, let us know!'
     };
+
+    console.log('Copyright © 2016 nimblecode\nhttps://github.com/nimblecode/nimblecode\nMIT Licensed. Enjoy!');
   }
 
 
