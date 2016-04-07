@@ -38,5 +38,11 @@ module.exports = {
     },
     extensions: ['', '.js']
   },
-  plugins: [HTMLWebpackPluginConfig, UglifyJsPluginConfig]
+  plugins: [
+    HTMLWebpackPluginConfig,
+    UglifyJsPluginConfig,
+    new webpack.DefinePlugin({ 
+       'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') } 
+    })
+  ]
 }
