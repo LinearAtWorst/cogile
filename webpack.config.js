@@ -9,13 +9,13 @@ var HTMLWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 var UglifyJsPluginConfig = new webpack.optimize.UglifyJsPlugin({
-    compress: {
-        warnings: false
-    }
+  compress: {
+    warnings: false
+  }
 });
 
-// var PROD = JSON.parse(process.env.PROD_DEV || "0");
-var PROD = true;
+var PROD = JSON.parse(process.env.PROD_DEV || "0");
+// var PROD = true;
 
 module.exports = {
   entry: [
@@ -49,8 +49,8 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     HTMLWebpackPluginConfig,
     UglifyJsPluginConfig,
-    new webpack.DefinePlugin({ 
-       'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') } 
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production') 
     })
   ] : [
     new webpack.NoErrorsPlugin()
