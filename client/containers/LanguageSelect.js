@@ -33,7 +33,7 @@ class LanguageSelect extends Component {
 
     $("#python").click(function() {
       this.props.changeLanguage({language: "py"});
-      this.props.changeLevel({'currentLevel': '00-helloWorld'});
+      this.props.changeLevel({'currentLevel': '00-evenNumbers'});
       this.props.leavePage();
       this.setState({language: 'Python'})
 
@@ -50,7 +50,7 @@ class LanguageSelect extends Component {
           <span className="caret"></span></button>
           <ul className="dropdown-menu" role="menu" aria-labelledby="menu1">
             <li role="presentation"><a role="menuitem" tabIndex="-1" id="javascript" href="#/singleplayer/00-forLoop/js">JavaScript</a></li>
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="python" href="#/singleplayer/00-helloWorld/py">Python</a></li>
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="python" href="#/singleplayer/00-evenNumbers/py">Python</a></li>
           </ul>
         </div>
       </div>

@@ -28,8 +28,12 @@ var jsFiles = [
   ];
 
 var pyFiles = [
-    '00-helloWorld'
-  ];
+  '00-evenNumbers',
+  '01-fibonacci',
+  '02-primes',
+  '03-functions',
+  '04-fizzBuzz'
+];
 
 var allFiles = {
   jsFiles: jsFiles,
