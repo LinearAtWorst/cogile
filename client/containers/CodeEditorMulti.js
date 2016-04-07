@@ -49,7 +49,9 @@ class CodeEditorMulti extends Component {
       }
     }.bind(this));
 
-    this.editor.setValue('Feel free to chat here before the game starts');
+    this.editor.setValue('Feel free to chat here before the game starts\nOther people will see what you type here');
+
+    this.editor.focus();
 
     // this code will be run everytime something is typed in the code editor
     this.editor.getSession().on("change", function() {
