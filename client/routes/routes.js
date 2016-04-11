@@ -17,7 +17,7 @@ var routes = (
     <Route path='/' component={App}>
       <IndexRoute component={LandingPage} />
       <Route path='/singleplayer' component={Singleplayer}/>
-      <Route path='/singleplayer/:puzzleName/:lang' component={Singleplayer}/>
+      <Route path='/singleplayer/:lang/:puzzleName' component={Singleplayer}/>
       <Route path='/about' component={About}/>
       <Route path='/multiplayer' component={LandingPageMulti} />
       <Route path='/multigame/:gameId' component={Multiplayer}/>
