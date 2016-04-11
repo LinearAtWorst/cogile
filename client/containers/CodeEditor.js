@@ -40,9 +40,9 @@ class CodeEditor extends Component {
     this.editor.getSession().setTabSize(2);
 
     this.editor.setOptions({
-      fontSize: '11pt',
-      minLines: 12,
-      maxLines: 12,
+      fontSize: '10.5pt',
+      minLines: 14,
+      maxLines: 14,
       enableBasicAutocompletion: false,
       enableSnippets: false,
       enableLiveAutocompletion: true,

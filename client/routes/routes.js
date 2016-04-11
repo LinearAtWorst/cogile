@@ -9,8 +9,15 @@ import LandingPage from '../components/LandingPage';
 import LandingPageMulti from '../containers/LandingPageMulti';
 import Login from '../containers/Login';
 import helperFunctions from '../utils/helperFunctions';
+import ga from 'ga-react-router';
 
 const appHistory = useRouterHistory(createHashHistory)({ queryKey: false});
+
+// Listen for changes to the current location. The
+// listener is called once immediately.
+const unlisten = appHistory.listen(location => {
+  ga('send', location);
+});
 
 var routes = (
   <Router history={appHistory}>
@@ -25,5 +32,8 @@ var routes = (
     </Route>
   </Router>
 );
+
+// When you're finished, stop the listener.
+unlisten();
 
 module.exports = routes;
