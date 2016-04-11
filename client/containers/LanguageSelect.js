@@ -21,6 +21,9 @@ class LanguageSelect extends Component {
       case 'py':
         this.setState({language: 'Python'})
         break;
+      case 'go':
+        this.setState({language: 'Go'})
+        break;
     }
 
     $("#javascript").click(function() {
@@ -37,7 +40,12 @@ class LanguageSelect extends Component {
       this.setState({language: 'Python'});
     }.bind(this));
 
-    
+    $("#go").click(function() {
+      this.props.changeLanguage({language: "go"});
+      this.props.changeLevel({'currentLevel': '00-for'});
+      this.props.leavePage();
+      this.setState({language: 'Go'});
+    }.bind(this));
   }
 
 
@@ -51,8 +59,7 @@ class LanguageSelect extends Component {
           <ul className="dropdown-menu" role="menu" aria-labelledby="menu1">
             <li role="presentation"><a role="menuitem" tabIndex="-1" id="javascript" href="#/singleplayer/js/00-forLoop">JavaScript</a></li>
             <li role="presentation"><a role="menuitem" tabIndex="-1" id="python" href="#/singleplayer/py/00-evenNumbers">Python</a></li>
-            <li role="presentation"><a role="menuitem" tabIndex="-1" id="go" href="#/singleplayer/go/00-evenNumbers">Go</a></li>
-
+            <li role="presentation"><a role="menuitem" tabIndex="-1" id="go" href="#/singleplayer/go/00-for">Go</a></li>
           </ul>
         </div>
       </div>

@@ -37,9 +37,15 @@ var pyFiles = [
   '04-fizzBuzz'
 ];
 
+var goFiles = [
+  '00-for',
+  '01-regExp'
+];
+
 var allFiles = {
   jsFiles: jsFiles,
-  pyFiles: pyFiles
+  pyFiles: pyFiles,
+  goFiles: goFiles
 }
 
 var getRandomJS = function(){
