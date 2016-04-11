@@ -188,6 +188,9 @@ class CodeEditor extends Component {
     } else if (this.props.currentLanguage.language === 'js') {
       this.editor.getSession().setMode("ace/mode/javascript");
       this.editor.getSession().setTabSize(2);
+    } else if (this.props.currentLanguage.language === 'go') {
+      this.editor.getSession().setMode("ace/mode/golang");
+      this.editor.getSession().setTabSize(4);
     }
 
     // if level has been changed or reset
