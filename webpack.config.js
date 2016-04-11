@@ -51,6 +51,9 @@ module.exports = {
     UglifyJsPluginConfig,
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production') 
+    }),
+    new webpack.DefinePlugin({
+      GA_TRACKING_CODE: JSON.stringify('UA-75858588-1')
     })
   ] : [
     new webpack.NoErrorsPlugin()
