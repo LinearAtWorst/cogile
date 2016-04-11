@@ -11,8 +11,8 @@ class LandingPage extends Component {
       boxTwoText: 'Everyone loves friendly competition. We help you display your coding prowess by competing against your friends in real time. Stretch those fingers and challenge your friends!',
       boxThreeTitle: 'Grow Your Coding Vocabulary',
       boxThreeText: 'Our team believes in learning by typing and repetition. By being exposed to different code snippets, our users can learn and expand their coding vocabulary. Whether it is typing out a FizzBuzz algorithm, simple React components, or ES6 syntax, nimblecode is a fun and easy way to grow as a developer.',
-      boxFourTitle: 'JS, Python, and More!',
-      boxFourText: 'We are four full stack JavaScript developers, but we understand that you may have a different favorite language.  Currently we only have lessons in JS, with Python under development.  If you would like to see nimblecode support more languages, let us know!'
+      boxFourTitle: 'Code in JS, Python, and Go!',
+      boxFourText: 'We are four full stack JavaScript developers, but we understand that you may have a different favorite language.  Currently we have lessons in JS, Python, and Go.  If you would like to see nimblecode support more languages, let us know!'
     };
 
     console.log('Copyright © 2016 nimblecode\nhttps://github.com/nimblecode/nimblecode\nMIT Licensed. Enjoy!');
