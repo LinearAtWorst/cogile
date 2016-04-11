@@ -19,9 +19,9 @@ class CodePrompt extends Component {
     this.editor = ace.edit('codePrompt');
     this.editor.setShowPrintMargin(false);
     this.editor.setOptions({
-      fontSize: '11pt',
-      minLines: 12,
-      maxLines: 12,
+      fontSize: '10.5pt',
+      minLines: 14,
+      maxLines: 14,
       dragEnabled: false
     });
     this.editor.setTheme("ace/theme/tomorrow_night_bright");
@@ -33,16 +33,16 @@ class CodePrompt extends Component {
     // Disables Selection of Text to Prevent Copy/Paste
     // Comment out for development purposes
     this.editor.on('changeSelection', function(e) {
-        this.editor.selection.setSelectionRange({
-            start: {
-                row: 0,
-                column: 0
-            },
-            end: {
-                row: 0,
-                column: 0
-            }
-        });
+      this.editor.selection.setSelectionRange({
+        start: {
+          row: 0,
+          column: 0
+        },
+        end: {
+            row: 0,
+            column: 0
+        }
+      });
     }.bind(this));
   }
 

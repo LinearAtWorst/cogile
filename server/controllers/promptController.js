@@ -16,15 +16,17 @@ var jsFiles = [
     '07-reverseArray',
     '08-hashFunction',
     '09-expressServer',
-    '10-jqueryClick',
+    '10-jqueryHover',
     '11-jqueryGet',
     '12-es6-letVariable',
     '13-es6-class',
     '14-es6-promise',
-    '15-angularController',
-    '16-reactComponent',
-    '17-reduxMapValues',
-    '18-reduxReducer',
+    '15-es6-arrow',
+    '16-es6-generators',
+    '17-reactComponent',
+    '18-reduxMapValues',
+    '19-reduxReducer',
+    '20-angularController',
   ];
 
 var pyFiles = [
