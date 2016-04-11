@@ -16,6 +16,7 @@
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "fs": "0.0.2",
+    "ga-react-router": "^2.0.0",
     "history": "^2.0.1",
     "jwt-decode": "^2.0.1",
     "jwt-simple": "^0.5.0",

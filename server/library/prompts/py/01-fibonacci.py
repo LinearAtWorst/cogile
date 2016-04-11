@@ -2,7 +2,7 @@ def fib(n):
     """print fib series up to n"""
     a, b = 0, 1
     while a < n:
-        print a,
+        print(a)
         a, b = b, a+b
 
 fib(1000)

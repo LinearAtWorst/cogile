@@ -34,12 +34,33 @@ var pyFiles = [
   '01-fibonacci',
   '02-primes',
   '03-functions',
-  '04-fizzBuzz'
+  '04-fizzBuzz',
+  '05-stack',
+  '06-set',
+  '07-compFilter',
+  '08-file',
+  '09-jsonDumps',
+  '10-lambda',
+  '11-zip',
+  '12-objects',
+  '13-closure',
+  '14-curry',
+  '15-recursion',
+  '16-reduce',
+  '17-regExp',
+  '18-getReq',
+  '19-insertionSort'
+];
+
+var goFiles = [
+  '00-for',
+  '01-regExp'
 ];
 
 var allFiles = {
   jsFiles: jsFiles,
-  pyFiles: pyFiles
+  pyFiles: pyFiles,
+  goFiles: goFiles
 }
 
 var getRandomJS = function(){
