@@ -51,6 +51,8 @@ class CodePrompt extends Component {
       this.editor.getSession().setMode("ace/mode/python");
     } else if (this.props.currentLanguage.language === 'js') {
       this.editor.getSession().setMode("ace/mode/javascript");
+    } else if (this.props.currentLanguage.language === 'go') {
+      this.editor.getSession().setMode("ace/mode/golang");
     }
     
     this.editor.setValue(this.props.puzzle);
