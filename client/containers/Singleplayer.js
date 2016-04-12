@@ -196,7 +196,7 @@ class Singleplayer extends Component {
             indexOfCurrLevel++;
             // this.props.changeLevel({'currentLevel': null});
             // this.props.changeLevel({'currentLevel': this.props.listOfPrompts.prompts[indexOfCurrLevel]});
-            browserHistory.push('/#/singleplayer/' + promptsArray[indexOfCurrLevel] + '/' + this.props.currentLanguage.language);
+            browserHistory.push('/#/singleplayer/' + this.props.currentLanguage.language + '/' + promptsArray[indexOfCurrLevel]);
             location.reload();
           }
         } else {
