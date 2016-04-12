@@ -49,7 +49,8 @@ var pyFiles = [
   '16-reduce',
   '17-regExp',
   '18-getReq',
-  '19-insertionSort'
+  '19-insertionSort',
+  '20-prompt'
 ];
 
 var goFiles = [
