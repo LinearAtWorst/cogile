@@ -161,7 +161,8 @@ html, body {
   color: #181818;
   margin-left: 15px;
   font-weight: bold;
-  line-height: 2em
+  line-height: 2em;
+  white-space: nowrap;
 }
 
 .no-height {

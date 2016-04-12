@@ -211,7 +211,7 @@ class Singleplayer extends Component {
   }
 
   render() {
-    var recordName = 'Record( '.concat(this.state.recordUsername,' )');
+    var recordName = 'Record - '.concat(this.state.recordUsername);
 
     return (
       <div>
