@@ -125,7 +125,8 @@ class Singleplayer extends Component {
   };
    
   endingAlert() {
-    let highScoreObj = this.props.newHighScore
+    console.log('newHighScore : ', this.props.newHighScore)
+    let highScoreObj = this.props.newHighScore;
     let title = '';
     let html = '';
     let minutes = this.props.gameTime.minutes;
