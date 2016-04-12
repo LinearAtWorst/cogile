@@ -133,9 +133,8 @@ class Singleplayer extends Component {
     let tenthSeconds = this.props.gameTime.tenthSeconds;
     let yourTime = (minutes*60 + seconds + tenthSeconds/10).toFixed(1);
     let bestTime = (highScoreObj.oldReplayDuration / 1000).toFixed(1);
-    var bestTimeString = '<h4>Best Time: ' + bestTime + ' seconds</h4>';
+    let bestTimeString = '<h4>Best Time: ' + bestTime + ' seconds</h4>';
 
-    console.log(typeof bestTime)
     if (bestTime === 'NaN') {
       bestTimeString = '<br>';
     } 
@@ -150,23 +149,19 @@ class Singleplayer extends Component {
     // Set title and message for sweet alert
     if (highScoreObj.newHighScore && highScoreObj.loggedIn) {
       title = successMessage();
-      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
-            bestTimeString +
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' + bestTimeString +
             'You set the new record! Your replay has been saved as the new leader.';
     } else if (highScoreObj.newHighScore && !highScoreObj.loggedIn) {
       title = successMessage();
-      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
-            bestTimeString +
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' + bestTimeString +
             'You beat the high score!<br>Unfortunately, you need to be logged in so we can store your high score. Log in and try again!';
     } else if (!highScoreObj.newHighScore && highScoreObj.loggedIn) {
       title = successMessage();
-      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
-            bestTimeString +
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' + bestTimeString +
             'You completed the level! Can you beat the best time?';
     } else if (!highScoreObj.newHighScore && !highScoreObj.loggedIn) {
       title = successMessage();
-      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
-            bestTimeString +
+      html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' + bestTimeString +
             'You completed the level!<br>Make sure to log in and keep practicing to beat the record.';
     }
 
@@ -212,15 +207,11 @@ class Singleplayer extends Component {
   }
 
   fetchRecordUsername(username) {
-    if (username) {
-      this.setState({recordUsername: username});
-    } else {
-      this.setState({recordUsername: 'NimbleBot'});
-    }
+    this.setState({recordUsername: username});
   }
 
   render() {
-    var recordName = 'Record('.concat(this.state.recordUsername,')');
+    var recordName = 'Record( '.concat(this.state.recordUsername,' )');
 
     return (
       <div>

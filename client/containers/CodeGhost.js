@@ -129,6 +129,7 @@ class CodeGhost extends Component {
 
             } else {
               this.record = this.generateFakeGhost();
+              this.props.fetchRecordUsername('NimbleBot')
 
               this.pendingGetRequest = false;
             }
