@@ -38,6 +38,7 @@ class CodeGhost extends Component {
     });
     this.editor.setTheme("ace/theme/tomorrow_night");
     this.editor.getSession().setMode("ace/mode/javascript");
+    this.editor.getSession().setUseWorker(false);
     this.editor.setReadOnly(true);
     this.editor.$blockScrolling = Infinity;
     this.editor.setHighlightActiveLine(false);
