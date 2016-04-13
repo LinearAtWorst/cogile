@@ -73,7 +73,6 @@ npm test
 
 * React
 * Redux
-* React Router
 * Node.js
 * Express
 * MySQL
