@@ -37,6 +37,7 @@ class CodeEditor extends Component {
     this.editor.setShowPrintMargin(false);
     this.editor.setTheme("ace/theme/tomorrow_night_bright");
     this.editor.getSession().setMode("ace/mode/javascript");
+    this.editor.getSession().setUseWorker(false);
     this.editor.getSession().setTabSize(2);
 
     this.editor.setOptions({
@@ -197,6 +198,7 @@ class CodeEditor extends Component {
     if (this.props.singleGame === null || this.props.currentLevel.currentLevel === null) {
       this.editor.setValue('');
       this.editor.setReadOnly(true);
+      this.recordHigh = undefined;
     }
     // once game starts
     if (this.props.singleGame === 'STARTED_GAME') {

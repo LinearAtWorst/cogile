@@ -29,6 +29,7 @@ class CodeEditorMulti extends Component {
     this.editor.setTheme("ace/theme/tomorrow_night_bright");
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.getSession().setTabSize(2);
+    this.editor.getSession().setUseWorker(false);
     this.editor.$blockScrolling = Infinity;
 
     this.editor.setOptions({

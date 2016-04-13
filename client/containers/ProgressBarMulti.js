@@ -15,7 +15,7 @@ class ProgressBarMulti extends Component {
 
   isCurrentPlayer(player) {
     if(player === this.props.SavedUsername) {
-      return '' + player + '(You)';
+      return '' + player + ' - You';
     } else {
       return player;
     }

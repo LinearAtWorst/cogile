@@ -24,7 +24,7 @@ class LandingPage extends Component {
       <div>
         <h1 className="text-center tagline">How fast can you code?</h1>
         <div className="row">
-          <div className="col-sm-12 text-center" id="landingVideo"><img id="codingGif" src="../assets/nimblecode-landing-10fps.gif" /></div>
+          <div className="col-sm-12 text-center" id="landingVideo"><img id="codingGif" src="http://nimblecode.github.io/static/nimblecode-landing-10fps.gif" /></div>
         </div>
         <div className="container-fluid">
           <div className="row">
