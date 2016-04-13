@@ -99,7 +99,7 @@ class CodeGhost extends Component {
 
     for (let i = 0; i < this.props.currentPuzzle.length; i++) {
       fakeRecord[currentTime] = this.props.currentPuzzle.slice(0,i);
-      currentTime += Math.random() * (1000 - 100) + 100;
+      currentTime += Math.random() * (600 - 10) + 10;
     }
 
     fakeRecord.duration = currentTime - startTime;
