@@ -89,24 +89,43 @@ class LandingPageMulti extends Component {
     return (
       <div>
       <h1 className="text-center tagline">Welcome to Multiplayer! </h1>
-      <p className="text-center">Here you can join an existing game or make your own private game and invite friends.</p>
+      <p className="text-center">Please join a public room or create a private game to play with friends.</p>
+      <p className="text-center">You can also type in the Private Room ID to join your friend's game.</p>
       <div className="container-fluid">
           <div className="row">
               <div className="col-sm-12 text-center">
 
               <center>
-                <button type="button" onClick={this.handleSubmitPublic.bind(this)} className="btn btn-raised btn-primary landing-btn">Join Public Room</button>
+                <button
+                  id="join-multi-btn"
+                  type="button"
+                  onClick={this.handleSubmitPublic.bind(this)}
+                  className="oj-btn btn btn-raised landing-btn">
+                  Join Public Room
+                </button>
               </center>
 
               <h2 className="text-center"><strong>--- OR ---</strong></h2>
 
-              <center><form className="form-inline" onSubmit={this.handleSubmitPrivate.bind(this)}>
-                <div className="form-group label-floating">
-                  <label htmlFor="roomId" className="control-label">Room ID (Number)</label>
-                    <input type="number" id="roomId" className="form-control text-center" value={this.state.privateRoomId} onChange={this.changePrivateRoomId.bind(this)} />
+              <center>
+                <form className="form-inline" onSubmit={this.handleSubmitPrivate.bind(this)}>
+                  <div className="form-group label-floating">
+                    <label htmlFor="roomId" className="control-label">Room ID (Number)</label>
+                      <input
+                        type="number"
+                        id="roomId"
+                        className="form-control text-center"
+                        value={this.state.privateRoomId}
+                        onChange={this.changePrivateRoomId.bind(this)} />
                   </div>
-                 </form>
-                <button type="button" onClick={this.handleSubmitPrivate.bind(this)} className="btn btn-raised btn-primary landing-btn">Create/Join Private Room</button>
+                </form>
+                <button
+                  id="join-multi-btn"
+                  type="button"
+                  onClick={this.handleSubmitPrivate.bind(this)}
+                  className="oj-btn btn btn-raised landing-btn">
+                  Create/Join Private Room
+                </button>
               </center>
             </div>
           </div>

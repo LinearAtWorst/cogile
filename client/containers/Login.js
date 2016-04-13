@@ -32,7 +32,12 @@ class Login extends Component {
             <form className="form col-sm-6 col-sm-offset-3" onSubmit={this._onSubmit.bind(this)}>
               <div className="form-group label-floating">
                 <label htmlFor="username" className="control-label">Username</label>
-                <input type="text" id="username" className="form-control" value={this.state.username} onChange={this._changeUsername.bind(this)} />
+                <input
+                  type="text"
+                  id="username"
+                  className="form-control"
+                  value={this.state.username}
+                  onChange={this._changeUsername.bind(this)} />
               </div>
 
               <div className="form-group label-floating">
@@ -42,7 +47,7 @@ class Login extends Component {
 
               <center>
                 <div className="row">
-                  <button className="btn btn-raised" type="submit">Login</button>
+                  <button id="login-register-btn" className="oj-btn btn btn-raised" type="submit">Login</button>
                   <br />
                   <div className="row text-center">{this.state.passwordFail ? ( <p className="failed-validation">Wrong password, fam.</p> ) : null }
                     {this.state.usernameFail ? ( <p className="failed-validation">Username doesn't exist. Please register an account with us.</p> ) : null }
@@ -81,11 +86,9 @@ class Login extends Component {
         password: this.state.password
       })
       .then(function(response) {
-        console.log('response',response);
         if (response.data.isValid === true) {
           // saving token to localStorage
           global.window.localStorage.setItem('com.nimblecode', response.data.token);
-          console.log("successful login");
 
           // storing username into Redux App State
           this.props.storeUsername(this.state.username);

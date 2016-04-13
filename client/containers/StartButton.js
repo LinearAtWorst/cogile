@@ -16,14 +16,12 @@ class StartButton extends Component {
   };
 
   handleClick() {
-    console.log('L26: StartButton.js : handleClick');
-
     if (!this.state.buttonDisabled) {
       this.props.startCountdown();
 
       this.setState({
         text: 'Go!',
-        buttonType: 'btn btn-raised btn-success',
+        buttonType: 'go-btn btn',
         buttonDisabled: true
       });
     }
@@ -34,7 +32,7 @@ class StartButton extends Component {
     if (!this.props.singleGame && this.state.buttonDisabled && this.props.countingDown !== 'START_COUNTDOWN') {
       this.setState({
         text: 'Start!',
-        buttonType: 'btn btn-raised btn-primary',
+        buttonType: 'btn btn-primary',
         buttonDisabled: false,
         handleMultiCalled: false
       });
@@ -42,7 +40,7 @@ class StartButton extends Component {
   }
 
   render() {
-    if (this.props.countingDown === 'START_COUNTDOWN') {
+    if (this.props.countingDown === 'START_COUNTDOWN' || this.props.countingDown === 'STARTED_GAME') {
       return null;
     }
 

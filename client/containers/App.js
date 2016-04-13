@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUsername, smashUser } from '../actions/index';
 import { bindActionCreators } from 'redux';
-import NavLink from './NavLink';
+import NavLink from '../components/NavLink';
 import { Link } from 'react-router';
 import Radium from 'radium';
 import color from 'color';
@@ -18,9 +18,7 @@ class App extends Component {
   smash() {
     if (helperFunctions.isLoggedIn() === true){
       this.props.smashUser();
-      console.log('token removed');
     }
-    console.log('not logged in');
   };
 
   render() {
@@ -39,7 +37,7 @@ class App extends Component {
               </RadiumLink>
 
               <ul role="nav" className="nav navbar-nav navbar-right">
-                <li className="nav-item"><NavLink to="singleplayer/00-forLoop" className="nav-label" onlyActiveOnIndex>Singleplayer</NavLink></li>
+                <li className="nav-item"><NavLink to="singleplayer/js/00-forLoop" className="nav-label" onlyActiveOnIndex>Singleplayer</NavLink></li>
                 <li className="nav-item"><NavLink to="multiplayer" className="nav-label">Multiplayer</NavLink></li>
                 <li className="nav-item"><NavLink to="about" className="nav-label">About</NavLink></li>
                 {

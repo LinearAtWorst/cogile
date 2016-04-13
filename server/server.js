@@ -10,7 +10,6 @@ var GitHubStrategy = require('passport-github2').Strategy;
 var session = require('express-session');
 var http = require('http');
 var userController = require('./controllers/userController');
-// var socketController = require('./controllers/socketController.js');
 var db = require('./db/schema.js');
 var userController = require('./controllers/userController.js');
 
@@ -86,19 +85,6 @@ app.use(webpackMiddleware(bundler));
 // socket code
 var io = require('socket.io').listen(server);
 var socketEvents = require('./controllers/socketController.js').socketInit(io);
-//
-//
-//TEST CREAT USER
-// var newUser = {
-//   body: {
-//     username: 'nick',
-//     password: '1111'
-//   }
-// }
-// userController.signup(newUser, {send: function(info){console.log(info);}});
-
-
-
 
 
 module.exports = app;

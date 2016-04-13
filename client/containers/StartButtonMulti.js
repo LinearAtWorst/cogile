@@ -35,7 +35,7 @@ class StartButtonMulti extends Component {
 
       this.setState({
         text: 'Go!',
-        buttonType: 'btn btn-raised btn-success',
+        buttonType: 'go-btn btn btn-success',
         buttonDisabled: true
       });
     }
@@ -47,15 +47,12 @@ class StartButtonMulti extends Component {
 
     this.setState({
       text: 'Go!',
-      buttonType: 'btn btn-raised btn-success',
+      buttonType: 'go-btn btn btn-success',
       buttonDisabled: true
     });
   };
 
   render() {
-
-    console.log('Game Id is: ', this.props.savedGame);
-
     if (this.props.countingDown === 'START_COUNTDOWN') {
       return null;
     }

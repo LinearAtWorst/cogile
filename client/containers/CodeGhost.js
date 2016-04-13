@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { syncPlayersStatuses, getUsername } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import levenshtein from './../lib/levenshtein';
 import axios from 'axios';
@@ -21,9 +20,9 @@ class CodeGhost extends Component {
   }
 
   static propTypes = {
-  };
-
-  static defaultProps = {
+    minifiedPuzzle: PropTypes.string,
+    calculateProgress: PropTypes.func,
+    fetchRecordUsername: PropTypes.func
   };
 
   componentDidMount() {
@@ -32,9 +31,9 @@ class CodeGhost extends Component {
     this.editor = ace.edit('codeGhost');
     this.editor.setShowPrintMargin(false);
     this.editor.setOptions({
-      fontSize: '11pt',
-      minLines: 12,
-      maxLines: 12,
+      fontSize: '10.5pt',
+      minLines: 14,
+      maxLines: 14,
       dragEnabled: false
     });
     this.editor.setTheme("ace/theme/tomorrow_night");
@@ -91,6 +90,14 @@ class CodeGhost extends Component {
   }
 
   componentDidUpdate() {
+    if (this.props.currentLanguage.language === 'py') {
+      this.editor.getSession().setMode("ace/mode/python");
+    } else if (this.props.currentLanguage.language === 'js') {
+      this.editor.getSession().setMode("ace/mode/javascript");
+    } else if (this.props.currentLanguage.language === 'go') {
+      this.editor.getSession().setMode("ace/mode/golang");
+    }
+
     if (this.props.currentLevel && !this.pendingGetRequest) {
       if (Object.keys(this.record).length === 0 || this.props.currentLevel.currentLevel !== this.previousLevel) {
         this.pendingGetRequest = true;
@@ -153,13 +160,13 @@ class CodeGhost extends Component {
 function mapStateToProps(state) {
   return {
     singleGame: state.singleGame,
-    currentLevel: state.currentLevel
+    currentLevel: state.currentLevel,
+    currentLanguage: state.currentLanguage
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    getUsername: getUsername
   }, dispatch);
 }
 

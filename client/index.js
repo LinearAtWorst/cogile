@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import ReactRoutes from './../routes/routes.js';
+import ReactRoutes from './routes/routes.js';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 

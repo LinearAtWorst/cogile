@@ -7,13 +7,12 @@ class CodeMiniView extends Component {
   }
 
   componentDidMount() {
-    console.log('this key is: ', this.props.playerKey);
     this.editor = ace.edit(this.props.playerKey);
     this.editor.setShowPrintMargin(false);
     this.editor.setOptions({
-      fontSize: '6pt',
-      minLines: 15,
-      maxLines: 15,
+      fontSize: '9pt',
+      minLines: 12,
+      maxLines: 12,
       dragEnabled: false
     });
     this.editor.setTheme("ace/theme/tomorrow_night");
@@ -43,7 +42,7 @@ class CodeMiniView extends Component {
   }
 
   render() {
-    const style = {fontSize: '6px !important', border: '3px solid #181818'};
+    const style = {fontSize: '9px !important', border: '3px solid #181818'};
 
     return (
       <div className="no-padding">

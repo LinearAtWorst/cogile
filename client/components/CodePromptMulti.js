@@ -28,7 +28,8 @@ class CodePromptMulti extends Component {
     this.editor.getSession().setMode("ace/mode/javascript");
     this.editor.setReadOnly(true);
     this.editor.$blockScrolling = Infinity;
-    this.editor.setHighlightActiveLine(false);    
+    this.editor.setHighlightActiveLine(false);
+    this.editor.setValue('Waiting for the game to start...');
 
     // Disables Selection of Text to Prevent Copy/Paste
     // Comment out for development purposes
@@ -47,7 +48,12 @@ class CodePromptMulti extends Component {
   }
 
   componentDidUpdate() {
-    this.editor.setValue(this.props.puzzle);
+    if (this.props.countingDownState === 'START_COUNTDOWN') {
+      this.editor.setValue('Get ready to begin!!');
+    }
+    if (this.props.countingDownState === 'STARTED_GAME') {
+      this.editor.setValue(this.props.puzzle);
+    }
     this.editor.clearSelection();
   }
 

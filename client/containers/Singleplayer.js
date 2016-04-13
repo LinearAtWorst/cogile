@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { changeLevel, getListOfPrompts, changeLanguage } from '../actions/index';
+import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
+import axios from 'axios';
 import CodeEditor from './CodeEditor';
 import CodePrompt from '../components/CodePrompt';
-import CodeGhost from '../components/CodeGhost';
+import CodeGhost from './CodeGhost';
 import Timer from './Timer';
 import levenshtein from './../lib/levenshtein';
-import ProgressBar from '../components/ProgressBar';
-import { connect } from 'react-redux';
-import { changeLevel, getListOfPrompts } from '../actions/index';
-import { bindActionCreators } from 'redux';
-import axios from 'axios';
+import ProgressBar from './ProgressBar';
 import LevelDisplay from '../components/LevelDisplay';
 import LevelSelect from './LevelSelect';
-import { browserHistory } from 'react-router';
+import LanguageSelect from './LanguageSelect';
+
 
 class Singleplayer extends Component {
   constructor(props) {
@@ -24,7 +26,8 @@ class Singleplayer extends Component {
       gameFinished: false,
       progress: 0,
       ghostProgress: 0,
-      recordUsername: ''
+      recordUsername: '',
+      currentLanguage: 'js'
     };
   };
 
@@ -32,7 +35,7 @@ class Singleplayer extends Component {
     if (this.props.currentLevel) {
 
       if (this.state.puzzleName !== this.props.currentLevel.currentLevel) {
-        axios.get('api/getPrompt/?puzzleName=' + this.props.currentLevel.currentLevel)
+        axios.get('api/getPrompt/?puzzleName=' + this.props.currentLevel.currentLevel + '&lang=' + (this.props.params.lang || this.props.currentLanguage.language))
           .then(function(res) {
             var data = res.data;
             var minifiedPuzzle = data.replace(/\s/g,'');
@@ -60,7 +63,7 @@ class Singleplayer extends Component {
     $.material.init();
 
     if (this.props.params.puzzleName) {
-      axios.get('api/getPrompt/?puzzleName=' + this.props.params.puzzleName)
+      axios.get('api/getPrompt/?puzzleName=' + this.props.params.puzzleName + '&lang=' + this.props.params.lang)
         .then(function(res) {
           var data = res.data;
           var minifiedPuzzle = data.replace(/\s/g,'');
@@ -87,6 +90,11 @@ class Singleplayer extends Component {
             minifiedPuzzle: minifiedPuzzle
           });
         }.bind(this));
+    }
+
+    if (this.props.currentLanguage !== this.state.currentLanguage) {
+      this.props.changeLanguage({language: this.props.params.lang})
+      this.setState({currentLanguage: this.props.params.lang});
     }
 
     axios.get('api/getAllPrompts').then(function(res) {
@@ -123,42 +131,46 @@ class Singleplayer extends Component {
     let minutes = this.props.gameTime.minutes;
     let seconds = this.props.gameTime.seconds;
     let tenthSeconds = this.props.gameTime.tenthSeconds;
-    console.log('my minutes, seconds, tenthseconds is: ', minutes, seconds, tenthSeconds);
     let yourTime = (minutes*60 + seconds + tenthSeconds/10).toFixed(1);
     let bestTime = (highScoreObj.oldReplayDuration / 1000).toFixed(1);
-    console.log(highScoreObj);
+
+    function successMessage() {
+      let messages = ['Sweet!', 'Awesome!', 'So Nimble!', 'Amazing', 'Great!', 'Nice!'];
+      let randomIndex = Math.floor(Math.random() * messages.length);
+
+      return messages[randomIndex];
+    } 
 
     // Set title and message for sweet alert
     if (highScoreObj.newHighScore && highScoreObj.loggedIn) {
-      title = 'Woohoo!';
+      title = successMessage();
       html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
             '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
             'You set the new record! Your replay has been saved as the new leader.';
     } else if (highScoreObj.newHighScore && !highScoreObj.loggedIn) {
-      title = 'Wow!';
+      title = successMessage();
       html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
             '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
-            'You beat the high score!  Unfortunately, you need to be logged in so we can store your high score. Log in and try again!';
+            'You beat the high score!<br>Unfortunately, you need to be logged in so we can store your high score. Log in and try again!';
     } else if (!highScoreObj.newHighScore && highScoreObj.loggedIn) {
-      title = 'Sweet!';
+      title = successMessage();
       html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
             '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
-            'You completed the prompt! Keep practicing to beat the record.';
+            'You completed the level! Can you beat the best time?';
     } else if (!highScoreObj.newHighScore && !highScoreObj.loggedIn) {
-      title = 'Great!';
+      title = successMessage();
       html = '<h4>Your Time: ' + yourTime + ' seconds</h4>' +
             '<h4>Best Time: ' + bestTime + ' seconds</h4>' +
-            'You completed the prompt! Make sure to log in and keep practicing to beat the record.';
+            'You completed the level!<br>Make sure to log in and keep practicing to beat the record.';
     }
-
 
     // New Record was Achieved
     swal({
         title: title,
         html: html,
         showCancelButton: true,
-        confirmButtonText: 'Retry',
-        cancelButtonText: 'Onward!',
+        confirmButtonText: 'Try Again?',
+        cancelButtonText: 'Go Forward',
         confirmButtonClass: 'teal-btn btn',
         cancelButtonClass: 'oj-btn btn',
         buttonsStyling: false,
@@ -168,18 +180,23 @@ class Singleplayer extends Component {
       function(isConfirm) {
         if (isConfirm === true) {
           location.reload();
-          console.log('Confirm false, currentlevel', this.props.currentLevel);
           this.props.changeLevel({'currentLevel': null});
           this.props.changeLevel({'currentLevel': this.props.currentLevel.currentLevel});
         } else if (isConfirm === false) {
           // Find index of current level
-          let indexOfCurrLevel = this.props.listOfPrompts.prompts.indexOf(this.props.currentLevel.currentLevel);
+          console.log(this.props.listOfPrompts);
+
+          let languageString = this.props.currentLanguage.language + 'Files';
+          let promptsArray = this.props.listOfPrompts.prompts[languageString];
+          console.log(promptsArray);
+
+          let indexOfCurrLevel = promptsArray.indexOf(this.props.currentLevel.currentLevel);
           // Advance to next level
-          if (indexOfCurrLevel !== this.props.listOfPrompts.prompts.length - 1) {
+          if (indexOfCurrLevel !== promptsArray.length - 1) {
             indexOfCurrLevel++;
             // this.props.changeLevel({'currentLevel': null});
             // this.props.changeLevel({'currentLevel': this.props.listOfPrompts.prompts[indexOfCurrLevel]});
-            browserHistory.push('/#/singleplayer/' + this.props.listOfPrompts.prompts[indexOfCurrLevel]);
+            browserHistory.push('/#/singleplayer/' + this.props.currentLanguage.language + '/' + promptsArray[indexOfCurrLevel]);
             location.reload();
           }
         } else {
@@ -198,12 +215,16 @@ class Singleplayer extends Component {
     return (
       <div>
         <Timer />
-        <LevelDisplay currentLevel={this.state.puzzleName} />
-        <LevelSelect />
+        <LanguageSelect />
+
+        <div className="container col-sm-11 no-padding" id="level-select">
+          <LevelSelect puzzleName={this.state.puzzleName} />
+        </div>
 
         <div className="col-sm-10 col-sm-offset-1"><h5><b>Copy this...</b></h5></div>
-        <CodePrompt puzzle={this.state.currentPuzzle} />
-
+        <CodePrompt
+          puzzle={this.state.currentPuzzle}
+          currentLanguage={this.props.currentLanguage} />
         <div className="col-sm-10 col-sm-offset-1 no-padding">
           <div className="col-sm-6"><h5><b>Type here...  </b></h5></div>
           <div className="col-sm-6"><h5><b>Best Time</b></h5></div>
@@ -232,12 +253,13 @@ function mapStateToProps(state) {
     currentLevel: state.currentLevel,
     gameTime: state.gameTime,
     newHighScore: state.newHighScore,
-    listOfPrompts: state.listOfPrompts
+    listOfPrompts: state.listOfPrompts,
+    currentLanguage: state.currentLanguage
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({changeLevel: changeLevel, getListOfPrompts: getListOfPrompts}, dispatch);
+  return bindActionCreators({changeLevel: changeLevel, getListOfPrompts: getListOfPrompts, changeLanguage: changeLanguage}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Singleplayer)

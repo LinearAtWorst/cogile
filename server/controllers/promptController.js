@@ -1,6 +1,5 @@
 var Highscore = require('../models/highscore.js');
 var Highscores = require('../collections/highScoreCollection.js');
-var prompts = require('./prompts');
 var fs = require('fs');
 var path = require('path');
 
@@ -17,16 +16,52 @@ var jsFiles = [
     '07-reverseArray',
     '08-hashFunction',
     '09-expressServer',
-    '10-jqueryClick',
+    '10-jqueryHover',
     '11-jqueryGet',
     '12-es6-letVariable',
     '13-es6-class',
     '14-es6-promise',
-    '15-angularController',
-    '16-reactComponent',
-    '17-reduxMapValues',
-    '18-reduxReducer',
+    '15-es6-arrow',
+    '16-es6-generators',
+    '17-reactComponent',
+    '18-reduxMapValues',
+    '19-reduxReducer',
+    '20-angularController',
   ];
+
+var pyFiles = [
+  '00-evenNumbers',
+  '01-fibonacci',
+  '02-primes',
+  '03-functions',
+  '04-fizzBuzz',
+  '05-stack',
+  '06-set',
+  '07-compFilter',
+  '08-file',
+  '09-jsonDumps',
+  '10-lambda',
+  '11-zip',
+  '12-objects',
+  '13-closure',
+  '14-curry',
+  '15-recursion',
+  '16-reduce',
+  '17-regExp',
+  '18-getReq',
+  '19-insertionSort'
+];
+
+var goFiles = [
+  '00-for',
+  '01-regExp'
+];
+
+var allFiles = {
+  jsFiles: jsFiles,
+  pyFiles: pyFiles,
+  goFiles: goFiles
+}
 
 var getRandomJS = function(){
   return jsFiles[Math.floor(Math.random() * jsFiles.length)];
@@ -114,7 +149,8 @@ handlers.specific = function(req, res){
     puzzleName = jsFiles[0];
   }
 
-  fs.readFile(path.join(__dirname, '../library/prompts/' + /*req.data.language  ||*/  'js/' + puzzleName + '.js'), 'utf-8', function(err, data){
+
+  fs.readFile(path.join(__dirname, '../library/prompts/' + req.query.lang + '/' + puzzleName + '.' + req.query.lang), 'utf-8', function(err, data){
     console.log(err);
     // console.log(data);
     res.send(data);
@@ -123,7 +159,7 @@ handlers.specific = function(req, res){
 }
 
 handlers.getAllPrompts = function(req, res) {
-  res.send(jsFiles);
+  res.send(allFiles);
 }
 
 module.exports = handlers;

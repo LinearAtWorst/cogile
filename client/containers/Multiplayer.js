@@ -37,7 +37,6 @@ class Multiplayer extends Component {
     this.socket = io();
 
     if(this.props.params.gameId){
-      console.log(this.props.params.gameId);
       this.props.storeGameId(this.props.params.gameId);
 
       this.socket.emit('create new game', {roomcode:this.props.params.gameId, username: this.username, privacySetting: this.props.location.query.status});
@@ -65,10 +64,12 @@ class Multiplayer extends Component {
     // listening for a 'all players progress' socket event and
     // collects all players' code from socket
     this.socket.on('all players progress', function(players) {
-      underscore.map(players, function(obj, key){
-        var playerPercent = this.calculatePercent(players[key][2]);
-        players[key][1] = playerPercent;
-      }.bind(this));
+      if (this.props.multiGameState === 'STARTED_GAME') {
+        underscore.map(players, function(obj, key){
+          var playerPercent = this.calculatePercent(players[key][2]);
+          players[key][1] = playerPercent;
+        }.bind(this));
+      }
       this.props.syncMultiplayerStatuses(players);
 
     }.bind(this));
@@ -125,7 +126,6 @@ class Multiplayer extends Component {
       var nameAndFinalTimeArray = [finalStats[key][1], key]
       finalTimes.push(nameAndFinalTimeArray);
     }
-    // console.log(finalTimes); // [ [progress1, name1], [progress2, name2] ]
 
     finalTimes.sort(function(a, b) {
       return b[0] - a[0];
@@ -174,8 +174,8 @@ class Multiplayer extends Component {
       title: title,
       html: html,
       showCancelButton: true,
-      confirmButtonText: 'Take me home',
-      cancelButtonText: 'Create/Join a new game',
+      confirmButtonText: 'Go Home',
+      cancelButtonText: 'New Game',
       confirmButtonClass: 'teal-btn btn',
       cancelButtonClass: 'oj-btn btn',
       allowOutsideClick: false,
@@ -185,13 +185,10 @@ class Multiplayer extends Component {
       closeOnCancel: true
     }, function(isConfirm) {
       if (isConfirm === true) {
-        console.log('user has clicked take me home');
         this.context.router.push('/');
       } else if (isConfirm === false) {
-        console.log('user wants to create/join new game');
         this.context.router.push('multiplayer');
       } else {
-        console.log('user has clicked outside, should send multiplayer');
         // TODO: have some message that says, sending to multiplayer
         this.context.router.push('multiplayer');
       }
@@ -236,12 +233,13 @@ class Multiplayer extends Component {
         <TimerMulti
           saveTimeElapsed={this.saveTimeElapsed.bind(this)}
           socket={this.socket} />
-        <LevelDisplay currentLevel={this.state.puzzleName} />
         <div className="col-sm-10 col-sm-offset-1 no-padding text-center"> {welcomeMsg} </div>
         <div className="col-sm-10 col-sm-offset-1 no-padding">
           <div className="col-sm-6"><h5><b>Copy this...</b></h5></div>
           <div className="col-sm-6"><h5><b>Type here...</b></h5></div>
-          <CodePromptMulti puzzle={this.state.currentPuzzle} />
+          <CodePromptMulti
+            puzzle={this.state.currentPuzzle}
+            countingDownState={this.props.countingDown} />
           <CodeEditorMulti
             puzzle={this.state.currentPuzzle}
             minifiedPuzzle={this.state.minifiedPuzzle}
@@ -255,7 +253,7 @@ class Multiplayer extends Component {
         <div className="col-sm-10 col-sm-offset-1 no-padding" id="allMiniViewsWrapper">
           <AllMiniViews />
         </div>
-        <div class="footer"></div>
+        <div className="footer"></div>
       </div>
     )
   };
@@ -264,6 +262,7 @@ class Multiplayer extends Component {
 function mapStateToProps(state) {
   return {
     multiGameState: state.multiGameState,
+    countingDown: state.countingDown,
     gameTime: state.gameTime,
     savedGame: state.savedGame,
     multiplayerStatuses: state.multiplayerStatuses,

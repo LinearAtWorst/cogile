@@ -16,6 +16,7 @@
     "express": "^4.13.4",
     "express-session": "^1.13.0",
     "fs": "0.0.2",
+    "ga-react-router": "^2.0.0",
     "history": "^2.0.1",
     "jwt-decode": "^2.0.1",
     "jwt-simple": "^0.5.0",
@@ -31,6 +32,8 @@
     "react-router": "^2.0.1",
     "redux": "^3.3.1",
     "socket.io": "^1.4.5",
+    "uglify-js": "^2.6.2",
+    "uglifyjs": "^2.4.10",
     "underscore": "^1.8.3",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.5.1"
@@ -48,7 +51,8 @@
   "scripts": {
     "test": "mocha ./test/specs/test-server.js -w",
     "start": "nodemon server/server.js",
-    "prod": "webpack -p"
+    "prod": "webpack -p",
+    "build": "NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",

@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { leavePage } from '../actions/index';
 import { bindActionCreators } from 'redux';
-import underscore from 'underscore';
 
 class ProgressBar extends Component {
   constructor(props) {
@@ -36,8 +35,7 @@ class ProgressBar extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentLevel: state.currentLevel,
-    playersStatuses: state.playersStatuses
+    currentLevel: state.currentLevel
   }
 };
 

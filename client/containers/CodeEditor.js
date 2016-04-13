@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { startGame, endGame, newHighScore, getUsername, syncPlayersStatuses } from '../actions/index';
+import { startGame, endGame, newHighScore } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import levenshtein from './../lib/levenshtein';
 import axios from 'axios';
@@ -40,12 +40,14 @@ class CodeEditor extends Component {
     this.editor.getSession().setTabSize(2);
 
     this.editor.setOptions({
-      fontSize: '11pt',
-      minLines: 12,
-      maxLines: 12,
-      enableBasicAutocompletion: true,
+      fontSize: '10.5pt',
+      minLines: 14,
+      maxLines: 14,
+      enableBasicAutocompletion: false,
       enableSnippets: false,
-      enableLiveAutocompletion: false
+      enableLiveAutocompletion: true,
+      liveAutocompletionDelay: 100,
+      liveAutocompletionThreshold: 2
     });
 
     // autocomplete tries to fire on every input
@@ -100,7 +102,6 @@ class CodeEditor extends Component {
           // if current time < ghost's time and user is logged in, then save new record
           if (recordingDuration < oldReplayDuration) {
             if (this.username !== 'guest') {
-              console.log('Beat High Score, logged in')
               // save the replay
               this.props.newHighScore({
                 newHighScore: true,
@@ -119,8 +120,6 @@ class CodeEditor extends Component {
               }.bind(this));
             // Beat high score but wasn't logged in, don't save
             } else {
-              console.log('Beat High Score, was not logged in')
-
               this.props.newHighScore({
                 newHighScore: true,
                 oldReplayDuration: oldReplayDuration,
@@ -136,8 +135,6 @@ class CodeEditor extends Component {
                 loggedIn: false
               });
             } else {
-              console.log('Lost High Score, was  logged in')
-
               this.props.newHighScore({
                 newHighScore: false,
                 oldReplayDuration: oldReplayDuration,
@@ -184,6 +181,18 @@ class CodeEditor extends Component {
   };
 
   componentDidUpdate() {
+    // if language gets updated
+    if (this.props.currentLanguage.language === 'py') {
+      this.editor.getSession().setMode("ace/mode/python");
+      this.editor.getSession().setTabSize(4);
+    } else if (this.props.currentLanguage.language === 'js') {
+      this.editor.getSession().setMode("ace/mode/javascript");
+      this.editor.getSession().setTabSize(2);
+    } else if (this.props.currentLanguage.language === 'go') {
+      this.editor.getSession().setMode("ace/mode/golang");
+      this.editor.getSession().setTabSize(4);
+    }
+
     // if level has been changed or reset
     if (this.props.singleGame === null || this.props.currentLevel.currentLevel === null) {
       this.editor.setValue('');
@@ -225,7 +234,7 @@ function mapStateToProps(state) {
     singleGame: state.singleGame,
     currentLevel: state.currentLevel,
     playersStatuses: state.playersStatuses,
-    SavedUsername: state.SavedUsername
+    currentLanguage: state.currentLanguage
   }
 }
 
@@ -233,8 +242,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     startGame: startGame,
     endGame: endGame,
-    newHighScore: newHighScore,
-    getUsername: getUsername
+    newHighScore: newHighScore
   }, dispatch);
 }
 

@@ -35,9 +35,11 @@ class CodeEditorMulti extends Component {
       fontSize: '11pt',
       minLines: 12,
       maxLines: 12,
-      enableBasicAutocompletion: true,
+      enableBasicAutocompletion: false,
       enableSnippets: false,
-      enableLiveAutocompletion: false
+      enableLiveAutocompletion: true,
+      liveAutocompletionDelay: 100,
+      liveAutocompletionThreshold: 2
     });
 
     // autocomplete tries to fire on every input
@@ -47,8 +49,9 @@ class CodeEditorMulti extends Component {
       }
     }.bind(this));
 
-    // should lock CodeEditor to read-only until timer begins
-    this.editor.setReadOnly(true);
+    this.editor.setValue('Feel free to chat here before the game starts\nOther people will see what you type here');
+
+    this.editor.focus();
 
     // this code will be run everytime something is typed in the code editor
     this.editor.getSession().on("change", function() {
@@ -58,11 +61,13 @@ class CodeEditorMulti extends Component {
       // sending player code to socket
       this.props.sendProgressToSockets(code, this.props.savedGame);
 
-      if (miniCode === this.props.minifiedPuzzle) {
-        // calling endGame action
-        this.props.endGame();
+      if (this.props.countingDown === 'STARTED_GAME') {
+        if (miniCode === this.props.minifiedPuzzle) {
+          // calling endGame action
+          this.props.endGame();
 
-        this.editor.setReadOnly(true);
+          this.editor.setReadOnly(true);
+        }
       }
     }.bind(this));
 
@@ -73,6 +78,12 @@ class CodeEditorMulti extends Component {
   };
 
   componentDidUpdate() {
+    // once countdown starts, clear the codeEditor and set to read only
+    if (this.props.countingDown === 'START_COUNTDOWN') {
+      this.editor.setValue('');
+      this.editor.setReadOnly(true);
+    }
+
     // once game starts
     if (this.props.multiGameState === 'STARTED_GAME') {
       // focus goes to CodeEditor and read-only disabled
@@ -101,7 +112,8 @@ class CodeEditorMulti extends Component {
 function mapStateToProps(state) {
   return {
     multiGameState: state.multiGameState,
-    savedGame: state.savedGame
+    savedGame: state.savedGame,
+    countingDown: state.countingDown
   }
 };
 
