@@ -49,12 +49,32 @@ var pyFiles = [
   '16-reduce',
   '17-regExp',
   '18-getReq',
-  '19-insertionSort'
+  '19-insertionSort',
+  '20-prompt'
 ];
 
 var goFiles = [
   '00-for',
-  '01-regExp'
+  '01-regExp',
+  '02-cmd',
+  '03-error',
+  '04-maps',
+  '05-range',
+  '06-json',
+  '07-factorial',
+  '08-fizzBuzz',
+  '09-list',
+  '10-stdin',
+  '11-web',
+  '12-sha',
+  '13-bigFib',
+  '14-channels',
+  '15-closure',
+  '16-rot13',
+  '17-reverse',
+  '18-typeSwitch',
+  '19-template',
+  '20-dist'
 ];
 
 var allFiles = {

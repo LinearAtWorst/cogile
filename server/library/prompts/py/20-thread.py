@@ -1,8 +1,3 @@
-from queue import Queue
-from threading import Thread
-
-q = Queue()
-
 def sync_consume(): 
     while True: 
         print(q.get())

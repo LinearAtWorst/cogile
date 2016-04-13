@@ -89,6 +89,23 @@ class CodeGhost extends Component {
     }
   }
 
+  // Generates a fake ghost replay when there is no recording
+  generateFakeGhost() {
+    let fakeRecord = {};
+
+    let startTime = new Date().getTime();
+    let currentTime = new Date().getTime();
+
+    for (let i = 0; i < this.props.currentPuzzle.length; i++) {
+      fakeRecord[currentTime] = this.props.currentPuzzle.slice(0,i);
+      currentTime += Math.random() * (1000 - 100) + 100;
+    }
+
+    fakeRecord.duration = currentTime - startTime;
+
+    return fakeRecord;
+  }
+
   componentDidUpdate() {
     if (this.props.currentLanguage.language === 'py') {
       this.editor.getSession().setMode("ace/mode/python");
@@ -111,12 +128,9 @@ class CodeGhost extends Component {
               this.pendingGetRequest = false;
 
             } else {
-              this.record = {
-                recording: {
-                  '1': 'No replay loaded'
-                },
-                duration: 999999999999
-              };
+              this.record = this.generateFakeGhost();
+              this.props.fetchRecordUsername('NimbleBot')
+
               this.pendingGetRequest = false;
             }
             this.previousLevel = this.props.currentLevel.currentLevel;
