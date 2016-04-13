@@ -86,32 +86,28 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 ##Our Team
 
-<img src="./client/assets/mark-profile.jpg" width="150" height="150" align="right" />
+<img src="./client/assets/mark-profile.jpg" width="125" height="125" align="right" />
 ###Mark Kim
 
 Mark is interested in using software to build useful products. He believes that empathy is key in designing great products, in collaborating with others, and in growing as a developer, as a leader, and as a person.
 
-[Github](https://github.com/marksanghoonkim)
+[Github](https://github.com/marksanghoonkim) || [Website](http://marksanghoonkim.com)
 
-[Website](http://marksanghoonkim.com)
-
-<img src="./client/assets/rick-profile.jpg" width="150" height="150" align="right" />
+<img src="./client/assets/rick-profile.jpg" width="125" height="125" align="right" />
 ###Rick Yeh
 
 Rick loves travelling the world and eating awesome food everywhere he goes. When he's not being an amateur foodie, his goal in life is to become a React ninja, whipping up components and containers in no time.
 
-[Github](https://github.com/rickyeh)
+[Github](https://github.com/rickyeh) || [Website](http://rickyeh.com)
 
-[Website](http://rickyeh.com)
-
-<img src="./client/assets/nick-profile.jpg" width="150" height="150" align="right" />
+<img src="./client/assets/nick-profile.jpg" width="125" height="125" align="right" />
 ###Nick Der
 
 Nick is a software engineer focused on combining creative and technical skill to invent fun and beneficial products. He is an avid enthusiast of games, film, narrative theory, virtual reality, sushi, and dogs.
 
 [Github](https://github.com/kiritsuzu)
 
-<img src="./client/assets/jordan-profile.jpg" width="150" height="150" align="right" />
+<img src="./client/assets/jordan-profile.jpg" width="125" height="125" align="right" />
 ###Jordan Allen
 
 Jordan is a software engineer who owned his own business at 21. He is an avid, self-taught guitarist, who has owned and worked on a few project cars(0-60 in 4 sec). He also loves travelling around the world.
