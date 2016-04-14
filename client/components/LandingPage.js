@@ -50,6 +50,8 @@ class LandingPage extends Component {
               <div className="col-sm-1"></div>
           </div>
         </div>
+        <div className="col-sm-12 text-center landing-footer">© nimblecode 2016<a href="https://github.com/nimblecode/nimblecode"><i className="fa fa-github fa-lg landing-icon"></i></a><a href="mailto:nimblecodeio@gmail.com"><i className="fa fa-envelope fa-lg landing-icon"></i></a>
+        </div>
       </div>
     );
   }
