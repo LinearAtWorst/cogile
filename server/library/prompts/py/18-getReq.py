@@ -1,4 +1,3 @@
-# 3rd party requests lib
 import requests
 
 r = requests.get('https://api.ipify.org?format=json')
