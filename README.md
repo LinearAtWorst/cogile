@@ -108,7 +108,8 @@ Mark is interested in using software to build useful products. He believes that 
 [Website](http://marksanghoonkim.com)
   
 ##Rick Yeh
-<img src="./client/assets/rick-profile.jpg" width="200" height="200" />
+<!-- <img src="./client/assets/rick-profile.jpg" width="200" height="200" /> -->
+[<img src="./client/assets/rick-profile.jpg" width="200" height="200" />](https://github.com/rickyeh)
 
 Rick loves travelling the world and eating awesome food everywhere he goes. When he's not being an amateur foodie, his goal in life is to become a React ninja, whipping up components and containers in no time.
 
