@@ -123,15 +123,16 @@ class CodeGhost extends Component {
         axios.get('api/getHighScore/?promptName=' + this.props.currentLevel.currentLevel)
           .then(function(res) {
             if (res.data !== '') {
+              // console.log('Fetching Ghost Replay');
               this.record = {};
               this.record = JSON.parse(res.data.recording).recording;
               this.props.fetchRecordUsername(res.data.username);
               this.pendingGetRequest = false;
-
             } else {
+              // console.log('Generating Ghost Replay');
+              this.record = {};
               this.record = this.generateFakeGhost();
               this.props.fetchRecordUsername('NimbleBot')
-
               this.pendingGetRequest = false;
             }
             this.previousLevel = this.props.currentLevel.currentLevel;

@@ -198,6 +198,7 @@ class CodeEditor extends Component {
     if (this.props.singleGame === null || this.props.currentLevel.currentLevel === null) {
       this.editor.setValue('');
       this.editor.setReadOnly(true);
+      this.record = {};
       this.recordHigh = undefined;
     }
     // once game starts
