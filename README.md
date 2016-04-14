@@ -95,7 +95,7 @@ Mark is interested in using software to build useful products. He believes that 
 [<img src="./client/assets/rick-profile.jpg" width="125" height="125" align="right" />](https://github.com/rickyeh)
 ###Rick Yeh
 
-Rick loves travelling the world and eating awesome food everywhere he goes. When he's not being an amateur foodie, his goal in life is to become a React ninja, whipping up components and containers in no time.
+Rick loves traveling the world and eating awesome food everywhere he goes. When he's not being an amateur foodie, his goal in life is to become a React ninja, whipping up components and containers in no time.
 
 [GitHub](https://github.com/rickyeh) | [Website](http://rickyeh.com)
 
@@ -109,6 +109,6 @@ Nick is a software engineer focused on combining creative and technical skill to
 [<img src="./client/assets/jordan-profile.jpg" width="125" height="125" align="right" />](https://github.com/jordanallen98)
 ###Jordan Allen
 
-Jordan is a software engineer who owned his own business at 21. He is an avid, self-taught guitarist, who has owned and worked on a few project cars(0-60 in 4 sec). He also loves travelling around the world.
+Jordan is a software engineer who owned his own business at 21. He is an avid, self-taught guitarist, who has owned and worked on a few project cars(0-60 in 4 sec). He also loves traveling around the world.
 
 [GitHub](https://github.com/jordanallen98)
