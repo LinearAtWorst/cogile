@@ -50,7 +50,7 @@ var pyFiles = [
   '17-regExp',
   '18-getReq',
   '19-insertionSort',
-  '20-prompt'
+  '20-thread'
 ];
 
 var goFiles = [
