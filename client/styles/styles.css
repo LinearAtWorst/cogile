@@ -92,6 +92,8 @@ html, body {
   font-weight: 300;
   margin-bottom: 25px;
   text-align:center;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .about-minititle {
@@ -134,6 +136,20 @@ html, body {
 
 .landing-content {
   margin-bottom: 60px;
+}
+
+.landing-icon {
+  color: #FFA25E;
+  margin-left: 5px;
+}
+
+.landing-footer {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #009688;
+  color: white;
+  font-size: 1.1em;
+  font-weight: 400;
 }
 
 .tagline {
