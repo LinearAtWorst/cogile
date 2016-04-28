@@ -26,3 +26,6 @@ xdescribe('Database', function(){
   });
 });
 
+var foo = 'bar';
+expect(foo).to.be.a('string');
+expect(foo).to.equal('bar');
