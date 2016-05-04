@@ -9,24 +9,6 @@ var request = require('request');
 
 // chai.use(chaiHttp);
 
-// describe('userController', function(){
-//   it('should contain signin', function(){
-//     expect(!!userController.signin).to.be.true;
-//   });
-//   it('should contain signup', function(){
-//     expect(!!userController.signup).to.be.true;
-//   });
-// });
-
-// xdescribe('Database', function(){
-//   it('should have a users table', function(){
-//     expect(true).to.be.true;
-//   });
-//   it('should have a highscores table', function(){
-//     expect(true).to.be.true;
-//   });
-// });
-
 describe('promptController', function(){
   it('should return a random JS prompt of type String', function (done) {
     request.get('http://localhost:8080/api/getRandomPrompt', function (err, res, body){
@@ -54,10 +36,20 @@ describe('promptController', function(){
   });  
 });
 
-// Prompt Routes
+// describe('userController', function(){
+//   it('should contain signin', function(){
+//     expect(!!userController.signin).to.be.true;
+//   });
+//   it('should contain signup', function(){
+//     expect(!!userController.signup).to.be.true;
+//   });
+// });
 
-// app.get('/api/getRandomPrompt', promptController.random);
-// app.get('/api/getPrompt', promptController.specific);
-// app.get('/api/getAllPrompts', promptController.getAllPrompts)
-// app.post('/api/setHighScore', promptController.updateHighScore)
-// app.get('/api/getHighScore', promptController.getHighScore);
+// xdescribe('Database', function(){
+//   it('should have a users table', function(){
+//     expect(true).to.be.true;
+//   });
+//   it('should have a highscores table', function(){
+//     expect(true).to.be.true;
+//   });
+// });
